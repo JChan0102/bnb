@@ -28,4 +28,4 @@
 <a href="${pageContext.request.contextPath}/member/notice"><button
 		type="button" class="btn btn-dark">목록보기</button></a>
 &nbsp;&nbsp;
-
+<!-- 현 푸시테스트~~ -->
