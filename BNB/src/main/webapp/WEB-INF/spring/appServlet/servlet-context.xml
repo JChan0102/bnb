@@ -40,13 +40,13 @@
 			class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<beans:property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<beans:property
-				name="jdbcUrl" value="jdbc:mysql://mysql.cxwmjvbm4iat.ap-northeast-2.rds.amazonaws.com/librarydb?characterEncoding=utf8" />
+				name="jdbcUrl" value="jdbc:mysql://mysql.cxwmjvbm4iat.ap-northeast-2.rds.amazonaws.com/bnb?characterEncoding=utf8" />
 		<beans:property name="user" value="lib2" />
 		<beans:property name="password" value="bitcamp1234" />
 	</beans:bean>
 
 	<!--mybatis 설정-->
-	<beans:bean id = "sqlSeesinonFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<beans:bean id = "sqlSessinonFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource"/>
 		<beans:property name="mapperLocations" value="classpath:mappers/*.xml"/>
 		<beans:property name="configLocation" value="classpath:/mybatis-config.xml" />
@@ -54,7 +54,7 @@
 
 	<!--SqlSessionTemplate 빈등록-->
 	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<beans:constructor-arg index="0" ref="sqlSeesinonFactory"/>
+		<beans:constructor-arg index="0" ref="sqlSessinonFactory"/>
 	</beans:bean>
 
 	
@@ -62,6 +62,7 @@
 	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<beans:property name="dataSource" ref="dataSource"/>
 	</beans:bean>
+
 	<!-- @Transactional 애노테이션 활성화 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 		
