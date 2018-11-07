@@ -4,9 +4,10 @@
 <html>
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
-<body style="background: #123456;">
-	<%@ include file="/resources/common/Navbar.jsp"%>
+<body style="background: #EEEEEE">
 
+	<%@ include file="/resources/common/Navbar.jsp"%>
+	
 	<div id="back"></div>
 	<div id="search">
 		<h1 id="title">당신의 숙소를 검색하세요.</h1>
@@ -22,7 +23,7 @@
 					id="checkout" style="width: 190px"><br>
 			</div>
 			<div class="search_wrap">
-				<label for="adult">성인&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</label>
+				<label for="adult">성인&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</label>
 				<label for="child">어린이</label> <br> <select>
 					<option>인원 수</option>
 					<option>1명</option>

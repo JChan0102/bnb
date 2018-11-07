@@ -1,1 +1,37 @@
 @charset "UTF-8";
+#left_list {
+	width: 250px;
+	height: 300px;
+	margin: 80px 50px;
+	background-color: white;
+	border-radius: 20px;
+}
+
+#wrap_cont {
+	width: 85%;
+	height: 600px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.mypage_list {
+	list-style: none;
+	font-size: 18px;
+	padding-top: 10px;
+}
+
+#list {
+	width: 120px;
+	margin: 0 auto;
+	padding-top: 60px;
+}
+
+#profile_content {
+	width: 1000px;
+	height: 600px;
+	background-color: white;
+	position: absolute;
+	top: 0px;
+	right: 30px;
+	border-radius: 25px;
+}
