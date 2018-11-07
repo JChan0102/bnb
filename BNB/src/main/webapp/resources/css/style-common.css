@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+/* navbar 투명처리 */
+.navbar.transparent.navbar-inverse .navbar-inner {
+	border-width: 0px;
+	-webkit-box-shadow: 0px 0px;
+	box-shadow: 0px 0px;
+	background-color: rgba(0, 0, 0, 0.0);
+	background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop(0%,
+		rgba(0, 0, 0, 0.00)), color-stop(100%, rgba(0, 0, 0, 0.00)));
+	background-image: -webkit-linear-gradient(270deg, rgba(0, 0, 0, 0.00) 0%,
+		rgba(0, 0, 0, 0.00) 100%);
+	background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%,
+		rgba(0, 0, 0, 0.00) 100%);
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+body {
+	background-color: gray;
+}
+
+#back {
+	background-image: url(../img/back.jpg);
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 800px;
+	position: absolute;
+	z-index: -999999;
+	opacity: 0.2;
+}
+
+#logo {
+	height: 50px;
+	padding: 10px;
+	margin-left: 20px;
+}
+
+#header {
+	height: 70px;
+	background-color: white;
+}
+
+#mypage, #login {
+	background-color: white;
+	height: 30px;
+	width: 100px;
+}
+
+#infobutton {
+	float: right;
+	height: 60px;
+	line-height: 70px;
+	margin-right: 20px;
+}
+
+#search {
+	width: 600px;
+	height: 600px;
+	margin-top: 60px;
+	margin-left: 80px;
+	background-color: white;
+	border-radius: 30px;
+}
+
+#title {
+	text-align: center;
+	padding-top: 30px;
+}
+
+#search_content {
+	width: 500px;
+	height: 500px;
+	margin: 0 auto;
+	padding-top: 40px;
+}
+
+div>input {
+	width: 390px;
+	height: 40px;
+	margin: 20px 0px 20px 0px;
+}
+
+select {
+	width: 193px;
+	height: 40px;
+}
+
+label {
+	font-size: 18px;
+}
+
+.search_wrap {
+	margin-left: 40px;
+}

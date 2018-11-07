@@ -2,13 +2,10 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="css/default.css">
+<%@ include file="/resources/common/includeHead.jsp"%>
 </head>
-<body>
-	<%@ include file="/WEB-INF/views/header.jsp"%>
+<body style="background: #123456;">
+	<%@ include file="/resources/common/Navbar.jsp"%>
 
 	<div id="back"></div>
 	<div id="search">
