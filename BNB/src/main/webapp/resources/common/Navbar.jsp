@@ -16,6 +16,8 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="nav justify-content-end ml-auto">
+				<!-- 임시 -->
+				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/rooms">빵</a></li>
 				<!-- 비로그인 상태 -->
 				<li class="nav-item"><a class="nav-link text-dark" href="#">도움말</a></li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">회원가입</a></li>
