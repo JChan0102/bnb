@@ -41,7 +41,7 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		model.addAttribute("aa", sqlSessionTemplate.selectOne("a.a.test"));
 		
-		return "header";
+		return "main";
 	}
 	
 }
