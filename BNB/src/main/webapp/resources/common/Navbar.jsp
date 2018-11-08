@@ -5,7 +5,7 @@
 	<!-- https://work.smarchal.com/twbscolor/css/e74c3cc0392becf0f1ffbbbc0 -->
 	<!--  -->
 	<!-- <nav class="navbar transparent navbar-inverse"> -->
-	<div class="navbar navbar-expand-md navbar-light fixed-top bg-white">
+	<div class="navbar navbar-expand-md navbar-light fixed-top bg-white border-bottom">
 		<a class="navbar-brand" href="${pageContext.request.contextPath}/"><img
 			src="${pageContext.request.contextPath}/resources/images/logo.png"
 			id="logo"></a>

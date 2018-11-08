@@ -23,7 +23,7 @@
 body {
 	/* 부트스트랩 네비바 사용을 위한 패딩 */
 	padding-top: 120px;
-	background-color: gray;
+	/* background-color: gray; */
 }
 
 #back {
