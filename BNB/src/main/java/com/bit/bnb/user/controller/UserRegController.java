@@ -14,7 +14,7 @@ import com.bit.bnb.user.model.UserVO;
 import com.bit.bnb.user.service.UserRegService;
 
 @Controller
-@RequestMapping("/hyeon/userReg")
+@RequestMapping("/userReg")
 public class UserRegController {
 
 	@Autowired
