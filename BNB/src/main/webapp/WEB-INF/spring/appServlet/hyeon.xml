@@ -24,7 +24,7 @@
 		</beans:property>
 	</beans:bean>
 
-	<beans:bean id="mybatisDao" class="com.bit.bnb.user.dao.UserDao" />
+	<beans:bean id="userDao" class="com.bit.bnb.user.dao.UserDao" />
 	
 	
 </beans:beans>

@@ -10,7 +10,7 @@ public class UserDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	private String userMapperPath = "com.bit.bnb.src.main.resources.mappers.user";
+	private String userMapperPath = "com.bit.bnb.src.main.resources.mappers.userMapper";
 	
 	public int insertUser(UserVO userVO) {
 		return sqlSessionTemplate.update(userMapperPath+".insertUser", userVO);

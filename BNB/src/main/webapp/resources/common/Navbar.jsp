@@ -25,8 +25,8 @@
 					href="${pageContext.request.contextPath}/rooms">빵</a></li>
 				<!-- 비로그인 상태 -->
 				<li class="nav-item"><a class="nav-link text-dark" href="#">도움말</a></li>
-				<li class="nav-item"><a class="nav-link text-dark" href="#">회원가입</a></li>
-				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/userReg">로그인</a></li>
+				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/userReg">회원가입</a></li>
+				<li class="nav-item"><a class="nav-link text-dark" href="#">로그인</a></li>
 				<!--  로그인 상태 -->
 				<li class="nav-item"><a class="nav-link text-dark" href="#">저장목록
 				</a></li>
