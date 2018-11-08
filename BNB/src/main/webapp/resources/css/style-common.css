@@ -15,12 +15,14 @@
 }
 
 * {
-	margin: 0px;
-	padding: 0px;
+/* 	margin: 0px;
+	padding: 0px; */
 	font-family: 'Nanum Gothic', sans-serif;
 }
 
 body {
+	/* 부트스트랩 네비바 사용을 위한 패딩 */
+	padding-top: 120px;
 	background-color: gray;
 }
 

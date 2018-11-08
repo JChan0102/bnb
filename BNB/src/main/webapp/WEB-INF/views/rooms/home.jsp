@@ -5,38 +5,48 @@
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
 <body>
-
 	<%@ include file="/resources/common/Navbar.jsp"%>
-	<h1>방페이지</h1>
-	<div id="search">
-		<h1 id="title">당신의 숙소를 검색하세요.</h1>
-		<div id="search_content">
-			<div class="search_wrap">
-				<label for="target">목적지</label><br> <input type="text"
-					id="target"><br>
-			</div>
-			<div class="search_wrap">
-				<label for="checkin">체크인&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</label><label
-					for="checkout">체크아웃</label><br> <input type="text"
-					id="checkin" style="width: 190px"> <input type="text"
-					id="checkout" style="width: 190px"><br>
-			</div>
-			<div class="search_wrap">
-				<label for="adult">성인&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</label>
-				<label for="child">어린이</label> <br> <select>
-					<option>인원 수</option>
-					<option>1명</option>
-					<option>2명</option>
-				</select> <select>
-					<option>인원 수</option>
-					<option>1명</option>
-					<option>2명</option>
-				</select>
-				<div class="search_wrap">
-					<br> <input type="button" value="검색하기">
-				</div>
-			</div>
-		</div>
-	</div>
+	<!-- Begin page content -->
+	<main role="main" class="container"> 
+	
+	
+		private int roomsId;
+	private String hostId;
+	private String details;
+	private int avail_adults;
+	private int avail_children;
+	private int avail_infants;
+	private int avail_bedroom;
+	private int avail_bed;
+	private int avail_bathroom;
+	private String amenities;
+	private String time_checkin;
+	private String time_checkout;
+	private int price_weekdays;
+	private int price_weekend;
+	private String address;
+	private int disabled;
+	
+	
+	<form method="post">
+	<table>
+	<tr><td>호스트 아이디</td><td><input typ="text" value="{로그인세션의아이디}"></td></tr>
+	<tr><td>상세설명</td><td><input typ="text" value="{로그인세션의아이디}"></td></tr>
+	<tr><td>어른</td><td><input typ="text" value="{로그인세션의아이디}"></td></tr>
+	<tr><td>어린이</td><td><input typ="text" value="{로그인세션의아이디}"></td></tr>
+	<tr><td>유아</td><td><input typ="text" value="{로그인세션의아이디}"></td></tr>
+	<tr><td>침실</td><td><input typ="text" value="{로그인세션의아이디}"></td></tr>
+	<tr><td>침대</td><td><input typ="text" value="{로그인세션의아이디}"></td></tr>
+	<tr><td>욕실</td><td><input typ="text" value="{로그인세션의아이디}"></td></tr>
+	<tr><td>편의시설</td><td><input typ="text" value="{로그인세션의아이디}"></td></tr>
+	<tr><td>체크인</td><td><input typ="text" value="{로그인세션의아이디}"></td></tr>
+	<tr><td>체크아웃</td><td><input typ="text" value="{로그인세션의아이디}"></td></tr>
+	
+	</table>
+	</form>
+	
+	
+	
+	</main>
 </body>
 </html>

@@ -6,7 +6,7 @@
 	<!--  -->
 	<!-- <nav class="navbar transparent navbar-inverse"> -->
 	<div class="navbar navbar-expand-md navbar-light fixed-top bg-white">
-		<a class="navbar-brand" href="#"><img
+		<a class="navbar-brand" href="${pageContext.request.contextPath}/"><img
 			src="${pageContext.request.contextPath}/resources/images/logo.png"
 			id="logo"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -17,7 +17,8 @@
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="nav justify-content-end ml-auto">
 				<!-- 임시 -->
-				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/rooms">빵</a></li>
+				<li class="nav-item"><a class="nav-link text-dark"
+					href="${pageContext.request.contextPath}/rooms">빵</a></li>
 				<!-- 비로그인 상태 -->
 				<li class="nav-item"><a class="nav-link text-dark" href="#">도움말</a></li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">회원가입</a></li>
