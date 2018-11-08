@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <header>
 	<!-- https://work.smarchal.com/twbscolor/css/e74c3cc0392becf0f1ffbbbc0 -->
@@ -26,9 +27,13 @@
 				<!-- 비로그인 상태 -->
 				<li class="nav-item"><a class="nav-link text-dark" href="#">도움말</a></li>
 				
+				<%-- <c:if test="${session.loginUser eq null}"> --%>
 				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/userReg">회원가입</a></li>
-				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/userLogin">로그인</a></li>
+				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/login">로그인</a></li>
+				<%-- </c:if> --%>
+
 				<!--  로그인 상태 -->
+				<%-- <c:if test="${session.loginUser ne null}"> --%>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">저장목록
 				</a></li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">호스팅
@@ -37,6 +42,8 @@
 				<li class="nav-item"><a class="nav-link text-dark" href="#">메세지</a></li>
 				<li class="nav-item"><a class="nav-link text-dark"
 					href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
+				<%-- </c:if> --%>
+					
 				<li class="nav-item"><a class="nav-link text-dark" href="#">도움말</a></li>
 			</ul>
 		</div>

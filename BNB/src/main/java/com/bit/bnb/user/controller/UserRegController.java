@@ -22,7 +22,6 @@ public class UserRegController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String getUserRegForm() {
-		System.out.println("겟방식");
 		return "user/userRegForm";
 	}
 	

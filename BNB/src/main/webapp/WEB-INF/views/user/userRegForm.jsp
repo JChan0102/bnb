@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<%@ include file="/resources/common/includeHead.jsp"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -10,9 +9,10 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
 <body>
+<%@ include file="/resources/common/includeHead.jsp"%>
 <%@ include file="/resources/common/Navbar.jsp"%>
 	
-	<div>
+	<div id="userRegForm" style="padding:20px">
 	<form method="post" enctype="multipart/form-data">
 		아이디(이메일 ) : <input type="email" name="userId" /><br>
 		비밀번호 설정 : <input type="password" name="userPw" /><br>
