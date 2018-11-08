@@ -4,6 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 <typeAliases>
-  <!-- <package name="com.bit.lib.umki.model"/> -->
+  <package name="com.bit.bnb.reservation.model"/>
 </typeAliases>
 </configuration>
