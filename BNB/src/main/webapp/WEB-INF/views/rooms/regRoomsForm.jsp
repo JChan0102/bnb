@@ -5,20 +5,108 @@
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
 <body>
-
 	<%@ include file="/resources/common/Navbar.jsp"%>
 	<!-- Begin page content -->
-
 	<main role="main" class="container">
-	<h1>방페이지</h1>
-	<a href="${pageContext.request.contextPath}/rooms/regRoom">방입력</a> <a
-		href="${pageContext.request.contextPath}/rooms/modifyRoom">방수정</a> <a
-		href="${pageContext.request.contextPath}/rooms/deleteRoom">삭제</a>
+	<div class="row justify-content-md-center">
 
-	에어비앤비 트립 기준에 부합하려면... 그 분야에 대한 풍부한 지식과 열정을 가진 호스트가 진행합니다. 게스트가 체험에 직접
-	참여하거나 완전히 몰입할 수 있어야 합니다. 쉽게 접할 수 없는 특별한 장소나 커뮤니티를 방문합니다. 호스트의 독특한 시각을
-	담고 있어야 합니다. 에어비앤비 트립에 해당되지 않는 것 다음은 에어비앤비 트립 기준에 맞지 않습니다. 친밀감이 부족한 대규모
-	투어 호스트가 누구인지 분명하지 않은 이벤트 단순한 서비스(예: 공항을 오가는 교통편) 게스트가 스스로 쉽게 찾을 수 있는 것
-	다음 </main>
+		<div class="col col-md-10 col-lg-8">
+			<form method="post">
+				<table class="table">
+					<tr>
+						<td>호스트 아이디</td>
+						<td><input type="text" class="form-control"
+							readonly="readonly" value="(로그인세션의아이디)" id="hostId" name="hostId"></td>
+					</tr>
+					<tr>
+						<td>소개</td>
+						<td><textarea class="form-control" id="details"
+								name="details" rows="5" placeholder="숙소를 소개해주세요."></textarea></td>
+					</tr>
+					<tr>
+						<td>어른</td>
+						<td><input type="number" class="form-control"
+							id="avail_adults" name="avail_adults" value="0" min="0" max="100"
+							step="1"></td>
+
+					</tr>
+					<tr>
+						<td>어린이</td>
+						<td><input type="number" class="form-control" value="0"
+							min="0" max="100" step="1" id="avail_children"
+							name="avail_children"></td>
+
+					</tr>
+					<tr>
+						<td>유아</td>
+						<td><input type="number" class="form-control" value="0"
+							min="0" max="100" step="1" id="avail_infants"
+							name="avail_infants"></td>
+
+					</tr>
+					<tr>
+						<td>침실</td>
+						<td><input type="number" class="form-control" value="0"
+							min="0" max="100" step="1" id="avail_bedroom"
+							name="avail_bedroom"></td>
+
+					</tr>
+					<tr>
+						<td>침대</td>
+						<td><input type="number" class="form-control" value="0"
+							min="0" max="100" step="1" id="avail_bed" name="avail_bed"></td>
+					</tr>
+					<tr>
+						<td>욕실</td>
+						<td><input type="number" class="form-control" value="0"
+							min="0" max="100" step="1" id="avail_bathroom"
+							name="avail_bathroom"></td>
+					</tr>
+					<tr>
+						<td>편의시설</td>
+						<td><input type="text" class="form-control" value="0" min="0"
+							max="100" step="1" id="amenities" name="amenities"></td>
+					</tr>
+					<tr>
+						<td>체크인</td>
+						<td><input type="time" class="form-control" id="time_checkin"
+							name="time_checkin"></td>
+					</tr>
+					<tr>
+						<td>체크아웃</td>
+						<td><input type="time" class="form-control"
+							id="time_checkout" name="time_checkout"></td>
+					</tr>
+					<tr>
+						<td>주중가격</td>
+						<td><input type="text" class="form-control"
+							id="price_weekdays" name="price_weekdays"></td>
+					</tr>
+					<tr>
+						<td>주말가격</td>
+						<td><input type="text" class="form-control"
+							id="price_weekend" name="price_weekend" class="form-control"></td>
+					</tr>
+					<tr>
+						<td>주소</td>
+						<td><input type="text" class="form-control" id="address"
+							name="address"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="hidden" id="roomsId"
+							name="roomsId" value="?"><input type="hidden"
+							id="disabled" name="disabled" value="1"></td>
+					</tr>
+
+				</table>
+			</form>
+		</div>
+	</div>
+	</main>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/bootstrap-input-spinner.js"></script>
+	<script>
+		$("input[type='number']").inputSpinner()
+	</script>
 </body>
 </html>
