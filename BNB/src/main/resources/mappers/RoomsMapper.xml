@@ -3,28 +3,116 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.RoomsMapper">
-	<insert id="regRooms"
+	<insert id="insertRooms"
 		parameterType="com.bit.bnb.rooms.model.RoomsVO">
-
-		<!-- INSERT INTO `bnb`.`rooms` (`roomsId`, `hostId`, `details`, `avail_adult`, 
-			`avail_children`, `avail_infants`, `avail_bedroom`, `avail_bed`, `avail_bathroom`, 
-			`time_checkin`, `time_checkout`, `price_weekdays`, `price_weekend`, `address`, 
-			`disabled`) VALUES ('', 'test@test.com', '테스트숙소', '4', '2', '1', '2', '2', 
-			'1', '14:00:00', '12:00:00', '50000',  ㅡ '70000', '서울특별시 마포구 백범로 23 구프라자 3층', 
-			'1'); -->
-		INSERT INTO `bnb`.`rooms` (`roomsId`, `hostId`, `details`,
-		`avail_adult`,
+		INSERT INTO `bnb`.`rooms` (`hostId`, `details`,
+		`avail_adults`,
 		`avail_children`, `avail_infants`, `avail_bedroom`,
-		`avail_bed`, `avail_bathroom`,
+		`avail_bed`,
+		`avail_bathroom`,
 		`time_checkin`, `time_checkout`,
-		`price_weekdays`, `price_weekend`,
+		`price_weekdays`,
+		`price_weekend`,
 		`address`,
-		`disabled`) VALUES ('',
-		#{hostId}, #{details}, #{avail_adult}, #{avail_children},
-		#{avail_infants}, ${avail_bedroom}, #{avail_bed},
+		`disabled`) VALUES (
+		#{hostId}, #{details},
+		#{avail_adults}, #{avail_children},
+		#{avail_infants}, ${avail_bedroom},
+		#{avail_bed},
 		#{avail_bathroom},
-		#{time_checkin}, #{time_checkout}, #{price_weekdays},
-		#{price_weekend}, #{address},
+		#{time_checkin}, #{time_checkout},
+		#{price_weekdays},
+		#{price_weekend},
+		#{address},
 		#{disabled})
 	</insert>
+
+	<select id="selectRooms"
+		parameterType="com.bit.bnb.rooms.model.RoomsVO"
+		resultType="com.bit.bnb.rooms.model.RoomsVO">
+		SELECT * FROM `bnb`.`rooms`
+		<where>
+			<if test="roomsId != 0">
+				roomsId = #{roomsId}
+			</if>
+			<if test="hostId != null">
+				AND hostId like #{hostId}
+			</if>
+			<if test="details != null">
+				AND details like #{details}
+			</if>
+			<if test="avail_adults != 0">
+				AND avail_adults >= #{avail_adults}
+			</if>
+			<if test="avail_children != 0">
+				AND avail_children >= #{avail_children}
+			</if>
+			<if test="avail_infants != 0">
+				AND avail_infants >= #{avail_infants}
+			</if>
+			<if test="avail_bedroom != 0">
+				AND avail_bedroom >= #{avail_bedroom}
+			</if>
+			<if test="avail_bed != 0">
+				AND avail_bed >= #{avail_bed}
+			</if>
+			<if test="avail_bathroom != 0">
+				AND avail_bathroom >= #{avail_bathroom}
+			</if>
+			<if test="amenities != null">
+				AND amenities like #{amenities}
+			</if>
+			<if test="time_checkin != null">
+				AND time_checkin like #{time_checkin}
+			</if>
+			<if test="time_checkout != null">
+				AND time_checkout like #{time_checkout}
+			</if>
+			<if test="price_weekdays != 0">
+				AND price_weekdays >= #{price_weekdays}
+			</if>
+			<if test="price_weekend != 0">
+				AND price_weekend >= #{price_weekend}
+			</if>
+			<if test="address != null">
+				AND details like #{address}
+			</if>
+			<if test="disabled != 0">
+				AND disabled >= #{disabled}
+			</if>
+			<!-- 어메니티, 가격2, 비활성화 재고 -->
+		</where>
+	</select>
+	<update id="updateRooms"
+		parameterType="com.bit.bnb.rooms.model.RoomsVO">
+		<!-- UPDATE `bnb`.`rooms` SET `time_checkin` = '14:00', `time_checkout` 
+			= '12:00' WHERE (`roomsId` = '2'); -->
+
+		UPDATE `bnb`.`rooms` SET
+		`hostId`=#{hostId},
+		`details`=#{details},
+		`avail_adults`=#{avail_adults},
+		`avail_children`=#{avail_children},
+		`avail_infants`=#{avail_infants},
+		`avail_bedroom`= ${avail_bedroom},
+		`avail_bed`=#{avail_bed},
+		`avail_bathroom`= #{avail_bathroom},
+		`amenities`= #{amenities},
+		`time_checkin`=#{time_checkin},
+		`time_checkout`=#{time_checkout},
+		`price_weekdays`=#{price_weekdays},
+		`price_weekend`= #{price_weekend},
+		`address`=#{address},
+		`disabled`=
+		#{disabled}
+
+		WHERE roomsId =
+		#{roomsId}
+
+	</update>
+
+	<delete id="deleteRooms"
+		parameterType="com.bit.bnb.rooms.model.RoomsVO">
+		DELETE FROM `bnb`.`rooms` WHERE roomsId = #{roomsId}
+	</delete>
 </mapper>
