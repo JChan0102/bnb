@@ -18,6 +18,9 @@
 			<ul class="nav justify-content-end ml-auto">
 				<!-- 임시 -->
 				<li class="nav-item"><a class="nav-link text-dark"
+					href="${pageContext.request.contextPath}/reservation">예약 임시</a></li>
+				<!-- 임시 -->
+				<li class="nav-item"><a class="nav-link text-dark"
 					href="${pageContext.request.contextPath}/rooms">빵</a></li>
 				<!-- 비로그인 상태 -->
 				<li class="nav-item"><a class="nav-link text-dark" href="#">도움말</a></li>
