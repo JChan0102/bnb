@@ -22,11 +22,12 @@
 					href="${pageContext.request.contextPath}/reservation">예약 임시</a></li>
 				<!-- 임시 -->
 				<li class="nav-item"><a class="nav-link text-dark"
-					href="${pageContext.request.contextPath}/rooms">빵</a></li>
+					href="${pageContext.request.contextPath}/rooms">숙소</a></li>
 				<!-- 비로그인 상태 -->
 				<li class="nav-item"><a class="nav-link text-dark" href="#">도움말</a></li>
+				
 				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/userReg">회원가입</a></li>
-				<li class="nav-item"><a class="nav-link text-dark" href="#">로그인</a></li>
+				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/userLogin">로그인</a></li>
 				<!--  로그인 상태 -->
 				<li class="nav-item"><a class="nav-link text-dark" href="#">저장목록
 				</a></li>
