@@ -8,8 +8,8 @@ import com.bit.bnb.rooms.model.RoomsVO;
 @Repository
 public class RoomsDAO {
 
-	@Autowired
-	RoomsVO roomsVO;
+/*	@Autowired
+	RoomsVO roomsVO;*/
 	
 
 }

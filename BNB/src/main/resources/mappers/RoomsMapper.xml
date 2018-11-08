@@ -10,13 +10,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			`avail_children`, `avail_infants`, `avail_bedroom`, `avail_bed`, `avail_bathroom`, 
 			`time_checkin`, `time_checkout`, `price_weekdays`, `price_weekend`, `address`, 
 			`disabled`) VALUES ('', 'test@test.com', '테스트숙소', '4', '2', '1', '2', '2', 
-			'1', '14:00:00', '12:00:00', '50000', '70000', '서울특별시 마포구 백범로 23 구프라자 3층', 
+			'1', '14:00:00', '12:00:00', '50000',  ㅡ '70000', '서울특별시 마포구 백범로 23 구프라자 3층', 
 			'1'); -->
-		INSERT INTO `bnb`.`rooms` (`roomsId`, `hostId`, `details`, `avail_adult`, 
-			`avail_children`, `avail_infants`, `avail_bedroom`, `avail_bed`, `avail_bathroom`, 
-			`time_checkin`, `time_checkout`, `price_weekdays`, `price_weekend`, `address`, 
-			`disabled`) VALUES ('', 'test@test.com', '테스트숙소', '4', '2', '1', '2', '2', 
-			'1', '14:00:00', '12:00:00', '50000', '70000', '서울특별시 마포구 백범로 23 구프라자 3층', 
-			'1')
+		INSERT INTO `bnb`.`rooms` (`roomsId`, `hostId`, `details`,
+		`avail_adult`,
+		`avail_children`, `avail_infants`, `avail_bedroom`,
+		`avail_bed`, `avail_bathroom`,
+		`time_checkin`, `time_checkout`,
+		`price_weekdays`, `price_weekend`,
+		`address`,
+		`disabled`) VALUES ('',
+		#{hostId}, #{details}, #{avail_adult}, #{avail_children},
+		#{avail_infants}, ${avail_bedroom}, #{avail_bed},
+		#{avail_bathroom},
+		#{time_checkin}, #{time_checkout}, #{price_weekdays},
+		#{price_weekend}, #{address},
+		#{disabled})
 	</insert>
 </mapper>
