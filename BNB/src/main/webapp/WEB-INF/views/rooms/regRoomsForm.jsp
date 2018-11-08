@@ -7,16 +7,19 @@
 <body>
 	<%@ include file="/resources/common/Navbar.jsp"%>
 	<!-- Begin page content -->
+	<!-- https://shaack.com/projekte/bootstrap-input-spinner/ -->
 	<main role="main" class="container">
 	<div class="row justify-content-md-center">
-
 		<div class="col col-md-10 col-lg-8">
+			<h1>
+				<b>숙소 등록</b>
+			</h1>
 			<form method="post">
 				<table class="table">
 					<tr>
 						<td>호스트 아이디</td>
 						<td><input type="text" class="form-control"
-							readonly="readonly" value="(로그인세션의아이디)" id="hostId" name="hostId"></td>
+							readonly="readonly" value="test@test.com" id="hostId" name="hostId"></td>
 					</tr>
 					<tr>
 						<td>소개</td>
@@ -70,22 +73,24 @@
 					<tr>
 						<td>체크인</td>
 						<td><input type="time" class="form-control" id="time_checkin"
-							name="time_checkin"></td>
+							name="time_checkin" value="14:00:00"></td>
 					</tr>
 					<tr>
 						<td>체크아웃</td>
 						<td><input type="time" class="form-control"
-							id="time_checkout" name="time_checkout"></td>
+							id="time_checkout" name="time_checkout" value="12:00:00"></td>
 					</tr>
 					<tr>
 						<td>주중가격</td>
-						<td><input type="text" class="form-control"
-							id="price_weekdays" name="price_weekdays"></td>
+						<td><input type="number" class="form-control"
+							id="price_weekdays" name="price_weekdays" value="0" min="0"
+							max="10000000" step="10"></td>
 					</tr>
 					<tr>
 						<td>주말가격</td>
-						<td><input type="text" class="form-control"
-							id="price_weekend" name="price_weekend" class="form-control"></td>
+						<td><input type="number" class="form-control"
+							id="price_weekend" name="price_weekend" value="0" min="0"
+							max="10000000" step="10" class="form-control"></td>
 					</tr>
 					<tr>
 						<td>주소</td>
@@ -93,19 +98,36 @@
 							name="address"></td>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="hidden" id="roomsId"
-							name="roomsId" value="?"><input type="hidden"
-							id="disabled" name="disabled" value="1"></td>
+						<td colspan="2">
+							<div class="input-group mb-3">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input"
+										id="inputGroupFile02"> <label
+										class="custom-file-label" for="inputGroupFile02"
+										aria-describedby="inputGroupFileAddon02">Choose file</label>
+								</div>
+								<div class="input-group-append">
+									<span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
+								</div>
+							</div>
+						</td>
 					</tr>
-
+					<tr>
+						<td colspan="2" class="text-center"><input type="hidden"
+							id="roomsId" name="roomsId" value="?"><input
+							type="hidden" id="disabled" name="disabled" value="1"> <input
+							type="submit" class="btn btn-danger" value="등록하기"></td>
+					</tr>
 				</table>
 			</form>
 		</div>
 	</div>
 	</main>
+	<!-- 스피너 사용을 위한 JS -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/bootstrap-input-spinner.js"></script>
 	<script>
+		// 스피너 사용	
 		$("input[type='number']").inputSpinner()
 	</script>
 </body>
