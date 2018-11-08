@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class reviewVO {
+public class ReviewVO {
 
 	private int reservationNum; // 예약넘버
 	private String userId; // 유저아이디

@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class memberVO {
+public class MemberVO {
 
 	private String userId; // 유저아이디
 	private String userPassword; // 유저비밀번호

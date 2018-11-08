@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 #left_list {
 	width: 250px;
 	height: 300px;
@@ -7,7 +8,7 @@
 	border-radius: 20px;
 }
 
-#wrap_cont {
+#mypage_wrap_cont {
 	width: 85%;
 	height: 600px;
 	margin: 0 auto;
@@ -21,17 +22,51 @@
 }
 
 #list {
-	width: 120px;
+	width: 180px;
 	margin: 0 auto;
 	padding-top: 60px;
 }
 
-#profile_content {
+#mypage_cont {
 	width: 1000px;
 	height: 600px;
 	background-color: white;
 	position: absolute;
 	top: 0px;
-	right: 30px;
+	right: 0px;
 	border-radius: 25px;
+}
+
+.reviewNav {
+	padding: 20px;
+}
+
+#review_cont {
+	padding: 20px;
+	width: 970px;
+	margin: 0 auto;
+}
+
+#review_table {
+	width: 100%;
+	background-color: #FFEAEA;
+	margin-bottom:30px;
+}
+
+.review_photo {
+	width: 200px;
+	height: 150px;
+}
+
+.review_host {
+	height: 40px;
+	width: 350px;
+	line-height: 40px;
+}
+
+#review_img{
+	 width:130px;
+	 border-radius: 70px;
+	 padding:10px;
+	 margin-left:20px;
 }

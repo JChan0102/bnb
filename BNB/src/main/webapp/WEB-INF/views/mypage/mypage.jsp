@@ -6,13 +6,13 @@
 <meta charset="UTF-8">
 <title>Mypage</title>
 <%@ include file="/resources/common/includeHead.jsp"%>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
+<body style="background-color: #EEEEEE;">
 	<%@ include file="/resources/common/Navbar.jsp"%>
-
-	<div id="wrap_cont">
+	<div id="mypage_wrap_cont">
 		<%@ include file="/WEB-INF/views/mypage/leftlist.jsp"%>
-		<div id="profile_content">
+		<div id="mypage_cont">
 			<!-- 사진 -->
 			<!-- 아이디 -->
 			<!-- 이름 -->

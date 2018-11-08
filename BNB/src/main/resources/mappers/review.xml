@@ -4,12 +4,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- 인터페이스가 있는 패키지+클래스명 -->
-<mapper namespace="com.bit.bnb.mypage.dao.reviewDao">
+<mapper namespace="com.bit.bnb.mypage.dao.ReviewDao">
 
-	<!-- 리뷰리스트뿌리기 -->
-	<!-- <select id=""></select> -->
+	<resultMap type="com.bit.bnb.mypage.model.ReviewVO"
+		id="reviewTo">
+		<result property="reservationNum" column="reservationNum"
+			javaType="int" />
+		<result property="reviewContent" column="reviewContent"
+			javaType="java.lang.String" />
+		<result property="scope" column="scope" javaType="int" />
+		<result property="userPhoto" column="userPhoto"
+			javaType="java.lang.String" />
+		<result property="reviewDate" column="reviewDate"
+			javaType="java.sql.Timestamp" />
+	</resultMap>
+
+	<!-- 내가쓴 리뷰리스트뿌리기 -->
+	<select id="reviewToList" parameterType="map"
+		resultMap="reviewTo">
+		select r.userId, r.hostId, re.userPhoto, re.scope ,
+		re.reviewContent , re.reviewDate from reservation r inner join review
+		re
+		on r.reservationNum = re.reservationNum
+	</select>
 	<!-- 작성해야할리스트찾기 -->
-	<!-- <select id=""></select> -->
+	<select id="reviewWrite" parameterType="map"
+		resultMap="reviewTo">
+		SELECT * from reservation r 
+		LEFT OUTER JOIN review re 
+		ON re.reservationNum = r.reservationNum;
+	</select>
 	<!-- 수정하기 -->
 	<!-- <update id=""></update> -->
 	<!-- 삭제하기 -->
