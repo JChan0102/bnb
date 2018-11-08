@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,15 +14,14 @@ import com.bit.bnb.user.model.UserVO;
 
 @Service
 public class UserRegService {
-
-	@Autowired
-	private SqlSessionTemplate sqlSessionTemplate;
 	
 	@Autowired
 	private UserDao userDao;
 	
 	@Transactional
 	public int userReg(UserVO userVO, HttpServletRequest request) throws IllegalStateException, IOException {
+		
+		System.out.println("서비스진입");
 		
 		int resultCnt = 0;
 
@@ -45,7 +43,14 @@ public class UserRegService {
 					
 			// DB에 저정할 이름 SET
 			userVO.setUserPhoto(imgName);
+			
+			System.out.println(dir);
+			System.out.println(imgName);
 		}
+		
+		String birth = userVO.getYear()+"-"+userVO.getMonth()+"-"+userVO.getDay();
+		
+		userVO.setBirth(birth);
 		
 		resultCnt = userDao.insertUser(userVO);
 		

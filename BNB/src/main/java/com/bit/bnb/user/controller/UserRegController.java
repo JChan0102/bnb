@@ -22,20 +22,25 @@ public class UserRegController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String getUserRegForm() {
-		return "hyeon/userRegForm";
+		System.out.println("겟방식");
+		return "user/userRegForm";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView userReg(UserVO userVO, HttpServletRequest request) throws IllegalStateException, IOException {
 		
+		System.out.println("컨트롤러진입");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		modelAndView.setViewName("hyeon/userRegOK");
+		modelAndView.setViewName("user/userRegOK");
 		
 		int resultCnt = userRegService.userReg(userVO, request);
 			
+		System.out.println(resultCnt);
+		
 		if(resultCnt != 1) {
-			modelAndView.setViewName("hyeon/userRegFail");
+			modelAndView.setViewName("user/userRegFail");
 		}
 		return modelAndView;
 	}

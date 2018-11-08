@@ -2,6 +2,7 @@ package com.bit.bnb.user.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 public class UserVO {
@@ -16,9 +17,12 @@ public class UserVO {
 	private int userCheck;
 	private int point;
 	private int disabled;
-	private Date birth;
+	private String birth;
 	private String userInfo;
 	private MultipartFile photoFile;
+	private String month;
+	private String day;
+	private String year;
 
 	public String getUserId() {
 		return userId;
@@ -100,11 +104,11 @@ public class UserVO {
 		this.disabled = disabled;
 	}
 
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
 
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 
@@ -115,7 +119,7 @@ public class UserVO {
 	public void setUserInfo(String userInfo) {
 		this.userInfo = userInfo;
 	}
-	
+
 	public MultipartFile getPhotoFile() {
 		return photoFile;
 	}
@@ -124,11 +128,36 @@ public class UserVO {
 		this.photoFile = photoFile;
 	}
 
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userPhoto=" + userPhoto
 				+ ", host=" + host + ", admin=" + admin + ", userKey=" + userKey + ", userCheck=" + userCheck
 				+ ", point=" + point + ", disabled=" + disabled + ", birth=" + birth + ", userInfo=" + userInfo
-				+ ", photoFile=" + photoFile + "]";
+				+ ", photoFile=" + photoFile + ", month=" + month + ", day=" + day + ", year=" + year + "]";
 	}
+
 }
