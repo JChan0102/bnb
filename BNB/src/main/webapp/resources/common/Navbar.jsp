@@ -30,6 +30,7 @@
 						시작하기</a></li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">여행</a></li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">메세지</a></li>
+				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">도움말</a></li>
 			</ul>
 		</div>
