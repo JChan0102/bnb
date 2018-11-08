@@ -24,7 +24,7 @@
 			</ul>
 			<div id="review_cont">
 				<c:if test="${reviewTo.isEmpty()}">
-					<h1>작성된 리뷰가 없습니다.</h1>
+					<h1>작성된 후기가 없습니다.</h1>
 				</c:if>
 
 				<!-- 써야할 리뷰 리스트 -->
@@ -32,34 +32,34 @@
 					style="border-radius: 10px;">
 					<tr style="height: 30px;">
 						<th colspan="2" style="text-align: center; height: 50px;"><i
-							class="fas fa-edit"></i>&ensp;작성해야할 리뷰</th>
+							class="fas fa-edit"></i>&ensp;작성해야할 후기</th>
 					</tr>
 					<c:if test="${reviewWrite eq null}">
 						<tr>
-							<td style="width: 800px; text-align: center;">작성해야할 리뷰가
+							<td style="width: 800px; text-align: center;">작성해야할 후기가
 								없습니다.</td>
 						</tr>
 					</c:if>
 					<c:set var="now" value="<%=new java.util.Date()%>" />
+					<c:set var="doneLoop" value="false" />
+					<c:if test="${not doneLoop}">
 					<c:forEach var="reWrite" items="${reviewWrite}">
-						<c:choose>
-							<c:when test="${reWrite.reviewContent eq null && reWrite.checkOut <= now}">
-								<tr>
-									<td style="width: 800px; height: 50px; text-align: center;"><fmt:formatDate
-											pattern="MM월 dd일" value="${reWrite.checkIn}" /> - <fmt:formatDate
-											pattern="MM월 dd일" value="${reWrite.checkOut}" />에 숙박한 숙소에 대한
-										리뷰를 써주세요.</td>
-									<td><a href="#">리뷰쓰기</a></td>
-								</tr>
-							</c:when>
-							<%-- <c:when test="${reWrite.checkOut >= now}">
-								<tr>
-									<td style="width: 800px; text-align: center;">작성해야할 리뷰가
-										없습니다.</td>
-								</tr>
-							</c:when> --%>
+					<c:choose>
+						<c:when test="${reWrite.reviewContent eq null && reWrite.checkOut <= now}">
+							<tr>
+								<td style="width: 800px; height: 50px; text-align: center;"><b><fmt:formatDate
+										pattern="MM월 dd일" value="${reWrite.checkIn}" /> - <fmt:formatDate
+										pattern="MM월 dd일" value="${reWrite.checkOut}" /></b>에 숙박한 숙소에 대한
+									후기를 써주세요.</td>
+								<td><a href="#">후기쓰기</a></td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:set var="doneLoop" value="true" />
+						</c:otherwise>
 						</c:choose>
 					</c:forEach>
+					</c:if>
 				</table>
 
 				<!-- 리뷰쓴내역 -->
@@ -70,13 +70,13 @@
 								<td class="review_photo" rowspan='2'><img
 									src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
 									id="review_img"> ${reTo.userPhoto}</td>
-								<td class="review_host">${reTo.hostId}님의대한후기</td>
+								<td class="review_host"><b>${reTo.hostId}</b>님의 대한 후기</td>
 								<td><c:forEach var="scope" begin="1" end="${reTo.scope}">
 										<i class="fas fa-star" style="color: #FF5675"></i>
 									</c:forEach></td>
 							</tr>
 							<tr>
-								<td colspan='2'>${reTo.reviewContent}<br> <fmt:formatDate
+								<td colspan='2'>${reTo.reviewContent}<br><br> <fmt:formatDate
 										pattern="yyyy년 MM월 dd일" value="${reTo.reviewDate}" />
 								</td>
 							</tr>
