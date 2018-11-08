@@ -18,7 +18,7 @@
 				<li class="mypage_list"><i class="fas fa-history"></i>&ensp;<a
 					class="nav-link text-dark" href="#">히스토리</a></li>
 				<li class="mypage_list"><i class="fas fa-star"></i>&ensp;<a
-					class="nav-link text-dark" href="#">후기</a></li>
+					class="nav-link text-dark" href="/review">후기</a></li>
 			</ul>
 		</div>
 	</div>

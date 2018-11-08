@@ -5,7 +5,8 @@
 	<!-- https://work.smarchal.com/twbscolor/css/e74c3cc0392becf0f1ffbbbc0 -->
 	<!--  -->
 	<!-- <nav class="navbar transparent navbar-inverse"> -->
-	<div class="navbar navbar-expand-md navbar-light fixed-top bg-white border-bottom">
+	<div
+		class="navbar navbar-expand-md navbar-light fixed-top bg-white border-bottom">
 		<a class="navbar-brand" href="${pageContext.request.contextPath}/"><img
 			src="${pageContext.request.contextPath}/resources/images/logo.png"
 			id="logo"></a>
@@ -33,7 +34,8 @@
 						시작하기</a></li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">여행</a></li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">메세지</a></li>
-				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
+				<li class="nav-item"><a class="nav-link text-dark"
+					href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">도움말</a></li>
 			</ul>
 		</div>
