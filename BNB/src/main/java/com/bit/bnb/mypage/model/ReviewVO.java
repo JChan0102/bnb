@@ -14,6 +14,8 @@ public class ReviewVO {
 	private String userPhoto; // DB에 저장될 사진 이름
 	private MultipartFile userPhotoFile; // 실제파일
 	private Timestamp reviewDate; // 리뷰작성시간
+	private Timestamp checkIn; // 체크인시간
+	private Timestamp checkOut; // 체크아웃시간
 
 	public int getReservationNum() {
 		return reservationNum;
@@ -79,11 +81,28 @@ public class ReviewVO {
 		this.reviewDate = reviewDate;
 	}
 
+	public Timestamp getCheckIn() {
+		return checkIn;
+	}
+
+	public Timestamp getCheckOut() {
+		return checkOut;
+	}
+
+	public void setCheckIn(Timestamp checkIn) {
+		this.checkIn = checkIn;
+	}
+
+	public void setCheckOut(Timestamp checkOut) {
+		this.checkOut = checkOut;
+	}
+
 	@Override
 	public String toString() {
-		return "review [reservationNum=" + reservationNum + ", userId=" + userId + ", hostId=" + hostId
+		return "ReviewVO [reservationNum=" + reservationNum + ", userId=" + userId + ", hostId=" + hostId
 				+ ", reviewContent=" + reviewContent + ", scope=" + scope + ", userPhoto=" + userPhoto
-				+ ", userPhotoFile=" + userPhotoFile + ", reviewDate=" + reviewDate + "]";
+				+ ", userPhotoFile=" + userPhotoFile + ", reviewDate=" + reviewDate + ", checkIn=" + checkIn
+				+ ", checkOut=" + checkOut + "]";
 	}
 
 }

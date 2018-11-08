@@ -4,7 +4,7 @@
 <html>
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
-<body style="background: #EEEEEE">
+<body style="background: #969696">
 
 	<%@ include file="/resources/common/Navbar.jsp"%>
 	

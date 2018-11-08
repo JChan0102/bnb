@@ -22,15 +22,15 @@
 
 body {
 	/* 부트스트랩 네비바 사용을 위한 패딩 */
-	padding-top: 120px;
+	padding-top: 60px;
 	/* background-color: gray; */
 }
 
 #back {
-	background-image: url(../img/back.jpg);
+	background-image: url(../images/back.jpg);
 	background-repeat: no-repeat;
 	width: 100%;
-	height: 800px;
+	height: 700px;
 	position: absolute;
 	z-index: -999999;
 	opacity: 0.2;
@@ -62,7 +62,7 @@ body {
 #search {
 	width: 600px;
 	height: 600px;
-	margin-top: 100px;
+	margin-top: 70px;
 	margin-left: 80px;
 	background-color: white;
 	border-radius: 30px;

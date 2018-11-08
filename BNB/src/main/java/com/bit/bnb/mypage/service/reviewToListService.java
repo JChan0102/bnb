@@ -23,5 +23,14 @@ public class reviewToListService {
 		
 		return reviewDao.reviewToList();
 	}
+	
+	public List<ReviewVO> reviewWriteList() {
+		
+		reviewDao = sqlSessionTemplate.getMapper(ReviewDao.class);
+		
+		return reviewDao.reviewWriteList();
+	}
+
+
 
 }
