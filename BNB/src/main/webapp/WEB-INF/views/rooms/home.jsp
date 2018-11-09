@@ -20,34 +20,33 @@
 	</form>
 	<a href="${pageContext.request.contextPath}/rooms/registerRooms">방입력</a>
 	<br>
-	<c:forEach items="${rooms}" var="item" varStatus="status">
 
+	<div class="row">
+		<c:forEach items="${rooms}" var="item" varStatus="status">
+			<div class="col-md-4">
+				<div class="card mb-4 box-shadow">
+					<img class="card-img-top">
+					<div class="card-body">
+						<p class="card-text">
+							${item.roomsId}번 방<br>방주인은 ${item.hostId}
 
-
-
-		<div class="card" style="width: 18rem;">
-			<img class="card-img-top" src="..." alt="Card image cap">
-			<div class="card-body">
-				<p class="card-text">Some quick example text to build on the
-					card title and make up the bulk of the card's content.</p>
+						</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="btn-group">
+								<a
+									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${item.roomsId}"><button
+										type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+								<a
+									href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=${item.roomsId}"><button
+										type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+							</div>
+							<small class="text-muted">9 mins</small>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
-
-
-
-		<a
-			href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=${item.roomsId}">${item.roomsId}/${item.hostId}
-			방수정</a>
-		<br>
-		<a
-			href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${item.roomsId}">${item.roomsId}/${item.hostId}
-			방보기</a>
-		<br>
-	</c:forEach> <br>
-	에어비앤비 트립 기준에 부합하려면... 그 분야에 대한 풍부한 지식과 열정을 가진 호스트가 진행합니다. 게스트가 체험에 직접
-	참여하거나 완전히 몰입할 수 있어야 합니다. 쉽게 접할 수 없는 특별한 장소나 커뮤니티를 방문합니다. 호스트의 독특한 시각을
-	담고 있어야 합니다. 에어비앤비 트립에 해당되지 않는 것 다음은 에어비앤비 트립 기준에 맞지 않습니다. 친밀감이 부족한 대규모
-	투어 호스트가 누구인지 분명하지 않은 이벤트 단순한 서비스(예: 공항을 오가는 교통편) 게스트가 스스로 쉽게 찾을 수 있는 것
-	다음 </main>
+		</c:forEach>
+	</div>
+	</main>
 </body>
 </html>

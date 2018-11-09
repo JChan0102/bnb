@@ -146,12 +146,5 @@
 		</div>
 	</div>
 	</main>
-	<!-- 스피너 사용을 위한 JS -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap-input-spinner.js"></script>
-	<script>
-		// 스피너 사용	
-		$("input[type='number']").inputSpinner()
-	</script>
 </body>
 </html>
