@@ -63,6 +63,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 수정하기 -->
 	<!-- <update id=""></update> -->
 	<!-- 삭제하기 -->
-	<!-- <delete id=""></delete> -->
+	<delete id="reviewDelete">
+		delete from review where reservationNum = #{reservationNum}
+	</delete>
 
 </mapper>

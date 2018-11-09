@@ -8,6 +8,14 @@
 <meta charset="UTF-8">
 <title>Review</title>
 <%@ include file="/resources/common/includeHead.jsp"%>
+<script>
+	function delete_review(reservationNum) {
+
+		if (confirm('후기를 삭제하시겠습니까?')) {
+			return location.href = "review_delete?reservationNum=" + reservationNum;
+		}
+	}
+</script>
 </head>
 <body style="background-color: #EEEEEE;">
 	<%@ include file="/resources/common/Navbar.jsp"%>
@@ -30,17 +38,21 @@
 					</tr>
 					<c:if test="${empty reviewWrite}">
 						<tr>
-							<td style="width: 800px; text-align: center;">작성해야할 후기가 없습니다.</td>
+							<td style="width: 800px; text-align: center;">작성해야할 후기가
+								없습니다.</td>
 						</tr>
 					</c:if>
 					<c:set var="now" value="<%=new java.util.Date()%>" />
 					<c:forEach var="reWrite" items="${reviewWrite}">
-						<c:if test="${reWrite.reviewContent eq null && reWrite.checkOut <= now && loginUser.userId eq reWrite.userId}">
+						<c:if
+							test="${reWrite.reviewContent eq null && reWrite.checkOut <= now && loginUser.userId eq reWrite.userId}">
 							<tr>
 								<td style="width: 800px; height: 50px; text-align: center;"><b><fmt:formatDate
 											pattern="MM월 dd일" value="${reWrite.checkIn}" /> - <fmt:formatDate
-											pattern="MM월 dd일" value="${reWrite.checkOut}" /></b>에 숙박한 숙소에 대한 후기를 써주세요.</td>
-								<td><a href="${pageContext.request.contextPath }/reviewWrite?reservationNum=${reWrite.reservationNum}">후기쓰기</a></td>
+											pattern="MM월 dd일" value="${reWrite.checkOut}" /></b>에 숙박한 숙소에 대한
+									후기를 써주세요.</td>
+								<td><a
+									href="${pageContext.request.contextPath }/reviewWrite?reservationNum=${reWrite.reservationNum}">후기쓰기</a></td>
 							</tr>
 						</c:if>
 					</c:forEach>
@@ -55,12 +67,18 @@
 					<c:if test="${reTo ne null && loginUser.userId eq reTo.userId}">
 						<table id="review_table" rules="none" style="border-radius: 10px;">
 							<tr>
-								<td class="review_photo" rowspan='2'>
-								<img src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg" id="review_img"></td>
+								<td class="review_photo" rowspan='2'><img
+									src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
+									id="review_img"></td>
 								<td class="review_host"><b>${reTo.hostId}</b>님의 대한 후기</td>
 								<td><c:forEach var="scope" begin="1" end="${reTo.scope}">
 										<i class="fas fa-star" style="color: #FF5675"></i>
 									</c:forEach></td>
+								<td style="text-align: right; padding-right: 10px;line-height: 40px;">
+									<button type="button" class="btn btn-secondary btn-sm">수정</button>
+									<button type="button" class="btn btn-secondary btn-sm"
+										onclick="delete_review(${reTo.reservationNum})">삭제</button>
+								</td>
 							</tr>
 							<tr>
 								<td colspan='2'>${reTo.reviewContent}<br> <br> <fmt:formatDate
