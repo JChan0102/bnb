@@ -15,25 +15,21 @@
 }
 
 * {
-/* 	margin: 0px;
-	padding: 0px; */
 	font-family: 'Nanum Gothic', sans-serif;
 }
 
 body {
 	/* 부트스트랩 네비바 사용을 위한 패딩 */
-	padding-top: 60px;
+	padding-top: 120px;
 	/* background-color: gray; */
 }
 
-#back {
-	background-image: url(../images/back.jpg);
-	background-repeat: no-repeat;
-	width: 100%;
-	height: 700px;
-	position: absolute;
-	z-index: -999999;
-	opacity: 0.2;
+#mainback {
+	background: url(../images/main_back.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 #logo {
@@ -78,12 +74,6 @@ body {
 	height: 500px;
 	margin: 0 auto;
 	padding-top: 40px;
-}
-
-div>input {
-/* 	width: 390px;
-	height: 40px;
-	margin: 20px 0px 20px 0px; */
 }
 
 select {

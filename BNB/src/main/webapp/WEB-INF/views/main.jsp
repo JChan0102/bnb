@@ -4,11 +4,9 @@
 <html>
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
-<body style="background: #969696">
-
+<body id="mainback">
 	<%@ include file="/resources/common/Navbar.jsp"%>
-	
-	<div id="back"></div>
+
 	<div id="search">
 		<h1 id="title">당신의 숙소를 검색하세요.</h1>
 		<div id="search_content">
