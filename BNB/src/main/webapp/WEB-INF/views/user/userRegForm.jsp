@@ -22,7 +22,7 @@
 		<input type="hidden" name="admin" value=1 /><br>
 		<input type="hidden" name="userKey" value="asd123" /><br>
 		<input type="hidden" name="userCheck" value=1 /><br>
-		<input type="hidden" name="point" value=1 /><br>
+		<input type="hidden" name="point" value=0 /><br>
 		<input type="hidden" name="disabled" value=1 /><br>
 		<select name="month">
 			<option>월</option>
