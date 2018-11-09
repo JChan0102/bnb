@@ -36,9 +36,11 @@
 								<a
 									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${item.roomsId}"><button
 										type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-								<a
-									href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=${item.roomsId}"><button
-										type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+								<c:if test="${item.hostId eq loginUser.userId}">
+									<a
+										href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=${item.roomsId}&hostId=${item.hostId}"><button
+											type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+								</c:if>
 							</div>
 							<small class="text-muted">9 mins</small>
 						</div>

@@ -164,7 +164,7 @@
 							type="hidden" id="disabled" name="disabled"
 							value="${selectedRoom.disabled}"><input type="submit"
 							class="btn btn-danger" value="수정"><a
-							href="${pageContext.request.contextPath}/rooms/deleteRoom?roomsId=${selectedRoom.roomsId}"><input
+							href="${pageContext.request.contextPath}/rooms/deleteRoom?roomsId=${selectedRoom.roomsId}&hostId=${selectedRoom.hostId}"><input
 								type="button" class="btn btn-danger" value="삭제"></a></td>
 					</tr>
 				</table>
