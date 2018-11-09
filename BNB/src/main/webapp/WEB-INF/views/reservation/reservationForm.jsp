@@ -1,38 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <!DOCTYPE html>
-    <html>
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
 
-    <head>
-        <meta charset="UTF-8">
-        <title>방 예약하기</title>
-        <link rel="stylesheet" href="resources/css/style-umki.css">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+<head>
+<meta charset="UTF-8">
+<title>방 예약하기</title>
+<link rel="stylesheet" href="resources/css/style-umki.css">
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
 
-    </head>
+</head>
 
-    <body>
-        <div class="wrapper">
-            <input type="text" id="datepicker" placeholder=" 체크인 " readonly="true" />
-            <i class="ion-calendar"></i>
-        </div>
-        <div class="wrapper">
-            <input type="text" id="return" placeholder=" 체크아웃 " readonly="true">
-            <i class="ion-calendar"></i>
-        </div>
+<body>
+	<div class="wrapper">
+		<input type="text" id="datepicker" placeholder=" 체크인 " readonly="true" />
+		<i class="ion-calendar"></i>
+	</div>
+	<div class="wrapper">
+		<input type="text" id="return" placeholder=" 체크아웃 " readonly="true">
+		<i class="ion-calendar"></i>
+	</div>
 
-        <script>
+	<script>
         
         var inmm = 0;
     	var indd = 0;
     	var outmm = 0;
     	var outdd = 0;
-    	var day = 0;
-    	var month = 0;
     	var lastDay = 0;
     	var diffDate = 0;
+    	var tmp = 0;
     	
         function temp(){
             $.ajax({
@@ -50,14 +52,12 @@
                         	outyy = Number(value.checkOut.substring(0, 4));
                         	outmm = Number(value.checkOut.substring(5, 7));
                         	outdd = Number(value.checkOut.substring(8, 10));
-                        	day = outdd - indd;
-                        	month = outmm - inmm;
-                        	lastDay = new Date(new Date(2018, inmm-1,1) - 1).getDate();
+                        	
+                        	lastDay = new Date(new Date(2018, inmm,1) - 1).getDate();
                         	inDate = new Date(new Date(inyy, inmm-1, indd));
                         	outDate = new Date(new Date(outyy, outmm-1, outdd));
                         	diffDate = (outDate-inDate)/(1000 * 3600 * 24);
-                        	
-                        	console.log(diffDate);
+                        	tmp = diffDate;
                         });
                 }
             });
@@ -102,22 +102,33 @@
                 	
                 beforeShowDay: function(date) {
                 	var d = date.getDate();
-                    var m = date.getMonth();
-                    console.log(diffDate);
-                    if ((m == inmm || d == indd) && diffDate > 0) {
-                    	diffDate--;
-                    	indd++;
-                    	if(d == lastDay){
-                    		indd = 1;
-                    		if(m!=12){
-                    			inmm++;
-                    		}else{
-                    			inmm = 1;
-                    		}
-                    	}
-                    	
-                        return [false];
-                    } else {
+                    var m = date.getMonth()+1;
+                    var y = date.getFullYear(); 
+                    /* inmm = m; */
+                    /* console.log("indd : " + indd); */
+                    /* console.log("m : " +m); */
+                    
+                    /* console.log("y : " +y); */
+                    /* console.log("outmm : " +outmm); */
+                     
+                    
+                    if(inyy == outyy && inmm == outmm &&  inmm <= m && outmm >= m && indd <= d && outdd >= d ){ //년도가 같고 달이 넘어가지 않을 경우
+                    	return [false, "not",  ""];
+                    }else if((inyy == outyy&&outyy == y)&&(inmm == m && indd <= d)||(inmm != m && outdd >= d)||(m != outmm && m != inmm)){ //년도가 같고 달이 넘어갈 경우
+                    	return [false, "not", ""];
+                    }
+                    else if (((m == inmm  && d >= indd)||(m == outmm && d < outdd)||(m != outmm && m != inmm))&&(y!=outyy)) { //년도가 넘어 가는 경우 이전 년도까지 처리
+                        return [false, "not", ""];
+                    }
+                    /* if(y==outyy && ((m <= outmm && d < outdd)) && inyy != outyy){ //년도가 넘어 가는 경우 다음년도 처리
+                    	return [false];
+                    } */
+                    else if((inyy != outyy)&& (inmm == m && indd <= d)||(inmm != m && outdd >= d)||(m != outmm && m != inmm)){ //년도가 넘어 가는 경우 다음년도 처리
+                    	return [false, "not", ""];
+                    }
+                     
+
+                    else {
                         return [true];
                     }
                    
@@ -136,11 +147,7 @@
                 },
                 
                 onChangeMonthYear : function(){
-                	if(diffDate==0){
-                  	   	
                 		temp();
-                		console.log("test");
-                     }
                 }
                 
             });
@@ -156,6 +163,6 @@
             });
 
         </script>
-    </body>
+</body>
 
-    </html>
+</html>

@@ -1,14 +1,14 @@
-/* @charset "UTF-8";
-  * {
+@charset "UTF-8";
+        * {
             box-sizing: border-box;
             font-family: 'NanumGothic, sans-serif';
         }
 
-        .umki_body {
+        body {
             margin: 0;
         }
 
-        placeholder color
+        /* placeholder color */
 
         input:-ms-input-placeholder {
             color: #000;
@@ -26,7 +26,7 @@
             color: #000;
         }
 
-        .umki_wrapper {
+        .wrapper {
             position: relative;
             width: 445px;
             height: 45px;
@@ -39,9 +39,9 @@
             top: 14px;
         }
 
-        input
+        /* input */
 
-        #umki_datepicker,#umki_return {
+        #datepicker,#return {
             border: 1px solid #c6e2f7;
             border-radius: 5px;
             width: 100%;
@@ -51,15 +51,15 @@
             cursor: pointer;
         }
 
-        #umki_datepicker,#umki_return:hover {
+        #datepicker,#return:hover {
             background-color: #eaf7ff;
         }
 
-        #umki_datepicker,#umki_return:focus {
+        #datepicker,#return:focus {
             outline: none;
         }
 
-        calendar table
+        /* calendar table */
 
         .ui-datepicker {
             display: none;
@@ -72,7 +72,7 @@
             width: 360px;
         }
 
-        #umki_datepicker,#umki_return:focus>.ui-datepicker {
+        #datepicker,#return:focus>.ui-datepicker {
             display: block;
         }
 
@@ -101,7 +101,7 @@
             width: 100%;
         }
 
-        day of week cell
+        /* day of week cell */
 
         .ui-datepicker-calendar>thead>tr>th {
             padding: 5px;
@@ -109,7 +109,7 @@
             font-weight: 400;
         }
 
-        day cell
+        /* day cell */
 
         .ui-datepicker-calendar>tbody>tr>td {
             border-radius: 100%;
@@ -131,15 +131,19 @@
             font-weight: 400;
             text-decoration: none;
         }
+        
+        .not{
+        	 background-color:red;
+        }
 
-        past days
+        /* past days */
 
         .ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover {
             cursor: auto;
             background-color: #fff;
         }
 
-        media
+        /* media */
 
         @media(max-width: 445px) {
             .wrapper {
@@ -156,4 +160,4 @@
                 width: 38px;
                 height: 38px;
             }
-        } */
+        }
