@@ -1,4 +1,4 @@
-@charset "UTF-8";
+/* @charset "UTF-8";
         * {
             box-sizing: border-box;
             font-family: 'NanumGothic, sans-serif';
@@ -8,7 +8,7 @@
             margin: 0;
         }
 
-        /* placeholder color */
+        placeholder color
 
         input:-ms-input-placeholder {
             color: #000;
@@ -39,7 +39,7 @@
             top: 14px;
         }
 
-        /* input */
+        input
 
         #datepicker,#return {
             border: 1px solid #c6e2f7;
@@ -59,7 +59,7 @@
             outline: none;
         }
 
-        /* calendar table */
+        calendar table
 
         .ui-datepicker {
             display: none;
@@ -101,7 +101,7 @@
             width: 100%;
         }
 
-        /* day of week cell */
+        day of week cell
 
         .ui-datepicker-calendar>thead>tr>th {
             padding: 5px;
@@ -109,7 +109,7 @@
             font-weight: 400;
         }
 
-        /* day cell */
+        day cell
 
         .ui-datepicker-calendar>tbody>tr>td {
             border-radius: 100%;
@@ -136,14 +136,14 @@
         	 background-color:red;
         }
 
-        /* past days */
+        past days
 
         .ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover {
             cursor: auto;
             background-color: #fff;
         }
 
-        /* media */
+        media
 
         @media(max-width: 445px) {
             .wrapper {
@@ -160,4 +160,4 @@
                 width: 38px;
                 height: 38px;
             }
-        }
+        } */
