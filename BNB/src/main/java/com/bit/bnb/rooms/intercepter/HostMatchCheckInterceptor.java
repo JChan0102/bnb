@@ -10,23 +10,27 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.bit.bnb.user.model.UserVO;
 
-public class HostCheckInterceptor extends HandlerInterceptorAdapter {
+public class HostMatchCheckInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws IOException {
 
 		HttpSession session = request.getSession(false);
+		String hostId = request.getParameter("hostId");
 
 		if (session != null) {
 			Object obj = session.getAttribute("loginUser");
 			if (obj != null) {
 				UserVO uv = (UserVO) session.getAttribute("loginUser");
 
-				if (uv.getHost() == 1) {
+				if (uv.getUserId().equals(hostId)) {
 					return true;
-				} else {
+				} else if (!uv.getUserId().equals(hostId)) {
+					// 로그인 한 사용자가 해당 숙소의 호스트가 아닐 경우
 					response.sendRedirect(request.getContextPath() + "/rooms/accessDenied");
+				} else {
+					response.sendRedirect(request.getContextPath() + "/login");
 				}
 			} else {
 				response.sendRedirect(request.getContextPath() + "/login");

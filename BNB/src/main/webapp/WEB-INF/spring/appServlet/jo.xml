@@ -27,10 +27,15 @@
 			<mapping path="/rooms/modifyRooms" />
 			<!-- <exclude-mapping path=""></exclude-mapping> -->
 			<beans:bean
-				class="com.bit.bnb.rooms.intercepter.HostCheckInterceptor" />
+				class="com.bit.bnb.rooms.intercepter.HostMatchCheckInterceptor" />
 		</interceptor>
 		<interceptor>
 			<mapping path="/rooms/deleteRoom" />
+			<beans:bean
+				class="com.bit.bnb.rooms.intercepter.HostMatchCheckInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/rooms/registerRooms" />
 			<beans:bean
 				class="com.bit.bnb.rooms.intercepter.HostCheckInterceptor" />
 		</interceptor>

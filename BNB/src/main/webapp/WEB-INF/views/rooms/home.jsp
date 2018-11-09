@@ -18,8 +18,10 @@
 			class="form-control"><input type="submit"
 			class="btn btn-danger" value="검색">
 	</form>
-	<a href="${pageContext.request.contextPath}/rooms/registerRooms">방입력</a>
-	<br>
+	<c:if test="${1 eq loginUser.host}">
+		<a href="${pageContext.request.contextPath}/rooms/registerRooms"><button
+				class="btn btn-danger">방입력</button></a>
+	</c:if> <br>
 
 	<div class="row">
 		<c:forEach items="${rooms}" var="item" varStatus="status">
