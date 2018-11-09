@@ -1,10 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
 <body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('input:checkbox').change(function() {
+				var check = '';
+				$('input:checkbox').each(function() {
+					if ($(this).is(':checked')) {
+						check = check + 'T';
+					} else {
+						check = check + 'F';
+					}
+				});
+				$('#amenities').val(check);
+			});
+
+		});
+	</script>
 	<%@ include file="/resources/common/Navbar.jsp"%>
 	<!-- Begin page content -->
 	<!-- https://shaack.com/projekte/bootstrap-input-spinner/ -->
@@ -69,9 +87,30 @@
 					</tr>
 					<tr>
 						<td>편의시설</td>
-						<td><input type="text" class="form-control"
-							value="${selectedRoom.amenities}" min="0" max="100" step="1"
-							id="amenities" name="amenities"></td>
+						<td><c:set var="count" value="0" /> <c:set var="divideChk"
+								value="1" /> <c:forEach items="${amenities}" var="item">
+								<c:set var="count" value="${count+1}" />
+								<c:if
+									test="${divideChk ne (item.amenities_idx-(item.amenities_idx mod 100))/100}">
+									<hr>
+									<c:set var="divideChk"
+										value="${(item.amenities_idx-(item.amenities_idx mod 100))/100}" />
+								</c:if>
+								<c:choose>
+									<c:when
+										test="${'T' eq fn:substring(selectedRoom.amenities, count-1, count)}">
+										<input type="checkbox" id="amcb${count}" name="amcb${count}"
+											class="form-control-input" checked="checked">
+									</c:when>
+									<c:otherwise>
+										<input type="checkbox" id="amcb${count}" name="amcb${count}"
+											class="form-control-input">
+									</c:otherwise>
+								</c:choose>
+								<label for="amcb${count}" class="form-check-label">${item.amenities_details}</label>
+								<br>
+							</c:forEach><input type="hidden" class="form-control"
+							value="${selectedRoom.amenities}" id="amenities" name="amenities"></td>
 					</tr>
 					<tr>
 						<td>체크인</td>

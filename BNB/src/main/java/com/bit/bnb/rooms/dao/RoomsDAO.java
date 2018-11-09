@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bit.bnb.rooms.model.AmenitiesVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 
 @Repository
@@ -30,6 +31,10 @@ public class RoomsDAO {
 
 	public int deleteRooms(RoomsVO rv) {
 		return sqlSessionTemplate.delete(mapperPath + "deleteRooms", rv);
+	}
+
+	public List<AmenitiesVO> selectAmenities(AmenitiesVO av) {
+		return sqlSessionTemplate.selectList(mapperPath + "selectAmenities", av);
 	}
 
 }

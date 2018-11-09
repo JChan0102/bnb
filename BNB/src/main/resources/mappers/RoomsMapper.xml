@@ -10,7 +10,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		`avail_children`, `avail_infants`, `avail_bedroom`,
 		`avail_bed`,
 		`avail_bathroom`,
-		`time_checkin`, `time_checkout`,
+		`amenities`,
+		`time_checkin`,
+		`time_checkout`,
 		`price_weekdays`,
 		`price_weekend`,
 		`address`,
@@ -20,6 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{avail_infants}, ${avail_bedroom},
 		#{avail_bed},
 		#{avail_bathroom},
+		#{amenities},
 		#{time_checkin}, #{time_checkout},
 		#{price_weekdays},
 		#{price_weekend},
@@ -115,4 +118,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		parameterType="com.bit.bnb.rooms.model.RoomsVO">
 		DELETE FROM `bnb`.`rooms` WHERE roomsId = #{roomsId}
 	</delete>
+
+	<!-- 편의시설 부분 -->
+	<select id="selectAmenities"
+		parameterType="com.bit.bnb.rooms.model.AmenitiesVO"
+		resultType="com.bit.bnb.rooms.model.AmenitiesVO">
+		SELECT * FROM bnb.amenities_ref
+		<where>
+			<if test="amenities_idx != 0">
+				amenities_idx = #{amenities_idx}
+			</if>
+			<if test="amenities_details != null">
+				AND amenities_details like #{amenities_details}
+			</if>
+		</where>
+		ORDER BY amenities_idx ASC
+	</select>
 </mapper>

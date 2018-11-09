@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bit.bnb.rooms.model.AmenitiesVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.service.RoomsLIstService;
 import com.bit.bnb.rooms.service.RoomsModifyService;
@@ -21,8 +22,9 @@ public class RoomsModifyController {
 
 	// 숙소수정폼페이지
 	@RequestMapping(value = "/rooms/modifyRooms", method = RequestMethod.GET)
-	public ModelAndView getModifyRoomsForm(RoomsVO rv) {
+	public ModelAndView getModifyRoomsForm(RoomsVO rv, AmenitiesVO av) {
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("amenities", roomsModifyService.getAmenities(av));
 		modelAndView.addObject("selectedRoom", roomsLIstService.getRoomsList(rv).get(0));
 		modelAndView.setViewName("rooms/modifyRoomsForm");
 		return modelAndView;
