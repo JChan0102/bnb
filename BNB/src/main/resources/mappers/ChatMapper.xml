@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mappers.chatMapper">
+
+    <insert id="createRoom">
+        insert into message (hostId, userId, roomsId, messagecontent, receive)
+        VALUES (#{hostId}, #{userId}, #{roomsId}, #{messagecontent}, 'H')
+    </insert>
+
+    <select id="isRoom" resultType="com.bit.bnb.chatting.model.ChatRoomVO">
+        select *
+        from message
+        WHERE userId = #{userId}
+          and hostId = #{hostId}
+          and roomsId = #{roomsId}
+        limit 1;
+    </select>
+
+    <insert id="insertMessage">
+        insert into message (hostId, userId, roomsId, messagecontent, receive, readCk)
+        values (#{hostId}, #{userId}, #{roomsId}, #{messagecontent}, #{receive}, #{readCk})
+    </insert>
+
+    <select id="getMessageList" resultType="com.bit.bnb.chatting.model.MessageVO">
+        select *
+        from message
+        WHERE userId = #{userId}
+          and hostId = #{hostId}
+          and roomsId = #{roomsId}
+    </select>
+
+    <select id="getRoomList" resultType="com.bit.bnb.chatting.model.ChatRoomVO">
+        select *
+        from message
+        where userId = #{userId}
+           OR hostId = #{userId}
+        group by (userId, hostId, roomsId)
+    </select>
+<!--
+
+    <select id="getRoomList2" resultType="com.bit.bnb.chatting.model.ChatRoomVO">
+        select *
+        from CHATROOM
+        where TUTOR_USER_user_id = #{TUTOR_USER_user_id}
+    </select>
+
+    <select id="getRecentMessage" resultType="com.bit.bnb.chatting.model.MessageVO">
+
+        select m.*, class_name, class_id, TUTOR_tutor_id
+        from MESSAGE m
+                 left outer join CLASS c on m.CLASS_class_id = c.class_id
+        where CHATROOM_chatroom_id = #{CHATROOM_chatroom_id}
+        order by message_id desc
+        limit 1;
+
+
+    </select>
+
+
+    <select id="getTutorId" resultType="String">
+        select tutor_id
+        from TUTOR
+        where USER_user_id = #{USER_user_id}
+    </select>
+
+    <update id="updateReadTime">
+        update MESSAGE
+        set message_readTime = NOW()
+        where TUTOR_USER_user_id = #{TUTOR_USER_user_id}
+          AND CLASS_class_id = #{CLASS_class_id}
+          AND message_readTime = message_sendTime
+          and message_sender = TUTOR_USER_user_id
+          and USER_user_id = #{USER_user_id};
+    </update>
+    <update id="updateReadTimeTutor">
+        update MESSAGE
+        set message_readTime = NOW()
+        where TUTOR_USER_user_id = #{TUTOR_USER_user_id}
+          AND CLASS_class_id = #{CLASS_class_id}
+          AND message_readTime = message_sendTime
+          and message_sender = USER_user_id
+          and USER_user_id = #{USER_user_id};
+
+    </update>
+
+
+    <select id="getUnReadCount" resultType="int">
+
+        select count(*)
+        from MESSAGE
+        where USER_user_id = #{USER_user_id}
+          and TUTOR_USER_user_id = #{TUTOR_USER_user_id}
+          AND CLASS_class_id = #{CLASS_class_id}
+          AND message_readTime = message_sendTime
+          and message_sender = TUTOR_USER_user_id;
+
+    </select>
+    <select id="getUnReadCountTutor" resultType="int">
+
+        select count(*)
+        from MESSAGE
+        where TUTOR_USER_user_id = #{TUTOR_USER_user_id}
+          and CLASS_class_id = #{CLASS_class_id}
+          AND message_readTime = message_sendTime
+          and message_sender = USER_user_id
+          and USER_user_id = #{USER_user_id};
+
+    </select>
+
+    <select id="getAllCount" resultType="int">
+        select count(*)
+        from MESSAGE
+        WHERE (TUTOR_USER_user_id = #{TUTOR_USER_user_id} and message_readTime = message_sendTime and
+               message_sender != #{USER_user_id})
+           or (USER_user_id = #{USER_user_id} and message_readTime = message_sendTime and
+               message_sender != #{USER_user_id});
+
+    </select>-->
+</mapper>
