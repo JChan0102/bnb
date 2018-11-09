@@ -10,7 +10,7 @@ import com.bit.bnb.mypage.dao.ReviewDao;
 import com.bit.bnb.mypage.model.ReviewVO;
 
 @Service
-public class reviewToListService {
+public class ReviewToListService {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
@@ -24,13 +24,11 @@ public class reviewToListService {
 		return reviewDao.reviewToList();
 	}
 	
-	public List<ReviewVO> reviewWriteList() {
+	public List<ReviewVO> reviewWriteList(String userId) {
 		
 		reviewDao = sqlSessionTemplate.getMapper(ReviewDao.class);
 		
-		return reviewDao.reviewWriteList();
+		return reviewDao.reviewWriteList(userId);
 	}
-
-
 
 }

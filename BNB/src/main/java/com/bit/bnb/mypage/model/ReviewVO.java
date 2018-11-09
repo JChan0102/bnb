@@ -62,7 +62,7 @@ public class ReviewVO {
 	}
 
 	public void setReviewContent(String reviewContent) {
-		this.reviewContent = reviewContent;
+		this.reviewContent = reviewContent.replace("\r\n", "<br>");
 	}
 
 	public void setScope(int scope) {

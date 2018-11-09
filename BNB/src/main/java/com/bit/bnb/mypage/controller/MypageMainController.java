@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-public class mypageMainController {
+public class MypageMainController {
 	
 	@RequestMapping("/mypage")
 	public String Listview() {

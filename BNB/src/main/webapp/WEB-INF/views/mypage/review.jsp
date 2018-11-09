@@ -15,8 +15,6 @@
 	<div id="mypage_wrap_cont">
 		<%@ include file="/WEB-INF/views/mypage/leftlist.jsp"%>
 		<div id="mypage_cont">
-			<!-- 탭이 두 개 필요. 내가쓴 후기 내게쓴후기 -->
-			<!-- 테이블로 돌리자. 형식은. -->
 			<ul class="nav reviewNav">
 				<li class="nav-item"><a class="nav-link active"
 					href="${pageContext.request.contextPath }/review">내가 쓴 후기</a></li>
@@ -26,7 +24,6 @@
 				<c:if test="${reviewTo.isEmpty()}">
 					<h1>작성된 후기가 없습니다.</h1>
 				</c:if>
-
 				<!-- 써야할 리뷰 리스트 -->
 				<table id="review_write_table" rules="none"
 					style="border-radius: 10px;">
@@ -34,37 +31,31 @@
 						<th colspan="2" style="text-align: center; height: 50px;"><i
 							class="fas fa-edit"></i>&ensp;작성해야할 후기</th>
 					</tr>
-					<c:if test="${reviewWrite eq null}">
+					<c:if test="${empty reviewWrite}">
 						<tr>
 							<td style="width: 800px; text-align: center;">작성해야할 후기가
 								없습니다.</td>
 						</tr>
 					</c:if>
 					<c:set var="now" value="<%=new java.util.Date()%>" />
-					<c:set var="doneLoop" value="false" />
-					<c:if test="${not doneLoop}">
 					<c:forEach var="reWrite" items="${reviewWrite}">
-					<c:choose>
-						<c:when test="${reWrite.reviewContent eq null && reWrite.checkOut <= now}">
+						<c:if
+							test="${reWrite.reviewContent eq null && reWrite.checkOut <= now && loginUser.userId eq reWrite.userId}">
 							<tr>
 								<td style="width: 800px; height: 50px; text-align: center;"><b><fmt:formatDate
-										pattern="MM월 dd일" value="${reWrite.checkIn}" /> - <fmt:formatDate
-										pattern="MM월 dd일" value="${reWrite.checkOut}" /></b>에 숙박한 숙소에 대한
+											pattern="MM월 dd일" value="${reWrite.checkIn}" /> - <fmt:formatDate
+											pattern="MM월 dd일" value="${reWrite.checkOut}" /></b>에 숙박한 숙소에 대한
 									후기를 써주세요.</td>
-								<td><a href="#">후기쓰기</a></td>
+								<td><a
+									href="${pageContext.request.contextPath }/reviewWrite?reservationNum=${reWrite.reservationNum}">후기쓰기</a></td>
 							</tr>
-						</c:when>
-						<c:otherwise>
-							<c:set var="doneLoop" value="true" />
-						</c:otherwise>
-						</c:choose>
+						</c:if>
 					</c:forEach>
-					</c:if>
 				</table>
 
-				<!-- 리뷰쓴내역 -->
-				<c:if test="${reviewTo ne null}">
-					<c:forEach var="reTo" items="${reviewTo}">
+				<!-- 내가 쓴 것만 나타내줌! 리뷰쓴내역 -->
+				<c:forEach var="reTo" items="${reviewTo}">
+					<c:if test="${reTo ne null && loginUser.userId eq reTo.userId}">
 						<table id="review_table" rules="none" style="border-radius: 10px;">
 							<tr>
 								<td class="review_photo" rowspan='2'><img
@@ -76,13 +67,13 @@
 									</c:forEach></td>
 							</tr>
 							<tr>
-								<td colspan='2'>${reTo.reviewContent}<br><br> <fmt:formatDate
+								<td colspan='2'>${reTo.reviewContent}<br> <br> <fmt:formatDate
 										pattern="yyyy년 MM월 dd일" value="${reTo.reviewDate}" />
 								</td>
 							</tr>
 						</table>
-					</c:forEach>
-				</c:if>
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
