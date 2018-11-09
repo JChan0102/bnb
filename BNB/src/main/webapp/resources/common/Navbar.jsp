@@ -27,13 +27,13 @@
 				<!-- 비로그인 상태 -->
 				<li class="nav-item"><a class="nav-link text-dark" href="#">도움말</a></li>
 				
-				<c:if test="${session.loginUser eq null}">
+				<c:if test="${loginUser eq null}">
 				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/userReg">회원가입</a></li>
 				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/login">로그인</a></li>
 				</c:if>
 
 				<!--  로그인 상태 -->
-				<c:if test="${session.loginUser ne null}">
+				<c:if test="${loginUser ne null}">
 				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
 				<li class="nav-item"><a class="nav-link text-dark" href="#">저장목록
 				</a></li>

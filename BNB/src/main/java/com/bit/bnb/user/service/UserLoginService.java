@@ -22,6 +22,7 @@ public class UserLoginService {
 		
 		// 해당 아이디의 인스턴스가 null이 아니고 패스워드가 일치하면 로그인 처리한다
 		if(userVO != null && (userVO.getUserPw().equals(userPw))) {
+			
 			// 세션에 사용자 데이터를 저장한다 - 보안을 위해서 패스워드는 비워줌
 			userVO.setUserPw("");
 			
