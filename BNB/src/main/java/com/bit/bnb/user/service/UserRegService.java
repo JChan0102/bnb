@@ -21,15 +21,13 @@ public class UserRegService {
 	@Transactional
 	public int userReg(UserVO userVO, HttpServletRequest request) throws IllegalStateException, IOException {
 		
-		System.out.println("서비스진입");
-		
 		int resultCnt = 0;
 
 		// DB 저장용 파일 이름, 물리적 저장할때의 이름
 		String imgName = "";
 				
 		// 물리적 저장 경로
-		String uploadUri = "/uploadfile/userphoto";
+		String uploadUri = "/resources/images/userphoto";
 				
 		// uploadUri 경로의 시스템 경로
 		String dir = request.getSession().getServletContext().getRealPath(uploadUri);

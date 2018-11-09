@@ -28,8 +28,6 @@ public class UserRegController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView userReg(UserVO userVO, HttpServletRequest request) throws IllegalStateException, IOException {
 		
-		System.out.println("컨트롤러진입");
-		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.setViewName("user/userRegOK");
