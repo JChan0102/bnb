@@ -108,25 +108,25 @@
                     /* console.log("indd : " + indd); */
                     /* console.log("m : " +m); */
                     
-                    /* console.log("y : " +y); */
+                    console.log("fyfff : " +y);
                     /* console.log("outmm : " +outmm); */
                      
                     
-                    if(inyy == outyy && inmm == outmm &&  inmm <= m && outmm >= m && indd <= d && outdd >= d ){ //년도가 같고 달이 넘어가지 않을 경우
+                    if(inyy == outyy  && outyy == y &&  inmm <=m && outmm > m && indd <= d){ //년도가 같고 달이 넘어가지 않을 경우
                     	return [false, "not",  ""];
-                    }else if((inyy == outyy&&outyy == y)&&(inmm == m && indd <= d)||(inmm != m && outdd >= d)||(m != outmm && m != inmm)){ //년도가 같고 달이 넘어갈 경우
+                    } 
+                    else if((inyy == outyy && outyy == y &&outmm<=m )&&((inmm == m && indd <= d)||(inmm != m && outdd >= d)||(m != outmm && m != inmm))){ //년도가 같고 달이 넘어갈 경우
                     	return [false, "not", ""];
-                    }
-                    else if (((m == inmm  && d >= indd)||(m == outmm && d < outdd)||(m != outmm && m != inmm))&&(y!=outyy)) { //년도가 넘어 가는 경우 이전 년도까지 처리
+                    } /*
+                    else if (((m == inmm  && d >= indd)||(m == outmm && d < outdd)||(m != outmm && m != inmm))&&(y!=outyy&&inyy == y)) { //년도가 넘어 가는 경우 이전 년도까지 처리
                         return [false, "not", ""];
                     }
-                    /* if(y==outyy && ((m <= outmm && d < outdd)) && inyy != outyy){ //년도가 넘어 가는 경우 다음년도 처리
-                    	return [false];
-                    } */
-                    else if((inyy != outyy)&& (inmm == m && indd <= d)||(inmm != m && outdd >= d)||(m != outmm && m != inmm)){ //년도가 넘어 가는 경우 다음년도 처리
-                    	return [false, "not", ""];
-                    }
                      
+                    else if((inyy != outyy && outmm >= m)&& ((inmm == m && indd <= d)||(inmm != m && outdd >= d)||(m != outmm && m != inmm))){ //년도가 넘어 가는 경우 다음년도 처리
+                    	return [false, "not", ""];
+                    } */
+                     
+                    
 
                     else {
                         return [true];
