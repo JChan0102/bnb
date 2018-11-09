@@ -14,9 +14,9 @@
 	
 	<div id="userRegForm" style="padding:20px">
 	<form method="post" enctype="multipart/form-data">
-		아이디(이메일 ) : <input type="email" name="userId" /><br>
-		비밀번호 설정 : <input type="password" name="userPw" /><br>
-		이름 : <input type="text" name="userName" /><br>
+		아이디(이메일 ) : <input type="email" name="userId" required /><br>
+		비밀번호 설정 : <input type="password" name="userPw" required /><br>
+		이름 : <input type="text" name="userName" required /><br>
 		사진 : <input type="file" name="photoFile" /><br>
 		<input type="hidden" name="host" value=1 /><br>
 		<input type="hidden" name="admin" value=1 /><br>
