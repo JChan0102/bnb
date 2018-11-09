@@ -56,7 +56,7 @@ public class UserLoginContoller {
 		}
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("user/loginFail");
+		modelAndView.setViewName("user/userLoginFail");
 		
 		if(userId != null && userPw != null) {
 			if(userLoginService.userLogin(userId, userPw, session)) {
