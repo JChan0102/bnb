@@ -37,7 +37,7 @@
 					<tr>
 						<td>호스트 아이디</td>
 						<td><input type="text" class="form-control"
-							readonly="readonly" value="test@test.com" id="hostId"
+							readonly="readonly" value="${loginUser.userId}" id="hostId"
 							name="hostId"></td>
 					</tr>
 					<tr>

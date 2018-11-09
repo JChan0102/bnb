@@ -24,9 +24,6 @@ public class HostCheckInterceptor extends HandlerInterceptorAdapter {
 			if (obj != null) {
 				UserVO uv = (UserVO) session.getAttribute("loginUser");
 
-				System.out.println(uv.getUserId());
-				System.out.println(hostId);
-
 				if (uv.getUserId().equals(hostId)) {
 					return true;
 				} else if (!uv.getUserId().equals(hostId)) {

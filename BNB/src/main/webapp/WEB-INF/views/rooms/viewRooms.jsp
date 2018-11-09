@@ -36,39 +36,31 @@
 				<table class="table">
 					<tr>
 						<td>호스트 아이디</td>
-						<td>${selectedRoom.hostId}"</td>
+						<td>${selectedRoom.hostId}</td>
 					</tr>
 					<tr>
 						<td>소개</td>
 						<td>${selectedRoom.details}</td>
 					</tr>
 					<tr>
-						<td>어른</td>
-						<td>${selectedRoom.avail_adults}명</td>
+						<td>인원</td>
+						<td><c:if test="${0 ne selectedRoom.avail_adults}">
+						어른 ${selectedRoom.avail_adults}명</c:if> <c:if
+								test="${0 ne selectedRoom.avail_children}">
+						어린이 ${selectedRoom.avail_children}명</c:if> <c:if
+								test="${0 ne selectedRoom.avail_infants}">
+						유아 ${selectedRoom.avail_infants}명</c:if></td>
 
 					</tr>
 					<tr>
-						<td>어린이</td>
-						<td>${selectedRoom.avail_children}명</td>
+						<td>시설</td>
+						<td><c:if test="${0 ne selectedRoom.avail_bedroom}">
+						침실 ${selectedRoom.avail_bedroom}개</c:if> <c:if
+								test="${0 ne selectedRoom.avail_bed}">
+						침대 ${selectedRoom.avail_bed}개</c:if> <c:if
+								test="${0 ne selectedRoom.avail_bathroom}">
+						욕실 ${selectedRoom.avail_bathroom}개</c:if></td>
 
-					</tr>
-					<tr>
-						<td>유아</td>
-						<td>${selectedRoom.avail_infants}</td>
-
-					</tr>
-					<tr>
-						<td>침실</td>
-						<td>${selectedRoom.avail_bedroom}</td>
-
-					</tr>
-					<tr>
-						<td>침대</td>
-						<td>${selectedRoom.avail_bed}</td>
-					</tr>
-					<tr>
-						<td>욕실</td>
-						<td>${selectedRoom.avail_bathroom}</td>
 					</tr>
 					<tr>
 						<td>편의시설</td>
@@ -76,24 +68,15 @@
 								value="1" /> <c:forEach items="${amenities}" var="item">
 								<c:set var="count" value="${count+1}" />
 								<c:if
-									test="${divideChk ne (item.amenities_idx-(item.amenities_idx mod 100))/100}">
-									<hr>
-									<c:set var="divideChk"
-										value="${(item.amenities_idx-(item.amenities_idx mod 100))/100}" />
+									test="${'T' eq fn:substring(selectedRoom.amenities, count-1, count)}">
+									<label for="amcb${count}" class="form-check-label">${item.amenities_details}</label>
+									<c:if
+										test="${divideChk ne (item.amenities_idx-(item.amenities_idx mod 100))/100}">
+										<hr>
+										<c:set var="divideChk"
+											value="${(item.amenities_idx-(item.amenities_idx mod 100))/100}" />
+									</c:if>
 								</c:if>
-								<c:choose>
-									<c:when
-										test="${'T' eq fn:substring(selectedRoom.amenities, count-1, count)}">
-										<input type="checkbox" id="amcb${count}" name="amcb${count}"
-											class="form-control-input" checked="checked">
-									</c:when>
-									<c:otherwise>
-										<input type="checkbox" id="amcb${count}" name="amcb${count}"
-											class="form-control-input">
-									</c:otherwise>
-								</c:choose>
-								<label for="amcb${count}" class="form-check-label">${item.amenities_details}</label>
-								<br>
 							</c:forEach><input type="hidden" class="form-control"
 							value="${selectedRoom.amenities}" id="amenities" name="amenities"></td>
 					</tr>
