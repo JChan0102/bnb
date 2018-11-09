@@ -19,12 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 
 public class HomeController {
-	
-	@Autowired
-	SqlSessionTemplate sqlSessionTemplate;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -36,10 +32,8 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
-		
-		
+
 		model.addAttribute("serverTime", formattedDate );
-		model.addAttribute("aa", sqlSessionTemplate.selectOne("a.a.test"));
 		
 		return "main";
 	}
