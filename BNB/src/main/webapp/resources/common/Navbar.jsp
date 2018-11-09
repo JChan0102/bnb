@@ -30,9 +30,9 @@
                 <c:if test="${loginUser eq null}">
                     <li class="nav-item"><a class="nav-link text-dark"
                                             href="${pageContext.request.contextPath}/userReg">회원가입</a></li>
-                    <button class="btn btn-default" data-target="#layerpop" data-toggle="modal">로그인</button>
-                    <br/>
-                    <%-- <li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/login">로그인</a></li> --%>
+                    <!-- <button class="btn btn-default" data-target="#layerpop" data-toggle="modal">로그인</button> -->
+                    
+                    <li class="nav-item"><a class="nav-link text-dark" data-target="#layerpop" data-toggle="modal" href="${pageContext.request.contextPath}/login">로그인</a></li>
                 </c:if>
 
                 <!--  로그인 상태 -->
