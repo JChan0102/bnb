@@ -13,7 +13,7 @@ public class UserLoginService {
 	
 	@Autowired
 	private UserDao userDao;
-
+	
 	public boolean userLogin(String userId, String userPw, HttpSession session) {
 		
 		boolean result = false;
@@ -26,6 +26,12 @@ public class UserLoginService {
 			// 세션에 사용자 데이터를 저장한다 - 보안을 위해서 패스워드는 비워줌
 			userVO.setUserPw("");
 			
+			// 만약 loginUser라는 세션값이 이미 존재하고 있다면 지워준다
+			if(session.getAttribute("loginUser") != null) {
+				session.removeAttribute("loginUser");
+			}
+			
+			// 세션에 loginUser라는 이름으로 유저 인스턴스를 저장
 			session.setAttribute("loginUser", userVO);
 			
 			result = true;

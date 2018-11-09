@@ -12,10 +12,15 @@
 <body>
 <%@ include file="/resources/common/Navbar.jsp"%>
 
+<!-- <script>
+alert("${cookieUserId}");
+</script>
+ -->
 <div id="loginForm" style="padding:20px">
 <form method="post">
-	아이디 : <input type="text" name="userId" placeholder="example@example.com" /> <br>
+	아이디 : <input type="text" name="userId" placeholder="example@example.com" value="${cookieUserId}" /> <br>
 	비밀번호 : <input type="password" name="userPw" /> <br>
+	Remember Me! <input type="checkbox" name="rememberMe" ${rememberChk} />
 	<input type="submit" value="로그인" />
 </form>
 </div>
