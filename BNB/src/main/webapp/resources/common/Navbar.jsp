@@ -29,7 +29,8 @@
 				
 				<c:if test="${loginUser eq null}">
 				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/userReg">회원가입</a></li>
-				<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/login">로그인</a></li>
+				<button class="btn btn-default" data-target="#layerpop" data-toggle="modal">로그인</button><br/>
+				<%-- <li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/login">로그인</a></li> --%>
 				</c:if>
 
 				<!--  로그인 상태 -->
@@ -53,6 +54,38 @@
 </header>
 
 
+<!-- 모달 테스트 -->
+<div class="modal fade" id="layerpop" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- header -->
+      <div class="modal-header">
+        <!-- header title -->
+        <h4 class="modal-title">
+        	Login Modal
+        </h4>
+        <!-- 닫기(x) 버튼 -->
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+      <!-- body -->
+      <div class="modal-body">
+            <form action="${pageContext.request.contextPath}/login" method="post">
+				아이디 : <input type="text" name="userId" placeholder="example@example.com" value="${cookie.cookieUserId.value}" /> <br>
+				비밀번호 : <input type="password" name="userPw" /> <br>
+				Remember Me! <input type="checkbox" name="rememberMe" 
+				<c:if test="${cookie.cookieUserId ne null}">
+				checked 
+				</c:if>
+				/>
+				<input type="submit" value="로그인" />
+</form>
+      </div>
+      <!-- Footer -->
+      <div class="modal-footer">
+		BIBIBIT 대한민국 숙박정보 BnB
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 모달 테스트 끝 -->
 
-</body>
-</html>

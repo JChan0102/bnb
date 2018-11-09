@@ -67,11 +67,10 @@ public class UserLoginContoller {
 				// 쿠키 처리
 				// rememberMe가 on 이면 쿠키 생성
 				if(rememberMe == "on") {
-					System.out.println("쿠키생성");
 					Cookie cookie = new Cookie("cookieUserId", userId);
 					cookie.setMaxAge(60*60*24*7);
 					response.addCookie(cookie);
-					System.out.println("생성된 쿠키 : " + cookie);
+					System.out.println("생성된 쿠키 : " + cookie.getName() +" : "+ cookie.getValue());
 					
 				} else {
 					// rememberMe가 off면 쿠키 삭제
