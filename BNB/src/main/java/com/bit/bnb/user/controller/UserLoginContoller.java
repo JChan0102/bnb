@@ -25,7 +25,7 @@ public class UserLoginContoller {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView userLogin(@RequestParam(value = "userId", required = false) String userId,
-								  @RequestParam(value = "useerPw", required = false) String userPw,
+								  @RequestParam(value = "userPw", required = false) String userPw,
 								  HttpSession session) {
 		
 		ModelAndView modelAndView = new ModelAndView();
