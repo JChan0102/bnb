@@ -21,21 +21,27 @@
 	<a href="${pageContext.request.contextPath}/rooms/registerRooms">방입력</a>
 	<br>
 	<c:forEach items="${rooms}" var="item" varStatus="status">
-	
-	
-	
-	
+
+
+
+
 		<div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="..." alt="Card image cap">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-		
-		
-		
+			<img class="card-img-top" src="..." alt="Card image cap">
+			<div class="card-body">
+				<p class="card-text">Some quick example text to build on the
+					card title and make up the bulk of the card's content.</p>
+			</div>
+		</div>
+
+
+
 		<a
-			href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=${item.roomsId}">${item.roomsId}/${item.hostId}</a>
+			href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=${item.roomsId}">${item.roomsId}/${item.hostId}
+			방수정</a>
+		<br>
+		<a
+			href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${item.roomsId}">${item.roomsId}/${item.hostId}
+			방보기</a>
 		<br>
 	</c:forEach> <br>
 	에어비앤비 트립 기준에 부합하려면... 그 분야에 대한 풍부한 지식과 열정을 가진 호스트가 진행합니다. 게스트가 체험에 직접
