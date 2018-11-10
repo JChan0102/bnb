@@ -25,9 +25,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select re.reservationNum, r.userId, r.hostId, 
 		re.scope ,
 		re.reviewContent , re.reviewDate from reservation r inner
-		join review
-		re
+		join review re
 		on r.reservationNum = re.reservationNum
+		where r.userId = #{userId}
+		order by re.reviewDate desc
 	</select>
 
 	<resultMap type="com.bit.bnb.mypage.model.ReviewVO"
@@ -52,6 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where re.reviewContent is null
 		<![CDATA[ and r.checkOut <= current_timestamp ]]>
 		and r.userId = #{userId}
+		order by r.checkIn
 	</select>
 	
 	<!-- 리뷰작성하기 -->
@@ -59,9 +61,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into review (reservationNum, reviewContent, scope)
 		values (#{reservationNum}, #{reviewContent}, #{scope})
 	</insert>
+	
+	<!-- 리뷰 셀렉하기 -->
+	<select id="reviewPick" resultType="map" resultMap="reviewTo">
+		select * from review where reservationNum = #{reservationNum}
+	</select>
 
 	<!-- 수정하기 -->
-	<!-- <update id=""></update> -->
+	<update id="reviewEdit">
+		update review set reviewContent = #{reviewContent},
+		scope = #{scope} where reservationNum = #{reservationNum}
+	</update>
+	
 	<!-- 삭제하기 -->
 	<delete id="reviewDelete">
 		delete from review where reservationNum = #{reservationNum}

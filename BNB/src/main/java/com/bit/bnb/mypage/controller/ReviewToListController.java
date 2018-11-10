@@ -23,7 +23,7 @@ public class ReviewToListController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.setViewName("mypage/review");
-		modelAndView.addObject("reviewTo", service.reviewToListView());
+		modelAndView.addObject("reviewTo", service.reviewToListView(user.getUserId()));
 		modelAndView.addObject("reviewWrite", service.reviewWriteList(user.getUserId()));
 		
 		return modelAndView;

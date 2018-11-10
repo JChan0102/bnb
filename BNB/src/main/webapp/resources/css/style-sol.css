@@ -23,7 +23,7 @@
 #list {
 	width: 180px;
 	margin: 0 auto;
-	padding-top: 60px;
+	padding-top: 50px;
 }
 
 #mypage_cont {
@@ -89,7 +89,7 @@
 }
 
 .profile_right {
-	margin-top: 75px;
+	margin-top: 65px;
 	text-align: center;
 }
 
@@ -105,3 +105,7 @@
 	margin:0 auto;
 }
 
+#editForm_wrap{
+	width: 600px;
+	margin:40px auto 70px auto;
+}

@@ -1,7 +1,5 @@
 package com.bit.bnb.mypage.service;
 
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,25 +8,26 @@ import com.bit.bnb.mypage.dao.ReviewDao;
 import com.bit.bnb.mypage.model.ReviewVO;
 
 @Service
-public class ReviewToListService {
-
+public class ReviewEditService {
+	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-
+	
 	private ReviewDao reviewDao;
-
-	public List<ReviewVO> reviewToListView(String userId) {
+	
+	public int reviewEdit(ReviewVO review) {
 		
 		reviewDao = sqlSessionTemplate.getMapper(ReviewDao.class);
 		
-		return reviewDao.reviewToList(userId);
+		return reviewDao.reviewEdit(review);
 	}
 	
-	public List<ReviewVO> reviewWriteList(String userId) {
+	public ReviewVO reviewPick(int reservationNum) {
 		
 		reviewDao = sqlSessionTemplate.getMapper(ReviewDao.class);
 		
-		return reviewDao.reviewWriteList(userId);
+		return reviewDao.reviewPick(reservationNum);
+		
 	}
 
 }

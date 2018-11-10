@@ -14,13 +14,13 @@
 		<%@ include file="/WEB-INF/views/mypage/leftlist.jsp"%>
 		<div id="mypage_cont">
 			<div id="reviewCont_wrap">
-				<form method="post" name="reWrite">
+				<form method="post" name="reEdit">
 					<input type="text" name="reservationNum" class="form-control-plaintext"
 						value="${reservationNum}"
 						style="width: 300px;" readonly><br>
 					<div class="form-group">
 						<label for="reviewCont">리뷰 내용</label>
-						<textarea class="form-control" name="reviewContent" id="reviewCont" rows="3" required></textarea>
+						<textarea class="form-control" name="reviewContent" id="reviewCont" rows="3" required>${reviewPick.reviewContent}</textarea>
 					</div>
 					<select class="form-control" name="scope" required>
 						<option selected>별점</option>
@@ -30,7 +30,7 @@
 						<option value="4">★★★★</option>
 						<option value="5">★★★★★</option>
 					</select><br>
-					<button type="button" class="btn btn-warning" onclick="javascript:document.reWrite.submit();" style="float:right;">리뷰 쓰기</button>
+					<button type="button" class="btn btn-warning" onclick="javascript:document.reEdit.submit();" style="float:right;">수정하기</button>
 				</form>
 			</div>
 		</div>

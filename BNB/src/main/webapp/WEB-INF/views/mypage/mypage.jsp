@@ -42,8 +42,23 @@
 								</c:otherwise>
 							</c:choose>
 						</dd>
+						<dt style="font-size: 19px;">호스트여부</dt>
+						<dd>
+							<c:choose>
+								<c:when test="${loginUser.host eq 1}">
+									<i class="far fa-check-circle" style="color: #329632"></i> 호스트 등록되어있습니다.
+								</c:when>
+								<c:otherwise>
+									<i class="far fa-times-circle" style="color: #CD0000"></i> 호스트가 아닙니다.
+									<dt>호스트가 되길 원하신다면? <button type="button" class="btn btn-link">호스트신청</button></dt>
+								</c:otherwise>
+							</c:choose>
+						</dd>
+						
 					</dl>
-					<br><button type="button" class="btn btn-outline-secondary">프로필 수정하기</button>
+					<br><button type="button" class="btn btn-outline-secondary"
+					onclick="javascript:location.href='${pageContext.request.contextPath}/profileEdit'">프로필수정</button>
+				&ensp;<button type="button" class="btn btn-outline-danger">회원 탈퇴</button>
 				</div>
 			</div>
 		</div>

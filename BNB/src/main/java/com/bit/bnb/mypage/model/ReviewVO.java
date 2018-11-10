@@ -31,7 +31,7 @@ public class ReviewVO {
 
 	public String getReviewContent() {
 		return reviewContent;
-	}
+		}
 
 	public int getScope() {
 		return scope;

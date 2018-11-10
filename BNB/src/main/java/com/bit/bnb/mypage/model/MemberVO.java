@@ -1,7 +1,5 @@
 package com.bit.bnb.mypage.model;
 
-import java.sql.Date;
-
 import org.springframework.web.multipart.MultipartFile;
 
 public class MemberVO {
@@ -15,7 +13,7 @@ public class MemberVO {
 	private int admin; // 관리자 여부
 	private int userCheck; // 본인확인여부
 	private int point; // 정산금액
-	private Date birth; // 생일
+	private String birth; // 생일
 	private String userInfo; // 자기소개
 
 	public String getUserId() {
@@ -90,7 +88,7 @@ public class MemberVO {
 		this.point = point;
 	}
 
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
 
@@ -98,7 +96,7 @@ public class MemberVO {
 		return userInfo;
 	}
 
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 
