@@ -27,7 +27,7 @@
         from message
         WHERE userId = #{userId}
           and hostId = #{hostId}
-          and roomsId = #{roomsId}
+          and roomsId = #{roomsId} ORDER BY idx
     </select>
 
     <select id="getRoomList" resultType="com.bit.bnb.chatting.model.ChatRoomVO">
@@ -44,6 +44,13 @@
         from message
         where readCk='F'and userId =#{userId} or hostId =#{userId};
     </select>
+
+    <update id="readOkUpdate" parameterType="com.bit.bnb.chatting.model.ChatRoomVO">
+        update message SET readCk='T' where userId = #{userId}
+                                        and hostId = #{hostId}
+                                        and roomsId = #{roomsId} and receive=#{receive}
+
+    </update>
 <!--
 
     <select id="getRoomList2" resultType="com.bit.bnb.chatting.model.ChatRoomVO">

@@ -71,6 +71,12 @@ public class ChatDAO {
         return sqlSessionTemplate.selectList(namespace+"newChatCK", userId);
     }
 
+    public void readOkUpdate(ChatRoomVO roomVO){
+        sqlSessionTemplate.update(namespace+"readOkUpdate", roomVO);
+    }
+
+
+
 
     public List<ChatRoomVO> getRoomList2(String str) throws Exception {
         // TODO Auto-generated method stub

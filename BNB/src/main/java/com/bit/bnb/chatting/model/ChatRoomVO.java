@@ -6,6 +6,7 @@ public class ChatRoomVO{
     private String userId;
     private String roomsId;
    private  String unreadcount;
+   private String receive;
 
     public ChatRoomVO() {
     }
@@ -14,6 +15,21 @@ public class ChatRoomVO{
         this.hostId = hostId;
         this.userId = userId;
         this.roomsId = roomsId;
+    }
+
+    public ChatRoomVO(String hostId, String userId, String roomsId, String receive) {
+        this.hostId = hostId;
+        this.userId = userId;
+        this.roomsId = roomsId;
+        this.receive = receive;
+    }
+
+    public String getReceive() {
+        return receive;
+    }
+
+    public void setReceive(String receive) {
+        this.receive = receive;
     }
 
     public String getUnreadcount() {

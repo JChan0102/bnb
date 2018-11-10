@@ -24,6 +24,14 @@ public class ChatListController {
         ModelAndView modelAndView = new ModelAndView();
 
         UserVO user = (UserVO) session.getAttribute("loginUser");
+
+        if(user.getUserId().equals(roomVO.getUserId())){
+            roomVO.setReceive("U");
+        }else{
+            roomVO.setReceive("H");
+        }
+
+
         modelAndView.addObject("chatRoomList", service.chatList(user.getUserId()));
         modelAndView.setViewName("chat/list");
         modelAndView.addObject("sender",user.getUserId());

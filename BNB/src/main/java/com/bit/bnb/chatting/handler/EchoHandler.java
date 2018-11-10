@@ -84,7 +84,7 @@ public class EchoHandler extends TextWebSocketHandler {
             map = websocketSession.getAttributes();
              UserVO login = (UserVO) map.get("loginUser");
 
-            System.out.println(login.toString());
+            System.out.println("3:"+messageVO.toString());
             //받는사람
             if (login.getUserId().equals(messageVO.getUserId()) || login.getUserId().equals(messageVO.getHostId())) {
                 Gson gson = new Gson();

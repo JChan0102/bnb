@@ -104,6 +104,7 @@ public class MessageVO {
                 ", messageDate=" + messageDate +
                 ", messagecontent='" + messagecontent + '\'' +
                 ", receive='" + receive + '\'' +
+                ", sender='" + sender + '\'' +
                 ", readCk='" + readCk + '\'' +
                 '}';
     }

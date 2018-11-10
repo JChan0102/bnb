@@ -21,8 +21,13 @@ public class MessageListService {
 
 
         List<MessageVO> list = dao.getMessageList(roomsVO);
-       return list;
+        System.out.println(list.toString());
+        readOk(roomsVO);
+        return list;
 
+    }
+    public void readOk(ChatRoomVO roomVO){
+        dao.readOkUpdate(roomVO);
     }
 
     public List<ChatRoomVO> chatList(String userId) {
