@@ -49,7 +49,6 @@ public class EchoHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         System.out.println(message.getPayload());
-
         Map<String, Object> map = null;
 
         MessageVO messageVO = MessageVO.convertMessage(message.getPayload());
@@ -62,22 +61,15 @@ public class EchoHandler extends TextWebSocketHandler {
         roomVO.setUserId(messageVO.getUserId());
         roomVO.setHostId(messageVO.getHostId());
 
-        ChatRoomVO croom =null;
-            if(dao.isRoom(roomVO) == null ) {
-                makeChatRoomService.makeChatRoom(messageVO);
-                croom = dao.isRoom(roomVO);
-            }else {
-                croom = dao.isRoom(roomVO);
-            }
-
-        System.out.println("2 : " + croom.toString());
-        if(croom.getUserId().equals(messageVO.getSender())) {
+        if(roomVO.getUserId().equals(messageVO.getSender())) {
             messageVO.setReceive("H");
         }else {
             messageVO.setReceive("U");
         }
             messageVO.setReadCk("F");
-        dao.insertMessage(messageVO);
+            dao.insertMessage(messageVO);
+
+
 
 
         for (WebSocketSession websocketSession : connectedUsers) {

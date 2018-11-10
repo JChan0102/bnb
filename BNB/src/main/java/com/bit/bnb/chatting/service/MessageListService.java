@@ -30,13 +30,14 @@ public class MessageListService {
         dao.readOkUpdate(roomVO);
     }
 
-    public List<ChatRoomVO> chatList(String userId) {
+    public List<ChatRoomVO> chatAllList(String userId) {
         List<ChatRoomVO> list = new ArrayList<ChatRoomVO>();
         try {
-           list= dao.getRoomList(userId);
+           list= dao.getAllRoomList(userId);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
+
 }

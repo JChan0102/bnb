@@ -32,7 +32,7 @@ public class ChatListController {
         }
 
 
-        modelAndView.addObject("chatRoomList", service.chatList(user.getUserId()));
+        modelAndView.addObject("chatRoomList", service.chatAllList(user.getUserId()));
         modelAndView.setViewName("chat/list");
         modelAndView.addObject("sender",user.getUserId());
         modelAndView.addObject("chatroom",roomVO);

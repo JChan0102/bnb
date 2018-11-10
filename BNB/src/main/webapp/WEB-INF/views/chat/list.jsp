@@ -29,11 +29,20 @@
             </div>
         <c:forEach var="item" items="${lists}">
                 <script>
-                    console.log('${item.userId}' == '${sessionScope.loginUser.userId}' || '${item.hostId}' == '${sessionScope.loginUser.userId}');
-                    if ('${item.userId}' == '${sessionScope.loginUser.userId}' || '${item.hostId}' == '${sessionScope.loginUser.userId}') {
-                        $("#chatMessageArea").append("<div class='col-12 row' style = 'height : auto; margin-top : 5px;'><div class='col-2' style = 'float:left; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '><div style='font-size:9px; clear:both;'>${user_name}</div></div><div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'><div class = 'col-12' style = ' background-color:#ACF3FF; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>${item.messagecontent}</span></div><div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >${item.messageDate}</span></div></div></div>")
+                    console.log('${item.userId}' == '${sessionScope.loginUser.userId}' && '${item.receive}'=='H' || '${item.hostId}' == '${sessionScope.loginUser.userId}'&&'${item.receive}'=='U');
+                    if (('${item.userId}' == '${sessionScope.loginUser.userId}' && '${item.receive}'=='H') || ('${item.hostId}' == '${sessionScope.loginUser.userId}'&&'${item.receive}'=='U')) {
+                        $("#chatMessageArea").append("<div class='row justify-content-end' style = 'height : auto; margin-top : 5px;'>" +
+                            "<div class='col-2' style = 'float:left; padding-right:0px; padding-left : 0px;'>" +
+                            "</div>"+
+                            "<div class = 'col-6 ' style = ' background-color:#ACF3FF; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>${item.messagecontent}</span></div>"+
+                            "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >${item.messageDate}</span></div></div>")
                     } else {
-                        $("#chatMessageArea").append("<div class='col-12 row' style = 'height : auto; margin-top : 5px;'><div class='col-2' style = 'float:left; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '><div style='font-size:9px; clear:both;'>${user_name}</div></div><div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'><div class = 'col-12' style = ' background-color:gray; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>${item.messagecontent}</span></div><div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >${item.messageDate}</span></div></div></div>")
+                        $("#chatMessageArea").append("<div class='row justify-content-start' style = 'height : auto; margin-top : 5px;'>"+
+                            "<div class='col-1' style = 'float:right; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '>"+
+                            "</div>"+
+                            "<div class = 'col-6' style = ' background-color:gray; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>${item.messagecontent}</span></div>"+
+                            "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >${item.messageDate}</span></div></div></div>"
+                           );
                     }
                     var chatAreaHeight = $("#chatArea").height();
                     var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
@@ -89,34 +98,27 @@
                     $("#message").val("");
                 }
 
-                function leadingZeros(n, digits) {
-                    var zero = '';
-                    n = n.toString();
-
-                    if (n.length < digits) {
-                        for (i = 0; i < digits - n.length; i++)
-                            zero += '0';
-                    }
-                    return zero + n;
-                }
-
 
                 function appendMessage(obj) {
+                    console.log(obj.sender == '${sessionScope.loginUser.userId}')
                     if (obj.messagecontent == '') {
                         return false;
                     } else {
                         if (obj.sender == '${sessionScope.loginUser.userId}') {
-                            $("#chatMessageArea").append("<div class='col-12 row' style = 'height : auto; margin-top : 5px;'><div class='col-2' style = 'float:left; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '><div style='font-size:9px; clear:both;'>${user_name}</div></div><div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'><div class = 'col-12' style = ' background-color:#ACF3FF; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"
-                                +obj.messagecontent
-                                +"</span></div><div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"
-                                    +obj.messageDate
-                                +"</span></div></div></div>")
+                            $("#chatMessageArea").append("<div class='row justify-content-end' style = 'height : auto; margin-top : 5px;'>" +
+                                "<div class='col-2' style = 'float:left; padding-right:0px; padding-left : 0px;'>" +
+                                "</div>"+
+                                "<div class = 'col-6 ' style = ' background-color:#ACF3FF; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+obj.messagecontent+"</span></div>"+
+                                "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+
+                                obj.messageDate
+                                +"</span></div></div>")
                         } else {
-                            $("#chatMessageArea").append("<div class='col-12 row' style = 'height : auto; margin-top : 5px;'><div class='col-2' style = 'float:left; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '><div style='font-size:9px; clear:both;'>${user_name}</div></div><div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'><div class = 'col-12' style = ' background-color:gray; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"
-                                +obj.messagecontent
-                                +"</span></div><div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"
-                                +obj.messageDate
-                                +"</span></div></div></div>")
+                            $("#chatMessageArea").append("<div class='row justify-content-start' style = 'height : auto; margin-top : 5px;'>"+
+                                "<div class='col-1' style = 'float:right; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '>"+
+                                "</div>"+
+                                "<div class = 'col-6' style = ' background-color:gray; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+obj.messagecontent+"</span></div>"+
+                                "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+obj.messageDate+"</span></div></div></div>"
+                            );
                         }
                         var chatAreaHeight = $("#chatArea").height();
                         var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;

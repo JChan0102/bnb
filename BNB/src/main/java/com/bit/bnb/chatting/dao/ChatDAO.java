@@ -75,6 +75,9 @@ public class ChatDAO {
         sqlSessionTemplate.update(namespace+"readOkUpdate", roomVO);
     }
 
+    public List<ChatRoomVO> getAllRoomList(String str) throws Exception {
+        return sqlSessionTemplate.selectList(namespace+"getAllRoomList",str);
+    }
 
 
 

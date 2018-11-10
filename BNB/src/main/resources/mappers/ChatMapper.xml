@@ -38,6 +38,13 @@
     group by userId,roomsId,hostId having userId =#{userId}
                                        or hostId =#{userId};
 </select>
+    <select id="getAllRoomList" resultType="com.bit.bnb.chatting.model.ChatRoomVO">
+        select
+               userId,roomsId,hostId
+        from message
+        group by userId,roomsId,hostId having userId =#{userId}
+                                           or hostId =#{userId};
+    </select>
     <select id="newChatCK" parameterType="java.lang.String" resultType="com.bit.bnb.chatting.model.MessageVO">
         select
                *
