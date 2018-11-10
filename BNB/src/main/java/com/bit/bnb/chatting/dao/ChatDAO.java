@@ -2,6 +2,7 @@ package com.bit.bnb.chatting.dao;
 
 import com.bit.bnb.chatting.model.ChatRoomVO;
 import com.bit.bnb.chatting.model.MessageVO;
+import com.bit.bnb.rooms.model.RoomsVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -42,32 +43,34 @@ public class ChatDAO {
     }
 
     public String getProfile(String str) throws Exception {
-        // TODO Auto-generated method stub
         return sqlSessionTemplate.selectOne(namespace+"getProfile" , str);
     }
 
 
 
     public String getName(String str) throws Exception {
-        // TODO Auto-generated method stub
+
         return sqlSessionTemplate.selectOne(namespace+"getName" , str);
     }
 
 
 
-    public List<MessageVO> getMessageList(String str) throws Exception {
-        // TODO Auto-generated method stub
-
-        return sqlSessionTemplate.selectList(namespace+"getMessageList" , str);
+    public List<MessageVO> getMessageList(ChatRoomVO roomsVO) throws Exception {
+        return sqlSessionTemplate.selectList(namespace+"getMessageList" , roomsVO);
 
 
     }
 
 
     public List<ChatRoomVO> getRoomList(String str) throws Exception {
-        // TODO Auto-generated method stub
         return sqlSessionTemplate.selectList(namespace+"getRoomList",str);
     }
+
+
+    public List<MessageVO> newChatCK(String userId){
+        return sqlSessionTemplate.selectList(namespace+"newChatCK", userId);
+    }
+
 
     public List<ChatRoomVO> getRoomList2(String str) throws Exception {
         // TODO Auto-generated method stub

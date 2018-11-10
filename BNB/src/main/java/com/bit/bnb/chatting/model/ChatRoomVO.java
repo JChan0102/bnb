@@ -5,6 +5,24 @@ public class ChatRoomVO{
     private String hostId;
     private String userId;
     private String roomsId;
+   private  String unreadcount;
+
+    public ChatRoomVO() {
+    }
+
+    public ChatRoomVO(String hostId, String userId, String roomsId) {
+        this.hostId = hostId;
+        this.userId = userId;
+        this.roomsId = roomsId;
+    }
+
+    public String getUnreadcount() {
+        return unreadcount;
+    }
+
+    public void setUnreadcount(String unreadcount) {
+        this.unreadcount = unreadcount;
+    }
 
     public String getHostId() {
         return hostId;

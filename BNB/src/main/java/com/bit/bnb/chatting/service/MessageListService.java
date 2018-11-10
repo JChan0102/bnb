@@ -2,10 +2,13 @@ package com.bit.bnb.chatting.service;
 
 
 import com.bit.bnb.chatting.dao.ChatDAO;
+import com.bit.bnb.chatting.model.ChatRoomVO;
 import com.bit.bnb.chatting.model.MessageVO;
+import com.bit.bnb.rooms.model.RoomsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,12 +17,21 @@ public class MessageListService {
     @Autowired
     ChatDAO dao;
 
-    public List<MessageVO> listviewService(String userId, String hostId, String roomId) throws Exception {
+    public List<MessageVO> listviewService(ChatRoomVO roomsVO) throws Exception {
 
 
-        List<MessageVO> list = dao.getMessageList("4");
+        List<MessageVO> list = dao.getMessageList(roomsVO);
        return list;
 
     }
 
+    public List<ChatRoomVO> chatList(String userId) {
+        List<ChatRoomVO> list = new ArrayList<ChatRoomVO>();
+        try {
+           list= dao.getRoomList(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

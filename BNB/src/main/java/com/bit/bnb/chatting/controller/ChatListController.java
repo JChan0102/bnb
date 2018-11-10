@@ -1,11 +1,13 @@
 package com.bit.bnb.chatting.controller;
 
+import com.bit.bnb.chatting.model.ChatRoomVO;
 import com.bit.bnb.chatting.service.MessageListService;
 import com.bit.bnb.user.model.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -17,45 +19,21 @@ public class ChatListController {
     @Autowired
     MessageListService service;
 
-    @RequestMapping(value = "/chat/list")
-    public ModelAndView list(){
+    @RequestMapping(value = "/chat/list", method = RequestMethod.GET)
+    public ModelAndView list(HttpSession session,ChatRoomVO roomVO){
         ModelAndView modelAndView = new ModelAndView();
 
-        return modelAndView;
-    }
-
-
-    @RequestMapping(value = "/chat/c")
-    public String hhh(Model model, HttpSession session){
-        UserVO userVO = new UserVO();
-        userVO.setUserId("test1");
-        session.setAttribute("login",userVO);
-        model.addAttribute("sender","test1");
-
-        model.addAttribute("TUTOR_USER_user_id","test2");
-        model.addAttribute("user_id","test1");
-        model.addAttribute("class_id",10);
+        UserVO user = (UserVO) session.getAttribute("loginUser");
+        modelAndView.addObject("chatRoomList", service.chatList(user.getUserId()));
+        modelAndView.setViewName("chat/list");
+        modelAndView.addObject("sender",user.getUserId());
+        modelAndView.addObject("chatroom",roomVO);
         try {
-         model.addAttribute("lists", service.listviewService("test1","test2","10"));
+            modelAndView.addObject("lists", service.listviewService(roomVO));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        return "chat/chat";
+        return modelAndView;
     }
-    @RequestMapping(value = "/chat/d")
-    public String hhhd(Model model, HttpSession session){
-        UserVO userVO = new UserVO();
-        userVO.setUserId("test2");
-        session.setAttribute("login",userVO);
-        model.addAttribute("sender","test2");
 
-        model.addAttribute("TUTOR_USER_user_id","test2");
-        model.addAttribute("user_id","test1");
-        model.addAttribute("class_id",10);
-
-
-        return "chat/chat";
-    }
 }

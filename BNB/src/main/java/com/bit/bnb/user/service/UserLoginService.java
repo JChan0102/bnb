@@ -2,6 +2,7 @@ package com.bit.bnb.user.service;
 
 import javax.servlet.http.HttpSession;
 
+import com.bit.bnb.chatting.service.NewMessageCkServie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,9 @@ public class UserLoginService {
 	
 	@Autowired
 	private UserDao userDao;
+
+	@Autowired
+	private NewMessageCkServie messageCkServie;
 	
 	public boolean userLogin(String userId, String userPw, HttpSession session) {
 		
@@ -33,7 +37,9 @@ public class UserLoginService {
 			
 			// 세션에 loginUser라는 이름으로 유저 인스턴스를 저장
 			session.setAttribute("loginUser", userVO);
-			
+
+			session.setAttribute("NewmessageCk",messageCkServie.getList(userVO.getUserId()));
+
 			result = true;
 		}
 		

@@ -31,11 +31,18 @@
     </select>
 
     <select id="getRoomList" resultType="com.bit.bnb.chatting.model.ChatRoomVO">
-        select *
+    select
+           userId,roomsId,hostId, count(*) unreadcount
+    from message
+    where readCk='F'
+    group by userId,roomsId,hostId having userId =#{userId}
+                                       or hostId =#{userId};
+</select>
+    <select id="newChatCK" parameterType="java.lang.String" resultType="com.bit.bnb.chatting.model.MessageVO">
+        select
+               *
         from message
-        where userId = #{userId}
-           OR hostId = #{userId}
-        group by (userId, hostId, roomsId)
+        where readCk='F'and userId =#{userId} or hostId =#{userId};
     </select>
 <!--
 
