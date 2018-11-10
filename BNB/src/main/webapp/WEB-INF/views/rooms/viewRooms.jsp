@@ -106,17 +106,17 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<div class="input-group mb-3">
-								<div class="custom-file">
-									<input type="file" class="custom-file-input"
-										id="inputGroupFile02"> <label
-										class="custom-file-label" for="inputGroupFile02"
-										aria-describedby="inputGroupFileAddon02">Choose file</label>
-								</div>
-								<div class="input-group-append">
-									<span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
-								</div>
-							</div>
+						이방의 후기
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+						호스트 정보
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+						?
 						</td>
 					</tr>
 					<tr>
@@ -124,9 +124,11 @@
 							id="roomsId" name="${selectedRoom.roomsId}" value="0"><input
 							type="hidden" id="disabled" name="disabled"
 							value="${selectedRoom.disabled}"><input type="submit"
-							class="btn btn-danger" value="수정"><a
+							class="btn btn-danger ml-1 mr-1" value="수정"><a
 							href="${pageContext.request.contextPath}/chat/sendmessage?roomsId=${selectedRoom.roomsId}&hostId=${selectedRoom.hostId}"><input
-								type="button" class="btn btn-danger" value="문의하기"></a></td>
+								type="button" class="btn btn-danger ml-1 mr-1" value="문의하기"></a><a
+							href="#"><input type="button" class="btn btn-danger ml-1 mr-1"
+								value="좋아요"></a></td>
 					</tr>
 				</table>
 			</form>
