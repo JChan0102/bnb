@@ -1,5 +1,7 @@
 package com.bit.bnb.rooms.model;
 
+import java.util.List;
+
 public class RoomsVO {
 
 	private int roomsId;
@@ -18,6 +20,18 @@ public class RoomsVO {
 	private int price_weekend;
 	private String address;
 	private int disabled;
+	
+	// 파일 업로드를 위한 추가
+	private List<RoomsFilesVO> roomfiles;
+	
+	public final List<RoomsFilesVO> getRoomfiles() {
+		return roomfiles;
+	}
+
+	public final void setRoomfiles(List<RoomsFilesVO> roomfiles) {
+		this.roomfiles = roomfiles;
+	}
+	// 파일 업로드를 위한 추가 끝
 
 	public final int getRoomsId() {
 		return roomsId;
@@ -154,7 +168,17 @@ public class RoomsVO {
 				+ ", avail_bedroom=" + avail_bedroom + ", avail_bed=" + avail_bed + ", avail_bathroom=" + avail_bathroom
 				+ ", amenities=" + amenities + ", time_checkin=" + time_checkin + ", time_checkout=" + time_checkout
 				+ ", price_weekdays=" + price_weekdays + ", price_weekend=" + price_weekend + ", address=" + address
-				+ ", disabled=" + disabled + "]";
+				+ ", disabled=" + disabled + ", roomfiles=" + roomfiles + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "RoomsVO [roomsId=" + roomsId + ", hostId=" + hostId + ", details=" + details + ", avail_adults="
+//				+ avail_adults + ", avail_children=" + avail_children + ", avail_infants=" + avail_infants
+//				+ ", avail_bedroom=" + avail_bedroom + ", avail_bed=" + avail_bed + ", avail_bathroom=" + avail_bathroom
+//				+ ", amenities=" + amenities + ", time_checkin=" + time_checkin + ", time_checkout=" + time_checkout
+//				+ ", price_weekdays=" + price_weekdays + ", price_weekend=" + price_weekend + ", address=" + address
+//				+ ", disabled=" + disabled + "]";
+//	}
 
 }

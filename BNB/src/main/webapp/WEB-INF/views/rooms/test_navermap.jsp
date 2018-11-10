@@ -181,14 +181,6 @@
 		var map = new naver.maps.Map("map", {
 			center : new naver.maps.LatLng(37.5788408, 126.9770162),
 			zoom : 10,
-			scaleControl : true,
-			scaleControlOptions : {
-				position : naver.maps.Position.TOP_LEFT
-			},
-			zoomControl : true,
-			zoomControlOptions : {
-				position : naver.maps.Position.TOP_RIGHT
-			},
 			mapTypeControl : true
 		});
 

@@ -69,13 +69,13 @@
 								<c:set var="count" value="${count+1}" />
 								<c:if
 									test="${'T' eq fn:substring(selectedRoom.amenities, count-1, count)}">
-									<label for="amcb${count}" class="form-check-label">${item.amenities_details}</label>
 									<c:if
 										test="${divideChk ne (item.amenities_idx-(item.amenities_idx mod 100))/100}">
 										<hr>
 										<c:set var="divideChk"
 											value="${(item.amenities_idx-(item.amenities_idx mod 100))/100}" />
 									</c:if>
+									<label for="amcb${count}" class="form-check-label">${item.amenities_details}</label>
 								</c:if>
 							</c:forEach><input type="hidden" class="form-control"
 							value="${selectedRoom.amenities}" id="amenities" name="amenities"></td>
@@ -99,6 +99,10 @@
 					<tr>
 						<td>주소</td>
 						<td>${selectedRoom.address}</td>
+					</tr>
+					<tr>
+						<td colspan="2"><div id="map"
+								style="width: 100%; height: 500px;"></div></td>
 					</tr>
 					<tr>
 						<td colspan="2">
@@ -129,5 +133,75 @@
 		</div>
 	</div>
 	</main>
+	<script type="text/javascript"
+		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RjRRELdZtqF2DId12vbe&submodules=geocoder"></script>
+	<script>
+		// 초기값 경복궁
+		var map = new naver.maps.Map("map", {
+			center : new naver.maps.LatLng(37.5788408, 126.9770162),
+			zoom : 10,
+			scaleControl : true,
+			scaleControlOptions : {
+				position : naver.maps.Position.TOP_LEFT
+			},
+			zoomControl : true,
+			zoomControlOptions : {
+				position : naver.maps.Position.TOP_RIGHT
+			},
+			mapTypeControl : true
+		});
+
+		var infoWindow = new naver.maps.InfoWindow({
+			borderWidth : 0,
+			backgroundColor : 'transparant',
+			anchorSize : {
+				width : 10,
+				height : 10
+			}
+		});
+
+		map.setCursor('pointer');
+
+		// result by latlng coordinate
+		function searchAddressToCoordinate(address) {
+			naver.maps.Service
+					.geocode(
+							{
+								address : address
+							},
+							function(status, response) {
+								if (status === naver.maps.Service.Status.ERROR) {
+									$('#address').val('');
+									return alert('유효하지 않은 주소 입니다! 주소를 확인해 주세요.');
+								}
+
+								var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명주소]'
+										: '[지번주소]', point = new naver.maps.Point(
+										item.point.x, item.point.y);
+
+								$('#address').val(item.address);
+
+								infoWindow
+										.setContent([
+												'<div class="alert alert-light border border-secondary map_info mb-0" role="alert">',
+												'<b>검색 주소 : '
+														+ response.result.userquery
+														+ '</b><br>',
+												addrType + ' ' + item.address
+														+ '<br>', '</div>' ]
+												.join('\n'));
+
+								map.setCenter(point);
+								infoWindow.open(map, point);
+							});
+		}
+
+		function initGeocoder() {
+
+			searchAddressToCoordinate('${selectedRoom.address}');
+		}
+
+		naver.maps.onJSContentLoaded = initGeocoder;
+	</script>
 </body>
 </html>
