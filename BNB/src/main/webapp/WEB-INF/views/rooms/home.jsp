@@ -40,7 +40,7 @@
 										type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
 								<c:if test="${item.hostId eq loginUser.userId}">
 									<a
-										href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=${item.roomsId}&hostId=${item.hostId}"><button
+										href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=${item.roomsId}&_hostId=${item.hostId}"><button
 											type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
 								</c:if>
 							</div>

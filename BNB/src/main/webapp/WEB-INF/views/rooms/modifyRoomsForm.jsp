@@ -9,9 +9,10 @@
 <body>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('input:checkbox').change(function() {
+			$('input:checkbox[name^=amcb]').change(function() {
 				var check = '';
-				$('input:checkbox').each(function() {
+				//$('input:checkbox').each(function() {
+				$('input:checkbox[name^=amcb]').each(function() {
 					if ($(this).is(':checked')) {
 						check = check + 'T';
 					} else {
@@ -20,7 +21,6 @@
 				});
 				$('#amenities').val(check);
 			});
-
 		});
 	</script>
 	<%@ include file="/resources/common/Navbar.jsp"%>
@@ -144,6 +144,10 @@
 							required="required"></td>
 					</tr>
 					<tr>
+						<td colspan="2"><div id="map"
+								style="width: 100%; height: 500px;"></div></td>
+					</tr>
+					<tr>
 						<td colspan="2">
 							<div class="input-group mb-3">
 								<div class="custom-file">
@@ -164,7 +168,7 @@
 							type="hidden" id="disabled" name="disabled"
 							value="${selectedRoom.disabled}"><input type="submit"
 							class="btn btn-danger" value="수정"><a
-							href="${pageContext.request.contextPath}/rooms/deleteRoom?roomsId=${selectedRoom.roomsId}&hostId=${selectedRoom.hostId}"><input
+							href="${pageContext.request.contextPath}/rooms/deleteRoom?roomsId=${selectedRoom.roomsId}&_hostId=${selectedRoom.hostId}"><input
 								type="button" class="btn btn-danger" value="삭제"></a></td>
 					</tr>
 				</table>
@@ -178,6 +182,144 @@
 	<script>
 		// 스피너 사용	
 		$("input[type='number']").inputSpinner()
+
+		// input에서 엔터키 사용시 submit을 방지하기 위함
+		$('input[type="text"]').keydown(function() {
+			if (event.keyCode === 13) {
+				event.preventDefault();
+			}
+		});
+	</script>
+	<script type="text/javascript"
+		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RjRRELdZtqF2DId12vbe&submodules=geocoder"></script>
+	<script>
+		// 초기값 경복궁
+		var map = new naver.maps.Map("map", {
+			center : new naver.maps.LatLng(37.5788408, 126.9770162),
+			zoom : 10,
+			scaleControl : true,
+			scaleControlOptions : {
+				position : naver.maps.Position.TOP_LEFT
+			},
+			zoomControl : true,
+			zoomControlOptions : {
+				position : naver.maps.Position.TOP_RIGHT
+			},
+			mapTypeControl : true
+		});
+
+		var infoWindow = new naver.maps.InfoWindow({
+			borderWidth : 0,
+			backgroundColor : 'transparant',
+			anchorSize : {
+				width : 10,
+				height : 10
+			}
+		});
+
+		map.setCursor('pointer');
+
+		// search by tm128 coordinate
+		function searchCoordinateToAddress(latlng) {
+			var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlng);
+
+			infoWindow.close();
+
+			naver.maps.Service
+					.reverseGeocode(
+							{
+								location : tm128,
+								coordType : naver.maps.Service.CoordType.TM128
+							},
+							function(status, response) {
+								if (status === naver.maps.Service.Status.ERROR) {
+									$('#address').val('');
+									return alert('유효하지 않은 주소 입니다! 주소를 확인해 주세요.');
+								}
+
+								var items = response.result.items, htmlAddresses = [];
+
+								for (var i = 0, ii = items.length, item, addrType; i < ii; i++) {
+									item = items[i];
+
+									if (i == 0) {
+										addrType = item.isRoadAddress ? '[도로명주소]'
+												: '[지번주소]';
+
+										// htmlAddresses.push((i + 1) + '. ' + addrType+ ' ' + item.address);
+										htmlAddresses.push(addrType + ' '
+												+ item.address);
+										$('#address').val(item.address);
+									}
+								}
+
+								infoWindow
+										.setContent([
+												'<div class="alert alert-light border border-secondary map_info mb-0" role="alert">',
+												'<b>검색 좌표</b><br>',
+												htmlAddresses.join('<br>'),
+												'</div>' ].join('\n'));
+
+								infoWindow.open(map, latlng);
+							});
+		}
+
+		// result by latlng coordinate
+		function searchAddressToCoordinate(address) {
+			naver.maps.Service
+					.geocode(
+							{
+								address : address
+							},
+							function(status, response) {
+								if (status === naver.maps.Service.Status.ERROR) {
+									$('#address').val('');
+									return alert('유효하지 않은 주소 입니다! 주소를 확인해 주세요.');
+								}
+
+								var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명주소]'
+										: '[지번주소]', point = new naver.maps.Point(
+										item.point.x, item.point.y);
+
+								$('#address').val(item.address);
+
+								infoWindow
+										.setContent([
+												'<div class="alert alert-light border border-secondary map_info mb-0" role="alert">',
+												'<b>검색 주소 : '
+														+ response.result.userquery
+														+ '</b><br>',
+												addrType + ' ' + item.address
+														+ '<br>', '</div>' ]
+												.join('\n'));
+
+								map.setCenter(point);
+								infoWindow.open(map, point);
+							});
+		}
+
+		function initGeocoder() {
+			map.addListener('click', function(e) {
+				searchCoordinateToAddress(e.coord);
+			});
+
+			// 주소창에 enter 입력시
+			$('#address').on('keydown', function(e) {
+				var keyCode = e.which;
+				if (keyCode === 13) { // Enter Key
+					searchAddressToCoordinate($('#address').val());
+				}
+			});
+
+			// 주소창에 입력후 엔터를 입력하지 않았으나, 포커스를 벗어날  경우
+			$('#address').blur(function(e) {
+				searchAddressToCoordinate($('#address').val());
+			});
+			
+			searchAddressToCoordinate('${selectedRoom.address}');
+		}
+
+		naver.maps.onJSContentLoaded = initGeocoder;
 	</script>
 </body>
 </html>

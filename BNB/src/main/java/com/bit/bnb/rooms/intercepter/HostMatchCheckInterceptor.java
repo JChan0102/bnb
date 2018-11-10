@@ -17,16 +17,16 @@ public class HostMatchCheckInterceptor extends HandlerInterceptorAdapter {
 			throws IOException {
 
 		HttpSession session = request.getSession(false);
-		String hostId = request.getParameter("hostId");
+		String _hostId = request.getParameter("_hostId");
 
 		if (session != null) {
 			Object obj = session.getAttribute("loginUser");
 			if (obj != null) {
 				UserVO uv = (UserVO) session.getAttribute("loginUser");
 
-				if (uv.getUserId().equals(hostId)) {
+				if (uv.getUserId().equals(_hostId)) {
 					return true;
-				} else if (!uv.getUserId().equals(hostId)) {
+				} else if (!uv.getUserId().equals(_hostId)) {
 					// 로그인 한 사용자가 해당 숙소의 호스트가 아닐 경우
 					response.sendRedirect(request.getContextPath() + "/rooms/accessDenied");
 				} else {

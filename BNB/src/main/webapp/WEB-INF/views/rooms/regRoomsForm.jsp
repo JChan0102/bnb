@@ -9,9 +9,9 @@
 <body>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('input:checkbox').change(function() {
+			$('input:checkbox[name^=amcb]').change(function() {
 				var check = '';
-				$('input:checkbox').each(function() {
+				$('input:checkbox[name^=amcb]').each(function() {
 					if ($(this).is(':checked')) {
 						check = check + 'T';
 					} else {
