@@ -15,14 +15,14 @@
 </head>
 <body>
 	<%@ include file="/resources/common/Navbar.jsp"%>
-	<div id="loginForm" style="padding: 20px">
+	<div id="loginForm">
 		<!-- Begin page content -->
 		<main role="main" class="container">
 		<div class="row justify-content-md-center">
 			<div class="col col-md-6 col-lg-4">
 				<form method="post">
 					<label class="form-check-label mt-2 mb-2">아이디 :</label> <input
-						type="text" name="userId" class="form-control"
+						type="email" name="userId" class="form-control"
 						placeholder="example@example.com" value="${cookieUserId}" /> <br>
 					<label class="form-check-label mt-2 mb-2">비밀번호 :</label><input
 						type="password" name="userPw" class="form-control" /> <label

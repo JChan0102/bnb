@@ -12,7 +12,7 @@
 <%@ include file="/resources/common/includeHead.jsp"%>
 <%@ include file="/resources/common/Navbar.jsp"%>
 	
-	<div id="userRegForm" style="padding:20px">
+	<div id="userRegForm">
 	<form method="post" enctype="multipart/form-data">
 		아이디(이메일 ) : <input type="email" name="userId" required /><br>
 		비밀번호 설정 : <input type="password" name="userPw" required /><br>

@@ -1,9 +1,17 @@
 @charset "UTF-8";
 
-/* #userRegForm{
-	padding: 100px;
+#userRegForm{
+	padding-top: 100px;
+	padding-left: 30px;
 }
 
 #loginForm{
-	padding: 100px;
-} */
+	padding-top: 100px;
+	padding-left: 30px;
+}
+
+#loginHidden{
+	padding: 5px;
+	font-size: 9px;
+	color: red;
+}

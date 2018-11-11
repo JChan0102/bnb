@@ -34,7 +34,7 @@
 						href="${pageContext.request.contextPath}/userReg">회원가입</a></li>
 					<!-- <button class="btn btn-default" data-target="#layerpop" data-toggle="modal">로그인</button> -->
 
-					<li class="nav-item"><a class="nav-link text-dark"
+					<li class="nav-item"><a id="login_go" class="nav-link text-dark"
 						data-target="#layerpop" data-toggle="modal"
 						href="${pageContext.request.contextPath}/login">로그인</a></li>
 				</c:if>
@@ -114,7 +114,7 @@
 		};
 	}
 </script>
-<!-- 모달 테스트 -->
+<!-- 로그인 모달-->
 <div class="modal fade" id="layerpop">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -127,22 +127,86 @@
 			</div>
 			<!-- body -->
 			<div class="modal-body">
-				<form action="${pageContext.request.contextPath}/login"
-					method="post">
-					아이디 : <input type="text" name="userId"
-						placeholder="example@example.com"
-						value="${cookie.cookieUserId.value}" /> <br> 비밀번호 : <input
-						type="password" name="userPw" /> <br> Remember Me! <input
-						type="checkbox" name="rememberMe"
+			
+			<main role="main" class="container">
+		<div class="row justify-content-md-center">
+			<div class="col col-md-4 col-lg-8">
+					<label class="form-check-label mt-2 mb-2">아이디 :</label> <input
+						type="email" id="input_userId" name="userId" class="form-control"
+						placeholder="example@example.com" value="${cookie.cookieUserId.value}" />
+						
+						<div id="loginHidden" style="display: none; color: #dc3545;" ></div>
+						
+					<label class="form-check-label mt-2 mb-2">비밀번호 :</label><input
+						type="password" id="input_userPw" name="userPw" class="form-control" />
+					<label class="form-check-label mt-2 mb-2">Remember Me! </label>
+					<input type="checkbox" id="chk_rememberMe" name="rememberMe" 
 						<c:if test="${cookie.cookieUserId ne null}">
                             checked
-                        </c:if> />
-					<input type="submit" value="로그인" />
-				</form>
-			</div>
+                        </c:if>
+						class="form-control-input" />
+					<button id="btn_login" class="btn btn-lg btn-danger btn-block" type="button">
+					로그인</button>
+			
+							</div>
+						</div>
+					</main>
+				</div>
+			
 			<!-- Footer -->
 			<div class="modal-footer">BIBIBIT 대한민국 숙박정보 BnB</div>
 		</div>
 	</div>
 </div>
-<!-- 모달 테스트 끝 -->
+<!-- 로그인 모달 끝 -->
+
+<!-- 로그인 관련 스크립트 -->
+<script>
+
+$('#login_go').click(function(){
+	
+	if(${cookie.cookieUserId == null}){
+		$('#input_userId').val("");
+	}
+	
+	$('#input_userPw').val("");
+	$('#input_userPw').val("");
+	$('#loginHidden').css("display","none");
+});
+
+$('#chk_rememberMe').click(function(){
+	var chk = $('#chk_rememberMe'); 
+	alert(chk.is(':checked'));
+	
+});
+
+
+$('#btn_login').click(function() {
+	
+	$('#loginHidden').empty();
+	
+          var userId = $('#input_userId').val();
+          var userPw = $('#input_userPw').val();
+          var rememberMe = $('#chk_rememberMe').is(':checked');
+          var result = "";
+
+          alert(rememberMe);
+          
+          $.ajax({
+              type : "POST",
+              url : "login",
+              data : {"userId" : userId,
+            	  	  "userPw" : userPw,
+            	  	  "rememberMe" : rememberMe},
+              success : function(result) {
+                if (result == 'loginFail') {
+          			$('#loginHidden').css("display","");
+          			$('#loginHidden').append("아이디와 비밀번호를 확인하세요");
+                  } else {
+                      location.href = '${pageContext.request.contextPath}/';
+                  }
+              }
+          })
+});
+</script>
+<!-- 로그인 스크립트 끝 -->
