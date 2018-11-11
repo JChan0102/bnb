@@ -206,19 +206,13 @@
 
 $('#login_go').click(function(){
 	
-	if(${cookie.cookieUserId == null}){
+	if(${cookie.cookieUserId eq null}){
 		$('#input_userId').val("");
 	}
 	
 	$('#input_userPw').val("");
 	$('#input_userPw').val("");
 	$('#loginHidden').css("display","none");
-});
-
-$('#chk_rememberMe').click(function(){
-	var chk = $('#chk_rememberMe'); 
-	alert(chk.is(':checked'));
-	
 });
 
 
@@ -231,8 +225,6 @@ $('#btn_login').click(function() {
           var rememberMe = $('#chk_rememberMe').is(':checked');
           var result = "";
 
-          alert(rememberMe);
-          
           $.ajax({
               type : "POST",
               url : "login",
