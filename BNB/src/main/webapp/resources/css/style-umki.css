@@ -1,34 +1,34 @@
-/* @charset "UTF-8";
-        * {
+@charset "UTF-8";
+/*         * {
             box-sizing: border-box;
             font-family: 'NanumGothic, sans-serif';
         }
-
-        body {
+ */
+        .umkibody {
             margin: 0;
         }
 
-        placeholder color
+        /* placeholder color */
 
-        input:-ms-input-placeholder {
+        .hasDatepicker:-ms-input-placeholder {
             color: #000;
         }
 
-        input::-webkit-input-placeholder {
+        .hasDatepicker::-webkit-input-placeholder {
             color: #000;
         }
 
-        input::-moz-placeholder {
+        .hasDatepicker::-moz-placeholder {
             color: #000;
         }
 
-        input::-moz-placeholder {
+        .hasDatepicker::-moz-placeholder {
             color: #000;
         }
 
-        .wrapper {
+        .wrapperr {
             position: relative;
-            width: 445px;
+            width: 200px;
             height: 45px;
             margin: 10px;
         }
@@ -39,7 +39,7 @@
             top: 14px;
         }
 
-        input
+        /* input */
 
         #datepicker,#return {
             border: 1px solid #c6e2f7;
@@ -51,7 +51,11 @@
             cursor: pointer;
         }
 
-        #datepicker,#return:hover {
+        #datepicker:hover {				/* 체크인 박스 호버 */
+            background-color: #eaf7ff;
+        }
+        
+        #return:hover {				    /* 체크아웃 박스 호버 */
             background-color: #eaf7ff;
         }
 
@@ -59,7 +63,7 @@
             outline: none;
         }
 
-        calendar table
+        /* calendar table */
 
         .ui-datepicker {
             display: none;
@@ -101,7 +105,7 @@
             width: 100%;
         }
 
-        day of week cell
+        /* day of week cell */
 
         .ui-datepicker-calendar>thead>tr>th {
             padding: 5px;
@@ -109,7 +113,7 @@
             font-weight: 400;
         }
 
-        day cell
+        /* day cell */
 
         .ui-datepicker-calendar>tbody>tr>td {
             border-radius: 100%;
@@ -132,21 +136,25 @@
             text-decoration: none;
         }
         
+        /* .not:before{
+        	z-index -1;
+            content : "X";
+        } */
         .not{
-        	 background-color:red;
+        	color: red;
         }
 
-        past days
+        /* past days */
 
-        .ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover {
+        .ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover {  /* 선택 불가능한놈들 호버 */ 
             cursor: auto;
-            background-color: #fff;
+            background-color: #fff;   /* 아마도 회색?? */
         }
 
-        media
+        /* media */
 
         @media(max-width: 445px) {
-            .wrapper {
+            .wrapperr {
                 width: calc(100vw - 20px);
             }
             .ui-datepicker {
@@ -160,4 +168,4 @@
                 width: 38px;
                 height: 38px;
             }
-        } */
+        }

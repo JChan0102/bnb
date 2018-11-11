@@ -16,25 +16,25 @@
 
 </head>
 
-<body>
-	<div class="wrapper">
+<body class="umkibody">
+<form action="${pageContext.request.contextPath}/reservation/do">
+	<div class="wrapperr">
 		<input type="text" id="datepicker" placeholder=" 체크인 " readonly="true" />
 		<i class="ion-calendar"></i>
 	</div>
-	<div class="wrapper">
+	<div class="wrapperr">
 		<input type="text" id="return" placeholder=" 체크아웃 " readonly="true">
 		<i class="ion-calendar"></i>
 	</div>
-
+	
+		<input type="submit" value="예약하기"/>
+	
+</form>
 	<script>
         
-        var inmm = 0;
-    	var indd = 0;
-    	var outmm = 0;
-    	var outdd = 0;
-    	var lastDay = 0;
-    	var diffDate = 0;
-    	var tmp = 0;
+    	var impossible = new Array();
+    	var re;
+    	var now = new Date();
     	
         function temp(){
             $.ajax({
@@ -42,22 +42,25 @@
                 url: '${pageContext.request.contextPath}/reservation/possible',
                 type: 'GET',
                 datatype: 'json',
-                /* data : 방번호 */
+                data: {
+                	"roomsId": 3
+                },
                 success: function(data) {
                     $(data).each(
                         function(key, value) {
-                        	inyy = Number(value.checkIn.substring(0, 4));
+                       		day = value.day;
+                       		inyy = Number(value.checkIn.substring(0, 4));
                         	inmm = Number(value.checkIn.substring(5, 7));
                         	indd = Number(value.checkIn.substring(8, 10));
-                        	outyy = Number(value.checkOut.substring(0, 4));
-                        	outmm = Number(value.checkOut.substring(5, 7));
-                        	outdd = Number(value.checkOut.substring(8, 10));
-                        	
-                        	lastDay = new Date(new Date(2018, inmm,1) - 1).getDate();
-                        	inDate = new Date(new Date(inyy, inmm-1, indd));
-                        	outDate = new Date(new Date(outyy, outmm-1, outdd));
-                        	diffDate = (outDate-inDate)/(1000 * 3600 * 24);
-                        	tmp = diffDate;
+	                        if(inmm!=12){
+                        	for(i=0; i<day; i++){
+                        		impossible.push(new Date(inyy, inmm-1, indd+i));         
+                        	}
+	                        } else if (inmm==12){
+                        	for(i=0; i<day; i++){
+                        		impossible.push(new Date(inyy+1, 0-1, indd+i));         
+                        	}
+	                        }
                         });
                 }
             });
@@ -98,68 +101,78 @@
                 onSelect: function(selected, event) {
                     window.parent.postMessage(selected, "*");
                 },
-
-                	
                 beforeShowDay: function(date) {
-                	var d = date.getDate();
-                    var m = date.getMonth()+1;
-                    var y = date.getFullYear(); 
-                    /* inmm = m; */
-                    /* console.log("indd : " + indd); */
-                    /* console.log("m : " +m); */
+                	    
+                    $(impossible).each(
+                            function(key, value) {
+                            	    
+                            	if(String(date) == String(value) &&
+                            			(value.getFullYear() == now.getFullYear() && 
+                            			value.getMonth() >= now.getMonth() && 
+                            			value.getDate() >= now.getDate())
+                            	){
+                                	re = [false, "not", ""];
+                                	return false;    
+                                }else if(value.getFullYear() > now.getFullYear() && String(date) == String(value) ){
+                                	re = [false, "not", ""];
+                                	return false;       
+                                }else {
+                                	re = [true];
+                                	return true;
+                                }
+                            });
                     
-                    console.log("fyfff : " +y);
-                    /* console.log("outmm : " +outmm); */
-                     
-                    
-                    if(inyy == outyy  && outyy == y &&  inmm <=m && outmm > m && indd <= d){ //년도가 같고 달이 넘어가지 않을 경우
-                    	return [false, "not",  ""];
-                    } 
-                    else if((inyy == outyy && outyy == y &&outmm<=m )&&((inmm == m && indd <= d)||(inmm != m && outdd >= d)||(m != outmm && m != inmm))){ //년도가 같고 달이 넘어갈 경우
-                    	return [false, "not", ""];
-                    } /*
-                    else if (((m == inmm  && d >= indd)||(m == outmm && d < outdd)||(m != outmm && m != inmm))&&(y!=outyy&&inyy == y)) { //년도가 넘어 가는 경우 이전 년도까지 처리
-                        return [false, "not", ""];
-                    }
-                     
-                    else if((inyy != outyy && outmm >= m)&& ((inmm == m && indd <= d)||(inmm != m && outdd >= d)||(m != outmm && m != inmm))){ //년도가 넘어 가는 경우 다음년도 처리
-                    	return [false, "not", ""];
-                    } */
-                     
-                    
-
-                    else {
-                        return [true];
-                    }
-                   
-                    
+                    return re;
                 },
                 onClose: function(selected) {
                     var year = Number(selected.substring(0, 4));
                     var month = Number(selected.substring(6, 8));
-                    var date = Number(selected.substring(10, 12));
+                    var date = Number(selected.substring(10, 12));   
+                    var checkIn = new Date(year, month - 1, date);
+                    var checkIn2 = new Date(year, month - 1, date+1);
+                    console.log(typeof selected);
+                    
+                    if(selected != ""){
+                    $.ajax({
+                    	async : false,
+                        url: '${pageContext.request.contextPath}/reservation/possibleDuration',
+                        type: 'GET',
+                        data: {
+                        	"checkIn": checkIn,
+                        	"now" : now,
+                        	"roomsId": 3
+                        },   
+                        datatype: 'json',
+                        success: function(data) {        
+                        	$(data).each(
+                                    function(key, value) {
+                                     	 $('#return').datepicker("option", "maxDate", "+"+value+"d");
+                                    });  
+                        }
+                    });
 
-                    var jj = new Date(year, month - 1, date + 1);
-
-                    $('#return').datepicker("option", "minDate", jj);
+                    $('#return').datepicker("option", "minDate", checkIn2);
+                    }
                     temp();
                   	            
                 },
                 
                 onChangeMonthYear : function(){
-                		temp();
+                	impossible = [];
+                	temp();
                 }
-                
+                    
             });
 
 
             $("#return").datepicker({
                 showAnim: 'drop',
-                minDate: 0,
+                minDate: new Date(),
                 onSelect: function(selected, event) {
 
                     window.parent.postMessage(selected, "*");
                 }
+            
             });
 
         </script>
