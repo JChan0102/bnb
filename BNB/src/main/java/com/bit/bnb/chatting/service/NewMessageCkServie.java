@@ -5,6 +5,7 @@ import com.bit.bnb.chatting.model.MessageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -13,7 +14,7 @@ public class NewMessageCkServie {
     @Autowired
     ChatDAO dao;
 
-    public int getList(String userId){
+    public void getList(String userId, HttpSession session){
         List<MessageVO> list= dao.newChatCK(userId);
         int result = 0;
         for(int i=0; i<list.size();i++){
@@ -25,6 +26,8 @@ public class NewMessageCkServie {
                 result++;
             }
         }
-    return result;
+
+        session.setAttribute("NewmessageCk",result);
+
     }
 }

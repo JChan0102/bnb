@@ -21,7 +21,6 @@ public class MessageListService {
 
 
         List<MessageVO> list = dao.getMessageList(roomsVO);
-        System.out.println(list.toString());
         readOk(roomsVO);
         return list;
 

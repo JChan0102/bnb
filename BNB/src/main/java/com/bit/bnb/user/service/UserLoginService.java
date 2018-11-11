@@ -38,7 +38,7 @@ public class UserLoginService {
 			// 세션에 loginUser라는 이름으로 유저 인스턴스를 저장
 			session.setAttribute("loginUser", userVO);
 
-			session.setAttribute("NewmessageCk",messageCkServie.getList(userVO.getUserId()));
+			messageCkServie.getList(userVO.getUserId(),session);
 
 			result = true;
 		}

@@ -29,7 +29,6 @@
             </div>
         <c:forEach var="item" items="${lists}">
                 <script>
-                    console.log('${item.userId}' == '${sessionScope.loginUser.userId}' && '${item.receive}'=='H' || '${item.hostId}' == '${sessionScope.loginUser.userId}'&&'${item.receive}'=='U');
                     if (('${item.userId}' == '${sessionScope.loginUser.userId}' && '${item.receive}'=='H') || ('${item.hostId}' == '${sessionScope.loginUser.userId}'&&'${item.receive}'=='U')) {
                         $("#chatMessageArea").append("<div class='row justify-content-end' style = 'height : auto; margin-top : 5px;'>" +
                             "<div class='col-2' style = 'float:left; padding-right:0px; padding-left : 0px;'>" +
@@ -100,7 +99,7 @@
 
 
                 function appendMessage(obj) {
-                    console.log(obj.sender == '${sessionScope.loginUser.userId}')
+                   if(obj.userId=='${chatroom.userId}'&&obj.hostId=='${chatroom.hostId}'&&obj.roomsId=='${chatroom.roomsId}'){
                     if (obj.messagecontent == '') {
                         return false;
                     } else {
@@ -124,6 +123,7 @@
                         var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
                         $("#chatArea").scrollTop(maxScroll);
                     }
+                   }
                 }
 
                 $(document).ready(function () {

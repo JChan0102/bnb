@@ -2,6 +2,7 @@ package com.bit.bnb.chatting.controller;
 
 import com.bit.bnb.chatting.model.ChatRoomVO;
 import com.bit.bnb.chatting.service.MessageListService;
+import com.bit.bnb.chatting.service.NewMessageCkServie;
 import com.bit.bnb.user.model.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ public class ChatListController {
 
     @Autowired
     MessageListService service;
+    @Autowired
+    NewMessageCkServie newMessageCkServie;
 
     @RequestMapping(value = "/chat/list", method = RequestMethod.GET)
     public ModelAndView list(HttpSession session,ChatRoomVO roomVO){
@@ -30,7 +33,7 @@ public class ChatListController {
         }else{
             roomVO.setReceive("H");
         }
-
+        newMessageCkServie.getList(user.getUserId(),session);
 
         modelAndView.addObject("chatRoomList", service.chatAllList(user.getUserId()));
         modelAndView.setViewName("chat/list");

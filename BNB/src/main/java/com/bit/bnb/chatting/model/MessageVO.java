@@ -14,6 +14,15 @@ public class MessageVO {
     private String receive;
     private String sender;
     private String readCk;
+    private int unreadCount;
+
+    public int getUnreadCount() {
+        return unreadCount;
+    }
+
+    public void setUnreadCount(int unreadCount) {
+        this.unreadCount = unreadCount;
+    }
 
     public String getSender() {
         return sender;

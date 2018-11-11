@@ -58,6 +58,15 @@
                                         and roomsId = #{roomsId} and receive=#{receive}
 
     </update>
+
+
+    <select id="UnreadMessageList" resultType="com.bit.bnb.chatting.model.MessageVO">
+
+        select me.idx, me.hostId, me.userId, me.roomsId, me.messagecontent, me.messageDate, sa.unreadCount, me.receive from message me inner join (select Max(idx) idx, userId,roomsId,hostId, count(*) unreadCount from message where readCk='F'
+                                                                                                                                                   group by userId,roomsId,hostId having userId = #{userId}  or hostId =#{userId}) sa on me.idx = sa.idx order by me.idx desc;
+
+    </select>
+
 <!--
 
     <select id="getRoomList2" resultType="com.bit.bnb.chatting.model.ChatRoomVO">

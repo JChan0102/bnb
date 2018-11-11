@@ -46,14 +46,15 @@
 					<li class="nav-item text-dark dropdown"><a
 						class="nav-link  dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> 알림<span class="badge badge-secondary"
+						aria-expanded="false" onclick="getListmessage()"> 알림<span class="badge badge-secondary"
 							id="jchannotice">
 							<c:if test="${sessionScope.NewmessageCk ne 0}">new</c:if></span>
 					</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">1</a> <a class="dropdown-item"
-								href="#">2</a> <a class="dropdown-item" href="#">3</a> <a
-								class="dropdown-item" href="#">4</a>
+							<a class="dropdown-item" href="#" id="list1"></a>
+							<a class="dropdown-item" href="#" id="list2"></a>
+							<a class="dropdown-item" href="#" id="list3"></a>
+							<a class="dropdown-item" href="#" id="list4"></a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item"
 								href="${pageContext.request.contextPath}/chat/list">더보기..</a>
@@ -82,13 +83,21 @@
 			var data = evt.data;
 			console.log(data);
 			var obj = JSON.parse(data);
-			if ((obj.userId == '${sessionScope.loginUser.userId}' && obj.receive == 'U')
-					|| (obj.hostId == '${sessionScope.loginUser.userId}' && obj.receive == 'H')) {
-				$('#jchannotice').html('New');
+			if ((obj.userId == '${sessionScope.loginUser.userId}' && obj.receive == 'U')){
+				toastMessage(obj.messagecontent, obj.hostId)
 
+			}  else if((obj.hostId == '${sessionScope.loginUser.userId}' && obj.receive == 'H')) {
+
+                toastMessage(obj.messagecontent, obj.userId)
+                }
+			function toastMessage(msg,sender){
+				$('#jchannotice').html('New');
+					if(msg.length>10){
+					    msg = msg.substring(9,0)+'...';
+                    }
 				$.toast({
-					text : "NewMessage", // Text that is to be shown in the toast
-					heading : 'Note', // Optional heading to be shown on the toast
+					text : msg, // Text that is to be shown in the toast
+					heading : 'NewMessage ( '+sender+' ) ', // Optional heading to be shown on the toast
 					showHideTransition : 'slide', // fade, slide or plain
 					allowToastClose : true, // Boolean value true or false
 					hideAfter : 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
@@ -112,7 +121,39 @@
 			}
 
 		};
+
 	}
+
+	function getListmessage() {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/chat/unreadlist',
+            type: 'get',
+            datatype: 'json',
+            success: function (data) {
+                var listindex=1;
+                $(data).each(function (key, value){
+                    msg= value.messagecontent;
+                if(value.messagecontent.length>10){
+                    msg = msg.substring(9,0)+'...';
+                }
+                   if(value.userId=='${sessionScope.loginUser.userId}'&&value.receive=='U'){
+						$('#list'+listindex).text(value.hostId+' : '+msg + ' ('+value.unreadCount+')' );
+						listindex++;
+                   }
+                   if(value.hostId=='${sessionScope.loginUser.userId}'&&value.receive=='H'){
+                       $('#list'+listindex).text(value.userId+' : '+msg + ' ('+value.unreadCount+')' );
+                       listindex++;
+                   }
+                   if(listindex==5){
+                       return false;
+                   }
+                });
+            },
+            error: function () {
+                alert(error);
+            }
+        });
+    }
 </script>
 <!-- 로그인 모달-->
 <div class="modal fade" id="layerpop">

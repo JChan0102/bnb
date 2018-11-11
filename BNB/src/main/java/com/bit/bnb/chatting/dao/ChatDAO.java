@@ -79,6 +79,11 @@ public class ChatDAO {
         return sqlSessionTemplate.selectList(namespace+"getAllRoomList",str);
     }
 
+    public List<MessageVO> UnreadMessageList(String userId){
+        return sqlSessionTemplate.selectList(namespace+"UnreadMessageList",userId);
+    }
+
+
 
 
     public List<ChatRoomVO> getRoomList2(String str) throws Exception {
