@@ -109,7 +109,8 @@
 								style="width: 100%; height: 500px;"></div></td>
 					</tr>
 					<tr>
-						<td colspan="2">이방의 후기</td>
+						<td>이방의 후기</td>
+						<td><c:forEach items="${review}" var="item">${item.reviewContent}<hr></c:forEach></td>
 					</tr>
 					<tr>
 						<td colspan="2">호스트 정보</td>

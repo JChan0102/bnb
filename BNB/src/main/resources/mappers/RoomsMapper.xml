@@ -172,6 +172,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		`bnb`.`reservation` rs ON
 		rv.reservationNum = rs.reservationNum WHERE
 		rs.roomsId = #{roomsId}
+		ORDER BY reviewDate DESC
+		<if test="paging != null">
+			LIMIT #{paging.offset}, #{paging.dataPerPage}
+		</if>
 	</select>
 
 	<!-- 리뷰 부분 -->
