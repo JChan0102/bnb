@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
     <!DOCTYPE html>
     <html>
 
@@ -21,10 +21,10 @@
     <body class="umkibody">
         <form method="post">
             <div class="wrapperr">
-                <input name="checkIn" type="text" id="datepicker" placeholder=" 체크인 " readonly="true" /> <i class="ion-calendar"></i>
+                <input type="text" id="datepicker" placeholder=" 체크인 " readonly="true" /> <i class="ion-calendar"></i>
             </div>
             <div class="wrapperr">
-                <input name="checkOut" type="text" id="return" placeholder=" 체크아웃 " readonly="true">
+                <input type="text" id="return" placeholder=" 체크아웃 " readonly="true">
                 <i class="ion-calendar"></i>
             </div>
             <div class="wrapperr">
@@ -38,8 +38,8 @@
                             <div class="modal-header">
                                 <h4 class="modal-title" id="myModalLabel">Modal 제목</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
+                        <span aria-hidden="true">&times;</span>
+                     </button>
                             </div>
 
                             <div class="modal-body">
@@ -49,7 +49,7 @@
                                     <div class="umki-pd">1</div>
                                     <div onclick="plusAdult(this)" class="umki-pd umki-rad-p">+</div>
                                 </div>   
-                            </div>
+                            </div>      
                             <div class="modal-body">
                                 <div class="umki-people">어린이</div>
                                 <div class="umki-number">
@@ -68,94 +68,84 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button onclick="peoplee()" type="button" class="btn btn-default" data-dismiss="modal">확인</button>
+                                <button onclick="people()" type="button" class="btn btn-default" data-dismiss="modal">확인</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-			<input type="text" value="${loginUser.userId}" name="hostId"/>
+
+            <input type="text" value="${loginUser.userId}" name="hostId"/>
 			<input type="text" value="${loginUser.userId}" name="userId"/>
 			<input type="text" value="${selectedRoom.roomsId}" name="roomsId"/>
 			<input type="text" value="${selectedRoom.price_weekdays}" name="price"/>
-			<input type="text" value="1" name="people" id="people"/>
-			            	  
-			
             <input type="submit" value="예약하기" />
+
         </form>
         <script>
             var impossible = new Array();
             var re;
             var now = new Date();
-            var day = 0;
             var adult = 1;
             var child = 0;
             var little = 0;
-            var limit = ${selectedRoom.avail_adults+selectedRoom.avail_children}; 
             
-            console.log(now);
-           			         
+            var limit = ${selectedRoom.avail_adults+selectedRoom.avail_children};
             
             function plusAdult(obj){
-            	if(limit > adult+child){
-            		$(obj).prev().text(++adult);
-            	}
+               if(limit > adult+child){
+                  $(obj).prev().text(++adult);
+               }
             }
             function plusChild(obj){
-            	if(limit > adult+child){
-            		$(obj).prev().text(++child);
-            	}
+               if(limit > adult+child){
+                  $(obj).prev().text(++child);
+               }
             }  
             function plusLittle(obj){
-            	if(5 > little){
-            		$(obj).prev().text(++little);
-            	}
+               if(5 > little){
+                  $(obj).prev().text(++little);
+               }
             }
             
             function minusAdult(obj){
-            	if(1 < $(obj).next().text()){
-            		$(obj).next().text(--adult);
-            	}
+               if(1 < $(obj).next().text()){
+                  $(obj).next().text(--adult);
+               }
             }
             function minusChild(obj){
-            	if(0 < $(obj).next().text()){
-            		$(obj).next().text(--child);
-            	}
+               if(0 < $(obj).next().text()){
+                  $(obj).next().text(--child);
+               }
             }
             function minusLittle(obj){
-            	if(0 < $(obj).next().text()){
-            		$(obj).next().text(--little);  
-            	}
+               if(0 < $(obj).next().text()){
+                  $(obj).next().text(--little);  
+               }
             }
-            function peoplee(){
-            	var peopleNum = adult+child;
-            	$("#umki_people").text("게스트 "+peopleNum+"명");
-            	
-            	if(little >= 1){
-            		$("#umki_people").text("게스트 "+peopleNum+"명, 유아 "+little+"명");
-            	}
-            	  
-            	$('#people').val(peopleNum);
+            function people(){
+               var peopleNum = adult+child;
+               $("#umki_people").text("게스트 "+peopleNum+"명");
+               
+               if(little >= 1){
+                  $("#umki_people").text("게스트 "+peopleNum+"명, 유아 "+little+"명");
+               }
             }
 
             function temp() {  
                 $.ajax({
                     async: false,
                     url: '${pageContext.request.contextPath}/reservation/possible',
-                    type: 'GET',
+                    type: 'GET',   
                     datatype: 'json',
                     data: {
-                        "roomsId": 3/* "${selectedRoom.roomsId}" */
+                        "roomsId": "${selectedRoom.roomsId}"   
                     },
                     success: function(data) {
                         $(data).each(
                             function(key, value) {
                                 day = value.day;
-                                
-                                
-                                     
-                                
                                 inyy = Number(value.checkIn.substring(
                                     0, 4));
                                 inmm = Number(value.checkIn.substring(
@@ -201,7 +191,7 @@
                 dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],
                 dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
                 weekHeader: "주",
-                dateFormat: "yy-mm-dd",     
+                dateFormat: "yy-mm-dd",  
                 firstDay: 0,
                 isRTL: false,
                 showMonthAfterYear: true,
@@ -247,7 +237,7 @@
                         return re;
                     },
                     onClose: function(selected) {
-                    	var year = Number(selected.substring(0, 4));
+                        var year = Number(selected.substring(0, 4));
                         var month = Number(selected.substring(5, 7));
                         var date = Number(selected.substring(8, 10));
                         
@@ -262,15 +252,15 @@
                                     async: false,
                                     url: '${pageContext.request.contextPath}/reservation/possibleDuration',
                                     type: 'GET',
-                                    data: {   
+                                    data: {
                                         "checkIn": checkIn,
-                                        "now": now,   
-                                        "roomsId": 3/* "${selectedRoom.roomsId}" */  
+                                        "now": now,
+                                        "roomsId": "${selectedRoom.roomsId}"
                                     },
                                     datatype: 'json',
                                     success: function(data) {
                                         $(data).each(
-                                                function(  
+                                                function(
                                                     key,
                                                     value) {
                                                     $('#return').datepicker(

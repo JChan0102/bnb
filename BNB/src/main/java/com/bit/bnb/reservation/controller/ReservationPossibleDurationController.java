@@ -16,18 +16,18 @@ import com.bit.bnb.reservation.service.ReservationCheckService;
 
 @Controller
 public class ReservationPossibleDurationController {
-	
-	@Autowired
-	ReservationCheckService service;
-	
-	@RequestMapping(value = "/reservation/possibleDuration", method = RequestMethod.GET)
-	@ResponseBody
-	public int getReservation(@RequestParam("checkIn") Date checkIn, @RequestParam("now") Date now,@RequestParam("roomsId") int roomsId) {
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		String checkInStr = format.format(checkIn);
-		String nowStr = format.format(now);
-		int duration = service.getDuration(checkInStr, nowStr, roomsId);
-		
-		return duration;
-	}
+   
+   @Autowired
+   ReservationCheckService service;
+   
+   @RequestMapping(value = "/reservation/possibleDuration", method = RequestMethod.GET)
+   @ResponseBody
+   public int getReservation(@RequestParam("checkIn") Date checkIn, @RequestParam("now") Date now,@RequestParam("roomsId") int roomsId) {
+      DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+      String checkInStr = format.format(checkIn);
+      String nowStr = format.format(now);
+      int duration = service.getDuration(checkInStr, nowStr, roomsId);
+      
+      return duration;
+   }
 }
