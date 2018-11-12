@@ -9,12 +9,12 @@
 <script>
 
     function getTimeStamp(datea) {
-        var d= null;
+        var d = null;
         console.log(typeof datea);
-        if(datea){
-            d= new Date(datea);
-        }else {
-            d= new Date();
+        if (datea) {
+            d = new Date(datea);
+        } else {
+            d = new Date();
         }
         var s =
             leadingZeros(d.getFullYear(), 4) + '-' +
@@ -57,7 +57,7 @@
         </c:forEach>
     </div>
     <div class="col-8">
-    <c:if test="${!empty lists}">
+        <c:if test="${!empty lists}">
             <div class="col-12">
                 <div class="col-11"
                      style="margin: 0 auto; border: 1px solid #01D1FE; height: 700px; border-radius: 10px; overflow:scroll"
@@ -65,21 +65,21 @@
                     <div id="chatMessageArea" style="margin-top : 10px; margin-left:10px;"></div>
                 </div>
             </div>
-        <c:forEach var="item" items="${lists}">
+            <c:forEach var="item" items="${lists}">
                 <script>
-                    if (('${item.userId}' == '${sessionScope.loginUser.userId}' && '${item.receive}'=='H') || ('${item.hostId}' == '${sessionScope.loginUser.userId}'&&'${item.receive}'=='U')) {
+                    if (('${item.userId}' == '${sessionScope.loginUser.userId}' && '${item.receive}' == 'H') || ('${item.hostId}' == '${sessionScope.loginUser.userId}' && '${item.receive}' == 'U')) {
                         $("#chatMessageArea").append("<div class='row justify-content-end' style = 'height : auto; margin-top : 5px;'>" +
                             "<div class='col-2' style = 'float:left; padding-right:0px; padding-left : 0px;'>" +
-                            "</div>"+
-                            "<div class = 'col-6 ' style = ' background-color:#ACF3FF; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>${item.messagecontent}</span></div>"+
-                            "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+getTimeStamp('${item.messageDate}')+"</span></div></div>")
+                            "</div>" +
+                            "<div class = 'col-6 ' style = ' background-color:#ACF3FF; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>${item.messagecontent}</span></div>" +
+                            "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >" + getTimeStamp('${item.messageDate}') + "</span></div></div>")
                     } else {
-                        $("#chatMessageArea").append("<div class='row justify-content-start' style = 'height : auto; margin-top : 5px;'>"+
-                            "<div class='col-1' style = 'float:right; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '>"+
-                            "</div>"+
-                            "<div class = 'col-6' style = ' background-color:gray; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>${item.messagecontent}</span></div>"+
-                            "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+getTimeStamp('${item.messageDate}')+"</span></div></div></div>"
-                           );
+                        $("#chatMessageArea").append("<div class='row justify-content-start' style = 'height : auto; margin-top : 5px;'>" +
+                            "<div class='col-1' style = 'float:right; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '>" +
+                            "</div>" +
+                            "<div class = 'col-6' style = ' background-color:gray; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>${item.messagecontent}</span></div>" +
+                            "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >" + getTimeStamp('${item.messageDate}') + "</span></div></div></div>"
+                        );
                     }
                     var chatAreaHeight = $("#chatArea").height();
                     var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
@@ -138,45 +138,53 @@
 
 
                 function appendMessage(obj) {
-                   if(obj.userId=='${chatroom.userId}'&&obj.hostId=='${chatroom.hostId}'&&obj.roomsId=='${chatroom.roomsId}'){
-                    if (obj.messagecontent == '') {
-                        return false;
-                    } else {
-                        if (obj.sender == '${sessionScope.loginUser.userId}') {
-                            $("#chatMessageArea").append("<div class='row justify-content-end' style = 'height : auto; margin-top : 5px;'>" +
-                                "<div class='col-2' style = 'float:left; padding-right:0px; padding-left : 0px;'>" +
-                                "</div>"+
-                                "<div class = 'col-6 ' style = ' background-color:#ACF3FF; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+obj.messagecontent+"</span></div>"+
-                                "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+
-                                getTimeStamp(obj.messageDate)
-                                +"</span></div></div>")
+                    if (obj.userId == '${chatroom.userId}' && obj.hostId == '${chatroom.hostId}' && obj.roomsId == '${chatroom.roomsId}') {
+                        if (obj.messagecontent == '') {
+                            return false;
                         } else {
-                            $("#chatMessageArea").append("<div class='row justify-content-start' style = 'height : auto; margin-top : 5px;'>"+
-                                "<div class='col-1' style = 'float:right; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '>"+
-                                "</div>"+
-                                "<div class = 'col-6' style = ' background-color:gray; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+obj.messagecontent+"</span></div>"+
-                                "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+getTimeStamp(obj.messageDate)+"</span></div></div></div>"
-                            );
+                            if (obj.sender == '${sessionScope.loginUser.userId}') {
+                                $("#chatMessageArea").append("<div class='row justify-content-end' style = 'height : auto; margin-top : 5px;'>" +
+                                    "<div class='col-2' style = 'float:left; padding-right:0px; padding-left : 0px;'>" +
+                                    "</div>" +
+                                    "<div class = 'col-6 ' style = ' background-color:#ACF3FF; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>" + obj.messagecontent + "</span></div>" +
+                                    "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >" +
+                                    getTimeStamp(obj.messageDate)
+                                    + "</span></div></div>")
+                            } else {
+                                $("#chatMessageArea").append("<div class='row justify-content-start' style = 'height : auto; margin-top : 5px;'>" +
+                                    "<div class='col-1' style = 'float:right; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '>" +
+                                    "</div>" +
+                                    "<div class = 'col-6' style = ' background-color:gray; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>" + obj.messagecontent + "</span></div>" +
+                                    "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >" + getTimeStamp(obj.messageDate) + "</span></div></div></div>"
+                                );
+                            }
+                            var chatAreaHeight = $("#chatArea").height();
+                            var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
+                            $("#chatArea").scrollTop(maxScroll);
                         }
-                        var chatAreaHeight = $("#chatArea").height();
-                        var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
-                        $("#chatArea").scrollTop(maxScroll);
-                    }
-                           $.ajax({
-                               url: '${pageContext.request.contextPath}/chat/list/ck?roomsId='+obj.roomsId+'&hostId='+obj.hostId+'&userId='+obj.userId,
-                               type: 'get',
-                               datatype: 'json',
-                               success: function (data) {
-                                   for(var i= 0; i<5; i++){
-                                   }
-                               },
-                               error: function () {
-                                   alert(error);
-                               }
-                           });
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/chat/list/ck?roomsId=' + obj.roomsId + '&hostId=' + obj.hostId + '&userId=' + obj.userId,
+                            type: 'get',
+                            datatype: 'json',
+                            success: function (data) {
+                                var cnt = 0;
+                                for (var i = 1; i < 5; i++) {
+                                    if ($('#list' + i).text() == '') {
+                                        cnt++
+                                    }
 
-                }
+                                }
+                                if (cnt == 0) {
+                                    $('#jchannotice').css('display', 'inline');
+                                }
+                            },
+                            error: function () {
+                                alert(error);
+                            }
+                        });
                     }
+                }
+
                 $(document).ready(function () {
                     $('#message').keypress(function (event) {
                         var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -195,7 +203,7 @@
 
             </script>
 
-    </c:if>
+        </c:if>
     </div>
 </div>
 

@@ -48,9 +48,7 @@
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false" onclick="getListmessage()"> 알림
 
-						<span class="badge badge-secondary"
-							id="jchannotice"
-								<c:if test="${sessionScope.NewmessageCk eq 0}"> STYLE="display: none" </c:if>   >new</span>
+						<span class="badge badge-secondary" id="jchannotice" style="display: none">new</span>
 					</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="#" id="list1"></a>
@@ -121,7 +119,7 @@
 		};
 
 	}
-
+	getListmessage();
 	function getListmessage() {
         $.ajax({
             url: '${pageContext.request.contextPath}/chat/unreadlist',
@@ -148,6 +146,11 @@
                        return false;
                    }
                 });
+				if(listindex==1){
+                    $('#jchannotice').css('display','none');
+                } else{
+                    $('#jchannotice').css('display','inline');
+                }
             },
             error: function () {
                 alert(error);
