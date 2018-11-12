@@ -8,14 +8,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.rooms.model.AmenitiesVO;
 import com.bit.bnb.rooms.model.RoomsVO;
-import com.bit.bnb.rooms.service.RoomsLIstService;
+import com.bit.bnb.rooms.service.RoomViewService;
 import com.bit.bnb.rooms.service.RoomsModifyService;
 
 @Controller
 public class RoomsModifyController {
 
 	@Autowired
-	RoomsLIstService roomsLIstService;
+	RoomViewService roomViewService;
 
 	@Autowired
 	RoomsModifyService roomsModifyService;
@@ -25,7 +25,7 @@ public class RoomsModifyController {
 	public ModelAndView getModifyRoomsForm(RoomsVO rv, AmenitiesVO av) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("amenities", roomsModifyService.getAmenities(av));
-		modelAndView.addObject("selectedRoom", roomsLIstService.getRoomsList(rv).get(0));
+		modelAndView.addObject("selectedRoom", roomViewService.getViewRooms(rv));
 		modelAndView.setViewName("rooms/modifyRoomsForm");
 		return modelAndView;
 	}

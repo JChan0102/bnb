@@ -28,7 +28,7 @@
 	<!-- https://shaack.com/projekte/bootstrap-input-spinner/ -->
 	<main role="main" class="container">
 	<div class="row justify-content-md-center">
-		<div class="col col-md-10 col-lg-8">
+		<div class="col-md-7">
 			<h1>
 				<b>숙소 보기</b>
 			</h1>
@@ -70,12 +70,13 @@
 								<c:if
 									test="${'T' eq fn:substring(selectedRoom.amenities, count-1, count)}">
 									<c:if
-										test="${divideChk ne (item.amenities_idx-(item.amenities_idx mod 100))/100}">
+										test="${divideChk ne (item.amenities_idx-(item.amenities_idx mod 100))/100 && divideChk ne 1}">
 										<hr>
 										<c:set var="divideChk"
 											value="${(item.amenities_idx-(item.amenities_idx mod 100))/100}" />
 									</c:if>
 									<label for="amcb${count}" class="form-check-label">${item.amenities_details}</label>
+									<br>
 								</c:if>
 							</c:forEach><input type="hidden" class="form-control"
 							value="${selectedRoom.amenities}" id="amenities" name="amenities"></td>
@@ -105,33 +106,29 @@
 								style="width: 100%; height: 500px;"></div></td>
 					</tr>
 					<tr>
-						<td colspan="2">
-						이방의 후기
-						</td>
+						<td colspan="2">이방의 후기</td>
 					</tr>
 					<tr>
-						<td colspan="2">
-						호스트 정보
-						</td>
+						<td colspan="2">호스트 정보</td>
 					</tr>
 					<tr>
-						<td colspan="2">
-						?
-						</td>
+						<td colspan="2">?</td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center"><input type="hidden"
 							id="roomsId" name="${selectedRoom.roomsId}" value="0"><input
 							type="hidden" id="disabled" name="disabled"
-							value="${selectedRoom.disabled}"><input type="submit"
-							class="btn btn-danger ml-1 mr-1" value="수정"><a
+							value="${selectedRoom.disabled}"> <a
 							href="${pageContext.request.contextPath}/chat/sendmessage?roomsId=${selectedRoom.roomsId}&hostId=${selectedRoom.hostId}"><input
-								type="button" class="btn btn-danger ml-1 mr-1" value="문의하기"></a><a
-							href="#"><input type="button" class="btn btn-danger ml-1 mr-1"
-								value="좋아요"></a></td>
+								type="button" class="btn btn-danger ml-1 mr-1" value="문의하기"></a>
+							<a href="#"><input type="button"
+								class="btn btn-danger ml-1 mr-1" value="좋아요"></a></td>
 					</tr>
 				</table>
 			</form>
+		</div>
+		<div class="col-md-5">
+		달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분
 		</div>
 	</div>
 	</main>

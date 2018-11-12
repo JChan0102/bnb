@@ -1,5 +1,6 @@
 package com.bit.bnb.rooms.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -37,4 +38,13 @@ public class RoomsDAO {
 		return sqlSessionTemplate.selectList(mapperPath + "selectAmenities", av);
 	}
 
+	// 페이징 테스트
+	public List<RoomsVO> selectRoomsList(HashMap<String, Object> map) {
+		return sqlSessionTemplate.selectList(mapperPath + "selectRoomsList", map);
+	}
+
+	// 페이징 테스트
+	public int totalCount(String tableName) {
+		return sqlSessionTemplate.selectOne(mapperPath + "totalCount", tableName);
+	}
 }

@@ -31,7 +31,6 @@
 					<div class="card-body">
 						<p class="card-text">
 							${item.roomsId}번 방<br>방주인은 ${item.hostId}
-
 						</p>
 						<div class="d-flex justify-content-between align-items-center">
 							<div class="btn-group">
@@ -51,6 +50,21 @@
 			</div>
 		</c:forEach>
 	</div>
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
+			<li class="page-item"><a class="page-link"
+				href="${pageContext.request.contextPath}/rooms?page=${paging.prevPageNo}">Previous</a></li>
+			<c:set var="pageIdx" value="${paging.startPageNo}" />
+			<c:forEach varStatus="status" begin="${paging.startPageNo}"
+				end="${paging.endPageNo}" step="1">
+				<li class="page-item"><a class="page-link"
+					href="${pageContext.request.contextPath}/rooms?page=${pageIdx}">${pageIdx}</a></li>
+				<c:set var="pageIdx" value="${pageIdx+1}" />
+			</c:forEach>
+			<li class="page-item"><a class="page-link"
+				href="${pageContext.request.contextPath}/rooms?page=${paging.nextPageNo}">Next</a></li>
+		</ul>
+	</nav>
 	</main>
 </body>
 </html>
