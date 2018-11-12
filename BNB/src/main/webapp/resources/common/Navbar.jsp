@@ -22,7 +22,7 @@
 			<ul class="nav justify-content-end ml-auto">
 				<!-- 임시 -->
 				<li class="nav-item"><a class="nav-link text-dark"
-					href="${pageContext.request.contextPath}/reservation">예약 임시</a></li>
+					href="${pageContext.request.contextPath}/reservation?roomsId=3">예약 임시</a></li>
 				<!-- 임시 -->
 				<li class="nav-item"><a class="nav-link text-dark"
 					href="${pageContext.request.contextPath}/rooms">숙소</a></li>

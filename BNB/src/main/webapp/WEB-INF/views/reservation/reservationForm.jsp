@@ -68,7 +68,7 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">확인</button>
+                                <button onclick="people()" type="button" class="btn btn-default" data-dismiss="modal">확인</button>
                             </div>
                         </div>
                     </div>
@@ -91,9 +91,8 @@
             
             function plusAdult(obj){
             	if(limit > adult+child){
-            		$(obj).prev().text(++adult);	
+            		$(obj).prev().text(++adult);
             	}
-            	
             }
             function plusChild(obj){
             	if(limit > adult+child){
@@ -118,7 +117,15 @@
             }
             function minusLittle(obj){
             	if(0 < $(obj).next().text()){
-            		$(obj).next().text(--little);
+            		$(obj).next().text(--little);  
+            	}
+            }
+            function people(){
+            	var peopleNum = adult+child;
+            	$("#umki_people").text("게스트 "+peopleNum+"명");
+            	
+            	if(little >= 1){
+            		$("#umki_people").text("게스트 "+peopleNum+"명, 유아 "+little+"명");
             	}
             }
 

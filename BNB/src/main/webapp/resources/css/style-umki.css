@@ -119,10 +119,21 @@
 	height : 30px;
 	margin: 0 10px;
 }
+.umki-pd{
+	cursor: default;
+}
 .umki-rad-m, .umki-rad-p{
 	border: 2px solid #c6e2f7;
 	border-radius: 15px;
 	cursor : pointer;
+	-ms-user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: -moz-none;
+	user-select: none;
+}
+
+.umki-rad-m:hover, .umki-rad-p:hover{
+	 border: 2px solid #81BEF7;
 }
 /* 모달 컨텐츠 끝 */
 

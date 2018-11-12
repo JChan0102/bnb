@@ -16,13 +16,13 @@ public class ReservationDoService {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	ReservationDao dao;
-	
-	List<ReservationInfo> reservationInfo = null;
+	int check = 0;
 	
 	@Transactional
-	public List<ReservationInfo> reservationDo() {
+	public int reservationDo() {
 		dao = sqlSessionTemplate.getMapper(ReservationDao.class);
-
-		return reservationInfo;
+//		dao.reservation();
+		
+		return check;
 	}
 }
