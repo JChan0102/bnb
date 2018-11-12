@@ -33,12 +33,12 @@
 						<input type="text" name="userName" class="form-control hyeon-reg-input" placeholder="이름" />
 						<label class="form-check-label mt-2 mb-2">사진 </label>
 						<input type="file" name="photoFile" class="form-control hyeon-reg-input" />
-						<input type="text" name="host" value=1 style="display:none" /><br>
-						<input type="text" name="admin" value=1 style="display:none" /><br>
-						<input type="text" name="userKey" value="asd123" style="display:none" /><br>
-						<input type="text" name="userCheck" value=1 style="display:none" /><br>
-						<input type="text" name="point" value=0 style="display:none" /><br>
-						<input type="text" name="disabled" value=1 style="display:none" /><br>
+						<input type="hidden" name="host" value=1 style="display:none" />
+						<input type="hidden" name="admin" value=1 style="display:none" />
+						<input type="hidden" name="userKey" value="asd123" style="display:none" />
+						<input type="hidden" name="userCheck" value=1 style="display:none" />
+						<input type="hidden" name="point" value=0 style="display:none" />
+						<input type="hidden" name="disabled" value=1 style="display:none" />
 						
 						<div>
 						<p style="font-weight: bold;">생일</p>

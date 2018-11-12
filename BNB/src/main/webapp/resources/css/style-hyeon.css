@@ -1,13 +1,11 @@
 @charset "UTF-8";
 
 #userRegForm{
-	padding-top: 100px;
-	padding-left: 30px;
+	padding: 30px;
 }
 
 #loginForm{
-	padding-top: 100px;
-	padding-left: 30px;
+	padding: 30px;
 }
 
 #loginHidden{
