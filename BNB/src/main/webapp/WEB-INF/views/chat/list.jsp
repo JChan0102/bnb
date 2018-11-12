@@ -193,6 +193,13 @@
                         }
                         event.stopPropagation();
                     });
+                    $('#message').keyup(function (event) {
+                        var keycode = (event.keyCode ? event.keyCode : event.which);
+                        if (keycode == '13') {
+                            $("#message").val("");
+                        }
+                        event.stopPropagation();
+                    });
 
                     $('#sendBtn').click(function () {
                         send();
