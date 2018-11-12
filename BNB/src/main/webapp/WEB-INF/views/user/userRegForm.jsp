@@ -14,6 +14,9 @@
 	<%@ include file="/resources/common/includeHead.jsp"%>
 	<%@ include file="/resources/common/Navbar.jsp"%>
 
+	<c:if test="${regFail}">
+		<script>alert("회원가입 실패. 다시 시도해주세요.");</script>
+	</c:if>
 
 	<div id="userRegForm">
 		<!-- Begin page content -->
@@ -49,14 +52,14 @@
 						</div>
 						<div>
 						<select name="month" class="hyeon-form-control hyeon-left">
-					 		<option>월</option>
+					 		<option value="">월</option>
 								<c:forEach begin="1" end="12" var="month" >
 									<option>${month}</option>
 								</c:forEach>
 						</select>
 						
 						<select name="day" class="hyeon-form-control">
-					 		<option>일</option>
+					 		<option value="">일</option>
 								<c:forEach begin="1" end="31" var="day" >
 									<option>${day}</option>
 								</c:forEach>
