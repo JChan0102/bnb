@@ -5,8 +5,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberVO {
 
 	private String userId; // 유저아이디
-	private String userPassword; // 유저비밀번호
 	private String userName; // 유저이름
+	private String userPw; // 유저비밀번호
 	private String userPhoto; // DB에 저장될 사진 이름
 	private MultipartFile userPhotoFile; // 실제파일
 	private int host; // 호스트여부
@@ -20,8 +20,8 @@ public class MemberVO {
 		return userId;
 	}
 
-	public String getUserPassword() {
-		return userPassword;
+	public String getUserPw() {
+		return userPw;
 	}
 
 	public String getUserName() {
@@ -52,12 +52,20 @@ public class MemberVO {
 		return point;
 	}
 
+	public String getBirth() {
+		return birth;
+	}
+
+	public String getUserInfo() {
+		return userInfo;
+	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
+	public void setUserPw(String userPw) {
+		this.userPw = userPw;
 	}
 
 	public void setUserName(String userName) {
@@ -88,14 +96,6 @@ public class MemberVO {
 		this.point = point;
 	}
 
-	public String getBirth() {
-		return birth;
-	}
-
-	public String getUserInfo() {
-		return userInfo;
-	}
-
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
@@ -106,10 +106,9 @@ public class MemberVO {
 
 	@Override
 	public String toString() {
-		return "member [userId=" + userId + ", userPassword=" + userPassword + ", userName=" + userName + ", userPhoto="
+		return "MemberVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userPhoto="
 				+ userPhoto + ", userPhotoFile=" + userPhotoFile + ", host=" + host + ", admin=" + admin
 				+ ", userCheck=" + userCheck + ", point=" + point + ", birth=" + birth + ", userInfo=" + userInfo + "]";
 	}
-
 
 }

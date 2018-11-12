@@ -13,7 +13,9 @@
 	<div id="mypage_wrap_cont">
 		<%@ include file="/WEB-INF/views/mypage/leftlist.jsp"%>
 		<div id="mypage_cont">
-			<h1 style="text-align: center;padding:10px;font-weight: 800;"><i class="fas fa-id-card"></i> MY PROFILE</h1>
+			<h1 style="text-align: center; padding: 10px; font-weight: 800;">
+				<i class="fas fa-id-card"></i> MY PROFILE
+			</h1>
 			<div class="row profile_wrap">
 				<div class="col-sm-5 profile_left">
 					<div id="profile_photo">
@@ -22,7 +24,9 @@
 							style="width: 100%; object-fit: contain;" class="rounded">
 					</div>
 					<br>
-					<h4><span class="badge badge-pill badge-warning">Id</span>&ensp;${loginUser.userId }</h4>
+					<h4>
+						<span class="badge badge-pill badge-warning">Id</span>&ensp;${loginUser.userId }
+					</h4>
 					<h4>${loginUser.userName }</h4>
 				</div>
 				<div class="col-sm-6 profile_right">
@@ -50,15 +54,47 @@
 								</c:when>
 								<c:otherwise>
 									<i class="far fa-times-circle" style="color: #CD0000"></i> 호스트가 아닙니다.
-									<dt>호스트가 되길 원하신다면? <button type="button" class="btn btn-link">호스트신청</button></dt>
+									<dt>
+										호스트가 되길 원하신다면?
+										<button type="button" class="btn btn-link">호스트신청</button>
+									</dt>
 								</c:otherwise>
 							</c:choose>
 						</dd>
-						
+
 					</dl>
-					<br><button type="button" class="btn btn-outline-secondary"
-					onclick="javascript:location.href='${pageContext.request.contextPath}/profileEdit'">프로필수정</button>
-				&ensp;<button type="button" class="btn btn-outline-danger">회원 탈퇴</button>
+					<br>
+					<button type="button" class="btn btn-outline-secondary"
+						onclick="javascript:location.href='${pageContext.request.contextPath}/profileEdit?userId=${loginUser.userId}'">프로필수정</button>
+					&ensp;
+					<%-- <button type="button" class="btn btn-outline-danger"
+						onclick="javascript:location.href='${pageContext.request.contextPath}/userDelete?userId=${loginUser.userId}'">회원
+						탈퇴</button> --%>
+						<button type="button" class="btn btn-outline-danger"
+										data-toggle="modal" data-target="#userDeleteModal">회원 탈퇴</button> 
+										<!-- Modal -->
+									<div class="modal fade" id="userDeleteModal" tabindex="-1"
+										role="dialog" aria-labelledby="userDeleteModal" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered"
+											role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalCenterTitle">회원 탈퇴</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body" style="text-align: center;"><b>${loginUser.userName }</b>님 회원을 탈퇴하시겠습니까?</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-danger"
+														onclick="javascript:location.href='userDelete?userId=${loginUser.userId}'">탈퇴</button>
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">취소</button>
+												</div>
+											</div>
+										</div>
+									</div>
 				</div>
 			</div>
 		</div>
