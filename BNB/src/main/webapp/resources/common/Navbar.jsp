@@ -108,9 +108,7 @@
                                         } // will be triggered after the toast has been hidden
                                     });
                                 }
-
                             };
-
                         }
                         getListmessage();
                         function getListmessage() {
