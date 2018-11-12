@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from rooms ro
 		inner join reservation re on ro.roomsId=re.roomsId
 		where
-		userId=#{userId};
+		userId=#{userId} and <![CDATA[ re.checkOut <= current_timestamp ]]>;
 	</select>
 
 </mapper>

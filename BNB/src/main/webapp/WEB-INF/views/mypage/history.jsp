@@ -17,6 +17,9 @@
 			<h1 style="text-align: center; padding: 10px; font-weight: 800;">
 				<i class="fas fa-history"></i> HISTORY
 			</h1>
+			<c:if test="${empty historys}">
+			<h1 style="text-align: center;">다녀온 여행이 없습니다.</h1>
+			</c:if>
 			<div class="row">
 				<c:forEach var="his" items="${historys}">
 					<div class="col-4">
