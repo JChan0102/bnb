@@ -20,7 +20,7 @@
 			<div class="row">
 				<c:forEach var="his" items="${historys}">
 					<div class="col-4">
-						<div class="card history" style="width: 17rem;margin:0 auto;">
+						<div class="card history" style="width: 17rem;margin:15px auto 10px auto;">
 							<div class="historyCard">
 								<a
 									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${his.roomsId}"><img
