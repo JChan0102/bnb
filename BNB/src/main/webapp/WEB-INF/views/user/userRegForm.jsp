@@ -19,7 +19,7 @@
 		<!-- Begin page content -->
 		<div role="main" class="hyeon-container">
 			<div class="row justify-content-md-center">
-				<div class="col col-md-6 col-lg-5">
+				<div class="col col-md-5 col-lg-4">
 				
 				<div class="hyeon-title"><h2>회원가입</h2></div>
 				
@@ -31,6 +31,14 @@
 						
 						<input type="password" id="uerPw-2" class="form-control hyeon-reg-input" placeholder="비밀번호 확인" />
 						<input type="text" name="userName" class="form-control hyeon-reg-input" placeholder="이름" />
+						<label class="form-check-label mt-2 mb-2">사진 </label>
+						<input type="file" name="photoFile" class="form-control hyeon-reg-input" />
+						<input type="hidden" name="host" value=1 style="display:none" />
+						<input type="hidden" name="admin" value=1 style="display:none" />
+						<input type="hidden" name="userKey" value="asd123" style="display:none" />
+						<input type="hidden" name="userCheck" value=1 style="display:none" />
+						<input type="hidden" name="point" value=0 style="display:none" />
+						<input type="hidden" name="disabled" value=1 style="display:none" />
 						
 						<div>
 						<p style="font-weight: bold;">생일</p>
@@ -67,8 +75,10 @@
 
 						</select>
 						</div>
-						<div> </div>
-						<button class="btn btn-lg btn-danger btn-block" type="submit">회원가입</button>
+						<div> 
+							<textarea name="userInfo" class="form-control hyeon-reg-input" cols="30" placeholder="자기소개"></textarea>
+						</div>
+						<button class="btn btn-lg btn-danger btn-block" type="submit" style="margin-bottom: 20px">회원가입</button>
 					</form>
 				</div>
 			</div>
@@ -96,13 +106,15 @@
 		<form method="post" enctype="multipart/form-data">
 			아이디(이메일 ) : <input type="email" name="userId" required /><br>
 			비밀번호 설정 : <input type="password" name="userPw" required /><br>
-			이름 : <input type="text" name="userName" required /><br> 사진 : <input
-				type="file" name="photoFile" /><br> <input type="hidden"
-				name="host" value=1 /><br> <input type="hidden" name="admin"
-				value=1 /><br> <input type="hidden" name="userKey"
-				value="asd123" /><br> <input type="hidden" name="userCheck"
-				value=1 /><br> <input type="hidden" name="point" value=0 /><br>
-			<input type="hidden" name="disabled" value=1 /><br> <select
+			이름 : <input type="text" name="userName" required /><br> 
+			사진 : <input type="file" name="photoFile" /><br>
+			<input type="hidden" name="host" value=1 /><br>
+			<input type="hidden" name="admin" value=1 /><br>
+			<input type="hidden" name="userKey" value="asd123" /><br>
+			<input type="hidden" name="userCheck" value=1 /><br>
+			<input type="hidden" name="point" value=0 /><br>
+			<input type="hidden" name="disabled" value=1 /><br>
+			<select
 				name="month">
 				<option>월</option>
 				<option>1</option>
