@@ -169,7 +169,7 @@
 			<!-- body -->
 			<div class="modal-body">
 			
-	<div class="container">
+			<main role="main" class="container">
 		<div class="row justify-content-md-center">
 			<div class="col col-md-4 col-lg-8">
 					<label class="form-check-label mt-2 mb-2">아이디 :</label> <input
@@ -191,7 +191,7 @@
 			
 							</div>
 						</div>
-					</div>
+					</main>
 				</div>
 			
 			<!-- Footer -->
