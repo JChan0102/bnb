@@ -1,5 +1,6 @@
 package com.bit.bnb.rooms.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,10 @@ public class RoomViewService {
 	RoomsDAO roomsDAO;
 
 	public RoomsVO getViewRooms(RoomsVO rv) {
-		return roomsDAO.selectRooms(rv).get(0);
+		// return roomsDAO.selectRooms(rv).get(0);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("rv", rv);
+		return roomsDAO.selectRoomsList(map).get(0);
 	}
 
 	public List<AmenitiesVO> getAmenities(AmenitiesVO av) {

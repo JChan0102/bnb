@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <%@ include file="/resources/common/includeHead.jsp"%>
@@ -30,20 +31,35 @@
 					<img class="card-img-top">
 					<div class="card-body">
 						<p class="card-text">
-							${item.roomsId}번 방<br>방주인은 ${item.hostId}
+							${item.roomsId}번/${item.hostId}<br>${item.address}<br>
+							<fmt:formatNumber value="${item.price_weekdays}"
+								pattern="\###,###,###" />
+							-
+							<fmt:formatNumber value="${item.price_weekend}"
+								pattern="\###,###,###" />
+							/박<br>
 						</p>
 						<div class="d-flex justify-content-between align-items-center">
+							<small class="text-muted"> <c:forEach
+									items="${reviewSummary}" var="reviewSummary">
+									<c:if test="${item.roomsId eq reviewSummary.roomsId}">
+										<c:forEach begin="1" end="${reviewSummary.avgScope}" step="1">★</c:forEach>
+										<fmt:formatNumber value="${reviewSummary.avgScope}"
+											pattern="0.0" />
+										(${reviewSummary.reviewCount})
+								</c:if>
+								</c:forEach>
+							</small>
 							<div class="btn-group">
 								<a
 									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${item.roomsId}"><button
-										type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+										type="button" class="btn btn-sm btn-outline-secondary ml-1">View</button></a>
 								<c:if test="${item.hostId eq loginUser.userId}">
 									<a
 										href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=${item.roomsId}&_hostId=${item.hostId}"><button
-											type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+											type="button" class="btn btn-sm btn-outline-secondary ml-1">Edit</button></a>
 								</c:if>
 							</div>
-							<small class="text-muted">9 mins</small>
 						</div>
 					</div>
 				</div>

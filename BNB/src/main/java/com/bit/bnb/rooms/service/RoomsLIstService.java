@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.bnb.rooms.dao.RoomsDAO;
+import com.bit.bnb.rooms.model.ReviewSummaryVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.util.Paging;
 
@@ -30,5 +31,9 @@ public class RoomsLIstService {
 		Paging paging = new Paging(roomsDAO.totalCount(tableName), currentPageNo, dataPerPage);
 		paging.makePageing();
 		return paging;
+	}
+
+	public List<ReviewSummaryVO> getReviewSummary() {
+		return roomsDAO.selectRoomsReviewSummary();
 	}
 }

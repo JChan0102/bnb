@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <%@ include file="/resources/common/includeHead.jsp"%>
@@ -91,11 +92,13 @@
 					</tr>
 					<tr>
 						<td>주중가격</td>
-						<td>${selectedRoom.price_weekdays}</td>
+						<td><fmt:formatNumber value="${selectedRoom.price_weekdays}"
+								pattern="\###,###,###" /></td>
 					</tr>
 					<tr>
-						<td>주말가격</td>
-						<td>${selectedRoom.price_weekend}</td>
+						<td>주말가격 (공휴일 포함)</td>
+						<td><fmt:formatNumber value="${selectedRoom.price_weekend}"
+								pattern="\###,###,###" /></td>
 					</tr>
 					<tr>
 						<td>주소</td>
@@ -128,7 +131,7 @@
 			</form>
 		</div>
 		<div class="col-md-5">
-		달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분
+			달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분
 		</div>
 	</div>
 	</main>
