@@ -75,13 +75,13 @@
 	connect();
 
 	function connect() {
-		sockg = new SockJS('/chat');
+		sockg = new SockJS('${pageContext.request.contextPath}/chat');
 		sockg.onopen = function() {
 			console.log('open');
 		};
 		sockg.onmessage = function(evt) {
 			var data = evt.data;
-			console.log(data);
+			console.log(data);                   
 			var obj = JSON.parse(data);
 			if ((obj.userId == '${sessionScope.loginUser.userId}' && obj.receive == 'U')){
 				toastMessage(obj.messagecontent, obj.hostId)
