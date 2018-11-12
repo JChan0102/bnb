@@ -63,10 +63,7 @@
 <!-- 채팅 입력창 -->
 <div class="col-12" style="margin-top: 20px; margin-bottom: 15px;">
     <div class="col-12" style="float: left">
-			<textarea class="form-control"
-                      style="border: 1px solid #01D1FE; height: 65px; float: left; width: 80%"
-                      placeholder="Enter ..." id="message">
-				</textarea>
+			<textarea class="form-control" style="border: 1px solid #01D1FE; height: 65px; float: left; width: 80%" placeholder="Enter ..." id="message"></textarea>
         <span
                 style="float: right; width: 18%; height: 65px; text-align: center; background-color: #01D1FE; border-radius: 5px;">
 				<a
@@ -117,8 +114,8 @@
     }
 
 
-    function getTimeStamp() {
-        var d = new Date();
+    function getTimeStamp(datea) {
+        var d = datea;
         var s =
             leadingZeros(d.getFullYear(), 4) + '-' +
             leadingZeros(d.getMonth() + 1, 2) + '-' +

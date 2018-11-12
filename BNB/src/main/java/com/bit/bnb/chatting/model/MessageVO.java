@@ -2,14 +2,15 @@ package com.bit.bnb.chatting.model;
 
 import com.google.gson.Gson;
 
-import java.util.Date;
+import java.sql.Timestamp;
+
 
 public class MessageVO {
     private int idx;
     private String hostId;
     private String userId;
     private String roomsId;
-    private Date messageDate;
+    private Timestamp messageDate;
     private String messagecontent;
     private String receive;
     private String sender;
@@ -64,11 +65,11 @@ public class MessageVO {
         this.roomsId = roomsId;
     }
 
-    public Date getMessageDate() {
+    public Timestamp getMessageDate() {
         return messageDate;
     }
 
-    public void setMessageDate(Date messageDate) {
+    public void setMessageDate(Timestamp messageDate) {
         this.messageDate = messageDate;
     }
 

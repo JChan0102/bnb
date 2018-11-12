@@ -6,20 +6,58 @@
 <%@ include file="/resources/common/includeHead.jsp" %>
 </head>
 <body id="mainback">
+<script>
+
+    function getTimeStamp(datea) {
+        var d= null;
+        console.log(typeof datea);
+        if(datea){
+            d= new Date(datea);
+        }else {
+            d= new Date();
+        }
+        var s =
+            leadingZeros(d.getFullYear(), 4) + '-' +
+            leadingZeros(d.getMonth() + 1, 2) + '-' +
+            leadingZeros(d.getDate(), 2) + ' ' +
+            leadingZeros(d.getHours(), 2) + ':' +
+            leadingZeros(d.getMinutes(), 2);
+        return s;
+    }
+
+    function leadingZeros(n, digits) {
+        var zero = '';
+        n = n.toString();
+
+        if (n.length < digits) {
+            for (i = 0; i < digits - n.length; i++)
+                zero += '0';
+        }
+        return zero + n;
+    }
+</script>
 <%@ include file="/resources/common/Navbar.jsp" %>
 <div class="row">
-    <div class="col-4">
+    <div class="col-2">
         <c:forEach var="list" items="${chatRoomList}">
             <a href="${pageContext.request.contextPath}/chat/list?roomsId=${list.roomsId}&hostId=${list.hostId}&userId=${list.userId}">
                 <div class="jchanList">
-                        ${list.hostId}와의 ${list.roomsId}인 곳
+                    <c:choose>
+                        <c:when test="${list.userId eq loginUser.userId}">
+                            ${list.hostId}와의 채팅<br>
+                            방 번호 : ${list.roomsId}
+                        </c:when>
+                        <c:otherwise>
+                            ${list.userId}와의 채팅<br>
+                            방 번호 : ${list.roomsId}
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </a>
         </c:forEach>
     </div>
     <div class="col-8">
     <c:if test="${!empty lists}">
-
             <div class="col-12">
                 <div class="col-11"
                      style="margin: 0 auto; border: 1px solid #01D1FE; height: 700px; border-radius: 10px; overflow:scroll"
@@ -34,18 +72,19 @@
                             "<div class='col-2' style = 'float:left; padding-right:0px; padding-left : 0px;'>" +
                             "</div>"+
                             "<div class = 'col-6 ' style = ' background-color:#ACF3FF; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>${item.messagecontent}</span></div>"+
-                            "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >${item.messageDate}</span></div></div>")
+                            "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+getTimeStamp('${item.messageDate}')+"</span></div></div>")
                     } else {
                         $("#chatMessageArea").append("<div class='row justify-content-start' style = 'height : auto; margin-top : 5px;'>"+
                             "<div class='col-1' style = 'float:right; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '>"+
                             "</div>"+
                             "<div class = 'col-6' style = ' background-color:gray; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>${item.messagecontent}</span></div>"+
-                            "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >${item.messageDate}</span></div></div></div>"
+                            "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+getTimeStamp('${item.messageDate}')+"</span></div></div></div>"
                            );
                     }
                     var chatAreaHeight = $("#chatArea").height();
                     var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
                     $("#chatArea").scrollTop(maxScroll);
+
                 </script>
             </c:forEach>
 
@@ -54,8 +93,7 @@
                 <div class="col-12" style="float: left">
 			<textarea class="form-control"
                       style="border: 1px solid #01D1FE; height: 65px; float: left; width: 80%"
-                      placeholder="Enter ..." id="message">
-				</textarea>
+                      placeholder="Enter ..." id="message"></textarea>
                     <span style="float: right; width: 18%; height: 65px; text-align: center; background-color: #01D1FE; border-radius: 5px;">
 				<a style="margin-top: 30px; text-align: center; color: white; font-weight: bold;"
                    id="sendBtn"><br>전송</a>
@@ -64,6 +102,7 @@
 
             </div>
             <script type="text/javascript">
+
                 connect();
 
                 function connect() {
@@ -109,14 +148,14 @@
                                 "</div>"+
                                 "<div class = 'col-6 ' style = ' background-color:#ACF3FF; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+obj.messagecontent+"</span></div>"+
                                 "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+
-                                obj.messageDate
+                                getTimeStamp(obj.messageDate)
                                 +"</span></div></div>")
                         } else {
                             $("#chatMessageArea").append("<div class='row justify-content-start' style = 'height : auto; margin-top : 5px;'>"+
                                 "<div class='col-1' style = 'float:right; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '>"+
                                 "</div>"+
                                 "<div class = 'col-6' style = ' background-color:gray; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+obj.messagecontent+"</span></div>"+
-                                "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+obj.messageDate+"</span></div></div></div>"
+                                "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+getTimeStamp(obj.messageDate)+"</span></div></div></div>"
                             );
                         }
                         var chatAreaHeight = $("#chatArea").height();
@@ -140,6 +179,9 @@
                     });
                     /* $('#enterBtn').click(function() { connect(); }); $('#exitBtn').click(function() { disconnect(); }); */
                 });
+
+
+
             </script>
 
     </c:if>

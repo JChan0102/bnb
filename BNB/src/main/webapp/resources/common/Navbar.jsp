@@ -81,7 +81,6 @@
 		};
 		sockg.onmessage = function(evt) {
 			var data = evt.data;
-			console.log(data);                   
 			var obj = JSON.parse(data);
 			if ((obj.userId == '${sessionScope.loginUser.userId}' && obj.receive == 'U')){
 				toastMessage(obj.messagecontent, obj.hostId)
@@ -103,7 +102,6 @@
 					hideAfter : 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
 					stack : 7, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
 					position : 'bottom-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-
 					bgColor : '#eeeeee', // Background color of the toast
 					textColor : '#2c2c2c', // Text color of the toast
 					textAlign : 'left', // Text alignment i.e. left, right or center
@@ -138,10 +136,13 @@
                 }
                    if(value.userId=='${sessionScope.loginUser.userId}'&&value.receive=='U'){
 						$('#list'+listindex).text(value.hostId+' : '+msg + ' ('+value.unreadCount+')' );
+						$('#list'+listindex).attr('href','${pageContext.request.contextPath}/chat/list?roomsId='+value.roomsId+'&hostId='+value.hostId+'&userId='+value.userId);
 						listindex++;
                    }
                    if(value.hostId=='${sessionScope.loginUser.userId}'&&value.receive=='H'){
                        $('#list'+listindex).text(value.userId+' : '+msg + ' ('+value.unreadCount+')' );
+                       $('#list'+listindex).removeAttr('href');
+                       $('#list'+listindex).attr('href','${pageContext.request.contextPath}/chat/list?roomsId='+value.roomsId+'&hostId='+value.hostId+'&userId='+value.userId);
                        listindex++;
                    }
                    if(listindex==5){
