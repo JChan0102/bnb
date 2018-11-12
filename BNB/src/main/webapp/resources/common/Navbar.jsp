@@ -63,6 +63,95 @@
 						href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
 					<li class="nav-item"><a class="nav-link text-dark"
 						href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
+
+					<script type="text/javascript">
+                        connect();
+
+                        function connect() {
+                            sockg = new SockJS('${pageContext.request.contextPath}/chat');
+                            sockg.onopen = function() {
+                                console.log('open');
+                            };
+                            sockg.onmessage = function(evt) {
+                                var data = evt.data;
+                                var obj = JSON.parse(data);
+                                if ((obj.userId == '${sessionScope.loginUser.userId}' && obj.receive == 'U')){
+                                    toastMessage(obj.messagecontent, obj.hostId);
+                                }  else if((obj.hostId == '${sessionScope.loginUser.userId}' && obj.receive == 'H')) {
+                                    toastMessage(obj.messagecontent, obj.userId);
+                                }
+                                function toastMessage(msg,sender){
+                                    $('#jchannotice').css('display','inline');
+                                    if(msg.length>10){
+                                        msg = msg.substring(9,0)+'...';
+                                    }
+                                    $.toast({
+                                        text : msg, // Text that is to be shown in the toast
+                                        heading : 'NewMessage ( '+sender+' ) ', // Optional heading to be shown on the toast
+                                        showHideTransition : 'slide', // fade, slide or plain
+                                        allowToastClose : true, // Boolean value true or false
+                                        hideAfter : 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                                        stack : 7, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                                        position : 'bottom-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                                        bgColor : '#eeeeee', // Background color of the toast
+                                        textColor : '#2c2c2c', // Text color of the toast
+                                        textAlign : 'left', // Text alignment i.e. left, right or center
+                                        loader : false, // Whether to show loader or not. True by default
+                                        loaderBg : '#9EC600', // Background color of the toast loader
+                                        beforeShow : function() {
+                                        }, // will be triggered before the toast is shown
+                                        afterShown : function() {
+                                        }, // will be triggered after the toat has been shown
+                                        beforeHide : function() {
+                                        }, // will be triggered before the toast gets hidden
+                                        afterHidden : function() {
+                                        } // will be triggered after the toast has been hidden
+                                    });
+                                }
+
+                            };
+
+                        }
+                        getListmessage();
+                        function getListmessage() {
+                            $.ajax({
+                                url: '${pageContext.request.contextPath}/chat/unreadlist',
+                                type: 'get',
+                                datatype: 'json',
+                                success: function (data) {
+                                    var listindex=1;
+                                    $(data).each(function (key, value){
+                                        msg= value.messagecontent;
+                                        if(value.messagecontent.length>10){
+                                            msg = msg.substring(9,0)+'...';
+                                        }
+                                        if(value.userId=='${sessionScope.loginUser.userId}'&&value.receive=='U'){
+                                            $('#list'+listindex).text(value.hostId+' : '+msg + ' ('+value.unreadCount+')' );
+                                            $('#list'+listindex).attr('href','${pageContext.request.contextPath}/chat/list?roomsId='+value.roomsId+'&hostId='+value.hostId+'&userId='+value.userId);
+                                            listindex++;
+                                        }
+                                        if(value.hostId=='${sessionScope.loginUser.userId}'&&value.receive=='H'){
+                                            $('#list'+listindex).text(value.userId+' : '+msg + ' ('+value.unreadCount+')' );
+                                            $('#list'+listindex).attr('href','${pageContext.request.contextPath}/chat/list?roomsId='+value.roomsId+'&hostId='+value.hostId+'&userId='+value.userId);
+                                            listindex++;
+                                        }
+                                        if(listindex==5){
+                                            return false;
+                                        }
+                                    });
+                                    if(listindex==1){
+                                        $('#jchannotice').css('display','none');
+                                    } else{
+                                        $('#jchannotice').css('display','inline');
+                                    }
+                                },
+                                error: function () {
+                                    alert(error);
+                                }
+                            });
+                        }
+					</script>
+
 				</c:if>
 
 			</ul>
@@ -71,93 +160,6 @@
 	<!-- </nav> -->
 </header>
 
-<script type="text/javascript">
-	connect();
-
-	function connect() {
-		sockg = new SockJS('${pageContext.request.contextPath}/chat');
-		sockg.onopen = function() {
-			console.log('open');
-		};
-		sockg.onmessage = function(evt) {
-			var data = evt.data;
-			var obj = JSON.parse(data);
-			if ((obj.userId == '${sessionScope.loginUser.userId}' && obj.receive == 'U')){
-				toastMessage(obj.messagecontent, obj.hostId);
-			}  else if((obj.hostId == '${sessionScope.loginUser.userId}' && obj.receive == 'H')) {
-                toastMessage(obj.messagecontent, obj.userId);
-                }
-			function toastMessage(msg,sender){
-                $('#jchannotice').css('display','inline');
-					if(msg.length>10){
-					    msg = msg.substring(9,0)+'...';
-                    }
-				$.toast({
-					text : msg, // Text that is to be shown in the toast
-					heading : 'NewMessage ( '+sender+' ) ', // Optional heading to be shown on the toast
-					showHideTransition : 'slide', // fade, slide or plain
-					allowToastClose : true, // Boolean value true or false
-					hideAfter : 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-					stack : 7, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-					position : 'bottom-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-					bgColor : '#eeeeee', // Background color of the toast
-					textColor : '#2c2c2c', // Text color of the toast
-					textAlign : 'left', // Text alignment i.e. left, right or center
-					loader : false, // Whether to show loader or not. True by default
-					loaderBg : '#9EC600', // Background color of the toast loader
-					beforeShow : function() {
-					}, // will be triggered before the toast is shown
-					afterShown : function() {
-					}, // will be triggered after the toat has been shown
-					beforeHide : function() {
-					}, // will be triggered before the toast gets hidden
-					afterHidden : function() {
-					} // will be triggered after the toast has been hidden
-				});
-			}
-
-		};
-
-	}
-	getListmessage();
-	function getListmessage() {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/chat/unreadlist',
-            type: 'get',
-            datatype: 'json',
-            success: function (data) {
-                var listindex=1;
-                $(data).each(function (key, value){
-                    msg= value.messagecontent;
-                if(value.messagecontent.length>10){
-                    msg = msg.substring(9,0)+'...';
-                }
-                   if(value.userId=='${sessionScope.loginUser.userId}'&&value.receive=='U'){
-						$('#list'+listindex).text(value.hostId+' : '+msg + ' ('+value.unreadCount+')' );
-						$('#list'+listindex).attr('href','${pageContext.request.contextPath}/chat/list?roomsId='+value.roomsId+'&hostId='+value.hostId+'&userId='+value.userId);
-						listindex++;
-                   }
-                   if(value.hostId=='${sessionScope.loginUser.userId}'&&value.receive=='H'){
-                       $('#list'+listindex).text(value.userId+' : '+msg + ' ('+value.unreadCount+')' );
-                       $('#list'+listindex).attr('href','${pageContext.request.contextPath}/chat/list?roomsId='+value.roomsId+'&hostId='+value.hostId+'&userId='+value.userId);
-                       listindex++;
-                   }
-                   if(listindex==5){
-                       return false;
-                   }
-                });
-				if(listindex==1){
-                    $('#jchannotice').css('display','none');
-                } else{
-                    $('#jchannotice').css('display','inline');
-                }
-            },
-            error: function () {
-                alert(error);
-            }
-        });
-    }
-</script>
 <!-- 로그인 모달-->
 <div class="modal fade" id="layerpop">
 	<div class="modal-dialog">

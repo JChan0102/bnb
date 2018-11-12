@@ -81,9 +81,8 @@
                             "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >" + getTimeStamp('${item.messageDate}') + "</span></div></div></div>"
                         );
                     }
-                    var chatAreaHeight = $("#chatArea").height();
-                    var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
-                    $("#chatArea").scrollTop(maxScroll);
+
+                    $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
 
                 </script>
             </c:forEach>
@@ -158,9 +157,8 @@
                                     "<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >" + getTimeStamp(obj.messageDate) + "</span></div></div></div>"
                                 );
                             }
-                            var chatAreaHeight = $("#chatArea").height();
-                            var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
-                            $("#chatArea").scrollTop(maxScroll);
+
+                            $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
                         }
                         $.ajax({
                             url: '${pageContext.request.contextPath}/chat/list/ck?roomsId=' + obj.roomsId + '&hostId=' + obj.hostId + '&userId=' + obj.userId,
