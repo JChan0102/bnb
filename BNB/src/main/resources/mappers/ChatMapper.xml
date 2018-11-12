@@ -49,7 +49,7 @@
         select
                *
         from message
-        where readCk='F'and userId =#{userId} or hostId =#{userId};
+        where readCk='F'and (userId =#{userId} or hostId =#{userId});
     </select>
 
     <update id="readOkUpdate" parameterType="com.bit.bnb.chatting.model.ChatRoomVO">

@@ -46,9 +46,11 @@
 					<li class="nav-item text-dark dropdown"><a
 						class="nav-link  dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false" onclick="getListmessage()"> 알림<span class="badge badge-secondary"
-							id="jchannotice">
-							<c:if test="${sessionScope.NewmessageCk ne 0}">new</c:if></span>
+						aria-expanded="false" onclick="getListmessage()"> 알림
+
+						<span class="badge badge-secondary"
+							id="jchannotice"
+								<c:if test="${sessionScope.NewmessageCk eq 0}"> STYLE="display: none" </c:if>   >new</span>
 					</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="#" id="list1"></a>
@@ -83,14 +85,12 @@
 			var data = evt.data;
 			var obj = JSON.parse(data);
 			if ((obj.userId == '${sessionScope.loginUser.userId}' && obj.receive == 'U')){
-				toastMessage(obj.messagecontent, obj.hostId)
-
+				toastMessage(obj.messagecontent, obj.hostId);
 			}  else if((obj.hostId == '${sessionScope.loginUser.userId}' && obj.receive == 'H')) {
-
-                toastMessage(obj.messagecontent, obj.userId)
+                toastMessage(obj.messagecontent, obj.userId);
                 }
 			function toastMessage(msg,sender){
-				$('#jchannotice').html('New');
+                $('#jchannotice').css('display','inline');
 					if(msg.length>10){
 					    msg = msg.substring(9,0)+'...';
                     }
@@ -141,7 +141,6 @@
                    }
                    if(value.hostId=='${sessionScope.loginUser.userId}'&&value.receive=='H'){
                        $('#list'+listindex).text(value.userId+' : '+msg + ' ('+value.unreadCount+')' );
-                       $('#list'+listindex).removeAttr('href');
                        $('#list'+listindex).attr('href','${pageContext.request.contextPath}/chat/list?roomsId='+value.roomsId+'&hostId='+value.hostId+'&userId='+value.userId);
                        listindex++;
                    }

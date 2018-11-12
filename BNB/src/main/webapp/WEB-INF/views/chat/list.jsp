@@ -162,9 +162,21 @@
                         var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
                         $("#chatArea").scrollTop(maxScroll);
                     }
-                   }
-                }
+                           $.ajax({
+                               url: '${pageContext.request.contextPath}/chat/list/ck?roomsId='+obj.roomsId+'&hostId='+obj.hostId+'&userId='+obj.userId,
+                               type: 'get',
+                               datatype: 'json',
+                               success: function (data) {
+                                   for(var i= 0; i<5; i++){
+                                   }
+                               },
+                               error: function () {
+                                   alert(error);
+                               }
+                           });
 
+                }
+                    }
                 $(document).ready(function () {
                     $('#message').keypress(function (event) {
                         var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -179,7 +191,6 @@
                     });
                     /* $('#enterBtn').click(function() { connect(); }); $('#exitBtn').click(function() { disconnect(); }); */
                 });
-
 
 
             </script>

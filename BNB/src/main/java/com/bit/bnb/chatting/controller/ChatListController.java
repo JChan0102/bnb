@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -45,6 +46,18 @@ public class ChatListController {
             e.printStackTrace();
         }
         return modelAndView;
+    }
+    @RequestMapping(value="/chat/list/ck", method = RequestMethod.GET)
+    @ResponseBody
+    public void update(HttpSession session,ChatRoomVO roomVO){
+
+        UserVO user = (UserVO) session.getAttribute("loginUser");
+        if(user.getUserId().equals(roomVO.getUserId())){
+            roomVO.setReceive("U");
+        }else{
+            roomVO.setReceive("H");
+        }
+        service.readOk(roomVO);
     }
 
 }
