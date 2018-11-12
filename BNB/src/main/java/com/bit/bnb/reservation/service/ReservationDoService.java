@@ -21,8 +21,12 @@ public class ReservationDoService {
 	@Transactional
 	public int reservationDo(ReservationInfo info) {
 		dao = sqlSessionTemplate.getMapper(ReservationDao.class);
-		
 		System.out.println(info);
+		try {
+			check = dao.ReservationDo(info);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return check;
 	}

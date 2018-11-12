@@ -11,4 +11,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT (TO_DAYS(checkIn)-TO_DAYS(#{nowStr})) FROM reservation WHERE roomsId=#{roomsId} and checkIn>#{checkInStr} order by checkIn limit 0,1
 </select>
 
+<insert id="ReservationDo" parameterType="ReservationInfo">
+INSERT INTO `bnb`.`reservation`
+(
+`hostId`,
+`userId`,
+`checkIn`,
+`checkOut`,
+`roomsId`,
+`price`,
+`people`,
+`day`
+)
+VALUES
+(
+#{hostId},
+#{userId},
+#{checkIn},
+#{checkOut},
+#{roomsId},
+#{price}*(TO_DAYS(#{checkOut})-TO_DAYS(#{checkIn})),
+#{people},
+TO_DAYS(#{checkOut})-TO_DAYS(#{checkIn})
+);
+</insert>
+
 </mapper>

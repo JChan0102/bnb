@@ -75,13 +75,12 @@
                 </div>
             </div>
 
-			<input type="text" value="${loginUser.userId}" name="hostId"/>
-			<input type="text" value="${loginUser.userId}" name="userId"/>
-			<input type="text" value="${selectedRoom.roomsId}" name="roomsId"/>
-			<input type="text" value="${selectedRoom.price_weekdays}" name="price"/>
-			<input type="text" value="1" name="people" id="people"/>
-			            	  
-			
+			<input type="hidden" value="${loginUser.userId}" name="hostId"/>
+			<input type="hidden" value="${loginUser.userId}" name="userId"/>
+			<input type="hidden" value="${selectedRoom.roomsId}" name="roomsId"/>
+			<input type="hidden" value="${selectedRoom.price_weekdays}" name="price"/>
+			<input type="hidden" value="1" name="people" id="people"/>
+			 
             <input type="submit" value="예약하기" />
         </form>
         <script>
