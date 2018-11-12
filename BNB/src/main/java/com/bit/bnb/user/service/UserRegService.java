@@ -46,14 +46,19 @@ public class UserRegService {
 			System.out.println(imgName);
 		}
 		
-		String birth = userVO.getYear()+userVO.getMonth()+userVO.getDay();
-
-		if(userVO.getYear().length() == 4 && 
-		   0<userVO.getDay().length() && userVO.getDay().length()<3 && 
-		   0<userVO.getMonth().length() && userVO.getMonth().length()<3) {
+		String birth = userVO.getYear()+"-"+userVO.getMonth()+"-"+userVO.getDay();
 		
-		userVO.setBirth(birth);
-		resultCnt = userDao.insertUser(userVO);
+		if(userVO.getUserId() != null && userVO.getUserPw() != null && 
+		   userVO.getUserName() != null) {
+			
+			if(userVO.getYear().length() == 4 && 
+			   0<userVO.getDay().length() && userVO.getDay().length()<3 && 
+			   0<userVO.getMonth().length() && userVO.getMonth().length()<3) {
+					
+				userVO.setBirth(birth);
+				resultCnt = userDao.insertUser(userVO);
+			}
+			
 		} else {
 			resultCnt = 0;
 		}

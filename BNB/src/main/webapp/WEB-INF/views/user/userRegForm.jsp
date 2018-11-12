@@ -16,6 +16,7 @@
 
 	<c:if test="${regFail}">
 		<script>alert("회원가입 실패. 다시 시도해주세요.");</script>
+		<c:remove var="regFail" scope="session"/>
 	</c:if>
 
 	<div id="userRegForm">
@@ -105,6 +106,7 @@
 			if(!/^[a-zA-Z0-9]{8,15}$/.test($('#userPw-1').val())){
 				$('#alertPw').css("display","");
 				$('#alertPw').append("숫자와 영문자 조합으로 10~15자리를 사용해야 합니다.");
+				
 				return false;
 			}
 
@@ -134,7 +136,11 @@
 		}
 
 		$('#userPw-1').blur(function(){
-			checkPassword($('#inputUserId').val(), $('#userPw-2').val())
+			if(!checkPassword($('#inputUserId').val(), $('#userPw-2').val())){
+				$('#alertPw').attr('name', 'fail');
+			} else {
+				$('#alertPw').removeattr('name');
+			}
 		});
 
 		
@@ -143,9 +149,11 @@
 				$('#chkPw').empty();
 				$('#chkPw').css("display","");
 				$('#chkPw').append("비밀번호를 다시 한 번 확인해주세요");
+				$('#chkPw').attr('name', 'fail');
 			} else {
 				$('#chkPw').empty();
 				$('#chkPw').css("display","none");
+				$('#alertPw').removeattr('name');
 			}
 			
 		});
