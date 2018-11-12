@@ -88,7 +88,7 @@
 												</div>
 												<div class="modal-body" style="text-align: center;"><b>${reTo.hostId}</b>님의 대한 후기를 삭제하시겠습니까?</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-primary"
+													<button type="button" class="btn btn-danger"
 														onclick="javascript:location.href='review_delete?reservationNum=${reTo.reservationNum}'">삭제하기</button>
 													<button type="button" class="btn btn-secondary"
 														data-dismiss="modal">취소</button>
