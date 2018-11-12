@@ -19,7 +19,7 @@ public class ProfileEditService {
 	
 	private MypageUserDao mypageUserDao;
 	
-	public int userUpdate(MemberVO member, HttpServletRequest request) throws IllegalStateException, IOException {
+	public int myUserUpdate(MemberVO member, HttpServletRequest request) throws IllegalStateException, IOException {
 		
 		mypageUserDao = sqlSessionTemplate.getMapper(MypageUserDao.class);
 		
@@ -40,12 +40,15 @@ public class ProfileEditService {
 
 			// DB 에 저장할 이름 SET
 			member.setUserPhoto(imgName);
+		} else {
+			imgName = request.getParameter("before");
+			member.setUserPhoto(imgName);
 		}
 		
-		return mypageUserDao.userUpdate(member, request);
+		return mypageUserDao.userUpdate(member);
 	}
 	
-	public MemberVO userPick(String userId) {
+	public MemberVO myUserPick(String userId) {
 		
 		mypageUserDao = sqlSessionTemplate.getMapper(MypageUserDao.class);
 		

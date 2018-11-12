@@ -48,7 +48,7 @@
 						<label for="inputPassword" class="col-sm-2 col-form-label">비번확인</label>
 						<div class="col-sm-10">
 							<input type="password" class="form-control" id="passwordCk"
-								placeholder="Password" onchange="checkPw()" required> <span id="pwCk" style="color:red;"></span>
+								placeholder="Password" onchange="checkPw()" required> <span id="pwCk" style="color:red;font-size: 13px;"></span>
 						</div>
 					</div>
 
@@ -58,7 +58,7 @@
 							var pwck = document.getElementById('passwordCk').value;
 
 							if (pw != pwck) {
-								document.getElementById('pwCk').innerHTML = '비밀번호가 일치하지 않습니다.';
+								document.getElementById('pwCk').innerHTML = '<b>비밀번호가 일치하지 않습니다.</b>';
 								return false;
 							}
 							else {
@@ -74,10 +74,10 @@
 						<textarea class="form-control" id="exampleFormControlTextarea1"
 							rows="3" name="userInfo">${member.userInfo }</textarea>
 					</div>
-
 					<!-- 사진업로드 -->
 					<div class="custom-file">
-						<input type="file" class="custom-file-input" id="customFile" name="userPhoto">
+						<input type="file" class="custom-file-input" id="customFile" name="userPhotoFile">
+						<input type="hidden" name="before" value="${member.userPhoto}">
 						<label class="custom-file-label" for="customFile">파일을 선택하세요.</label>
 					</div>
 					<br><br>

@@ -16,7 +16,7 @@ import com.bit.bnb.mypage.model.MemberVO;
 import com.bit.bnb.mypage.service.ProfileEditService;
 
 @Controller
-@RequestMapping("/profileEdit")
+@RequestMapping("/mypageEdit")
 public class ProfileEditController {
 
 	@Autowired
@@ -27,17 +27,16 @@ public class ProfileEditController {
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("mypage/MemberEditForm");
-		modelAndView.addObject("member", service.userPick(userId));
+		modelAndView.addObject("member", service.myUserPick(userId));
 		modelAndView.addObject("userId", userId);
 
 		return modelAndView;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String profileEdit(MemberVO member, HttpServletRequest request) throws IllegalStateException, IOException {
+	public String profileEditPost(MemberVO member, HttpServletRequest request) throws IllegalStateException, IOException {
 
-		service.userUpdate(member, request);
-		System.out.println(service.userUpdate(member, request));
+		service.myUserUpdate(member, request);
 
 		return "redirect:/mypage";
 

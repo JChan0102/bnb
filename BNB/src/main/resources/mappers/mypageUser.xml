@@ -27,9 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 유저정보픽 -->
 	<select id="userPick" resultMap="user" resultType="map">
-		select
-		userName, userInfo, userPhoto from
-		user
+		select * from user
 		where userId=#{userId}
 	</select>
 

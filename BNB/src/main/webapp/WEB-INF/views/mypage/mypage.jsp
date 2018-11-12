@@ -27,18 +27,18 @@
 					<h4>
 						<span class="badge badge-pill badge-warning">Id</span>&ensp;${loginUser.userId }
 					</h4>
-					<h4>${loginUser.userName }</h4>
+					<h4>${user.userName }</h4>
 				</div>
 				<div class="col-sm-6 profile_right">
 					<dl>
 						<dt style="font-size: 19px;">생년월일</dt>
-						<dd>${loginUser.birth}</dd>
+						<dd>${user.birth}</dd>
 						<dt style="font-size: 19px;">자기소개</dt>
-						<dd>${loginUser.userInfo}</dd>
+						<dd>${user.userInfo}</dd>
 						<dt style="font-size: 19px;">본인확인여부</dt>
 						<dd>
 							<c:choose>
-								<c:when test="${loginUser.userCheck eq 1}">
+								<c:when test="${user.userCheck eq 1}">
 									<i class="far fa-check-circle" style="color: #329632"></i> 확인 되었습니다.
 								</c:when>
 								<c:otherwise>
@@ -49,7 +49,7 @@
 						<dt style="font-size: 19px;">호스트여부</dt>
 						<dd>
 							<c:choose>
-								<c:when test="${loginUser.host eq 1}">
+								<c:when test="${user.host eq 1}">
 									<i class="far fa-check-circle" style="color: #329632"></i> 호스트 등록되어있습니다.
 								</c:when>
 								<c:otherwise>
@@ -65,36 +65,37 @@
 					</dl>
 					<br>
 					<button type="button" class="btn btn-outline-secondary"
-						onclick="javascript:location.href='${pageContext.request.contextPath}/profileEdit?userId=${loginUser.userId}'">프로필수정</button>
+						onclick="javascript:location.href='${pageContext.request.contextPath}/mypageEdit?userId=${loginUser.userId}'">프로필수정</button>
 					&ensp;
 					<%-- <button type="button" class="btn btn-outline-danger"
 						onclick="javascript:location.href='${pageContext.request.contextPath}/userDelete?userId=${loginUser.userId}'">회원
 						탈퇴</button> --%>
-						<button type="button" class="btn btn-outline-danger"
-										data-toggle="modal" data-target="#userDeleteModal">회원 탈퇴</button> 
-										<!-- Modal -->
-									<div class="modal fade" id="userDeleteModal" tabindex="-1"
-										role="dialog" aria-labelledby="userDeleteModal" aria-hidden="true">
-										<div class="modal-dialog modal-dialog-centered"
-											role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalCenterTitle">회원 탈퇴</h5>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body" style="text-align: center;"><b>${loginUser.userName }</b>님 회원을 탈퇴하시겠습니까?</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-danger"
-														onclick="javascript:location.href='userDelete?userId=${loginUser.userId}'">탈퇴</button>
-													<button type="button" class="btn btn-secondary"
-														data-dismiss="modal">취소</button>
-												</div>
-											</div>
-										</div>
-									</div>
+					<button type="button" class="btn btn-outline-danger"
+						data-toggle="modal" data-target="#userDeleteModal">회원 탈퇴</button>
+					<!-- Modal -->
+					<div class="modal fade" id="userDeleteModal" tabindex="-1"
+						role="dialog" aria-labelledby="userDeleteModal" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalCenterTitle">회원 탈퇴</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body" style="text-align: center;">
+									<b>${loginUser.userName }</b>님 회원을 탈퇴하시겠습니까?
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger"
+										onclick="javascript:location.href='userDelete?userId=${loginUser.userId}'">탈퇴</button>
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">취소</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
