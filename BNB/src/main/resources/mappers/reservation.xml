@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.bnb.reservation.dao.ReservationDao">
 <select id="getReservation" resultType="ReservationInfo">
-	SELECT * FROM reservation where roomsId = #{roomsId} and reservationCheck =1
+	SELECT * FROM reservation where roomsId = #{roomsId}
 </select>
 
 <select id="getDuration" resultType="int">
