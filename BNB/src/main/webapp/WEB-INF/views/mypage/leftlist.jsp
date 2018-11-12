@@ -27,7 +27,7 @@
 				<li class="mypage_list"><i class="fas fa-heart"
 					style="color: #EB0000"></i>&ensp;<a href="#">즐겨찾기</a></li>
 				<li class="mypage_list"><i class="fas fa-history"
-					style="color: #0064FF"></i>&ensp;<a href="#">히스토리</a></li>
+					style="color: #0064FF"></i>&ensp;<a href="${pageContext.request.contextPath}/history">히스토리</a></li>
 				<li class="mypage_list"><i class="fas fa-star"
 					style="color: #FFB400"></i>&ensp;<a
 					href="${pageContext.request.contextPath}/review">후기</a></li>

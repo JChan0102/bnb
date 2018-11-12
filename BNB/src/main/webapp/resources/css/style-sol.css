@@ -114,3 +114,14 @@
 	width:200px;
 	margin:0 auto;
 }
+
+.historyCard {
+	max-width: 17rem;
+	max-height: 200px;
+	overflow: hidden;
+}
+
+.history{
+	text-align: center;
+}
+
