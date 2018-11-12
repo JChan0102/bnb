@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 인터페이스가 있는 패키지+클래스명 -->
+<mapper namespace="com.bit.bnb.host.dao.HostInterfaceDao">
+	
+	<!-- 데이터 뿌리기  -->
+	<insert id="inserthost"
+		parameterType="com.bit.bnb.host.model.HostModel">
+		INSERT INTO `host` (`bUserId`, `bTitle`, `bContent`, `bDate`) 
+		VALUES (#{bUserId},#{bTitle},#{bContent},
+		now())
+
+
+	<!-- insert into host values(#{bId},#{bUserId},#{bTitle},#{bContent}, now()) -->
+	</insert>
+	<select id="selecthost"
+		resultType="com.bit.bnb.host.model.HostModel">
+		select * from host order by bId DESC
+	</select>
+	<select id="selectViewLink"
+		resultType="com.bit.bnb.host.model.HostModel">
+		select * from host where bId = #{bId}
+	</select>
+	<delete id="deleteLink">
+		delete from host where bId = #{bId}
+	</delete>
+	<update id="update" parameterType="com.bit.bnb.host.model.HostModel">
+		update host set bTitle = #{bTitle}, bContent=#{bContent},bDate=now()  where bId=#{bId}
+	</update>
+</mapper>      
+        
+        
