@@ -48,3 +48,9 @@
 	href="${pageContext.request.contextPath}/resources/css/style-yun.css?after">
 <%--이것은 알림창 띄우는 겁니다--%>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery_toast.css"></link>
+
+
+<!-- 구글 로그인 관련 -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name = "google-signin-client_id"content = "173449746481-er69j4j9c3d2im90aprllmfr7jcpcs71.apps.googleusercontent.com">
+

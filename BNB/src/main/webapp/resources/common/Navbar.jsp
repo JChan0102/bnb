@@ -61,7 +61,7 @@
 						</div></li>
 					<li class="nav-item"><a class="nav-link text-dark"
 						href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
-					<li class="nav-item"><a class="nav-link text-dark"
+					<li class="nav-item"><a class="nav-link text-dark" 
 						href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
 
 					<script type="text/javascript">
@@ -224,34 +224,35 @@
 			</div>
 			<!-- body -->
 			<div class="modal-body">
+				<div class="container">
+					<div class="row justify-content-md-center">
+						<div id="h-ready" class="col col-md-4 col-lg-8">
+							
+							<label class="form-check-label mt-2 mb-2">아이디 :</label>
+							<input type="email" id="input_userId" name="userId" class="form-control"
+								placeholder="example@example.com" value="${cookie.cookieUserId.value}" />
+							<div id="loginHidden" style="display: none; color: #dc3545;" ></div>
 
-			<main role="main" class="container">
-		<div class="row justify-content-md-center">
-			<div id="h-ready" class="col col-md-4 col-lg-8">
-					<label class="form-check-label mt-2 mb-2">아이디 :</label> <input
-						type="email" id="input_userId" name="userId" class="form-control"
-						placeholder="example@example.com" value="${cookie.cookieUserId.value}" />
+							<label class="form-check-label mt-2 mb-2">비밀번호 :</label>
+							<input type="password" id="input_userPw" name="userPw" class="form-control" />
+							<label class="form-check-label mt-2 mb-2">Remember Me! </label>
+							<input type="checkbox" id="chk_rememberMe" name="rememberMe"
+								<c:if test="${cookie.cookieUserId ne null}">
+                            		checked
+                       			 </c:if>
+								class="form-control-input" />
+							<button id="btn-login" class="btn btn-lg btn-danger btn-block" type="button">
+								로그인</button>
 
-						<div id="loginHidden" style="display: none; color: #dc3545;" ></div>
-
-					<label class="form-check-label mt-2 mb-2">비밀번호 :</label><input
-						type="password" id="input_userPw" name="userPw" class="form-control" />
-					<label class="form-check-label mt-2 mb-2">Remember Me! </label>
-					<input type="checkbox" id="chk_rememberMe" name="rememberMe"
-						<c:if test="${cookie.cookieUserId ne null}">
-                            checked
-                        </c:if>
-						class="form-control-input" />
-					<button id="btn-login" class="btn btn-lg btn-danger btn-block" type="button">
-					로그인</button>
-
-							</div>
 						</div>
-					</main>
+					</div>
 				</div>
-
+				<div class="container">
+					<div class="g-signin2" data-onsuccess="onSignIn" data-longtitle="true"></div>
+				</div>
+			</div>
 			<!-- Footer -->
-			<div class="modal-footer">BIBIBIT 대한민국 숙박정보 BnB</div>
+				<div class="modal-footer">BIBIBIT 대한민국 숙박정보 BnB</div>
 		</div>
 	</div>
 </div>
@@ -259,7 +260,7 @@
 
 <!-- 로그인 관련 스크립트 -->
 <script>
-
+	
 $('#login-go').click(function(){
 
 	if(${cookie.cookieUserId eq null}){
@@ -314,6 +315,8 @@ $('#btn-login').click(function() {
               }
           })
 });
+
+
 </script>
 <!-- 로그인 스크립트 끝 -->
 <div id="frame" style="position: absolute; right: 0px; bottom: 0px; z-index: -5; visibility: hidden">
@@ -572,3 +575,4 @@ function closee(){
         return zero + n;
     }
 </script>
+
