@@ -6,25 +6,10 @@
     background: #01D1FE;
 }
 
-.chatbody {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                min-height: 100vh;
-                                background: #27ae60;
-                                font-family: "proxima-nova", "Source Sans Pro", sans-serif;
-                                font-size: 1em;
-                                letter-spacing: 0.1px;
-                                color: #32465a;
-                                text-rendering: optimizeLegibility;
-                                text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-                                -webkit-font-smoothing: antialiased;
-                            }
-
 #frame {
     width: 95%;
     min-width: 360px;
-    max-width: 1000px;
+    max-width: 650px;
     height: 92vh;
     min-height: 300px;
     max-height: 720px;
@@ -38,8 +23,8 @@
 }
 #frame #sidepanel {
     float: left;
-    min-width: 280px;
-    max-width: 340px;
+    min-width: 100px;
+    max-width: 220px;
     width: 40%;
     height: 100%;
     background: #2c3e50;
@@ -77,7 +62,7 @@
     -o-transform: scaleY(-1);
     -webkit-transform: scaleY(-1);
     transform: scaleY(-1);
-    filter: FlipH;
+    filter: "FlipH";
     -ms-filter: "FlipH";
 }
 #frame #sidepanel #profile .wrap {
@@ -294,46 +279,47 @@
     outline: none;
     background: #435f7a;
 }
-#frame #sidepanel #search {
+#frame #sidepanel #search1 {
     border-top: 1px solid #32465a;
     border-bottom: 1px solid #32465a;
     font-weight: 300;
+    padding-left: 11px;
 }
 @media screen and (max-width: 735px) {
-    #frame #sidepanel #search {
+    #frame #sidepanel #search1 {
         display: none;
     }
 }
-#frame #sidepanel #search label {
+#frame #sidepanel #search1 label {
     position: absolute;
     margin: 10px 0 0 20px;
 }
-#frame #sidepanel #search input {
+#frame #sidepanel #search1 input {
     font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
-    padding: 10px 0 10px 46px;
+    padding: 10px 0 10px 10px;
     width: calc(100% - 25px);
     border: none;
     background: #32465a;
     color: #f5f5f5;
 }
-#frame #sidepanel #search input:focus {
+#frame #sidepanel #search1 input:focus {
     outline: none;
     background: #435f7a;
 }
-#frame #sidepanel #search input::-webkit-input-placeholder {
+#frame #sidepanel #search1 input::-webkit-input-placeholder {
     color: #f5f5f5;
 }
-#frame #sidepanel #search input::-moz-placeholder {
+#frame #sidepanel #search1 input::-moz-placeholder {
     color: #f5f5f5;
 }
-#frame #sidepanel #search input:-ms-input-placeholder {
+#frame #sidepanel #search1 input:-ms-input-placeholder {
     color: #f5f5f5;
 }
-#frame #sidepanel #search input:-moz-placeholder {
+#frame #sidepanel #search1 input:-moz-placeholder {
     color: #f5f5f5;
 }
 #frame #sidepanel #contacts {
-    height: calc(100% - 177px);
+    height: calc(100% - 160px);
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -504,7 +490,7 @@
 }
 #frame .content {
     float: right;
-    width: 60%;
+    width: 66%;
     height: 100%;
     overflow: hidden;
     position: relative;
@@ -515,11 +501,11 @@
         min-width: 300px !important;
     }
 }
-@media screen and (min-width: 900px) {
+/*@media screen and (min-width: 900px) {
     #frame .content {
-        width: calc(100% - 340px);
+        width: calc(100% - 0px);
     }
-}
+}*/
 #frame .content .contact-profile {
     width: 100%;
     height: 60px;
@@ -554,6 +540,7 @@
     max-height: calc(100% - 93px);
     overflow-y: scroll;
     overflow-x: hidden;
+    width: 100%;
 }
 @media screen and (max-width: 735px) {
     #frame .content .messages {
@@ -571,8 +558,8 @@
     display: inline-block;
     clear: both;
     float: left;
-    margin: 15px 15px 5px 15px;
-    width: calc(100% - 25px);
+    margin: 0px 5px 0px 10px;
+    width: calc(100% - 16px);
     font-size: 0.9em;
 }
 #frame .content .messages ul li:nth-last-child(1) {
@@ -623,7 +610,7 @@
     font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
     float: left;
     border: none;
-    width: calc(100% - 90px);
+    width: calc(100% - 50px);
     padding: 11px 32px 10px 8px;
     font-size: 0.8em;
     color: #32465a;

@@ -1,6 +1,7 @@
 package com.bit.bnb.chatting.controller;
 
 import com.bit.bnb.chatting.model.ChatRoomVO;
+import com.bit.bnb.chatting.model.MessageVO;
 import com.bit.bnb.chatting.service.MessageListService;
 import com.bit.bnb.chatting.service.NewMessageCkServie;
 import com.bit.bnb.user.model.UserVO;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ChatListController {
@@ -24,9 +27,8 @@ public class ChatListController {
     NewMessageCkServie newMessageCkServie;
 
     @RequestMapping(value = "/chat/list", method = RequestMethod.GET)
-    public ModelAndView list(HttpSession session,ChatRoomVO roomVO){
-        ModelAndView modelAndView = new ModelAndView();
-
+    @ResponseBody
+    public List<ChatRoomVO> list(HttpSession session,ChatRoomVO roomVO){
         UserVO user = (UserVO) session.getAttribute("loginUser");
 
         if(user.getUserId().equals(roomVO.getUserId())){
@@ -36,17 +38,31 @@ public class ChatListController {
         }
         newMessageCkServie.getList(user.getUserId(),session);
 
-        modelAndView.addObject("chatRoomList", service.chatAllList(user.getUserId()));
-        modelAndView.setViewName("chat/list");
-        modelAndView.addObject("sender",user.getUserId());
-        modelAndView.addObject("chatroom",roomVO);
+        List<ChatRoomVO> list = service.chatAllList(user.getUserId());
+
+        return list;
+    }
+
+    @RequestMapping(value = "/chat/list/message", method = RequestMethod.GET)
+    @ResponseBody
+    public List<MessageVO> list2(HttpSession session, ChatRoomVO roomVO){
+        UserVO user = (UserVO) session.getAttribute("loginUser");
+
+        if(user.getUserId().equals(roomVO.getUserId())){
+            roomVO.setReceive("U");
+        }else{
+            roomVO.setReceive("H");
+        }
+        List<MessageVO> lists= new ArrayList<MessageVO>();
         try {
-            modelAndView.addObject("lists", service.listviewService(roomVO));
+            lists= service.listviewService(roomVO);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return modelAndView;
+        return lists;
     }
+
+
     @RequestMapping(value="/chat/list/ck", method = RequestMethod.GET)
     @ResponseBody
     public void update(HttpSession session,ChatRoomVO roomVO){

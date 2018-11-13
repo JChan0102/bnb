@@ -19,7 +19,7 @@ public class RoomsLIstService {
 
 	public List<RoomsVO> getRoomsList(RoomsVO rv, Paging paging) {
 
-		HashMap<String, Object> map = new HashMap<>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		map.put("paging", paging);
 		map.put("rv", rv);
