@@ -19,7 +19,7 @@
     </head>
 
     <body class="umkibody">
-        <form method="post">
+        <form method="post" id="fr">  
             <div class="wrapperr">
                 <input name="checkIn" type="text" id="datepicker" placeholder=" 체크인 " readonly="true" /> <i class="ion-calendar"></i>
             </div>
@@ -77,13 +77,13 @@
                 </div>
             </div>
 
-			<input type="hidden" value="${loginUser.userId}" name="hostId"/>
+			<input type="hidden" value="${loginUser.userId}" name="hostId" id="umki-hostId"/>
 			<input type="hidden" value="${loginUser.userId}" name="userId"/>
 			<input type="hidden" value="${selectedRoom.roomsId}" name="roomsId"/>
 			<input type="hidden" value="${selectedRoom.price_weekdays}" name="price"/>
 			<input type="hidden" value="1" name="people" id="people"/>
 			 
-            <input type="submit" value="예약하기" />
+            <input type="submit" value="예약하기"/>
         </form>
         <script>
             var impossible = new Array();
@@ -201,7 +201,7 @@
                 dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],
                 dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
                 weekHeader: "주",
-                dateFormat: "yy-mm-dd (D)",     
+                dateFormat: "yy-mm-dd",       
                 firstDay: 0,
                 isRTL: false,
                 showMonthAfterYear: true,
@@ -379,6 +379,24 @@
                     }
                 });
             }
+            
+            $("#fr").submit(function(){
+            	if(!$("#datepicker").val()) {
+            	    alert("체크인체크해");
+            	    return false;
+            	  }
+            	if(!$("#return").val()) {
+            	    alert("체크아웃체크해");
+            	    return false;
+            	  }
+            	if(!$("#umki-hostId").val()) {
+            	    alert("로그인해");
+            	    return false;
+            	  }
+            	
+            	  return true;
+            });
+           
 
         </script>
     </body>
