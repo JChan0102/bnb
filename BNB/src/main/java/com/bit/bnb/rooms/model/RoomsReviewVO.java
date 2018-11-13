@@ -1,18 +1,19 @@
 package com.bit.bnb.rooms.model;
 
-import java.sql.Timestamp;
-
 import org.springframework.web.multipart.MultipartFile;
 
 public class RoomsReviewVO {
 	private int reservationNum;
 	private String reviewContent;
 	private int scope;
-	private Timestamp reviewDate;
+	private String reviewDate;
+//	private Timestamp reviewDate;
 	private String hostId;
 	private String userId;
-	private Timestamp checkIn;
-	private Timestamp checkOut;
+	private String checkIn;
+	private String checkOut;
+//	private Timestamp checkIn;
+//	private Timestamp checkOut;
 	private int roomsId;
 	private int price;
 	private int people;
@@ -27,7 +28,8 @@ public class RoomsReviewVO {
 	private Byte userCheck; // tinyint
 	private int point;
 	private Byte disabled; // tinyint
-	private Timestamp birth;
+	private String birth;
+//	private Timestamp birth;
 	private String userInfo;
 
 	public final int getReservationNum() {
@@ -54,14 +56,6 @@ public class RoomsReviewVO {
 		this.scope = scope;
 	}
 
-	public final Timestamp getReviewDate() {
-		return reviewDate;
-	}
-
-	public final void setReviewDate(Timestamp reviewDate) {
-		this.reviewDate = reviewDate;
-	}
-
 	public final String getHostId() {
 		return hostId;
 	}
@@ -76,22 +70,6 @@ public class RoomsReviewVO {
 
 	public final void setUserId(String userId) {
 		this.userId = userId;
-	}
-
-	public final Timestamp getCheckIn() {
-		return checkIn;
-	}
-
-	public final void setCheckIn(Timestamp checkIn) {
-		this.checkIn = checkIn;
-	}
-
-	public final Timestamp getCheckOut() {
-		return checkOut;
-	}
-
-	public final void setCheckOut(Timestamp checkOut) {
-		this.checkOut = checkOut;
 	}
 
 	public final int getRoomsId() {
@@ -206,14 +184,6 @@ public class RoomsReviewVO {
 		this.disabled = disabled;
 	}
 
-	public final Timestamp getBirth() {
-		return birth;
-	}
-
-	public final void setBirth(Timestamp birth) {
-		this.birth = birth;
-	}
-
 	public final String getUserInfo() {
 		return userInfo;
 	}
@@ -233,4 +203,38 @@ public class RoomsReviewVO {
 				+ birth + ", userInfo=" + userInfo + "]";
 	}
 
+	public final String getReviewDate() {
+		return reviewDate;
+	}
+
+	public final void setReviewDate(String reviewDate) {
+		this.reviewDate = reviewDate;
+	}
+
+	public final String getCheckIn() {
+		return checkIn;
+	}
+
+	public final void setCheckIn(String checkIn) {
+		this.checkIn = checkIn;
+	}
+
+	public final String getCheckOut() {
+		return checkOut;
+	}
+
+	public final void setCheckOut(String checkOut) {
+		this.checkOut = checkOut;
+	}
+
+	public final String getBirth() {
+		return birth;
+	}
+
+	public final void setBirth(String birth) {
+		this.birth = birth;
+	}
+
+	
+	
 }

@@ -201,7 +201,7 @@
 									output += '<td rowspan="3" class="border-bottom border-right w-25 text-center align-middle"><h1>사진</h1>'
 											+ json.review[i].userName + '</td>';
 									output += '<td class="w-75"><small class="text-muted">';
-									for(j = 0; j < json.review[i].scope; j++){
+									for (j = 0; j < json.review[i].scope; j++) {
 										output += '★';
 									}
 									output += ' (' + json.review[i].scope + ')'
@@ -214,7 +214,15 @@
 									output += '</tr>';
 									output += '<tr>';
 									output += '<td class="border-top-0 border-bottom"><small class="text-muted">이 후기는 '
-											+ json.review[i].reviewDate
+											+ json.review[i].reviewDate.substr(
+													0, 4)
+											+ '년 '
+											+ json.review[i].reviewDate.substr(
+													5, 2)
+											+ '월 '
+											+ json.review[i].reviewDate.substr(
+													8, 2)
+											+ '일'
 											+ '에 작성되었습니다.</small></td>';
 									output += '</tr>';
 								}

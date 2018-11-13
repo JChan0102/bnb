@@ -35,7 +35,8 @@ public class RoomsReviewListController {
 		map.put("review", roomViewService.getReviewList(paging, rv.getRoomsId()));
 		map.put("paging", paging);
 		System.out.println(roomViewService.getReviewList(paging, rv.getRoomsId()));
-		System.out.println(paging);
+		// https://www.baeldung.com/jackson-serialize-dates
+		
 		String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
 		return jsonInString;
 	}
