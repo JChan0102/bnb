@@ -7,7 +7,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.bit.bnb.mypage.model.ReviewVO;
 import com.bit.bnb.rooms.model.AmenitiesVO;
 import com.bit.bnb.rooms.model.RoomsReviewSummaryVO;
 import com.bit.bnb.rooms.model.RoomsReviewVO;
@@ -56,5 +55,9 @@ public class RoomsDAO {
 
 	public List<RoomsReviewSummaryVO> selectRoomsReviewSummary() {
 		return sqlSessionTemplate.selectList(mapperPath + "selectRoomsReviewSummary");
+	}
+
+	public int selectRoomsReviewCount(int roomsId) {
+		return sqlSessionTemplate.selectOne(mapperPath + "selectRoomsReviewCount", roomsId);
 	}
 }

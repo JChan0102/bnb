@@ -43,4 +43,11 @@ public class RoomViewService {
 		paging.makePageing();
 		return paging;
 	}
+
+	public Paging getReviewaging(int roomsId, int currentPageNo, int dataPerPage) {
+		Paging paging = new Paging(roomsDAO.selectRoomsReviewCount(roomsId), currentPageNo, dataPerPage);
+		paging.makePageing();
+		return paging;
+	}
+
 }

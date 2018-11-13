@@ -109,8 +109,8 @@
 								style="width: 100%; height: 500px;"></div></td>
 					</tr>
 					<tr>
-						<td colspan="2"><table class="table">
-								<c:forEach items="${review}" var="item">
+						<td colspan="2"><table class="table" id="review">
+								<%-- <c:forEach items="${review}" var="item">
 									<tr>
 										<td rowspan="3" class="border-bottom border-right"><h1>사진</h1>${item.userName}</td>
 										<td><small class="text-muted"> <c:forEach
@@ -126,10 +126,10 @@
 													value="${item.reviewDate}" pattern="yyyy-MM-dd" />에 작성된
 												후기입니다.</small></td>
 									</tr>
-								</c:forEach>
+								</c:forEach> --%>
 							</table></td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td colspan="2"><table class="table" id="reviewTable">
 								<c:if test="${empty review}">
 									<tr>
@@ -154,12 +154,9 @@
 									</tr>
 								</c:forEach>
 							</table></td>
-					</tr>
+					</tr> --%>
 					<tr>
 						<td colspan="2">호스트 정보</td>
-					</tr>
-					<tr>
-						<td colspan="2">?</td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center"><input type="hidden"
@@ -180,31 +177,63 @@
 	</div>
 	</main>
 	<script type="text/javascript">
-	var test='';
+		var output = '';
 		$(document).ready(function() {
-			$.ajax({
-				type : 'GET',
-				url : "${pageContext.request.contextPath}/rooms/getReveiws?roomsId=" + $('#roomsId').val(),
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-				dataType : 'JSON',
-				success : function(json) {
-					if (json.review.length==0){
-						$('#reviewTable').html('<tr><td>후기가 없습니다.</td></tr>');
-					} else {
-						for(i=0; i<json.length; i++){
-							$('#RTuserName').html(json.review[i].userName);
-						}
-					}
-					console.log(json);
-					console.log(json.review);
-					test=json.review;
-					// reveiws = $.parseJSON(json.review);
-				},
-				error : function(error) {
-					console.log("error : " + error);
-				}
-			});
+			getReviews(1);
 		});
+
+		// 리뷰를 가져온다
+		function getReviews(i) {
+			$
+					.ajax({
+						type : 'GET',
+						url : "${pageContext.request.contextPath}/rooms/getReveiws?roomsId="
+								+ $('#roomsId').val() + '&page=' + i,
+						contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+						dataType : 'JSON',
+						success : function(json) {
+							if (json.review.length == 0) {
+								$('#review')
+										.html('<tr><td>후기가 없습니다.</td></tr>');
+							} else {
+								for (i = 0; i < json.review.length; i++) {
+									output += '<tr>';
+									output += '<td rowspan="3" class="border-bottom border-right w-25 text-center align-middle"><h1>사진</h1>'
+											+ json.review[i].userName + '</td>';
+									output += '<td class="w-75"><small class="text-muted">';
+									for(j = 0; j < json.review[i].scope; j++){
+										output += '★';
+									}
+									output += ' (' + json.review[i].scope + ')'
+											+ '</small></td>';
+									output += '</tr>';
+									output += '<tr>';
+									output += '<td class="border-top-0 border-bottom-0">'
+											+ json.review[i].reviewContent
+											+ '</td>';
+									output += '</tr>';
+									output += '<tr>';
+									output += '<td class="border-top-0 border-bottom"><small class="text-muted">이 후기는 '
+											+ json.review[i].reviewDate
+											+ '에 작성되었습니다.</small></td>';
+									output += '</tr>';
+								}
+								if (json.paging.currentPageNo < json.paging.lastPageNo) {
+									// 출력할 것이 남은 경우
+									var moreBtn = '<tr><td colspan="2" class="text-center align-middle"><input type="button" class="btn btn-danger" value="더보기" '
+											+ 'onclick="getReviews('
+											+ json.paging.nextPageNo
+											+ ');"></td></tr>';
+								}
+								$('#review').html(output + moreBtn);
+							}
+							console.log(json.review);
+						},
+						error : function(error) {
+							console.log("error : " + error);
+						}
+					});
+		};
 	</script>
 	<script type="text/javascript"
 		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RjRRELdZtqF2DId12vbe&submodules=geocoder"></script>
@@ -237,34 +266,36 @@
 
 		// result by latlng coordinate
 		function searchAddressToCoordinate(address) {
-			naver.maps.Service.geocode(
-			{
-				address : address
-			},
-			function(status, response) {
-				if (status === naver.maps.Service.Status.ERROR) {
-					$('#address').val('');
-					return alert('유효하지 않은 주소 입니다! 주소를 확인해 주세요.');
-				}
+			naver.maps.Service
+					.geocode(
+							{
+								address : address
+							},
+							function(status, response) {
+								if (status === naver.maps.Service.Status.ERROR) {
+									$('#address').val('');
+									return alert('유효하지 않은 주소 입니다! 주소를 확인해 주세요.');
+								}
 
-				var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명주소]'
-						: '[지번주소]', point = new naver.maps.Point(
-						item.point.x, item.point.y);
+								var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명주소]'
+										: '[지번주소]', point = new naver.maps.Point(
+										item.point.x, item.point.y);
 
-				$('#address').val(item.address);
+								$('#address').val(item.address);
 
-				infoWindow.setContent([
-								'<div class="alert alert-light border border-secondary map_info mb-0" role="alert">',
-								'<b>검색 주소 : '
-										+ response.result.userquery
-										+ '</b><br>',
-								addrType + ' ' + item.address
-										+ '<br>', '</div>' ]
-								.join('\n'));
+								infoWindow
+										.setContent([
+												'<div class="alert alert-light border border-secondary map_info mb-0" role="alert">',
+												'<b>검색 주소 : '
+														+ response.result.userquery
+														+ '</b><br>',
+												addrType + ' ' + item.address
+														+ '<br>', '</div>' ]
+												.join('\n'));
 
-				map.setCenter(point);
-				infoWindow.open(map, point);
-			});
+								map.setCenter(point);
+								infoWindow.open(map, point);
+							});
 		}
 
 		function initGeocoder() {

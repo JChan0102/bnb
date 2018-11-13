@@ -192,4 +192,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		rs.reservationNum
 		GROUP BY roomsId
 	</select>
+
+	<!-- 리뷰 부분 -->
+	<select id="selectRoomsReviewCount"
+		parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		SELECT count(*) reviewCount
+		FROM `bnb`.`review` rv
+		INNER
+		JOIN `bnb`.`reservation` rs ON
+		rv.reservationNum =
+		rs.reservationNum
+		WHERE roomsId = #{roomsId} 
+	</select>
 </mapper>
