@@ -36,13 +36,12 @@ public class ReservationCheckService {
 	@Transactional
 	public int getDuration(String checkInStr, String nowStr, int roomsId) {
 		dao = sqlSessionTemplate.getMapper(ReservationDao.class);
-		
-		
 		try {
 			duration = dao.getDuration(checkInStr, nowStr, roomsId);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception e) { // 다음 체크인이 없을 때
+			duration = 400;
 		}
+		
 		return duration;
 	}
 }

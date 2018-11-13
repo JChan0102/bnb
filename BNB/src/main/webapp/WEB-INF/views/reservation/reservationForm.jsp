@@ -30,6 +30,8 @@
             <div class="wrapperr">
 
                 <div id="umki_people" data-toggle="modal" data-target="#my80sizeCenterModal">게스트 1명</div>
+                
+                <div id="price">가격</div>
 
                 <!-- 80%size Modal at Center -->
                 <div class="modal modal-center fade" id="my80sizeCenterModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel">
@@ -91,10 +93,11 @@
             var adult = 1;
             var child = 0;
             var little = 0;
-            var limit = ${selectedRoom.avail_adults+selectedRoom.avail_children}; 
-            
-            console.log(now);
-           			         
+            var limit = ${selectedRoom.avail_adults+selectedRoom.avail_children};
+            var checkIn1 = new Date(1899,11,30);
+            var checkIn2 = 0;
+            var checkOut1 = new Date(1899,11,30);
+            var count = 0;
             
             function plusAdult(obj){
             	if(limit > adult+child){
@@ -138,22 +141,19 @@
             	$('#people').val(peopleNum);
             }
 
-            function temp() {  
+            function temp() {
                 $.ajax({
                     async: false,
                     url: '${pageContext.request.contextPath}/reservation/possible',
                     type: 'GET',
                     datatype: 'json',
                     data: {
-                        "roomsId": 3/* "${selectedRoom.roomsId}" */
+                        "roomsId": "${selectedRoom.roomsId}"
                     },
                     success: function(data) {
                         $(data).each(
                             function(key, value) {
                                 day = value.day;
-                                
-                                
-                                     
                                 
                                 inyy = Number(value.checkIn.substring(
                                     0, 4));
@@ -161,6 +161,7 @@
                                     5, 7));
                                 indd = Number(value.checkIn.substring(
                                     8, 10));
+                                
                                 if (inmm != 12) {
                                     for (i = 0; i < day; i++) {
                                         impossible.push(new Date(inyy,
@@ -170,7 +171,7 @@
                                     for (i = 0; i < day; i++) {
                                         impossible.push(new Date(
                                             inyy + 1, 0 - 1, indd +
-                                            i));
+                                            i));   
                                     }
                                 }
                             });
@@ -200,14 +201,14 @@
                 dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],
                 dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
                 weekHeader: "주",
-                dateFormat: "yy-mm-dd",     
+                dateFormat: "yy-mm-dd (D)",     
                 firstDay: 0,
                 isRTL: false,
                 showMonthAfterYear: true,
                 yearSuffix: "년"
             })
 
-            $("#datepicker")
+            $("#datepicker")   
                 .datepicker({
                     showAnim: 'drop',
                     minDate: 0,
@@ -220,28 +221,50 @@
                             .each(
                                 function(key, value) {
 
-                                    if (String(date) == String(value) &&
-                                        (value
-                                            .getFullYear() == now
-                                            .getFullYear() &&
-                                            value
-                                            .getMonth() >= now
-                                            .getMonth() && value
-                                            .getDate() >= now
-                                            .getDate())) {
-                                        re = [false, "not", ""];
-                                        return false;
-                                    } else if (value
+                                    if (String(date) == String(value)  &&  
+                                        (value.getFullYear() == now.getFullYear() &&
+                                        value.getMonth() >= now.getMonth()))  {
+                                    	
+                                    	if(value.getMonth() == now.getMonth() && value.getDate() >= now.getDate()){
+                                    		re = [false, "not", ""];
+                                            return false;	
+                                    	} else if (value.getMonth() > now.getMonth()){
+                                    		re = [false, "not", ""];
+                                            return false;   
+                                    	}
+                                        
+                                    }  else if (value
                                         .getFullYear() > now
                                         .getFullYear() &&
                                         String(date) == String(value)) {
                                         re = [false, "not", ""];
                                         return false;
-                                    } else {
+                                    }  else {
                                         re = [true];
                                         return true;
                                     }
                                 });
+                           
+                        
+                        /* function(key, value) {
+
+                            if (String(date) == String(value)  &&  
+                                (value.getFullYear() == now.getFullYear() &&
+                                value.getMonth() >= now.getMonth() &&
+                                value.getDate() >= now.getDate()))  {
+                                re = [false, "not", ""];
+                                return false;
+                            }  else if (value
+                                .getFullYear() > now
+                                .getFullYear() &&
+                                String(date) == String(value)) {
+                                re = [false, "not", ""];
+                                return false;
+                            }  else {
+                                re = [true];
+                                return true;
+                            }
+                        }); */
 
                         return re;
                     },
@@ -250,11 +273,10 @@
                         var month = Number(selected.substring(5, 7));
                         var date = Number(selected.substring(8, 10));
                         
-                        var checkIn = new Date(year, month - 1, date);
-                        var checkIn2 = new Date(year, month - 1,
+                        checkIn1 = new Date(year, month - 1, date);
+                        checkIn2 = new Date(year, month - 1,
                             date + 1);
-                        console.log(typeof selected);
-
+                        
                         if (selected != "") {
                             $
                                 .ajax({
@@ -262,9 +284,9 @@
                                     url: '${pageContext.request.contextPath}/reservation/possibleDuration',
                                     type: 'GET',
                                     data: {   
-                                        "checkIn": checkIn,
+                                        "checkIn": checkIn1,
                                         "now": now,   
-                                        "roomsId": 3/* "${selectedRoom.roomsId}" */  
+                                        "roomsId": "${selectedRoom.roomsId}"
                                     },
                                     datatype: 'json',
                                     success: function(data) {
@@ -281,8 +303,13 @@
                             $('#return').datepicker("option",
                                 "minDate", checkIn2);
                         }
-                        temp();
-
+                        temp(); 
+                        
+                        if($('#return').val() != ""){  
+                        	checkOut1 = new Date($('#return').val().substring(0,4), $('#return').val().substring(5,7)-1, $('#return').val().substring(8,10));
+                        }
+                        weekend();
+                        viewPrice();
                     },
 
                     onChangeMonthYear: function() {
@@ -298,9 +325,60 @@
                 onSelect: function(selected, event) {
 
                     window.parent.postMessage(selected, "*");
-                }
-
+                },
+            	onClose: function(selected) {
+                	var year = Number(selected.substring(0, 4));
+                    var month = Number(selected.substring(5, 7));
+                    var date = Number(selected.substring(8, 10));
+                    var day = selected.substring(12, 13); 
+                    
+                    checkOut1 = new Date(year, month-1, date);
+                    weekend();
+                    viewPrice();
+                    
+            	}
             });
+            
+            function weekend(){
+            	if(checkIn1.getFullYear()>=now.getFullYear() && checkOut1.getFullYear()>=now.getFullYear() ){
+                	count = 0;
+                	var temp_date = new Date(checkIn1);  
+                	
+                	while(true) {
+                	    if(temp_date.getTime() > checkOut1.getTime()-1) {
+                	        console.log("count : " + count);
+                	        break;
+                	    } else {
+                	        var tmp = temp_date.getDay();
+                	        if(tmp == 5 || tmp == 6) {
+                	            count++;             
+                	        }  
+                	        temp_date.setDate(temp_date.getDate() + 1);
+                	    }
+                	}
+                }
+            }
+            
+            function viewPrice(){   
+            	$.ajax({
+                    async: false,
+                    url: '${pageContext.request.contextPath}/reservation/price',
+                    type: 'GET',
+                    data: {
+                        "checkIn": checkIn1,
+                        "checkOut": checkOut1,
+                        "cnt" : count,
+                        "roomsId": "${selectedRoom.roomsId}"
+                    },
+                    datatype: 'json',
+                    success: function(data) {
+                    	if(checkIn1.getFullYear()>=now.getFullYear() && checkOut1.getFullYear()>=now.getFullYear() ){   
+                    		$("#price").text(data +"원 입니다.");
+                        	console.log(data);
+                    	}
+                    }
+                });
+            }
 
         </script>
     </body>

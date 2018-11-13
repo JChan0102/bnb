@@ -13,5 +13,9 @@ public interface ReservationDao {
 	public int getDuration(@Param("checkInStr") String checkInStr, @Param("nowStr") String nowStr, @Param("roomsId") int roomsId) throws Exception;
 
 	public int ReservationDo(ReservationInfo info) throws Exception;
+
+	public int getPrice(@Param("checkInStr") String checkInStr, @Param("checkOutStr") String checkOutStr, @Param("cnt") int cnt, @Param("roomsId") int roomsId) throws Exception;
+
+	
 	
 }

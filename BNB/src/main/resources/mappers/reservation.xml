@@ -8,7 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="getDuration" resultType="int">
-	SELECT (TO_DAYS(checkIn)-TO_DAYS(#{nowStr})) FROM reservation WHERE roomsId=#{roomsId} and checkIn>#{checkInStr} order by checkIn limit 0,1
+	SELECT (TO_DAYS(checkIn)-TO_DAYS(#{nowStr})) FROM reservation WHERE roomsId=#{roomsId}
+	and checkIn>#{checkInStr} order by checkIn limit 0,1
 </select>
 
 <insert id="ReservationDo" parameterType="ReservationInfo">
@@ -35,5 +36,25 @@ VALUES
 TO_DAYS(#{checkOut})-TO_DAYS(#{checkIn})
 );
 </insert>
+
+<select id="getPrice" resultType="int">
+	select (b.price_weekdays) * ((TO_DAYS(#{checkOutStr})-TO_DAYS(#{checkInStr}))-#{cnt}) + b.price_weekend*#{cnt} from
+	reservation a join rooms b on a.roomsId=#{roomsId} and a.roomsId=b.roomsId limit 0,1;
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper>

@@ -27,7 +27,8 @@ public class ReservationPossibleDurationController {
       String checkInStr = format.format(checkIn);
       String nowStr = format.format(now);
       int duration = service.getDuration(checkInStr, nowStr, roomsId);
-      
+	  
+
       return duration;
    }
 }
