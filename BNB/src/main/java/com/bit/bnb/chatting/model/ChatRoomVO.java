@@ -7,6 +7,20 @@ public class ChatRoomVO{
     private String roomsId;
    private  String unreadcount;
    private String receive;
+   private String userName;
+    private String hostName;
+    private String readCk;
+    private String userPhoto;
+    private String hostPhoto;
+    private String messagecontent;
+
+    public String getMessagecontent() {
+        return messagecontent;
+    }
+
+    public void setMessagecontent(String messagecontent) {
+        this.messagecontent = messagecontent;
+    }
 
     public ChatRoomVO() {
     }
@@ -22,6 +36,47 @@ public class ChatRoomVO{
         this.userId = userId;
         this.roomsId = roomsId;
         this.receive = receive;
+    }
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
+
+    public String getReadCk() {
+        return readCk;
+    }
+
+    public void setReadCk(String readCk) {
+        this.readCk = readCk;
+    }
+
+    public String getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(String userPhoto) {
+        this.userPhoto = userPhoto;
+    }
+
+    public String getHostPhoto() {
+        return hostPhoto;
+    }
+
+    public void setHostPhoto(String hostPhoto) {
+        this.hostPhoto = hostPhoto;
     }
 
     public String getReceive() {
@@ -64,12 +119,21 @@ public class ChatRoomVO{
         this.roomsId = roomsId;
     }
 
+
     @Override
     public String toString() {
         return "ChatRoomVO{" +
                 "hostId='" + hostId + '\'' +
                 ", userId='" + userId + '\'' +
                 ", roomsId='" + roomsId + '\'' +
+                ", unreadcount='" + unreadcount + '\'' +
+                ", receive='" + receive + '\'' +
+                ", userName='" + userName + '\'' +
+                ", hostName='" + hostName + '\'' +
+                ", readCk='" + readCk + '\'' +
+                ", userPhoto='" + userPhoto + '\'' +
+                ", hostPhoto='" + hostPhoto + '\'' +
+                ", messagecontent='" + messagecontent + '\'' +
                 '}';
     }
 }

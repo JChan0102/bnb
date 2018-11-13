@@ -39,11 +39,15 @@
                                        or hostId =#{userId};
 </select>
     <select id="getAllRoomList" resultType="com.bit.bnb.chatting.model.ChatRoomVO">
-        select
-               userId,roomsId,hostId
-        from message
-        group by userId,roomsId,hostId having userId =#{userId}
-                                           or hostId =#{userId};
+        select se.*, me.messagecontent,me.receive,me.readCk, u.userName, u.userPhoto, h.userName hostName, h.userPhoto hostPhoto
+        from (select userId, roomsId, hostId, MaX(idx) idx
+              from message
+              group by userId, roomsId, hostId
+              having userId = #{userId}
+                  or hostId = #{userId}) se
+                 inner JOIN message me on se.idx = me.idx
+                 inner join user u on se.userId = u.userId
+                 inner join user h on se.hostId = h.userId order by me.readCk desc, se.idx desc ;
     </select>
     <select id="newChatCK" parameterType="java.lang.String" resultType="com.bit.bnb.chatting.model.MessageVO">
         select

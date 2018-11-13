@@ -79,6 +79,7 @@ public class EchoHandler extends TextWebSocketHandler {
             System.out.println("3:"+messageVO.toString());
             //받는사람
             if (login.getUserId().equals(messageVO.getUserId()) || login.getUserId().equals(messageVO.getHostId())) {
+               System.out.println("들어왔니");
                 Gson gson = new Gson();
                 String msgJson = gson.toJson(messageVO);
                 websocketSession.sendMessage(new TextMessage(msgJson));
