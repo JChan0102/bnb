@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bit.bnb.user.dao.UserDao;
 import com.bit.bnb.user.model.UserVO;
@@ -63,5 +64,19 @@ public class UserRegService {
 			resultCnt = 0;
 		}
 		return resultCnt;
+	}
+	
+	
+	public String getUserIdChk(String userId) {
+		UserVO user = new UserVO();
+		user = userDao.selectUser(userId);
+		
+		String userIdChk = "no";
+		
+		if(user == null) {
+			userIdChk = "yes";
+		}
+		
+		return userIdChk;
 	}
 }

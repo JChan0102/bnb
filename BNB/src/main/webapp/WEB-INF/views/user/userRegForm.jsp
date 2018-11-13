@@ -30,7 +30,7 @@
 					<form method="post" enctype="multipart/form-data">
 					
 						<input type="email" id="inputUserId" name="userId" class="form-control hyeon-reg-input" placeholder="이메일 주소" />
-		
+						<div id="alertId" style="display:none"></div >
 						<input type="password" id="userPw-1" name="userPw" class="form-control hyeon-reg-input" placeholder="비밀번호 설정" />
 						<div id="alertPw" style="display:none"></div >
 						<input type="password" id="userPw-2" class="form-control hyeon-reg-input" placeholder="비밀번호 확인" />
@@ -159,15 +159,30 @@
 		});
 		
 		
-	/* 	$.ajax({
-			var pw2 = $(#userPw-2);
-			if(pw2.focus()){
-				if(pw2.blur()){
-					alert("포커스벗어남");
+		$('#inputUserId').blur(function(){
+			var userId = $('#inputUserId').val();
+			if(userId != ''){
+				$.ajax({
+				type: "GET",
+				url: "userIdChk",
+				data: {"userId" : userId},
+				success: function(data){
+					if(data == "no"){
+						$('#alertId').css("display","");
+						$('#alertId').append("중복된 아이디입니다.");
+						$('#chkalertIdPw').attr('name', 'fail');
+					}else{
+						$('#alertId').empty();
+						$('#alertId').css("display","none");
+						$('#alertId').attr('name', '');
+					}
 				}
+		 		
+		 		
+				});
 			}
-			
-		}); */
+		});
+	 	
 		
 		
 	

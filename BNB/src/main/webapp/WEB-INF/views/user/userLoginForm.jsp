@@ -29,7 +29,7 @@
 						class="form-check-label mt-2 mb-2">Remember Me! </label> <input
 						type="checkbox" name="rememberMe" ${rememberChk}
 						class="form-control-input" />
-					<button class="btn btn-lg btn-danger btn-block" type="submit">로그인</button>
+					<button class="btn btn-lg btn-danger btn-block" type="submit" onkeyup="enterkey()">로그인</button>
 				</form>
 				<!-- 구글 로그인 버튼 -->
 				<br>

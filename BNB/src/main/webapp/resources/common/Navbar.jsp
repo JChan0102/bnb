@@ -34,7 +34,7 @@
 						href="${pageContext.request.contextPath}/userReg">회원가입</a></li>
 					<!-- <button class="btn btn-default" data-target="#layerpop" data-toggle="modal">로그인</button> -->
 
-					<li class="nav-item"><a id="login_go" class="nav-link text-dark"
+					<li class="nav-item"><a id="login-go" class="nav-link text-dark"
 						data-target="#layerpop" data-toggle="modal"
 						href="${pageContext.request.contextPath}/login">로그인</a></li>
 				</c:if>
@@ -174,7 +174,7 @@
 			
 			<main role="main" class="container">
 		<div class="row justify-content-md-center">
-			<div class="col col-md-4 col-lg-8">
+			<div id="h-ready" class="col col-md-4 col-lg-8">
 					<label class="form-check-label mt-2 mb-2">아이디 :</label> <input
 						type="email" id="input_userId" name="userId" class="form-control"
 						placeholder="example@example.com" value="${cookie.cookieUserId.value}" />
@@ -189,7 +189,7 @@
                             checked
                         </c:if>
 						class="form-control-input" />
-					<button id="btn_login" class="btn btn-lg btn-danger btn-block" type="button">
+					<button id="btn-login" class="btn btn-lg btn-danger btn-block" type="button">
 					로그인</button>
 			
 							</div>
@@ -207,19 +207,36 @@
 <!-- 로그인 관련 스크립트 -->
 <script>
 
-$('#login_go').click(function(){
+$('#login-go').click(function(){
 	
 	if(${cookie.cookieUserId eq null}){
 		$('#input_userId').val("");
 	}
 	
 	$('#input_userPw').val("");
-	$('#input_userPw').val("");
 	$('#loginHidden').css("display","none");
+	
+	
+});
+
+$('#layerpop').on('shown.bs.modal', function(){
+	
+	if($('#input_userId').val() == null){
+   		$('#input_userId').focus();
+	}else{
+		$('#input_userPw').focus();
+	}
 });
 
 
-$('#btn_login').click(function() {
+$('#input_userPw').keypress(function(event){
+	if(event.which == 13){
+		$('#btn-login').click();
+		return false;
+	}
+});
+
+$('#btn-login').click(function() {
 	
 	$('#loginHidden').empty();
 	
