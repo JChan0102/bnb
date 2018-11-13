@@ -30,12 +30,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 내가다녀온 숙소정보 -->
 	<select id="historyList" parameterType="map" resultMap="history">
 		select
-		ro.roomsId, ro.hostId, ro.details, ro.address, re.reservationNum,
+		ro.roomsId, ro.hostId, ro.details, SUBSTRING_INDEX(ro.address, ' ', 3) as address, re.reservationNum,
 		re.userId, re.checkIn, re.checkOut, re.price, re.people
 		from rooms ro
 		inner join reservation re on ro.roomsId=re.roomsId
 		where
-		userId=#{userId} and <![CDATA[ re.checkOut <= current_timestamp ]]>;
+		userId=#{userId} and <![CDATA[ re.checkOut <= current_timestamp ]]>
+		order by re.checkOut desc
 	</select>
 
 </mapper>

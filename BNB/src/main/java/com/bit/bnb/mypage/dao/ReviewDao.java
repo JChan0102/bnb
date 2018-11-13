@@ -2,6 +2,9 @@ package com.bit.bnb.mypage.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.bit.bnb.mypage.model.ReviewSearchVO;
 import com.bit.bnb.mypage.model.ReviewVO;
 
 public interface ReviewDao {
@@ -12,5 +15,5 @@ public interface ReviewDao {
 	public int reviewWrite(ReviewVO review); // 후기쓰기
 	public int reviewDelete(int reservationNum); // 삭제하기
 	public int reviewEdit(ReviewVO review); // 리뷰 수정
-
+	public List<ReviewVO> searchReview(@Param("userId") String userId, @Param("rvs") ReviewSearchVO rvs); // 리뷰 검색하기
 }

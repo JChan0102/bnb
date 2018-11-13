@@ -7,28 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.bnb.mypage.dao.ReviewDao;
+import com.bit.bnb.mypage.model.ReviewSearchVO;
 import com.bit.bnb.mypage.model.ReviewVO;
 
 @Service
-public class ReviewToListService {
-
+public class ReviewSearchService {
+	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	private ReviewDao reviewDao;
-
-	public List<ReviewVO> reviewToListView(String userId) {
-
-		reviewDao = sqlSessionTemplate.getMapper(ReviewDao.class);
-
-		return reviewDao.reviewToList(userId);
-	}
-
-	public List<ReviewVO> reviewWriteList(String userId) {
+	
+	public List<ReviewVO> reviewSearchList(String userId, ReviewSearchVO rvs) {
 
 		reviewDao = sqlSessionTemplate.getMapper(ReviewDao.class);
 
-		return reviewDao.reviewWriteList(userId);
+		return reviewDao.searchReview(userId, rvs);
 	}
+
 
 }

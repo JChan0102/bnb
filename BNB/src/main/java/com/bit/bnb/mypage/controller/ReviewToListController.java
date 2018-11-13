@@ -12,20 +12,20 @@ import com.bit.bnb.user.model.UserVO;
 
 @Controller
 public class ReviewToListController {
-	
+
 	@Autowired
 	private ReviewToListService service;
-	
+
 	@RequestMapping("/review")
 	public ModelAndView reviewToList(HttpSession session) {
-		
-		UserVO user = (UserVO)session.getAttribute("loginUser");
+
+		UserVO user = (UserVO) session.getAttribute("loginUser");
 		ModelAndView modelAndView = new ModelAndView();
-		
+
 		modelAndView.setViewName("mypage/review");
 		modelAndView.addObject("reviewTo", service.reviewToListView(user.getUserId()));
 		modelAndView.addObject("reviewWrite", service.reviewWriteList(user.getUserId()));
-		
+
 		return modelAndView;
 	}
 

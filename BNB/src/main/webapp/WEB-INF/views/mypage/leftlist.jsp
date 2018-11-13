@@ -21,7 +21,7 @@
 					</c:when>
 					<c:otherwise>
 						<li class="mypage_list"><i class="fas fa-hospital-symbol"></i>&ensp;<a
-							href="#">호스트페이지</a></li>
+							href="${pageContext.request.contextPath}/hostpage/main">호스트페이지</a></li>
 					</c:otherwise>
 				</c:choose>
 				<li class="mypage_list"><i class="fas fa-heart"

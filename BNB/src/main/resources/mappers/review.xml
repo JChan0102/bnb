@@ -22,10 +22,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 내가쓴 리뷰리스트뿌리기 -->
 	<select id="reviewToList" parameterType="map"
 		resultMap="reviewTo">
-		select re.reservationNum, r.userId, r.hostId, 
+		select re.reservationNum, r.userId, r.hostId,
 		re.scope ,
 		re.reviewContent , re.reviewDate from reservation r inner
-		join review re
+		join review
+		re
 		on r.reservationNum = re.reservationNum
 		where r.userId = #{userId}
 		order by re.reviewDate desc
@@ -47,24 +48,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="reviewWriteList" parameterType="map"
 		resultMap="reviewWrite">
 		SELECT r.reservationNum, r.userId, r.hostId,
-		re.reviewContent, r.checkIn, r.checkOut from reservation r
+		re.reviewContent,
+		r.checkIn, r.checkOut from reservation r
 		LEFT OUTER JOIN review re
-		ON re.reservationNum = r.reservationNum
+		ON
+		re.reservationNum = r.reservationNum
 		where re.reviewContent is null
 		<![CDATA[ and r.checkOut <= current_timestamp ]]>
 		and r.userId = #{userId}
 		order by r.checkIn
 	</select>
-	
+
 	<!-- 리뷰작성하기 -->
-	<insert id="reviewWrite" >
-		insert into review (reservationNum, reviewContent, scope)
-		values (#{reservationNum}, #{reviewContent}, #{scope})
+	<insert id="reviewWrite">
+		insert into review (reservationNum,
+		reviewContent, scope)
+		values (#{reservationNum}, #{reviewContent},
+		#{scope})
 	</insert>
-	
+
 	<!-- 리뷰 셀렉하기 -->
 	<select id="reviewPick" resultType="map" resultMap="reviewTo">
-		select * from review where reservationNum = #{reservationNum}
+		select * from
+		review where reservationNum = #{reservationNum}
 	</select>
 
 	<!-- 수정하기 -->
@@ -72,10 +78,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update review set reviewContent = #{reviewContent},
 		scope = #{scope} where reservationNum = #{reservationNum}
 	</update>
-	
+
 	<!-- 삭제하기 -->
 	<delete id="reviewDelete">
-		delete from review where reservationNum = #{reservationNum}
+		delete from review where reservationNum =
+		#{reservationNum}
 	</delete>
 
+	<!-- 리뷰검색하기 -->
+	<select id="searchReview"
+		resultType="com.bit.bnb.mypage.model.ReviewVO">
+		select re.reservationNum, r.userId, r.hostId,
+		re.scope ,
+		re.reviewContent , re.reviewDate from reservation r inner
+		join review
+		re
+		on r.reservationNum = re.reservationNum
+		where r.userId = #{userId}
+		<if test="rvs.searchType != null">
+			<if test="rvs.searchType == 'reviewDate'.toString()">
+				and re.reviewDate LIKE CONCAT('%',#{rvs.keyword},'%')
+			</if>
+			<if test="rvs.searchType == 'hostId'.toString()">
+				and r.hostId LIKE CONCAT('%',#{rvs.keyword},'%')
+			</if>
+			<if test="rvs.searchType == 'scope'.toString()">
+				and re.scope LIKE CONCAT('%',#{rvs.keyword},'%')
+			</if>
+		</if>
+		order by re.reviewDate desc
+	</select>
 </mapper>
