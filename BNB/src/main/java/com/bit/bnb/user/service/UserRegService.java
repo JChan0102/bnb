@@ -19,6 +19,8 @@ public class UserRegService {
 	@Autowired
 	private UserDao userDao;
 	
+	private UserVO user;
+	
 	@Transactional
 	public int userReg(UserVO userVO, HttpServletRequest request) throws IllegalStateException, IOException {
 		
@@ -43,23 +45,32 @@ public class UserRegService {
 			// DB에 저정할 이름 SET
 			userVO.setUserPhoto(imgName);
 			
-			System.out.println(dir);
-			System.out.println(imgName);
+			// System.out.println(dir);
+			// System.out.println(imgName);
 		}
 		
-		String birth = userVO.getYear()+"-"+userVO.getMonth()+"-"+userVO.getDay();
-		
+		// 빠짐없이 가입항목을 다 입력했는지 확인
 		if(userVO.getUserId() != null && userVO.getUserPw() != null && 
-		   userVO.getUserName() != null) {
+		   userVO.getUserName() != null && userVO.getYear() != null && 
+		   userVO.getMonth() !=null &&  userVO.getDay() != null) {
 			
-			if(userVO.getYear().length() == 4 && 
-			   0<userVO.getDay().length() && userVO.getDay().length()<3 && 
-			   0<userVO.getMonth().length() && userVO.getMonth().length()<3) {
+			// 아이디 중복검사
+			user = userDao.selectUser(userVO.getUserId());
+			
+			// 아이디 중복이 아니면 가입시도
+			if(user == null) {
 					
+				// 생년월일을 합쳐서 객체에 넣어줌
+				String birth = userVO.getYear()+"-"+userVO.getMonth()+"-"+userVO.getDay();
+
 				userVO.setBirth(birth);
+				// 가입시도
 				resultCnt = userDao.insertUser(userVO);
+
+			// 아이디 중복이면 가입실패
+			} else {
+				resultCnt = 0;
 			}
-			
 		} else {
 			resultCnt = 0;
 		}
@@ -67,14 +78,14 @@ public class UserRegService {
 	}
 	
 	
+	@Transactional
 	public String getUserIdChk(String userId) {
-		UserVO user = new UserVO();
 		user = userDao.selectUser(userId);
 		
-		String userIdChk = "no";
+		String userIdChk = "n";
 		
 		if(user == null) {
-			userIdChk = "yes";
+			userIdChk = "y";
 		}
 		
 		return userIdChk;

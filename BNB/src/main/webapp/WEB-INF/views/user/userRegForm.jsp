@@ -31,12 +31,17 @@
 					
 						<input type="email" id="inputUserId" name="userId" class="form-control hyeon-reg-input" placeholder="이메일 주소" />
 						<div id="alertId" style="display:none"></div >
+						<input type="hidden" id="fail-id" name="fail-id" />
 						<input type="password" id="userPw-1" name="userPw" class="form-control hyeon-reg-input" placeholder="비밀번호 설정" />
 						<div id="alertPw" style="display:none"></div >
 						<input type="password" id="userPw-2" class="form-control hyeon-reg-input" placeholder="비밀번호 확인" />
 						<div id="chkPw" style="display:none"></div >
+						<input type="hidden" id="fail-pw-1" class="form-control hyeon-reg-input" name="fail-pw-1"/>
+						<input type="hidden" id="fail-pw-2" class="form-control hyeon-reg-input" name="fail-pw-2"/>
+						<!-- <input type="hidden" id="fail-pw" name="fail-pw" /> -->
 						
-						<input type="text" name="userName" class="form-control hyeon-reg-input" placeholder="이름" />
+						<input type="text" id="inputUserName" name="userName" class="form-control hyeon-reg-input" placeholder="이름" />
+						<div id="chkName" style="display:none"></div >
 						<label class="form-check-label mt-2 mb-2">사진 </label>
 						<input type="file" name="photoFile" class="form-control hyeon-reg-input" />
 						<input type="hidden" name="host" value=1 style="display:none" />
@@ -93,95 +98,111 @@
 	
 	
 	<script>
+		// 아이디 입력란에 포커스 주기
 		$(document).ready(function(){
 			$('#inputUserId').focus();
 			
 		});
 		
-		
-		function checkPassword(id, pw){
+		// 비밀번호 유효성 검사
+		$('#userPw-1').blur(function checkPassword(){
 				$('#alertPw').empty();
 				$('#alertPw').css("display","none");
+				$('#fail-pw-1').val('fail');
 				
-			if(!/^[a-zA-Z0-9]{8,15}$/.test($('#userPw-1').val())){
-				$('#alertPw').css("display","");
-				$('#alertPw').append("숫자와 영문자 조합으로 10~15자리를 사용해야 합니다.");
-				
-				return false;
-			}
-
 			var checkNumber = $('#userPw-1').val().search(/[0-9]/g);
 			var checkEnglish = $('#userPw-1').val().search(/[a-z]/ig);
 
-			if(checkNumber <0 || checkEnglish <0){
+			if(!/^[a-zA-Z0-9]{8,15}$/.test($('#userPw-1').val())){
+				$('#alertPw').css("display","");
+				$('#alertPw').append("숫자와 영문자 조합으로 8~15자리를 사용해야 합니다.");
+			} else if (checkNumber <0 || checkEnglish <0){
 				$('#alertPw').css("display","");
 				$('#alertPw').append("숫자와 영문자를 혼용하여야 합니다.");
-				return false;
-			}
-
-			if(/(\w)\1\1\1/.test($('#userPw-1').val())){
+			} else if (/(\w)\1\1\1/.test($('#userPw-1').val())){
 				$('#alertPw').css("display","");
 				$('#alertPw').append("같은 문자를 4번 이상 연속하여 사용하실 수 없습니다.");
-				return false;
-			}
-
-			if($('#userPw-1').val().search($('#inputUserId').val()) > -1){
-				$('#alertPw').css("display","");
-				$('#alertPw').append("비밀번호에 아이디가 포함되었습니다.");
-				return false;
-			}
-			
-			/* 이 무접점하고는 느낌이 조금 다른데 이 느낌이 더 좋은거 같네..?? */
-			return true;
-		}
-
-		$('#userPw-1').blur(function(){
-			if(!checkPassword($('#inputUserId').val(), $('#userPw-2').val())){
-				$('#alertPw').attr('name', 'fail');
+			} else if ($('#inputUserId').val() != '' && $('#inputUserId').val() != null){
+				if($('#userPw-1').val().search($('#inputUserId').val()) > -1){
+					$('#alertPw').css("display","");
+					$('#alertPw').append("비밀번호에 아이디가 포함되었습니다.");
+				}else{
+					$('#fail-pw-1').val('ok');
+					alert($('#fail-pw-1').val());
+				}
 			} else {
-				$('#alertPw').removeattr('name');
+				$('#fail-pw-1').val('ok');
+				alert($('#fail-pw-1').val());
 			}
+			/* 이 무접점하고는 느낌이 조금 다른데 이 느낌이 더 좋은거 같네..?? */
 		});
 
-		
-		$('#userPw-2').blur(function(){
+		/* $('#userPw-1').blur(function(){
+			if(!checkPassword($('#inputUserId').val(), $('#userPw-2').val())){
+				$('#alertPw').text('fail');
+			} else {
+				$('#fail-pw').text('');
+				$('#fail-pw').val('');
+			}
+		}); */
+
+		 // 비밀번호 두개가 일치하는지 검사
+		 $('#userPw-2').blur(function(){
 			if($('#userPw-1').val() != $('#userPw-2').val()){
 				$('#chkPw').empty();
 				$('#chkPw').css("display","");
 				$('#chkPw').append("비밀번호를 다시 한 번 확인해주세요");
-				$('#chkPw').attr('name', 'fail');
+				$('#fail-pw-2').val('fail');
 			} else {
 				$('#chkPw').empty();
 				$('#chkPw').css("display","none");
-				$('#alertPw').removeattr('name');
+				$('#fail-pw-2').val('ok');
 			}
-			
 		});
 		
+		// 이름 입력했는지 검사
+		$('#inputUserName').blur(function(){
+			if($('#inputUserName').val() == null ||$('#inputUserName').val() == ''){
+				$('#chkName').empty();
+				$('#chkName').css("display","");
+				$('#chkName').append("이름을 입력해주세요");
+			} else {
+				$('#chkName').empty();
+				$('#chkName').css("display","none");
+			}
+		});
 		
+		// 아이디가 비밀번호와 겹치거나 아이디가 중복인지 확인
 		$('#inputUserId').blur(function(){
 			var userId = $('#inputUserId').val();
-			if(userId != ''){
+			
+			if(userId != null && userId != ''){
+				if($('#userPw-1').val().search($('#inputUserId').val()) > -1){
+					$('#alertPw').css("display","");
+					$('#alertPw').empty();
+					$('#alertPw').append("비밀번호에 아이디가 포함되었습니다.");
+					return false;
+				}
+			}
+			
+			if(userId != '' && userId != null){
 				$.ajax({
 				type: "GET",
 				url: "userIdChk",
 				data: {"userId" : userId},
 				success: function(data){
-					if(data == "no"){
+					if(data == "n"){
+						$('#alertId').empty();
 						$('#alertId').css("display","");
 						$('#alertId').append("중복된 아이디입니다.");
-						$('#chkalertIdPw').attr('name', 'fail');
 					}else{
 						$('#alertId').empty();
 						$('#alertId').css("display","none");
-						$('#alertId').attr('name', '');
 					}
 				}
-		 		
-		 		
-				});
-			}
-		});
+			});
+		}
+	});
 	 	
 		
 		

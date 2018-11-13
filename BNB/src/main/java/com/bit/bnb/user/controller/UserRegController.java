@@ -30,16 +30,23 @@ public class UserRegController {
 	}
 	
 	@RequestMapping(value="/userReg", method = RequestMethod.POST)
-	public ModelAndView userReg(UserVO userVO, String fail, HttpServletRequest request,
+	public ModelAndView userReg(UserVO userVO, 
+								@RequestParam("fail-pw-1") String fail1,
+								@RequestParam("fail-pw-2") String fail2, 
+								HttpServletRequest request,
 								HttpSession session) throws IllegalStateException, IOException {
-		
+
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.setViewName("redirect:/");
 		int resultCnt = 0;
 		
-		if(fail == null) {
+		System.out.println(fail1 +" : " + fail2);
+
+		if(fail1.equals("ok") && fail2.equals("ok")) {
 			resultCnt = userRegService.userReg(userVO, request);
+		} else {
+			resultCnt = 0;
 		}
 		
 		System.out.println(resultCnt);
