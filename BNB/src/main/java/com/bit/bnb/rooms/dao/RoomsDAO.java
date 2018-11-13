@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.bit.bnb.mypage.model.ReviewVO;
 import com.bit.bnb.rooms.model.AmenitiesVO;
-import com.bit.bnb.rooms.model.ReviewSummaryVO;
+import com.bit.bnb.rooms.model.RoomsReviewSummaryVO;
+import com.bit.bnb.rooms.model.RoomsReviewVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 
 @Repository
@@ -49,11 +50,11 @@ public class RoomsDAO {
 		return sqlSessionTemplate.selectOne(mapperPath + "totalCount", tableName);
 	}
 
-	public List<ReviewVO> selectRoomsReview(HashMap<String, Object> map) {
+	public List<RoomsReviewVO> selectRoomsReview(HashMap<String, Object> map) {
 		return sqlSessionTemplate.selectList(mapperPath + "selectRoomsReview", map);
 	}
 
-	public List<ReviewSummaryVO> selectRoomsReviewSummary() {
+	public List<RoomsReviewSummaryVO> selectRoomsReviewSummary() {
 		return sqlSessionTemplate.selectList(mapperPath + "selectRoomsReviewSummary");
 	}
 }

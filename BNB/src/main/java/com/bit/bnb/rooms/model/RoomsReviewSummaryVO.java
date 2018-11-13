@@ -1,6 +1,6 @@
 package com.bit.bnb.rooms.model;
 
-public class ReviewSummaryVO {
+public class RoomsReviewSummaryVO {
 	private int roomsId;
 	private int reviewCount;
 	private double avgScope;
@@ -31,7 +31,7 @@ public class ReviewSummaryVO {
 
 	@Override
 	public String toString() {
-		return "ReviewSummaryVO [roomsId=" + roomsId + ", reviewCount=" + reviewCount + ", avgScope=" + avgScope
+		return "RoomsReviewSummaryVO [roomsId=" + roomsId + ", reviewCount=" + reviewCount + ", avgScope=" + avgScope
 				+ "]";
 	}
 

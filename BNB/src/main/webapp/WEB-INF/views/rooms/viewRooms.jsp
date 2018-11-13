@@ -109,8 +109,51 @@
 								style="width: 100%; height: 500px;"></div></td>
 					</tr>
 					<tr>
-						<td>이방의 후기</td>
-						<td><c:forEach items="${review}" var="item">${item.reviewContent}<hr></c:forEach></td>
+						<td colspan="2"><table class="table">
+								<c:forEach items="${review}" var="item">
+									<tr>
+										<td rowspan="3" class="border-bottom border-right"><h1>사진</h1>${item.userName}</td>
+										<td><small class="text-muted"> <c:forEach
+													begin="1" end="${item.scope}" step="1">★</c:forEach>(${item.scope})
+										</small></td>
+									</tr>
+									<tr>
+										<td class="border-top-0 border-bottom-0">${item.reviewContent}</td>
+									</tr>
+									<tr>
+										<td class="border-top-0 border-bottom"><small
+											class="text-muted"><fmt:formatDate
+													value="${item.reviewDate}" pattern="yyyy-MM-dd" />에 작성된
+												후기입니다.</small></td>
+									</tr>
+								</c:forEach>
+							</table></td>
+					</tr>
+					<tr>
+						<td colspan="2"><table class="table" id="reviewTable">
+								<c:if test="${empty review}">
+									<tr>
+										<td>후기가 없습니다.</td>
+									</tr>
+								</c:if>
+								<c:forEach items="${review}" var="item">
+									<tr>
+										<td rowspan="3" class="border-bottom border-right" id="RTuserName"><h1>사진</h1>${item.userName}</td>
+										<td><small class="text-muted"> <c:forEach
+													begin="1" end="${item.scope}" step="1">★</c:forEach>(${item.scope})
+										</small></td>
+									</tr>
+									<tr>
+										<td class="border-top-0 border-bottom-0">${item.reviewContent}</td>
+									</tr>
+									<tr>
+										<td class="border-top-0 border-bottom"><small
+											class="text-muted"><fmt:formatDate
+													value="${item.reviewDate}" pattern="yyyy-MM-dd" />에 작성된
+												후기입니다.</small></td>
+									</tr>
+								</c:forEach>
+							</table></td>
 					</tr>
 					<tr>
 						<td colspan="2">호스트 정보</td>
@@ -120,7 +163,7 @@
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center"><input type="hidden"
-							id="roomsId" name="${selectedRoom.roomsId}" value="0"><input
+							id="roomsId" name="roomsId" value="${selectedRoom.roomsId}"><input
 							type="hidden" id="disabled" name="disabled"
 							value="${selectedRoom.disabled}"> <a
 							href="${pageContext.request.contextPath}/chat/sendmessage?roomsId=${selectedRoom.roomsId}&hostId=${selectedRoom.hostId}"><input
@@ -136,6 +179,33 @@
 		</div>
 	</div>
 	</main>
+	<script type="text/javascript">
+	var test='';
+		$(document).ready(function() {
+			$.ajax({
+				type : 'GET',
+				url : "${pageContext.request.contextPath}/rooms/getReveiws?roomsId=" + $('#roomsId').val(),
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				dataType : 'JSON',
+				success : function(json) {
+					if (json.review.length==0){
+						$('#reviewTable').html('<tr><td>후기가 없습니다.</td></tr>');
+					} else {
+						for(i=0; i<json.length; i++){
+							$('#RTuserName').html(json.review[i].userName);
+						}
+					}
+					console.log(json);
+					console.log(json.review);
+					test=json.review;
+					// reveiws = $.parseJSON(json.review);
+				},
+				error : function(error) {
+					console.log("error : " + error);
+				}
+			});
+		});
+	</script>
 	<script type="text/javascript"
 		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RjRRELdZtqF2DId12vbe&submodules=geocoder"></script>
 	<script>
@@ -167,36 +237,34 @@
 
 		// result by latlng coordinate
 		function searchAddressToCoordinate(address) {
-			naver.maps.Service
-					.geocode(
-							{
-								address : address
-							},
-							function(status, response) {
-								if (status === naver.maps.Service.Status.ERROR) {
-									$('#address').val('');
-									return alert('유효하지 않은 주소 입니다! 주소를 확인해 주세요.');
-								}
+			naver.maps.Service.geocode(
+			{
+				address : address
+			},
+			function(status, response) {
+				if (status === naver.maps.Service.Status.ERROR) {
+					$('#address').val('');
+					return alert('유효하지 않은 주소 입니다! 주소를 확인해 주세요.');
+				}
 
-								var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명주소]'
-										: '[지번주소]', point = new naver.maps.Point(
-										item.point.x, item.point.y);
+				var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명주소]'
+						: '[지번주소]', point = new naver.maps.Point(
+						item.point.x, item.point.y);
 
-								$('#address').val(item.address);
+				$('#address').val(item.address);
 
-								infoWindow
-										.setContent([
-												'<div class="alert alert-light border border-secondary map_info mb-0" role="alert">',
-												'<b>검색 주소 : '
-														+ response.result.userquery
-														+ '</b><br>',
-												addrType + ' ' + item.address
-														+ '<br>', '</div>' ]
-												.join('\n'));
+				infoWindow.setContent([
+								'<div class="alert alert-light border border-secondary map_info mb-0" role="alert">',
+								'<b>검색 주소 : '
+										+ response.result.userquery
+										+ '</b><br>',
+								addrType + ' ' + item.address
+										+ '<br>', '</div>' ]
+								.join('\n'));
 
-								map.setCenter(point);
-								infoWindow.open(map, point);
-							});
+				map.setCenter(point);
+				infoWindow.open(map, point);
+			});
 		}
 
 		function initGeocoder() {

@@ -167,12 +167,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 리뷰 부분 -->
 	<select id="selectRoomsReview" parameterType="java.util.HashMap"
-		resultType="com.bit.bnb.mypage.model.ReviewVO">
+		resultType="com.bit.bnb.rooms.model.RoomsReviewVO">
 		SELECT * FROM `bnb`.`review` rv INNER JOIN
 		`bnb`.`reservation` rs ON
-		rv.reservationNum = rs.reservationNum WHERE
+		rv.reservationNum = rs.reservationNum
+		INNER JOIN `bnb`.`user` u ON
+		rs.userId = u.userId WHERE
 		rs.roomsId = #{roomsId}
-		ORDER BY reviewDate DESC
+		ORDER BY reviewDate
+		DESC
 		<if test="paging != null">
 			LIMIT #{paging.offset}, #{paging.dataPerPage}
 		</if>
@@ -180,7 +183,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 리뷰 부분 -->
 	<select id="selectRoomsReviewSummary"
-		resultType="com.bit.bnb.rooms.model.ReviewSummaryVO">
+		resultType="com.bit.bnb.rooms.model.RoomsReviewSummaryVO">
 		SELECT roomsId, count(*) reviewCount, avg(scope) avgScope
 		FROM `bnb`.`review` rv
 		INNER
