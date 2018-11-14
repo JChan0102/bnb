@@ -68,4 +68,15 @@ public class UserRegController {
 		System.out.println(userIdChk);
 		return userIdChk;
 	}
+	
+	
+	// 계정인증
+	@RequestMapping("/userKeyConfirm")
+	public String userKeyConfirm(@RequestParam("userId") String userId, 
+								 @RequestParam("userKey") String userKey) {
+		
+		userRegService.userConfirm(userId, userKey);
+
+		return "redirect:/";
+	}
 }

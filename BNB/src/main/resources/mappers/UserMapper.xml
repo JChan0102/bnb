@@ -15,4 +15,7 @@
 		select * from user where userId=#{userId}
 	</select>
 
+	<update id="updateUserKey">
+		update user set userKey='y' where userId=#{userId}
+	</update>
 </mapper>

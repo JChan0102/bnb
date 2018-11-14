@@ -19,5 +19,9 @@ public class UserDao {
 	public UserVO selectUser(String userId) {
 		return sqlSessionTemplate.selectOne(userMapperPath+".selectUser", userId);
 	}
+	
+	public int updateUserKey(String userId) {
+		return sqlSessionTemplate.update(userMapperPath+".updateUserKey", userId);
+	}
 
 }
