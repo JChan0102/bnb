@@ -10,6 +10,7 @@ import com.bit.bnb.rooms.dao.RoomsDAO;
 import com.bit.bnb.rooms.model.RoomsReviewSummaryVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.util.Paging;
+import com.bit.bnb.user.model.UserVO;
 
 @Service
 public class RoomsLIstService {
@@ -36,4 +37,5 @@ public class RoomsLIstService {
 	public List<RoomsReviewSummaryVO> getReviewSummary() {
 		return roomsDAO.selectRoomsReviewSummary();
 	}
+
 }

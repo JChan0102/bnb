@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bit.bnb.rooms.model.AmenitiesVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.service.RoomViewService;
+import com.bit.bnb.user.model.UserVO;
 
 @Controller
 public class RoomsViewController {
@@ -23,6 +24,11 @@ public class RoomsViewController {
 //		modelAndView.addObject("paging", paging);
 //		System.out.println(roomViewService.getReviewList(paging, rv.getRoomsId()).toString());
 //		modelAndView.addObject("review", roomViewService.getReviewList(paging, rv.getRoomsId()));
+		System.out.println(rv);
+
+		UserVO hostVO = new UserVO();
+		hostVO.setUserId(rv.getHostId());
+		modelAndView.addObject("hostInfo", roomViewService.getHostInfo(hostVO));
 		modelAndView.addObject("amenities", roomViewService.getAmenities(av));
 		modelAndView.addObject("selectedRoom", roomViewService.getViewRooms(rv));
 		modelAndView.setViewName("rooms/viewRooms");

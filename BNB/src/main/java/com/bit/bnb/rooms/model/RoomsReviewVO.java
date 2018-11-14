@@ -1,5 +1,7 @@
 package com.bit.bnb.rooms.model;
 
+import java.sql.Timestamp;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class RoomsReviewVO {
@@ -203,6 +205,38 @@ public class RoomsReviewVO {
 				+ birth + ", userInfo=" + userInfo + "]";
 	}
 
+//	public final Timestamp getReviewDate() {
+//		return reviewDate;
+//	}
+//
+//	public final void setReviewDate(Timestamp reviewDate) {
+//		this.reviewDate = reviewDate;
+//	}
+//
+//	public final Timestamp getCheckIn() {
+//		return checkIn;
+//	}
+//
+//	public final void setCheckIn(Timestamp checkIn) {
+//		this.checkIn = checkIn;
+//	}
+//
+//	public final Timestamp getCheckOut() {
+//		return checkOut;
+//	}
+//
+//	public final void setCheckOut(Timestamp checkOut) {
+//		this.checkOut = checkOut;
+//	}
+//
+//	public final Timestamp getBirth() {
+//		return birth;
+//	}
+//
+//	public final void setBirth(Timestamp birth) {
+//		this.birth = birth;
+//	}
+
 	public final String getReviewDate() {
 		return reviewDate;
 	}
@@ -235,6 +269,4 @@ public class RoomsReviewVO {
 		this.birth = birth;
 	}
 
-	
-	
 }

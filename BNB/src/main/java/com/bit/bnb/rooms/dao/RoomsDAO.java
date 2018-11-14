@@ -11,6 +11,7 @@ import com.bit.bnb.rooms.model.AmenitiesVO;
 import com.bit.bnb.rooms.model.RoomsReviewSummaryVO;
 import com.bit.bnb.rooms.model.RoomsReviewVO;
 import com.bit.bnb.rooms.model.RoomsVO;
+import com.bit.bnb.user.model.UserVO;
 
 @Repository
 public class RoomsDAO {
@@ -59,5 +60,9 @@ public class RoomsDAO {
 
 	public int selectRoomsReviewCount(int roomsId) {
 		return sqlSessionTemplate.selectOne(mapperPath + "selectRoomsReviewCount", roomsId);
+	}
+	
+	public List<UserVO> selectRoomsHost(UserVO uv) {
+		return sqlSessionTemplate.selectList(mapperPath + "selectRoomsHost", uv);
 	}
 }

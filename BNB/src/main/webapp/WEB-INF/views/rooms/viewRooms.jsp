@@ -109,54 +109,21 @@
 								style="width: 100%; height: 500px;"></div></td>
 					</tr>
 					<tr>
-						<td colspan="2"><table class="table" id="review">
-								<%-- <c:forEach items="${review}" var="item">
-									<tr>
-										<td rowspan="3" class="border-bottom border-right"><h1>사진</h1>${item.userName}</td>
-										<td><small class="text-muted"> <c:forEach
-													begin="1" end="${item.scope}" step="1">★</c:forEach>(${item.scope})
-										</small></td>
-									</tr>
-									<tr>
-										<td class="border-top-0 border-bottom-0">${item.reviewContent}</td>
-									</tr>
-									<tr>
-										<td class="border-top-0 border-bottom"><small
-											class="text-muted"><fmt:formatDate
-													value="${item.reviewDate}" pattern="yyyy-MM-dd" />에 작성된
-												후기입니다.</small></td>
-									</tr>
-								</c:forEach> --%>
+						<td colspan="2"><div class="alert alert-secondary"
+								role="alert">이 숙소의 호스트</div>
+							<table class="table">
+								<tr>
+									<td
+										class="w-25 text-center border-top-0 border-bottom-0 align-top"><h1>사진</h1>${hostInfo.userName}</td>
+									<td class="w-75 border-top-0 border-bottom-0">${hostInfo.userInfo}</td>
+								</tr>
 							</table></td>
 					</tr>
-					<%-- <tr>
-						<td colspan="2"><table class="table" id="reviewTable">
-								<c:if test="${empty review}">
-									<tr>
-										<td>후기가 없습니다.</td>
-									</tr>
-								</c:if>
-								<c:forEach items="${review}" var="item">
-									<tr>
-										<td rowspan="3" class="border-bottom border-right" id="RTuserName"><h1>사진</h1>${item.userName}</td>
-										<td><small class="text-muted"> <c:forEach
-													begin="1" end="${item.scope}" step="1">★</c:forEach>(${item.scope})
-										</small></td>
-									</tr>
-									<tr>
-										<td class="border-top-0 border-bottom-0">${item.reviewContent}</td>
-									</tr>
-									<tr>
-										<td class="border-top-0 border-bottom"><small
-											class="text-muted"><fmt:formatDate
-													value="${item.reviewDate}" pattern="yyyy-MM-dd" />에 작성된
-												후기입니다.</small></td>
-									</tr>
-								</c:forEach>
-							</table></td>
-					</tr> --%>
 					<tr>
-						<td colspan="2">호스트 정보</td>
+						<td colspan="2"><div class="alert alert-secondary"
+								role="alert">이 숙소의 후기</div>
+							<table class="table" id="review">
+							</table></td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center"><input type="hidden"
@@ -194,13 +161,14 @@
 						success : function(json) {
 							if (json.review.length == 0) {
 								$('#review')
-										.html('<tr><td>후기가 없습니다.</td></tr>');
+										.html(
+												'<tr><td class="border-top-0 text-center align-middle">후기가 없습니다.</td></tr>');
 							} else {
 								for (i = 0; i < json.review.length; i++) {
 									output += '<tr>';
-									output += '<td rowspan="3" class="border-bottom border-right w-25 text-center align-middle"><h1>사진</h1>'
+									output += '<td rowspan="3" class="border-top-0 border-bottom-0 border-right-0 w-25 text-center align-top"><br><h1>사진</h1>'
 											+ json.review[i].userName + '</td>';
-									output += '<td class="w-75"><small class="text-muted">';
+									output += '<td class="w-75 border-top-0 border-bottom-0"><small class="text-muted">';
 									for (j = 0; j < json.review[i].scope; j++) {
 										output += '★';
 									}
@@ -213,7 +181,7 @@
 											+ '</td>';
 									output += '</tr>';
 									output += '<tr>';
-									output += '<td class="border-top-0 border-bottom"><small class="text-muted">이 후기는 '
+									output += '<td class="border-top-0 border-bottom-0"><small class="text-muted">이 후기는 '
 											+ json.review[i].reviewDate.substr(
 													0, 4)
 											+ '년 '
@@ -224,11 +192,14 @@
 													8, 2)
 											+ '일'
 											+ '에 작성되었습니다.</small></td>';
+									/* output += '<td>' +json.review[i].reviewDate + '</td>'; */
 									output += '</tr>';
+									output += '<tr><td colspan="2" class="border-top-0 border-bottom-0"><hr></tr>'
 								}
 								if (json.paging.currentPageNo < json.paging.lastPageNo) {
 									// 출력할 것이 남은 경우
-									var moreBtn = '<tr><td colspan="2" class="text-center align-middle"><input type="button" class="btn btn-danger" value="더보기" '
+									var moreBtn = '<tr><td colspan="2" class="text-center align-middle">'
+											+ '<input type="button" class="btn btn-light col-12 " value="더보기" '
 											+ 'onclick="getReviews('
 											+ json.paging.nextPageNo
 											+ ');"></td></tr>';
@@ -294,9 +265,9 @@
 								infoWindow
 										.setContent([
 												'<div class="alert alert-light border border-secondary map_info mb-0" role="alert">',
-												'<b>검색 주소 : '
-														+ response.result.userquery
-														+ '</b><br>',
+												//'<b>검색 주소 : '
+												//		+ response.result.userquery
+												//		+ '</b><br>',
 												addrType + ' ' + item.address
 														+ '<br>', '</div>' ]
 												.join('\n'));

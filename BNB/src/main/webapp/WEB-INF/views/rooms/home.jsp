@@ -31,7 +31,7 @@
 					<img class="card-img-top">
 					<div class="card-body">
 						<p class="card-text">
-							${item.roomsId}번/${item.hostId}<br>${item.address}<br>
+							${item.roomsId}<br>${item.address}<br>
 							<fmt:formatNumber value="${item.price_weekdays}"
 								pattern="\###,###,###" />
 							-
@@ -52,7 +52,7 @@
 							</small>
 							<div class="btn-group">
 								<a
-									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${item.roomsId}"><button
+									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${item.roomsId}&hostId=${item.hostId}"><button
 										type="button" class="btn btn-sm btn-outline-secondary ml-1">View</button></a>
 								<c:if test="${item.hostId eq loginUser.userId}">
 									<a

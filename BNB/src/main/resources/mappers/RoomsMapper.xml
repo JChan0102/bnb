@@ -193,16 +193,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		GROUP BY roomsId
 	</select>
 
-	<!-- 리뷰 부분 -->
+	<!-- 리뷰 부분 각 숙소에 대한 리뷰 수 count -->
 	<select id="selectRoomsReviewCount"
-		parameterType="java.lang.Integer"
-		resultType="java.lang.Integer">
-		SELECT count(*) reviewCount
+		parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT count(*)
+		reviewCount
 		FROM `bnb`.`review` rv
 		INNER
 		JOIN `bnb`.`reservation` rs ON
 		rv.reservationNum =
 		rs.reservationNum
-		WHERE roomsId = #{roomsId} 
+		WHERE roomsId = #{roomsId}
+	</select>
+
+
+	<select id="selectRoomsHost"
+		parameterType="com.bit.bnb.user.model.UserVO"
+		resultType="com.bit.bnb.user.model.UserVO">
+		SELECT * FROM `bnb`.`user`
+		<where>
+			<if test="userId != null">
+				AND userId = #{userId}
+			</if>
+		</where>
 	</select>
 </mapper>

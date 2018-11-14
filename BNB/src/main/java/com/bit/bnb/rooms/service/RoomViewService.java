@@ -11,6 +11,7 @@ import com.bit.bnb.rooms.model.AmenitiesVO;
 import com.bit.bnb.rooms.model.RoomsReviewVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.util.Paging;
+import com.bit.bnb.user.model.UserVO;
 
 @Service
 public class RoomViewService {
@@ -50,4 +51,7 @@ public class RoomViewService {
 		return paging;
 	}
 
+	public UserVO getHostInfo(UserVO uv) {
+		return roomsDAO.selectRoomsHost(uv).get(0);
+	}
 }
