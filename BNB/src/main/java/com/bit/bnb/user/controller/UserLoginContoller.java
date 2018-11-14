@@ -68,10 +68,11 @@ public class UserLoginContoller {
 		*/
 		
 		if(userId != null && userPw != null) {
-			if(userLoginService.userLogin(userId, userPw, session)) {
+			if(userLoginService.userLogin(userId, userPw, session).equals("loginSuccess")) {
 				/*modelAndView.setViewName("redirect:/");*/
 				
-				result = "redirect:/";
+				// result = "redirect:/";
+				result = "loginSuccess";
 				
 				System.out.println("rememberMe : " + rememberMe);
 				
@@ -90,9 +91,12 @@ public class UserLoginContoller {
 					cookie.setMaxAge(0);
 					response.addCookie(cookie);
 				}
+			} else if(userLoginService.userLogin(userId, userPw, session).equals("userKeyConfirm")) {
+				result = "userKeyConfirm";
 			}
 		}
-		System.out.println("result : " + result);
+		System.out.println("login result : " + result);
+		
 		return result;
 	}
 }

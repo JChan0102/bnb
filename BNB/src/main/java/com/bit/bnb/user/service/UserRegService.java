@@ -7,6 +7,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,9 @@ public class UserRegService {
 	private UserDao userDao;
 	
 	private UserVO user;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@Transactional
 	public int userReg(UserVO userVO, HttpServletRequest request) throws IllegalStateException, IOException {
@@ -109,4 +113,10 @@ public class UserRegService {
 		
 		return userIdChk;
 	}
+	
+	
+	// 회원가입 인증메일 발송 서비스
+	
+	//public void
+	
 }
