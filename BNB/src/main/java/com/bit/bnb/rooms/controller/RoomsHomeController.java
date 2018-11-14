@@ -23,7 +23,7 @@ public class RoomsHomeController {
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		Paging paging = roomsLIstService.getPaging("rooms", currentPageNo, 15);
+		Paging paging = roomsLIstService.getPaging("rooms", currentPageNo, 16);
 		modelAndView.addObject("paging", paging);
 		modelAndView.addObject("rooms", roomsLIstService.getRoomsList(rv, paging));
 		modelAndView.addObject("reviewSummary", roomsLIstService.getReviewSummary());
@@ -36,9 +36,9 @@ public class RoomsHomeController {
 			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPageNo) {
 		ModelAndView modelAndView = new ModelAndView();
 
-		Paging paging = roomsLIstService.getPaging("rooms", currentPageNo, 15);
-		modelAndView.addObject("paging", paging);
-		modelAndView.addObject("rooms", roomsLIstService.getRoomsList(rv, paging));
+//		Paging paging = roomsLIstService.getPaging("rooms", currentPageNo, 15);
+//		modelAndView.addObject("paging", paging);
+//		modelAndView.addObject("rooms", roomsLIstService.getRoomsList(rv, paging));
 		modelAndView.setViewName("rooms/home");
 		return modelAndView;
 	}

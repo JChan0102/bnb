@@ -15,9 +15,8 @@
 	<main role="main" class="row ml-5 mr-5">
 	<div class="col-md-2 border-right pr-4">
 		<form method="post">
-			<input type="submit" class="btn btn-dark col-12 btn-lg" value="숙소 검색">
-			<input type="button" id="mapBtn"
-				class="btn btn-secondary col-12 btn-lg mt-2 mb-2" value="지도 보기">
+			<input type="submit" class="btn btn-danger col-12 btn-lg"
+				value="숙소 검색">
 			<table class="table">
 				<tr>
 					<td>어른</td>
@@ -167,16 +166,6 @@
 				event.preventDefault();
 			}
 		});
-
-		$('#mapBtn').click(function() {
-			$('#map').toggle();
-			console.log($(this).val());
-			if ($(this).val() == '지도 보기') {
-				$(this).val('지도 숨기기');
-			} else if ($(this).val() == '지도 숨기기') {
-				$(this).val('지도 보기');
-			}
-		});
 	</script>
 	<script type="text/javascript"
 		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RjRRELdZtqF2DId12vbe&submodules=geocoder"></script>
@@ -306,11 +295,6 @@
 		}
 
 		naver.maps.onJSContentLoaded = initGeocoder;
-
-		$(document).ready(function() {
-			// 지도 끄고 시작
-			$('#map').css('display', 'none');
-		});
 	</script>
 </body>
 </html>
