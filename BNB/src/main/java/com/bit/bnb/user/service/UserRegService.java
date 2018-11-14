@@ -2,13 +2,13 @@ package com.bit.bnb.user.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bit.bnb.user.dao.UserDao;
 import com.bit.bnb.user.model.UserVO;
@@ -59,11 +59,30 @@ public class UserRegService {
 			
 			// 아이디 중복이 아니면 가입시도
 			if(user == null) {
-					
+			
 				// 생년월일을 합쳐서 객체에 넣어줌
 				String birth = userVO.getYear()+"-"+userVO.getMonth()+"-"+userVO.getDay();
-
 				userVO.setBirth(birth);
+				
+				// 메일인증을 위한 인증키 생성하기
+				Random random = new Random(System.currentTimeMillis());
+				StringBuffer keyBuffer = new StringBuffer();
+				
+				// 20자리의 난수를 발생한다
+				for(int i=0; i<20; i++) {
+					if(random.nextBoolean()) {
+						keyBuffer.append((char)((int)(random.nextInt(26))+97));
+					}else {
+						keyBuffer.append((random.nextInt(10)));
+					}
+				}
+				
+				String userKey = keyBuffer.toString();
+				
+				System.out.println("userKey : " + userKey);
+				
+				userVO.setUserKey(userKey);
+				
 				// 가입시도
 				resultCnt = userDao.insertUser(userVO);
 

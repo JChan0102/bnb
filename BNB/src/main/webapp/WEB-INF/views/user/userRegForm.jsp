@@ -8,7 +8,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
 
+
+</script>
 </head>
 <body>
 	<%@ include file="/resources/common/includeHead.jsp"%>
@@ -46,7 +49,7 @@
 						<input type="file" name="photoFile" class="form-control hyeon-reg-input" />
 						<input type="hidden" name="host" value=1 style="display:none" />
 						<input type="hidden" name="admin" value=1 style="display:none" />
-						<input type="hidden" name="userKey" value="asd123" style="display:none" />
+						<!-- <input type="hidden" name="userKey" value="asd123" style="display:none" /> -->
 						<input type="hidden" name="userCheck" value=1 style="display:none" />
 						<input type="hidden" name="point" value=0 style="display:none" />
 						<input type="hidden" name="disabled" value=1 style="display:none" />
@@ -128,11 +131,11 @@
 					$('#alertPw').append("비밀번호에 아이디가 포함되었습니다.");
 				}else{
 					$('#fail-pw-1').val('ok');
-					alert($('#fail-pw-1').val());
+					/* alert($('#fail-pw-1').val()); */
 				}
 			} else {
 				$('#fail-pw-1').val('ok');
-				alert($('#fail-pw-1').val());
+				/* alert($('#fail-pw-1').val()); */
 			}
 			/* 이 무접점하고는 느낌이 조금 다른데 이 느낌이 더 좋은거 같네..?? */
 		});
