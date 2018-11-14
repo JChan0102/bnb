@@ -59,8 +59,16 @@
 							<a class="dropdown-item"
 								href="${pageContext.request.contextPath}/chat/list">더보기..</a>
 						</div></li>
+						
+				<c:if test="${loginUser.admin eq 1 }">		
+					<li class="nav-item"><a class="nav-link text-dark"
+						href="${pageContext.request.contextPath}/admin">관리페이지</a></li>
+				</c:if>		
+				<c:if test="${loginUser.admin eq 0 }">		
 					<li class="nav-item"><a class="nav-link text-dark"
 						href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
+				</c:if>
+						
 					<li class="nav-item"><a class="nav-link text-dark" 
 						href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
 
