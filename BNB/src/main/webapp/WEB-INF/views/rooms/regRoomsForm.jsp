@@ -32,7 +32,7 @@
 			<h1>
 				<b>숙소 등록</b>
 			</h1>
-			<form method="post">
+			<form method="post" enctype="multipart/form-data">
 				<table class="table">
 					<tr>
 						<td>호스트 아이디</td>

@@ -141,6 +141,7 @@
 .ui-datepicker {
 	display: none;
 	background-color: #fff;
+	border: 1px solid #cccccc;
 	border-radius: 5px;
 	margin-top: 10px;
 	margin-left: 42.5px;
