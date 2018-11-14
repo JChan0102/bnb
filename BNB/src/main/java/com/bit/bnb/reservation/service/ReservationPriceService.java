@@ -25,7 +25,7 @@ public class ReservationPriceService {
 		try {
 			price = dao.getPrice(checkInStr, checkOutStr, cnt, roomsId);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("체크아웃 또는 체크아웃 둘중 한개 안눌림");
 		}
 		
 		return price;

@@ -19,7 +19,7 @@
     </head>
 
     <body class="umkibody">
-        <form method="post" id="fr">  
+        <form action="${pageContext.request.contextPath}/reservation" method="post" id="fr">
             <div class="wrapperr">
                 <input name="checkIn" type="text" id="datepicker" placeholder=" 체크인 " readonly="true" /> <i class="ion-calendar"></i>
             </div>
@@ -177,6 +177,8 @@
                             });
                     }
                 });
+                console.log(impossible);
+                console.log(typeof impossible);
             }
 
             temp();
@@ -216,7 +218,7 @@
                         window.parent.postMessage(selected, "*");
                     },
                     beforeShowDay: function(date) {
-
+                    	if(impossible.length > 0 ){
                         $(impossible)
                             .each(
                                 function(key, value) {
@@ -245,28 +247,12 @@
                                     }
                                 });
                            
-                        
-                        /* function(key, value) {
-
-                            if (String(date) == String(value)  &&  
-                                (value.getFullYear() == now.getFullYear() &&
-                                value.getMonth() >= now.getMonth() &&
-                                value.getDate() >= now.getDate()))  {
-                                re = [false, "not", ""];
-                                return false;
-                            }  else if (value
-                                .getFullYear() > now
-                                .getFullYear() &&
-                                String(date) == String(value)) {
-                                re = [false, "not", ""];
-                                return false;
-                            }  else {
-                                re = [true];
-                                return true;
-                            }
-                        }); */
-
+                          
                         return re;
+                    	}
+                        else{
+                        	return [true];     
+                        }
                     },
                     onClose: function(selected) {
                     	var year = Number(selected.substring(0, 4));

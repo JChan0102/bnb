@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="/resources/common/includeHead.jsp"%>
+
 </head>
 <body>
 	<script type="text/javascript">
@@ -36,8 +37,8 @@
 			<form method="post">
 				<table class="table">
 					<tr>
-						<td>호스트 아이디</td>
-						<td>${selectedRoom.hostId}</td>
+						<td class="w-25">호스트 아이디</td>
+						<td class="w-75">${selectedRoom.hostId}</td>
 					</tr>
 					<tr>
 						<td>소개</td>
@@ -139,7 +140,7 @@
 			</form>
 		</div>
 		<div class="col-md-5">
-			달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분달력부분
+			<%@ include file="../reservation/reservationForm.jsp"%>
 		</div>
 	</div>
 	</main>
