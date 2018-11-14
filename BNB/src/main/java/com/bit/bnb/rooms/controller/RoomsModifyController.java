@@ -24,8 +24,12 @@ public class RoomsModifyController {
 	@RequestMapping(value = "/rooms/modifyRooms", method = RequestMethod.GET)
 	public ModelAndView getModifyRoomsForm(RoomsVO rv, AmenitiesVO av) {
 		ModelAndView modelAndView = new ModelAndView();
+		// 줄바꿈 처리
+		rv = roomViewService.getViewRooms(rv);
+		rv.setDetails(rv.getDetails().replaceAll("<br>", "\r\n"));
+		// 줄바꿈 처리 끝
 		modelAndView.addObject("amenities", roomsModifyService.getAmenities(av));
-		modelAndView.addObject("selectedRoom", roomViewService.getViewRooms(rv));
+		modelAndView.addObject("selectedRoom", rv);
 		modelAndView.setViewName("rooms/modifyRoomsForm");
 		return modelAndView;
 	}
@@ -34,7 +38,8 @@ public class RoomsModifyController {
 	@RequestMapping(value = "/rooms/modifyRooms", method = RequestMethod.POST)
 	public ModelAndView modifyRooms(RoomsVO rv) {
 		ModelAndView modelAndView = new ModelAndView();
-
+		// 줄 바꿈 처리
+		rv.setDetails(rv.getDetails().replaceAll("\r\n", "<br>"));
 		// 숙소수정에 성공하면
 		if (roomsModifyService.modifyRooms(rv) > 0) {
 			modelAndView.setViewName("redirect:/rooms");

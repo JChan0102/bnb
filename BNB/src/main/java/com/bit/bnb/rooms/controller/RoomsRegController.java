@@ -29,6 +29,8 @@ public class RoomsRegController {
 	@RequestMapping(value = "/rooms/registerRooms", method = RequestMethod.POST)
 	public ModelAndView regRooms(RoomsVO rv) {
 		ModelAndView modelAndView = new ModelAndView();
+		// 줄 바꿈 처리
+		rv.setDetails(rv.getDetails().replaceAll("\r\n", "<br>"));
 		// 숙소등록에 성공하였을 경우
 		if (roomsRegService.regRooms(rv) > 0) {
 			modelAndView.setViewName("redirect:/rooms");

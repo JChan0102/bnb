@@ -51,14 +51,14 @@
 								</c:forEach>
 							</small>
 							<div class="btn-group">
-								<a
-									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${item.roomsId}&hostId=${item.hostId}"><button
-										type="button" class="btn btn-sm btn-outline-secondary ml-1">View</button></a>
 								<c:if test="${item.hostId eq loginUser.userId}">
 									<a
 										href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=${item.roomsId}&_hostId=${item.hostId}"><button
 											type="button" class="btn btn-sm btn-outline-secondary ml-1">Edit</button></a>
 								</c:if>
+								<a
+									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${item.roomsId}&hostId=${item.hostId}"><button
+										type="button" class="btn btn-sm btn-outline-secondary ml-1">View</button></a>
 							</div>
 						</div>
 					</div>

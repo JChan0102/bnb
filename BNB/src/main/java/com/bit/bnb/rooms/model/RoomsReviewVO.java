@@ -1,7 +1,5 @@
 package com.bit.bnb.rooms.model;
 
-import java.sql.Timestamp;
-
 import org.springframework.web.multipart.MultipartFile;
 
 public class RoomsReviewVO {
