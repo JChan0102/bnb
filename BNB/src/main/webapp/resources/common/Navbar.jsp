@@ -309,6 +309,9 @@ $('#btn-login').click(function() {
                 if (result == 'loginFail') {
           			$('#loginHidden').css("display","");
           			$('#loginHidden').append("아이디와 비밀번호를 확인하세요");
+                  } else if (result == 'userKeyConfirm'){
+                	$('#loginHidden').css("display","");
+            		$('#loginHidden').append("인증되지 않은 회원입니다. 이메일을 확인해주세요.");
                   } else {
                       location.href = '${pageContext.request.contextPath}/';
                   }
