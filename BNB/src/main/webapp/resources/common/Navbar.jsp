@@ -361,6 +361,17 @@ $('#btn-login').click(function() {
 </div>
 
 <script>
+
+    /* 스크롤따라 움직이는 Div */
+    var currentPosition = parseInt($('#frame').css('top'));
+
+    $(window).scroll(function() {
+        var position = $(window).scrollTop();
+        $('#frame').stop().animate({
+            'top' : position + currentPosition + 'px'
+        }, 500);
+    });
+
 function closee(){
         $('#frame').css('z-index',-6);
         $('#frame').css('visibility','hidden');

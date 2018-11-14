@@ -16,7 +16,7 @@ public class ChatDAO {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
-    private static String namespace="mappers.chatMapper.";
+    private static String namespace="mappers.hostpage.";
 
     public void createRoom (MessageVO vo) throws Exception{
         System.out.println("creatRoom 메서드");
