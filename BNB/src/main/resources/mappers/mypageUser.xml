@@ -6,15 +6,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 인터페이스가 있는 패키지+클래스명 -->
 <mapper namespace="com.bit.bnb.mypage.dao.MypageUserDao">
 
-	<resultMap type="com.bit.bnb.mypage.model.MemberVO" id="user">
-		<result property="userName" column="userName"
-			javaType="java.lang.String" />
-		<result property="userInfo" column="userInfo"
-			javaType="java.lang.String" />
-		<result property="userPhoto" column="userPhoto"
-			javaType="java.lang.String" />
-	</resultMap>
-
 	<!-- 유저 정보 수정 -->
 	<update id="userUpdate">
 		update user set userPw=#{userPw},
@@ -26,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<!-- 유저정보픽 -->
-	<select id="userPick" resultMap="user" resultType="map">
+	<select id="userPick" resultType="com.bit.bnb.mypage.model.MemberVO">
 		select * from user
 		where userId=#{userId}
 	</select>

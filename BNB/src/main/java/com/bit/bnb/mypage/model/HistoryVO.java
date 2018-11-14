@@ -10,7 +10,7 @@ public class HistoryVO {
 	private String address; // 숙소 주소
 	private int reservationNum; // 예약번호
 	private String userId; // 유저아이디
-	private Timestamp checkIn; //체크인시간
+	private Timestamp checkIn; // 체크인시간
 	private Timestamp checkOut; // 체크아웃시간
 	private int price; // 가격
 	private int people; // 사람 수

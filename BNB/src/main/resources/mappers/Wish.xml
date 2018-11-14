@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 인터페이스가 있는 패키지+클래스명 -->
+<mapper namespace="com.bit.bnb.mypage.dao.WishDao">
+
+	<!-- 즐겨찾기넣어주기 -->
+	<insert id="wishInsert">
+		insert into wish(userId, roomsId) values(#{userId},
+		#{roomsId})
+	</insert>
+
+	<!-- 즐겨찾기목록 -->
+	<select id="wishList" resultType="com.bit.bnb.mypage.model.WishVO">
+		select SUBSTRING_INDEX(r.address, ' ', 2) as address,
+		r.hostId, r.price_weekdays, r.price_weekend, r.details,
+		w.userId, w.roomsId from rooms r inner join wish w 
+		on r.roomsId = w.roomsId and w.userId = #{userId}
+		and address like CONCAT('%',#{address},'%')
+	</select>
+	
+	<!-- div생성용 즐겨찾기 목록 -->
+	<select id="wishDivList" resultType="com.bit.bnb.mypage.model.WishVO">
+		select DISTINCT SUBSTRING_INDEX(r.address, ' ', 2) as address from rooms r inner join wish w 
+		on r.roomsId = w.roomsId and w.userId = #{userId}
+	</select>
+	
+	<!-- div생성시 각 지역별 위시 개수찾기 -->
+	<select id="wishDivCnt" resultType="int">
+		select count(*) from rooms r inner join wish w 
+		on r.roomsId = w.roomsId and w.userId = #{userId}
+		and r.address like CONCAT('%',#{address},'%')
+	</select>
+
+	<!-- 즐겨찾기해제 -->
+	<delete id="wishDelete">
+		delete from wish where userId=#{userId} 
+		and roomsId = #{roomsId}
+	</delete>
+	
+</mapper>

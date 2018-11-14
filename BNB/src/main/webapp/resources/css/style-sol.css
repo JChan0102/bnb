@@ -21,9 +21,9 @@
 }
 
 #list {
-	width: 180px;
+	width: 100px;
 	margin: 0 auto;
-	padding-top: 50px;
+	padding-top: 65px;
 }
 
 #mypage_cont {
@@ -53,20 +53,21 @@
 
 .review_photo {
 	width: 200px;
-	height: 150px;
+	/* height: 150px; */
 }
 
 .review_host {
 	height: 40px;
 	width: 350px;
-	line-height: 40px;
+	/* line-height: 40px; */
 }
 
 #review_img {
 	width: 130px;
 	border-radius: 70px;
-	padding: 10px;
+	/* padding: 10px; */
 	margin-left: 20px;
+	margin-top: 20px;
 }
 
 #review_write_table {
@@ -98,21 +99,21 @@
 	width: 800px;
 }
 
-#reviewCont_wrap{
+#reviewCont_wrap {
 	width: 800px;
 	height: 360px;
-	padding-top:30px;
-	margin:0 auto;
+	padding-top: 30px;
+	margin: 0 auto;
 }
 
-#editForm_wrap{
+#editForm_wrap {
 	width: 600px;
-	margin:40px auto 70px auto;
+	margin: 40px auto 70px auto;
 }
 
-#editButton{
-	width:200px;
-	margin:0 auto;
+#editButton {
+	width: 200px;
+	margin: 0 auto;
 }
 
 .historyCard {
@@ -121,7 +122,20 @@
 	overflow: hidden;
 }
 
-.history{
+.history {
 	text-align: center;
 }
 
+#wishDiv {
+	border: 1px solid;
+	height: 40px;
+}
+
+#wish_wrap {
+	width: 900px;
+	margin: 0 auto;
+}
+.wish_div:hover .wish_hover{
+	background-color: #aaaaaa;
+	opacity:1;
+}

@@ -122,8 +122,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan='2'>${reTo.reviewContent}<br> <br> <fmt:formatDate
-										pattern="yyyy년 MM월 dd일" value="${reTo.reviewDate}" />
+								<td colspan='3'>${reTo.reviewContent}<br> <br> <fmt:formatDate
+										pattern="yyyy년 MM월 dd일" value="${reTo.reviewDate}" /><br><br>
 								</td>
 							</tr>
 						</table>

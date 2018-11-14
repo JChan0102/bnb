@@ -13,19 +13,9 @@
 		<div id="list">
 			<ul>
 				<li class="mypage_list"><i class="fas fa-user-circle"></i>&ensp;<a
-					href="${pageContext.request.contextPath}/mypage">프로필보기</a></li>
-				<c:choose>
-					<c:when test="${loginUser.host eq 0 }">
-						<li class="mypage_list"><i class="fas fa-hospital-symbol"></i>&ensp;<a
-							href="#">호스트신청</a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="mypage_list"><i class="fas fa-hospital-symbol"></i>&ensp;<a
-							href="${pageContext.request.contextPath}/hostpage/main">호스트페이지</a></li>
-					</c:otherwise>
-				</c:choose>
+					href="${pageContext.request.contextPath}/mypage">프로필</a></li>
 				<li class="mypage_list"><i class="fas fa-heart"
-					style="color: #EB0000"></i>&ensp;<a href="#">즐겨찾기</a></li>
+					style="color: #EB0000"></i>&ensp;<a href="${pageContext.request.contextPath}/wish">즐겨찾기</a></li>
 				<li class="mypage_list"><i class="fas fa-history"
 					style="color: #0064FF"></i>&ensp;<a href="${pageContext.request.contextPath}/history">히스토리</a></li>
 				<li class="mypage_list"><i class="fas fa-star"

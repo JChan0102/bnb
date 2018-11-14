@@ -6,29 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 인터페이스가 있는 패키지+클래스명 -->
 <mapper namespace="com.bit.bnb.mypage.dao.HistoryDao">
 
-	<resultMap type="com.bit.bnb.mypage.model.HistoryVO"
-		id="history">
-		<result property="roomsId" column="roomsId" javaType="int" />
-		<result property="hostId" column="hostId"
-			javaType="java.lang.String" />
-		<result property="details" column="details"
-			javaType="java.lang.String" />
-		<result property="address" column="address"
-			javaType="java.lang.String" />
-		<result property="reservationNum" column="reservationNum"
-			javaType="int" />
-		<result property="userId" column="userId"
-			javaType="java.lang.String" />
-		<result property="checkIn" column="checkIn"
-			javaType="java.sql.Timestamp" />
-		<result property="checkOut" column="checkOut"
-			javaType="java.sql.Timestamp" />
-		<result property="price" column="price" javaType="int" />
-		<result property="people" column="people" javaType="int" />
-	</resultMap>
-
 	<!-- 내가다녀온 숙소정보 -->
-	<select id="historyList" parameterType="map" resultMap="history">
+	<select id="historyList" resultType="com.bit.bnb.mypage.model.HistoryVO">
 		select
 		ro.roomsId, ro.hostId, ro.details, SUBSTRING_INDEX(ro.address, ' ', 3) as address, re.reservationNum,
 		re.userId, re.checkIn, re.checkOut, re.price, re.people

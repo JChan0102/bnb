@@ -6,22 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 인터페이스가 있는 패키지+클래스명 -->
 <mapper namespace="com.bit.bnb.mypage.dao.ReviewDao">
 
-	<resultMap type="com.bit.bnb.mypage.model.ReviewVO"
-		id="reviewTo">
-		<result property="reservationNum" column="reservationNum"
-			javaType="int" />
-		<result property="reviewContent" column="reviewContent"
-			javaType="java.lang.String" />
-		<result property="scope" column="scope" javaType="int" />
-		<result property="userPhoto" column="userPhoto"
-			javaType="java.lang.String" />
-		<result property="reviewDate" column="reviewDate"
-			javaType="java.sql.Timestamp" />
-	</resultMap>
-
 	<!-- 내가쓴 리뷰리스트뿌리기 -->
-	<select id="reviewToList" parameterType="map"
-		resultMap="reviewTo">
+	<select id="reviewToList" resultType="com.bit.bnb.mypage.model.ReviewVO">
 		select re.reservationNum, r.userId, r.hostId,
 		re.scope ,
 		re.reviewContent , re.reviewDate from reservation r inner
@@ -32,21 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by re.reviewDate desc
 	</select>
 
-	<resultMap type="com.bit.bnb.mypage.model.ReviewVO"
-		id="reviewWrite">
-		<result property="reservationNum" column="reservationNum"
-			javaType="int" />
-		<result property="reviewContent" column="reviewContent"
-			javaType="java.lang.String" />
-		<result property="checkIn" column="checkIn"
-			javaType="java.sql.Timestamp" />
-		<result property="checkOut" column="checkOut"
-			javaType="java.sql.Timestamp" />
-	</resultMap>
-
 	<!-- 작성해야할리스트찾기 -->
-	<select id="reviewWriteList" parameterType="map"
-		resultMap="reviewWrite">
+	<select id="reviewWriteList"  resultType="com.bit.bnb.mypage.model.ReviewVO">
 		SELECT r.reservationNum, r.userId, r.hostId,
 		re.reviewContent,
 		r.checkIn, r.checkOut from reservation r
@@ -68,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<!-- 리뷰 셀렉하기 -->
-	<select id="reviewPick" resultType="map" resultMap="reviewTo">
+	<select id="reviewPick" resultType="com.bit.bnb.mypage.model.ReviewVO">
 		select * from
 		review where reservationNum = #{reservationNum}
 	</select>
