@@ -328,6 +328,24 @@ $('#btn-login').click(function() {
 });
 
 
+// 구글로그인관련
+function onSignIn(googleUser) {
+	
+	var google_profile = googleUser.getBasicProfile();
+	
+	var google_email = google_profile.getEamil();
+	var google_pw = '';
+	var google_name = google_profile.getName();
+	var google_photo = google_profile.getImageUrl();
+	
+	//진행중
+	
+	
+}
+
+
+
+
 </script>
 <!-- 로그인 스크립트 끝 -->
 <div id="frame" style="position: absolute; right: 0px; bottom: 0px; z-index: -5; visibility: hidden">
