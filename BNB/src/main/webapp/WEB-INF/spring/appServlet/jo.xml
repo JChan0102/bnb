@@ -40,6 +40,4 @@
 				class="com.bit.bnb.rooms.intercepter.HostCheckInterceptor" />
 		</interceptor>
 	</interceptors>
-
-
 </beans:beans>
