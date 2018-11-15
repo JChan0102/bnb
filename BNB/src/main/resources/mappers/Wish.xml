@@ -40,4 +40,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and roomsId = #{roomsId}
 	</delete>
 	
+	<!-- 즐겨찾기있는지 확인 -->
+	<select id="wishSelect" resultType="com.bit.bnb.mypage.model.WishVO">
+		select * from wish where userId=#{userId}
+		and roomsId = #{roomsId}
+	</select>
+	
 </mapper>

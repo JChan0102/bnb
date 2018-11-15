@@ -8,9 +8,10 @@ import com.bit.bnb.mypage.model.WishVO;
 
 public interface WishDao {
 	
-	public int wishInsert(String userId, int roomsId); // 즐겨찾기 넣어주기
+	public int wishInsert(@Param("userId") String userId, @Param("roomsId") int roomsId); // 즐겨찾기 넣어주기
+	public List<WishVO> wishSelect(@Param("userId") String userId, @Param("roomsId") int roomsId); // 즐겨찾기 있는지 찾아주기
+	public int wishDelete(@Param("userId") String userId, @Param("roomsId") int roomsId); // 즐겨찾기 삭제
 	public List<WishVO> wishList(@Param("userId") String userId, @Param("address") String address); // 즐겨찾기 목록
-	public int wishDelete(String userId, int roomsId); // 즐겨찾기 삭제
 	public List<WishVO> wishDivList(String userId); // div생성용 즐겨찾기 목록
 	public int wishDivCnt(@Param("userId") String userId, @Param("address") String address); // 지역별 몇개있는지!
 

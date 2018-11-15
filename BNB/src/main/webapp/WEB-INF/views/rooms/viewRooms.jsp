@@ -25,6 +25,18 @@
 
 		});
 	</script>
+	<script>
+		$(document).ready(function() {
+			$('#wishBtn').click(function() {
+				var roomsId = $('#roomsId').val();
+				var url = '${pageContext.request.contextPath}/wishIn?roomsId='+roomsId;
+				$.ajax({
+					url : url,
+					success : $('.wishIn').toggle()
+				});
+			});
+		});
+	</script>
 	<%@ include file="/resources/common/Navbar.jsp"%>
 	<!-- Begin page content -->
 	<!-- https://shaack.com/projekte/bootstrap-input-spinner/ -->
@@ -133,8 +145,7 @@
 							value="${selectedRoom.disabled}"> <a
 							href="${pageContext.request.contextPath}/chat/sendmessage?roomsId=${selectedRoom.roomsId}&hostId=${selectedRoom.hostId}"><input
 								type="button" class="btn btn-danger ml-1 mr-1" value="문의하기"></a>
-							<a href="#"><input type="button"
-								class="btn btn-danger ml-1 mr-1" value="좋아요"></a></td>
+							<button type="button" class="btn btn-danger ml-1 mr-1" id="wishBtn"><span class="wishIn">즐겨찾기추가</span><span class="wishIn" style="display:none;">즐겨찾기해제</span></button></td>
 					</tr>
 				</table>
 			</form>
