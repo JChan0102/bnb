@@ -18,12 +18,12 @@
 		});
 	</script>
 	<main role="main" class="row ml-5 mr-5">
-	<div class="col-md-2 border-right pr-4">
+	<div class="col-lg-2 border-right pr-4">
 		<c:if test="${1 eq loginUser.host}">
 			<a href="${pageContext.request.contextPath}/rooms/registerRooms"><button
 					class="btn btn-danger col-12 btn-lg mb-2">방입력</button></a>
 		</c:if>
-		<form method="post">
+		<form method="post" id="searchForm">
 			<input type="submit" class="btn btn-dark col-12 btn-lg" value="숙소 검색">
 			<input type="button" id="mapBtn"
 				class="btn btn-secondary col-12 btn-lg mt-2 mb-2" value="지도 보기">
@@ -35,7 +35,7 @@
 						step="1"></td>
 
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td>어린이</td>
 					<td><input type="number" class="form-control" value="0"
 						min="0" max="100" step="1" id="avail_children"
@@ -90,16 +90,18 @@
 				<tr>
 					<td>주소</td>
 					<td><input type="text" class="form-control" id="address"
-						name="address" required="required"></td>
-				</tr>
+						name="address"></td>
+				</tr> -->
 			</table>
+			<input type=hidden id="page" name="page" value="1">
 		</form>
 
 	</div>
-	<div class="col-md-10 pl-4">
+	<div class="col-lg-10 pl-4">
 		<div id="map" style="width: 100%; height: 800px;"></div>
 		<div class="row" id="roomsList">
-			<c:forEach items="${rooms}" var="item" varStatus="status">
+			<input type=hidden id="page" name="page" value="1">
+			<%-- <c:forEach items="${rooms}" var="item" varStatus="status">
 				<div class="col-md-3">
 					<div class="card mb-3 box-shadow">
 						<img class="card-img-top">
@@ -138,9 +140,8 @@
 						</div>
 					</div>
 				</div>
-			</c:forEach>
+			</c:forEach> --%>
 		</div>
-		<input type="hidden" id="page" name="page" value="1">
 		<!-- 페이징 처리 -->
 		<%-- <nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
@@ -185,17 +186,19 @@
 	<script type="text/javascript">
 		var output = '';
 		$(document).ready(function() {
-			getRoomsList(1);
+			getRoomsList();
 		});
 
 		// 숙소 목록을 가져옴
-		function getRoomsList(i) {
+		function getRoomsList() {
+			// http://fruitdev.tistory.com/174 
+			var queryString = $("form[id=searchForm]").serialize();
 			$
 					.ajax({
-						type : 'GET',
-						url : '${pageContext.request.contextPath}/rooms/getRoomsList?&page='
-								+ i,
+						type : 'POST',
+						url : '${pageContext.request.contextPath}/rooms/getRoomsList',
 						contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+						data : queryString,
 						dataType : 'JSON',
 						success : function(data) {
 							console.log(data)
@@ -203,7 +206,7 @@
 							if (data.roomsList.length == 0) {
 								$('#roomsList')
 										.html(
-												'<tr><td class="border-top-0 text-center align-middle">해당하는 숙소가 없습니다 \' ㅅ\'));;</td></tr>');
+												'<tr><td class="border-top-0 text-center align-middle">해당하는 숙소가 없습니다 \' ㅅ\');;</td></tr>');
 							} else {
 								for (i = 0; i < data.roomsList.length; i++) {
 									output += '<div class="col-md-3">';
@@ -211,28 +214,44 @@
 									output += '<img class="card-img-top">';
 									output += '<div class="card-body">';
 									output += '	<p class="card-text">';
-									output += '		' + data.roomsList[i].roomsId + '<br>' + data.roomsList[i].address +'<br>';
-									output += '			' + data.roomsList[i].price_weekdays + ' - ' + data.roomsList[i].price_weekend + '/박';
+									output += '		' + data.roomsList[i].roomsId
+											+ '<br>'
+											+ data.roomsList[i].address
+											+ '<br>';
+									output += '			'
+											+ data.roomsList[i].price_weekdays
+											+ ' - '
+											+ data.roomsList[i].price_weekend
+											+ '/박';
 									output += '	</p>';
 									output += '		<div class="d-flex justify-content-between align-items-center">';
 									output += '			<small class="text-muted">';
-									for(j = 0; j < data.reviewSummary.length; j++) {
+									for (j = 0; j < data.reviewSummary.length; j++) {
 										if (data.roomsList[i].roomsId == data.reviewSummary[j].roomsId) {
-											for(k = 0; k <= data.reviewSummary[j].avgScope; k++){
+											for (k = 0; k <= data.reviewSummary[j].avgScope; k++) {
 												output += '★';
 											}
-											output += ' (' + data.reviewSummary[j].reviewCount + ')';
-										}										
+											output += ' ('
+													+ data.reviewSummary[j].reviewCount
+													+ ')';
+										}
 									}
 									output += '			</small>';
 									output += '			<div class="btn-group">';
-									if ('${loginUser.userId}' !== '' && data.roomsList[i].hostId == '${loginUser.userId}') {
+									if ('${loginUser.userId}' !== ''
+											&& data.roomsList[i].hostId == '${loginUser.userId}') {
 										output += '					<a href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=';
-										output += '					' + data.roomsList[i].roomsId + '&_hostId=' + data.roomsList[i].hostId + '">';
+										output += '					'
+												+ data.roomsList[i].roomsId
+												+ '&_hostId='
+												+ data.roomsList[i].hostId
+												+ '">';
 										output += '					<button type="button" class="btn btn-sm btn-outline-secondary ml-1">Edit</button></a>';
 									}
-									output += '				<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=' + data.roomsList[i].roomsId;
-									output += '				&hostId=' +  data.roomsList[i].hostId + '">';
+									output += '				<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
+											+ data.roomsList[i].roomsId;
+									output += '				&hostId='
+											+ data.roomsList[i].hostId + '">';
 									output += '				<button type="button" class="btn btn-sm btn-outline-secondary ml-1">View</button></a>';
 									output += '			</div>';
 									output += '</div>';
@@ -242,13 +261,11 @@
 								}
 								if (data.paging.currentPageNo < data.paging.lastPageNo) {
 									// 출력할 것이 남은 경우
-									var moreBtn = '<tr><td colspan="2" class="text-center align-middle">'
-											+ '<input type="button" class="btn btn-light col-12 " value="더보기" '
-											+ 'onclick="getReviews('
-											+ json.paging.nextPageNo
-											+ ');"></td></tr>';
+									$('#page').val(data.paging.nextPageNo);
+								} else {
+									$('#page').val(-1);
 								}
-								$('#roomsList').html(output + moreBtn);
+								$('#roomsList').html(output);
 							}
 						},
 						error : function(error) {
@@ -256,14 +273,24 @@
 						}
 					});
 		};
+
+		$(window).scroll(
+				function() {
+					if ($(window).scrollTop() == $(document).height()
+							- $(window).height()) {
+						// 마지막 페이지가 아닐 때 
+						if ($('#page').val() != -1) {
+							getRoomsList();
+						}
+					}
+				});//end of 무한스크롤
 	</script>
 	<script type="text/javascript"
 		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RjRRELdZtqF2DId12vbe&submodules=geocoder"></script>
 	<script>
-		$(document).ready(function() {
-			// 지도 끄고 시작
-			$('#map').css('display', 'none');
-		});
+		// 지도 끄고 시작
+		$('#map').css('display', 'none');
+
 		// 초기값 경복궁
 		var map = new naver.maps.Map("map", {
 			center : new naver.maps.LatLng(37.5788408, 126.9770162),
