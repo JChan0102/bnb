@@ -79,4 +79,10 @@ public class UserRegController {
 
 		return "redirect:/";
 	}
+	
+	
+	@RequestMapping("/googleReg")
+	public String getGoogleRegForm() {
+		return "user/googleRegForm";
+	}
 }

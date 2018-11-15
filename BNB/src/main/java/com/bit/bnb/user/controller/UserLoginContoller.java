@@ -90,10 +90,8 @@ public class UserLoginContoller {
 	public String googleLogin(@RequestParam(value = "gId", required = false) String gId,
 							  HttpSession session) {
 		
-		
+		String result = userLoginService.googleLogin(gId, session);
 	
-		
-		
-		return "";
+		return result;
 	}
 }

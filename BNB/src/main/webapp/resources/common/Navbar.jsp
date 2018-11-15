@@ -36,7 +36,7 @@
 
 					<li class="nav-item"><a id="login-go" class="nav-link text-dark"
 						data-target="#layerpop" data-toggle="modal"
-						href="${pageContext.request.contextPath}/login">로그인</a></li>
+						href="#">로그인</a></li>
 				</c:if>
 
 				<!--  로그인 상태 -->
@@ -256,7 +256,8 @@
 					</div>
 				</div>
 				<div class="container">
-					<div class="g-signin2" data-onsuccess="onSignIn" data-longtitle="true"></div>
+					<div class="g-signin2" data-longtitle="true"></div>
+					 <!-- data-onsuccess="onSignIn" -->
 				</div>
 			</div>
 			<!-- Footer -->
@@ -298,7 +299,7 @@ $('#input_userPw').keypress(function(event){
 	}
 });
 
-$('#btn-login').click(function() {
+$('#btn-login').click(function loginModal() {
 
 	$('#loginHidden').empty();
 
@@ -332,7 +333,7 @@ $('#btn-login').click(function() {
 
 
 // 구글로그인관련
-function onSignIn(googleUser) {
+/* function onSignIn(googleUser) {
 	
 	var google_profile = googleUser.getBasicProfile();
 	
@@ -360,8 +361,37 @@ function onSignIn(googleUser) {
 	// 섭밋;
 	// 가입처리;
 	
+	alert("온 사인 인");
 	
-	
+/* 	
+	$.ajax({
+              type : "POST",
+              url : "googleLogin",
+              data : {"gId" : google_email},
+              success : function(result) {
+              	
+            	 if(result == 'googleLoginSuccess'){ // 구글아이디로 로그인 성공할경우
+              		
+            	   // 메인화면가기
+            		location.href = '${pageContext.request.contextPath}/';
+            	   
+               } else if(result == 'notGoogleUser'){ // 이미 동일아이디로 일반계정이 존재할경우
+            	   
+            	   // 로그인창 띄워주기 + 얼럿
+            	  alert("다른 이메일로 가입되어 있습니다. 로그인해주세요.");
+            	  location.href = '${pageContext.request.contextPath}/';
+            	  loginModal();
+            	  
+            	   
+               } else if(result == 'googleUserReg'){ // 해당계정이 없는경우
+            	   
+            	   // 구글계정용 회원가입폼 띄워주기
+            	   location.href = '${pageContext.request.contextPath}/';
+            	   
+               }
+              }
+          })
+	 */
 	
 	
 	//진행중
@@ -369,7 +399,7 @@ function onSignIn(googleUser) {
 	
 	
 	
-}
+//} */
 
 
 

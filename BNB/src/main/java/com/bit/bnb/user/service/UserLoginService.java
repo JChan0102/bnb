@@ -79,4 +79,40 @@ public class UserLoginService {
 
 		return result;
 	}
+
+	public String googleLogin(String gId, HttpSession session) {
+
+		UserVO userVO = userDao.selectUser(gId);
+
+		String result = "";
+		
+		// 구글아이디가  db에 있고 유저키가 g이면 로그인처리
+		if (userVO != null && userVO.getUserKey().equals("g")) {
+			
+			// 세션에 사용자 데이터를 저장한다 - 보안을 위해서 패스워드는 비워줌
+			userVO.setUserPw("");
+
+			// 만약 loginUser라는 세션값이 이미 존재하고 있다면 지워준다
+			if (session.getAttribute("loginUser") != null) {
+				session.removeAttribute("loginUser");
+			}
+
+			if (session.getAttribute("userKeyConfirm") != null) {
+				session.removeAttribute("userKeyConfirm");
+			}
+
+			// 세션에 loginUser라는 이름으로 유저 인스턴스를 저장
+			session.setAttribute("loginUser", userVO);
+
+			messageCkServie.getList(userVO.getUserId(), session);
+			
+			result = "googleLoginSuccess";
+
+		} else if (userVO != null && !userVO.getUserKey().equals("g")) {
+			result = "notGoogleUser";
+		} else {
+			result = "googleUserReg";
+		}
+		return result;
+	}
 }
