@@ -320,7 +320,10 @@ $('#btn-login').click(function() {
                   } else if (result == 'userKeyConfirm'){
                 	$('#loginHidden').css("display","");
             		$('#loginHidden').append("인증되지 않은 회원입니다. 이메일을 확인해주세요.");
-                  } else {
+                  } else if(result == 'google') {
+                	$('#loginHidden').css("display","");
+              		$('#loginHidden').append("구글을 통해 만든 계정이 이미 있습니다.<br> 구글로 로그인하세요.");
+                  } else if(result == 'loginSuccess'){
                       location.href = '${pageContext.request.contextPath}/';
                   }
               }
@@ -333,12 +336,29 @@ function onSignIn(googleUser) {
 	
 	var google_profile = googleUser.getBasicProfile();
 	
-	var google_email = google_profile.getEamil();
-	var google_pw = '';
+	var google_email = google_profile.getEmail();
 	var google_name = google_profile.getName();
 	var google_photo = google_profile.getImageUrl();
 	
+	console.log(google_email);
+	console.log(google_name);
+	console.log(google_photo);
+	
+	// ajax로 아이디 중복여부 체크
+	// 중복이면 로그인 처리
+	// 중복 안되면(가입안된경우)
+	// 가입처리 
+	// 새로운 가입폼
+	// 폼에서 입력받을것 : 버ㄹ스(필수), 유저인포(선택사항); 구글포토가 없을경우 사진(선택사항)
+	// 아이디는 구글이메일 ; 비밀번호는 임의로 지정; 이름은 구글이름; 포토는 구글포토; 호스트는 0
+	// 어드민은 0; 유저키는 y; 유저체크 0; 포인트 0; 디스에이블드 1;
+	// 섭밋;
+	// 가입처리;
+	//
+	
 	//진행중
+	
+	
 	
 	
 }
