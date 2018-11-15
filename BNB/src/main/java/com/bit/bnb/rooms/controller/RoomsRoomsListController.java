@@ -34,7 +34,7 @@ public class RoomsRoomsListController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("roomsList", roomsLIstService.getRoomsList(rv, paging));
 		map.put("paging", paging);
-		map.put("review", roomsLIstService.getReviewSummary());
+		map.put("reviewSummary", roomsLIstService.getReviewSummary());
 
 		System.out.println("룸리스트컨트롤러" + roomsLIstService.getRoomsList(rv, paging));
 		System.out.println("룸리스트컨트롤러" + paging);

@@ -11,7 +11,12 @@
 
 	<%@ include file="/resources/common/Navbar.jsp"%>
 	<!-- Begin page content -->
-
+	<script>
+		$(document).ready(function() {
+			// 지도 끄고 시작
+			$('#map').css('display', 'none');
+		});
+	</script>
 	<main role="main" class="row ml-5 mr-5">
 	<div class="col-md-2 border-right pr-4">
 		<c:if test="${1 eq loginUser.host}">
@@ -169,12 +174,7 @@
 		});
 
 		$('#mapBtn').click(function() {
-/* 			if ($('#map').height() == 0) {
-				$('#map').height(800);
-			} else {
-				$('#map').toggle();
-			} */
-
+			$('#map').toggle();
 			if ($(this).val() == '지도 보기') {
 				$(this).val('지도 숨기기');
 			} else if ($(this).val() == '지도 숨기기') {
@@ -199,43 +199,48 @@
 						dataType : 'JSON',
 						success : function(data) {
 							console.log(data)
-							/* if (json.review.length == 0) {
-								$('#review')
+
+							if (data.roomsList.length == 0) {
+								$('#roomsList')
 										.html(
-												'<tr><td class="border-top-0 text-center align-middle">후기가 없습니다.</td></tr>');
+												'<tr><td class="border-top-0 text-center align-middle">해당하는 숙소가 없습니다 \' ㅅ\'));;</td></tr>');
 							} else {
-								for (i = 0; i < json.review.length; i++) {
-									output += '<tr>';
-									output += '<td rowspan="3" class="border-top-0 border-bottom-0 border-right-0 w-25 text-center align-top"><br><h1>사진</h1>'
-											+ json.review[i].userName + '</td>';
-									output += '<td class="w-75 border-top-0 border-bottom-0"><small class="text-muted">';
-									for (j = 0; j < json.review[i].scope; j++) {
-										output += '★';
+								for (i = 0; i < data.roomsList.length; i++) {
+									output += '<div class="col-md-3">';
+									output += '<div class="card mb-3 box-shadow">';
+									output += '<img class="card-img-top">';
+									output += '<div class="card-body">';
+									output += '	<p class="card-text">';
+									output += '		' + data.roomsList[i].roomsId + '<br>' + data.roomsList[i].address +'<br>';
+									output += '			' + data.roomsList[i].price_weekdays + ' - ' + data.roomsList[i].price_weekend + '/박';
+									output += '	</p>';
+									output += '		<div class="d-flex justify-content-between align-items-center">';
+									output += '			<small class="text-muted">';
+									for(j = 0; j < data.reviewSummary.length; j++) {
+										if (data.roomsList[i].roomsId == data.reviewSummary[j].roomsId) {
+											for(k = 0; k <= data.reviewSummary[j].avgScope; k++){
+												output += '★';
+											}
+											output += ' (' + data.reviewSummary[j].reviewCount + ')';
+										}										
 									}
-									output += ' (' + json.review[i].scope + ')'
-											+ '</small></td>';
-									output += '</tr>';
-									output += '<tr>';
-									output += '<td class="border-top-0 border-bottom-0">'
-											+ json.review[i].reviewContent
-											+ '</td>';
-									output += '</tr>';
-									output += '<tr>';
-									output += '<td class="border-top-0 border-bottom-0"><small class="text-muted">이 후기는 '
-											+ json.review[i].reviewDate.substr(
-													0, 4)
-											+ '년 '
-											+ json.review[i].reviewDate.substr(
-													5, 2)
-											+ '월 '
-											+ json.review[i].reviewDate.substr(
-													8, 2)
-											+ '일'
-											+ '에 작성되었습니다.</small></td>';
-									output += '</tr>';
-									output += '<tr><td colspan="2" class="border-top-0 border-bottom-0"><hr></tr>'
+									output += '			</small>';
+									output += '			<div class="btn-group">';
+									if ('${loginUser.userId}' !== '' && data.roomsList[i].hostId == '${loginUser.userId}') {
+										output += '					<a href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=';
+										output += '					' + data.roomsList[i].roomsId + '&_hostId=' + data.roomsList[i].hostId + '">';
+										output += '					<button type="button" class="btn btn-sm btn-outline-secondary ml-1">Edit</button></a>';
+									}
+									output += '				<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=' + data.roomsList[i].roomsId;
+									output += '				&hostId=' +  data.roomsList[i].hostId + '">';
+									output += '				<button type="button" class="btn btn-sm btn-outline-secondary ml-1">View</button></a>';
+									output += '			</div>';
+									output += '</div>';
+									output += '</div>';
+									output += '</div>';
+									output += '</div>';
 								}
-								if (json.paging.currentPageNo < json.paging.lastPageNo) {
+								if (data.paging.currentPageNo < data.paging.lastPageNo) {
 									// 출력할 것이 남은 경우
 									var moreBtn = '<tr><td colspan="2" class="text-center align-middle">'
 											+ '<input type="button" class="btn btn-light col-12 " value="더보기" '
@@ -243,9 +248,8 @@
 											+ json.paging.nextPageNo
 											+ ');"></td></tr>';
 								}
-								$('#review').html(output + moreBtn);
+								$('#roomsList').html(output + moreBtn);
 							}
-							console.log(json.review); */
 						},
 						error : function(error) {
 							console.log("error : " + error);
@@ -256,6 +260,10 @@
 	<script type="text/javascript"
 		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RjRRELdZtqF2DId12vbe&submodules=geocoder"></script>
 	<script>
+		$(document).ready(function() {
+			// 지도 끄고 시작
+			$('#map').css('display', 'none');
+		});
 		// 초기값 경복궁
 		var map = new naver.maps.Map("map", {
 			center : new naver.maps.LatLng(37.5788408, 126.9770162),
@@ -381,11 +389,6 @@
 		}
 
 		naver.maps.onJSContentLoaded = initGeocoder;
-
-		$(document).ready(function() {
-			// 지도 끄고 시작
-			// $('#map').css('display', 'none');
-		});
 	</script>
 </body>
 </html>
