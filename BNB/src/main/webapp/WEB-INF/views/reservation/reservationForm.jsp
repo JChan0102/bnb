@@ -354,7 +354,8 @@
             function weekend(){
             	if(checkIn1.getFullYear()>=now.getFullYear() && checkOut1.getFullYear()>=now.getFullYear() ){
                 	count = 0;
-                	var temp_date = new Date(checkIn1);  
+                	var temp_date = new Date(checkIn1);
+                	
                 	
                 	while(true) {
                 	    if(temp_date.getTime() > checkOut1.getTime()-1) {
@@ -384,6 +385,9 @@
                     },
                     datatype: 'json',
                     success: function(data) {
+                    	console.log("체크인 : " +checkIn1);
+                    	console.log("체크아웃 : " +checkOut1);
+                    	console.log("돈 : " +data);                    	
                     	if(checkIn1.getFullYear()>=now.getFullYear() && checkOut1.getFullYear()>=now.getFullYear() ){   
                     		$("#price").text(data +"원 입니다.");
                         	pri = data;

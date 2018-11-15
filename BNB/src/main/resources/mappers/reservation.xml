@@ -39,7 +39,7 @@ TO_DAYS(#{checkOut})-TO_DAYS(#{checkIn})
 
 <select id="getPrice" resultType="int">
 	select (b.price_weekdays) * ((TO_DAYS(#{checkOutStr})-TO_DAYS(#{checkInStr}))-#{cnt}) + b.price_weekend*#{cnt} from
-	reservation a join rooms b on a.roomsId=#{roomsId} and a.roomsId=b.roomsId limit 0,1;
+	reservation a join rooms b on b.roomsId=#{roomsId} limit 0,1;
 </select>
 
 
