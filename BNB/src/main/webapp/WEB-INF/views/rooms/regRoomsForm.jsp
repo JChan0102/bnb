@@ -36,7 +36,7 @@
 				<table class="table">
 					<tr>
 						<td>호스트 아이디</td>
-						<td><input type="text" class="form-control"
+						<td><input type="text" class="form-control text-center"
 							readonly="readonly" value="${loginUser.userId}" id="hostId"
 							name="hostId"></td>
 					</tr>
@@ -54,9 +54,9 @@
 					</tr>
 					<tr>
 						<td>어린이</td>
-						<td><input type="number" class="form-control" value="0"
+						<td><input type="text" class="form-control text-center" value="0"
 							min="0" max="100" step="1" id="avail_children"
-							name="avail_children"></td>
+							name="avail_children" readonly="readonly"></td>
 
 					</tr>
 					<tr>
@@ -117,13 +117,13 @@
 						<td>주중가격</td>
 						<td><input type="number" class="form-control"
 							id="price_weekdays" name="price_weekdays" value="0" min="0"
-							max="10000000" step="1000"></td>
+							max="1000000000" step="1000"></td>
 					</tr>
 					<tr>
 						<td>주말가격</td>
 						<td><input type="number" class="form-control"
 							id="price_weekend" name="price_weekend" value="0" min="0"
-							max="10000000" step="1000" class="form-control"></td>
+							max="1000000000" step="1000" class="form-control"></td>
 					</tr>
 					<tr>
 						<td>주소</td>

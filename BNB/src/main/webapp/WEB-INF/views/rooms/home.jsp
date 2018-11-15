@@ -24,47 +24,103 @@
 					class="btn btn-danger col-12 btn-lg mb-2">방입력</button></a>
 		</c:if>
 		<form method="post" id="searchForm">
-			<input type="submit" class="btn btn-dark col-12 btn-lg" value="숙소 검색">
+			<!-- <input type="button" onclick="searchRoomsList()"
+				class="btn btn-dark col-12 btn-lg" value="숙소 검색"> -->
 			<input type="button" id="mapBtn"
 				class="btn btn-secondary col-12 btn-lg mt-2 mb-2" value="지도 보기">
-			<table class="table">
-				<tr>
-					<td>어른</td>
-					<td><input type="number" class="form-control"
-						id="avail_adults" name="avail_adults" value="0" min="0" max="100"
-						step="1"></td>
+			<input type="button" id="resetBtn" class="btn btn-dark col-12 btn-sm"
+				value="검색 조건 초기화">
 
-				</tr>
-				<!-- <tr>
-					<td>어린이</td>
-					<td><input type="number" class="form-control" value="0"
-						min="0" max="100" step="1" id="avail_children"
-						name="avail_children"></td>
+			<div class="dropdown mt-1">
+				<button class="btn btn-light col-12 dropdown-toggle" type="button"
+					id="dropdownMenu_avail" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">인원</button>
+				<div class="dropdown-menu" id="avail">
+					<span class="dropdown-item-text">어른<input type="hidden"
+						value="0" id="avail_adults" name="avail_adults"></span><span
+						class="dropdown-item-text"><input type="number"
+						class="form-control dropdown-item" id="avail_adults_t"
+						name="avail_adults_t" value="0" min="0" max="100" step="1"></span>
+					<span class="dropdown-item-text">어린이 <small>(2~12세)</small></span><span
+						class="dropdown-item-text"><input type="number"
+						class="form-control" value="0" min="0" max="100" step="1"
+						id="avail_children_t" name="avail_children_t"></span> <span
+						class="dropdown-item-text">유아 <small>(2세 미만)</small></span> <span
+						class="dropdown-item-text"><input type="number"
+						class="form-control" value="0" min="0" max="100" step="1"
+						id="avail_infants" name="avail_infants"></span>
+				</div>
+			</div>
 
-				</tr>
-				<tr>
-					<td>유아</td>
-					<td><input type="number" class="form-control" value="0"
-						min="0" max="100" step="1" id="avail_infants" name="avail_infants"></td>
+			<div class="dropdown mt-1">
+				<button class="btn btn-light col-12 dropdown-toggle" type="button"
+					id="dropdownMenu_avail" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">침대와 침실</button>
+				<div class="dropdown-menu" id="avail">
+					<span class="dropdown-item-text">침실</span> <span
+						class="dropdown-item-text"><input type="number"
+						class="form-control" value="0" min="0" max="100" step="1"
+						id="avail_bedroom" name="avail_bedroom"></span> <span
+						class="dropdown-item-text">침대</span> <span
+						class="dropdown-item-text"><input type="number"
+						class="form-control" value="0" min="0" max="100" step="1"
+						id="avail_bed" name="avail_bed"></span> <span
+						class="dropdown-item-text">욕실</span> <span
+						class="dropdown-item-text"><input type="number"
+						class="form-control" value="0" min="0" max="100" step="1"
+						id="avail_bathroom" name="avail_bathroom"></span>
+				</div>
+			</div>
+			<input type="text" class="form-control mt-1" id="address"
+				name="address" placeholder="주소로 검색..">
 
-				</tr>
-				<tr>
-					<td>침실</td>
-					<td><input type="number" class="form-control" value="0"
-						min="0" max="100" step="1" id="avail_bedroom" name="avail_bedroom"></td>
+			<script>
+				// 드롭다운 메뉴의 유지 처리
+				$(document).on('click', '#avail', function(e) {
+					e.stopPropagation();
+				});
 
-				</tr>
-				<tr>
-					<td>침대</td>
-					<td><input type="number" class="form-control" value="0"
-						min="0" max="100" step="1" id="avail_bed" name="avail_bed"></td>
-				</tr>
-				<tr>
-					<td>욕실</td>
-					<td><input type="number" class="form-control" value="0"
-						min="0" max="100" step="1" id="avail_bathroom"
-						name="avail_bathroom"></td>
-				</tr>
+				// ajax 실시간 검색 처리 부분: 인원 + 시설 부분
+				$('input[name^=avail_]').change(
+						function() {
+							$('#avail_adults').val(
+									+$('#avail_adults_t').val()
+											+ +$('#avail_children_t').val());
+							var btnLabel = '';
+							if ($('#avail_adults').val() != 0) {
+								btnLabel += '게스트' + $('#avail_adults').val()
+										+ '명';
+							}
+							if ($('#avail_adults').val() != 0
+									&& $('#avail_infants').val() != 0) {
+								btnLabel += ', ';
+							}
+							if ($('#avail_infants').val() != 0) {
+								btnLabel += '유아' + $('#avail_infants').val()
+										+ '명';
+							}
+							if (btnLabel == '') {
+								btnLabel = '인원';
+							}
+							$('#dropdownMenu_avail').html(btnLabel);
+							searchRoomsList();
+						});
+				// ajax 주소 검색시 처리
+				$('#address').keypress(function(event) {
+					if (event.which == 13) {
+						event.preventDefault();
+						searchRoomsList();
+					}
+				});
+
+				// 리셋버튼에 기능 부여
+				$('#resetBtn').click(function() {
+					$('#dropdownMenu_avail').html('인원');
+					$('#searchForm')[0].reset();
+					searchRoomsList();
+				});
+			</script>
+			<!-- <table class="table">
 				<tr>
 					<td>체크인</td>
 					<td><input type="time" class="form-control" id="time_checkin"
@@ -91,8 +147,8 @@
 					<td>주소</td>
 					<td><input type="text" class="form-control" id="address"
 						name="address"></td>
-				</tr> -->
-			</table>
+				</tr>
+			</table> -->
 			<input type=hidden id="page" name="page" value="1">
 		</form>
 
@@ -168,11 +224,11 @@
 		$("input[type='number']").inputSpinner()
 
 		// input에서 엔터키 사용시 submit을 방지하기 위함
-		$('input[type="text"]').keydown(function() {
+		/* $('input[type="text"]').keydown(function() {
 			if (event.keyCode === 13) {
 				event.preventDefault();
 			}
-		});
+		}); */
 
 		$('#mapBtn').click(function() {
 			$('#map').toggle();
@@ -184,11 +240,17 @@
 		});
 	</script>
 	<script type="text/javascript">
+		// 전역변수 
 		var output = '';
+
 		$(document).ready(function() {
 			getRoomsList();
 		});
-
+		function searchRoomsList() {
+			output = '';
+			getRoomsList();
+			$('#page').val(1);
+		}
 		// 숙소 목록을 가져옴
 		function getRoomsList() {
 			// http://fruitdev.tistory.com/174 
@@ -201,7 +263,7 @@
 						data : queryString,
 						dataType : 'JSON',
 						success : function(data) {
-							console.log(data)
+							// console.log(data)
 
 							if (data.roomsList.length == 0) {
 								$('#roomsList')
@@ -217,12 +279,17 @@
 									output += '		' + data.roomsList[i].roomsId
 											+ '<br>'
 											+ data.roomsList[i].address
-											+ '<br>';
-									output += '			'
-											+ data.roomsList[i].price_weekdays
-											+ ' - '
+											+ '<br>\\';
+									output += data.roomsList[i].price_weekdays
+											.toString().replace(
+													/\B(?=(\d{3})+(?!\d))/g,
+													",")
+											+ ' - \\'
 											+ data.roomsList[i].price_weekend
-											+ '/박';
+													.toString()
+													.replace(
+															/\B(?=(\d{3})+(?!\d))/g,
+															",") + ' /박';
 									output += '	</p>';
 									output += '		<div class="d-flex justify-content-between align-items-center">';
 									output += '			<small class="text-muted">';
@@ -261,8 +328,9 @@
 								}
 								if (data.paging.currentPageNo < data.paging.lastPageNo) {
 									// 출력할 것이 남은 경우
-									$('#page').val(data.paging.nextPageNo);
+									$('#page').val(data.paging.currentPageNo);
 								} else {
+									// console.log($('#page').val());
 									$('#page').val(-1);
 								}
 								$('#roomsList').html(output);
@@ -280,6 +348,7 @@
 							- $(window).height()) {
 						// 마지막 페이지가 아닐 때 
 						if ($('#page').val() != -1) {
+							$('#page').val(+$('#page').val() + 1);
 							getRoomsList();
 						}
 					}
@@ -402,7 +471,7 @@
 			});
 
 			// 주소창에 enter 입력시
-			$('#address').on('keydown', function(e) {
+			/* $('#address').on('keydown', function(e) {
 				var keyCode = e.which;
 				if (keyCode === 13) { // Enter Key
 					searchAddressToCoordinate($('#address').val());
@@ -412,7 +481,7 @@
 			// 주소창에 입력후 엔터를 입력하지 않았으나, 포커스를 벗어날  경우
 			$('#address').blur(function(e) {
 				searchAddressToCoordinate($('#address').val());
-			});
+			}); */
 		}
 
 		naver.maps.onJSContentLoaded = initGeocoder;

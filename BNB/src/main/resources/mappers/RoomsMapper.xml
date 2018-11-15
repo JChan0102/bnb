@@ -79,7 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				AND price_weekend >= #{rv.price_weekend}
 			</if>
 			<if test="rv.address != null">
-				AND details like #{rv.address}
+				AND address like CONCAT('%', #{rv.address},'%')
 			</if>
 			<if test="rv.disabled != 0">
 				AND disabled >= #{rv.disabled}

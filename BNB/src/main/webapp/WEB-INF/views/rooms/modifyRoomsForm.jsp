@@ -36,7 +36,7 @@
 				<table class="table">
 					<tr>
 						<td>호스트 아이디</td>
-						<td><input type="text" class="form-control"
+						<td><input type="text" class="form-control text-center"
 							readonly="readonly" id="hostId" name="hostId"
 							value="${selectedRoom.hostId}" required="required"></td>
 					</tr>
@@ -54,9 +54,9 @@
 					</tr>
 					<tr>
 						<td>어린이</td>
-						<td><input type="number" class="form-control"
+						<td><input type="text" class="form-control text-center"
 							value="${selectedRoom.avail_children}" min="0" max="100" step="1"
-							id="avail_children" name="avail_children"></td>
+							id="avail_children" name="avail_children" readonly="readonly"></td>
 
 					</tr>
 					<tr>
@@ -127,14 +127,14 @@
 						<td>주중가격</td>
 						<td><input type="number" class="form-control"
 							id="price_weekdays" name="price_weekdays"
-							value="${selectedRoom.price_weekdays}" min="0" max="10000000"
+							value="${selectedRoom.price_weekdays}" min="0" max="1000000000"
 							step="1000"></td>
 					</tr>
 					<tr>
 						<td>주말가격</td>
 						<td><input type="number" class="form-control"
 							id="price_weekend" name="price_weekend"
-							value="${selectedRoom.price_weekend}" min="0" max="10000000"
+							value="${selectedRoom.price_weekend}" min="0" max="1000000000"
 							step="1000" class="form-control"></td>
 					</tr>
 					<tr>
@@ -315,7 +315,7 @@
 			$('#address').blur(function(e) {
 				searchAddressToCoordinate($('#address').val());
 			});
-			
+
 			searchAddressToCoordinate('${selectedRoom.address}');
 		}
 
