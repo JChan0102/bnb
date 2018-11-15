@@ -33,8 +33,9 @@ public class ReservationController {
 	public ModelAndView reservationDo(ReservationInfo info) {
 		ModelAndView modelAndView = new ModelAndView();
 		check = service.reservationDo(info);
-		modelAndView.setViewName("redirect:/");
-		
+		modelAndView.setViewName("reservation/reservationCheck");
+		/*modelAndView.setViewName("redirect:/");*/
+
 		return modelAndView;
 	}
 }
