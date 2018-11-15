@@ -14,6 +14,10 @@
 
 	<main role="main" class="row ml-5 mr-5">
 	<div class="col-md-2 border-right pr-4">
+		<c:if test="${1 eq loginUser.host}">
+			<a href="${pageContext.request.contextPath}/rooms/registerRooms"><button
+					class="btn btn-danger col-12 btn-lg mb-2">방입력</button></a>
+		</c:if>
 		<form method="post">
 			<input type="submit" class="btn btn-dark col-12 btn-lg" value="숙소 검색">
 			<input type="button" id="mapBtn"
@@ -88,13 +92,7 @@
 
 	</div>
 	<div class="col-md-10 pl-4">
-		<div id="map" style="width: 100%; height: 100%;"></div>
-		<c:if test="${1 eq loginUser.host}">
-			<a href="${pageContext.request.contextPath}/rooms/registerRooms"><button
-					class="btn btn-danger">방입력</button></a>
-		</c:if>
-		<br>
-		<div id="map"></div>
+		<div id="map" style="width: 100%; height: 800px;"></div>
 		<div class="row" id="roomsList">
 			<c:forEach items="${rooms}" var="item" varStatus="status">
 				<div class="col-md-3">
@@ -137,7 +135,9 @@
 				</div>
 			</c:forEach>
 		</div>
-		<nav aria-label="Page navigation example">
+		<input type="hidden" id="page" name="page" value="1">
+		<!-- 페이징 처리 -->
+		<%-- <nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 				<li class="page-item"><a class="page-link"
 					href="${pageContext.request.contextPath}/rooms?page=${paging.prevPageNo}">Previous</a></li>
@@ -151,7 +151,7 @@
 				<li class="page-item"><a class="page-link"
 					href="${pageContext.request.contextPath}/rooms?page=${paging.nextPageNo}">Next</a></li>
 			</ul>
-		</nav>
+		</nav> --%>
 	</div>
 	</main>
 	<!-- 스피너 사용을 위한 JS -->
@@ -169,14 +169,89 @@
 		});
 
 		$('#mapBtn').click(function() {
-			$('#map').toggle();
-			console.log($(this).val());
+/* 			if ($('#map').height() == 0) {
+				$('#map').height(800);
+			} else {
+				$('#map').toggle();
+			} */
+
 			if ($(this).val() == '지도 보기') {
 				$(this).val('지도 숨기기');
 			} else if ($(this).val() == '지도 숨기기') {
 				$(this).val('지도 보기');
 			}
 		});
+	</script>
+	<script type="text/javascript">
+		var output = '';
+		$(document).ready(function() {
+			getRoomsList(1);
+		});
+
+		// 숙소 목록을 가져옴
+		function getRoomsList(i) {
+			$
+					.ajax({
+						type : 'GET',
+						url : '${pageContext.request.contextPath}/rooms/getRoomsList?&page='
+								+ i,
+						contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+						dataType : 'JSON',
+						success : function(data) {
+							console.log(data)
+							/* if (json.review.length == 0) {
+								$('#review')
+										.html(
+												'<tr><td class="border-top-0 text-center align-middle">후기가 없습니다.</td></tr>');
+							} else {
+								for (i = 0; i < json.review.length; i++) {
+									output += '<tr>';
+									output += '<td rowspan="3" class="border-top-0 border-bottom-0 border-right-0 w-25 text-center align-top"><br><h1>사진</h1>'
+											+ json.review[i].userName + '</td>';
+									output += '<td class="w-75 border-top-0 border-bottom-0"><small class="text-muted">';
+									for (j = 0; j < json.review[i].scope; j++) {
+										output += '★';
+									}
+									output += ' (' + json.review[i].scope + ')'
+											+ '</small></td>';
+									output += '</tr>';
+									output += '<tr>';
+									output += '<td class="border-top-0 border-bottom-0">'
+											+ json.review[i].reviewContent
+											+ '</td>';
+									output += '</tr>';
+									output += '<tr>';
+									output += '<td class="border-top-0 border-bottom-0"><small class="text-muted">이 후기는 '
+											+ json.review[i].reviewDate.substr(
+													0, 4)
+											+ '년 '
+											+ json.review[i].reviewDate.substr(
+													5, 2)
+											+ '월 '
+											+ json.review[i].reviewDate.substr(
+													8, 2)
+											+ '일'
+											+ '에 작성되었습니다.</small></td>';
+									output += '</tr>';
+									output += '<tr><td colspan="2" class="border-top-0 border-bottom-0"><hr></tr>'
+								}
+								if (json.paging.currentPageNo < json.paging.lastPageNo) {
+									// 출력할 것이 남은 경우
+									var moreBtn = '<tr><td colspan="2" class="text-center align-middle">'
+											+ '<input type="button" class="btn btn-light col-12 " value="더보기" '
+											+ 'onclick="getReviews('
+											+ json.paging.nextPageNo
+											+ ');"></td></tr>';
+								}
+								$('#review').html(output + moreBtn);
+							}
+							console.log(json.review); */
+						},
+						error : function(error) {
+							console.log("error : " + error);
+						}
+					});
+		};
 	</script>
 	<script type="text/javascript"
 		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RjRRELdZtqF2DId12vbe&submodules=geocoder"></script>
@@ -309,7 +384,7 @@
 
 		$(document).ready(function() {
 			// 지도 끄고 시작
-			$('#map').css('display', 'none');
+			// $('#map').css('display', 'none');
 		});
 	</script>
 </body>

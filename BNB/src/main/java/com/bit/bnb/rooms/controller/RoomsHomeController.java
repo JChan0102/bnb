@@ -23,10 +23,10 @@ public class RoomsHomeController {
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		Paging paging = roomsLIstService.getPaging("rooms", currentPageNo, 16);
-		modelAndView.addObject("paging", paging);
-		modelAndView.addObject("rooms", roomsLIstService.getRoomsList(rv, paging));
-		modelAndView.addObject("reviewSummary", roomsLIstService.getReviewSummary());
+//		Paging paging = roomsLIstService.getPaging("rooms", currentPageNo, 20);
+//		modelAndView.addObject("paging", paging);
+//		modelAndView.addObject("rooms", roomsLIstService.getRoomsList(rv, paging));
+//		modelAndView.addObject("reviewSummary", roomsLIstService.getReviewSummary());
 		modelAndView.setViewName("rooms/home");
 		return modelAndView;
 	}
