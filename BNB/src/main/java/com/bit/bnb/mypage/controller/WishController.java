@@ -1,11 +1,15 @@
 package com.bit.bnb.mypage.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.mypage.service.WishService;
 import com.bit.bnb.user.model.UserVO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class WishController {
@@ -37,19 +43,39 @@ public class WishController {
 	}
 
 	@RequestMapping("/wish")
-	public ModelAndView wishMainList(HttpSession session, HttpServletRequest request) { // div나타내줄 쿼리문 뽑아옴ㅎ~~
-
+	public ModelAndView wishMainList(HttpSession session) { // div나타내줄 쿼리문 뽑아옴ㅎ~~
+		
 		UserVO user = (UserVO) session.getAttribute("loginUser");
-		String address = request.getParameter("address");
-
-		System.out.println(address);
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("mypage/wishMain");
 		modelAndView.addObject("wishDiv", service.wishDivList(user.getUserId()));
-		modelAndView.addObject("wishCnt", service.wishDivCnt(user.getUserId(), address));
 
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="/wishCnt", produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String wishCnt(HttpSession session, @RequestBody List<String> list, Model model) throws JsonProcessingException {
+		
+		Map<String, Integer> addressMap = new HashMap<String, Integer>();
+		ObjectMapper mapper = new ObjectMapper();
+		System.out.println("즐겨찾기 컨트롤러진입");
+		
+		String address = "";
+		int idx = 0;
+		UserVO user = (UserVO) session.getAttribute("loginUser");
+		
+		for(int i = 0; i< list.size(); i++) {
+			address = list.get(i);
+			idx = service.wishDivCnt(user.getUserId(), address);
+			addressMap.put(address, idx);
+			/*System.out.println(addressMap);*/
+		}
+	
+		String jsonWish = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(addressMap);
+		/*System.out.println(jsonWish);*/
+		return jsonWish;
 	}
 
 	@RequestMapping("/wishList")

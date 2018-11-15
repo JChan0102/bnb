@@ -47,7 +47,7 @@ public class WishService {
 		return wishDao.wishDivList(userId);
 	}
 
-	public int wishDivCnt(String userId, String address) { // 지역별 몇개 즐겨찾기했는지 찾아주는건데 못해시발
+	public int wishDivCnt(String userId, String address) { // 지역별 몇개 즐겨찾기했는지 찾아줌
 
 		wishDao = sqlSessionTemplate.getMapper(WishDao.class);
 		return wishDao.wishDivCnt(userId, address);

@@ -9,6 +9,7 @@ public class WishVO {
 	private String details; // 룸 소개
 	private int price_weekdays; // 평일가격
 	private int price_weekend; // 주말가격
+	private int idx;
 
 	public String getUserId() {
 		return userId;
@@ -66,11 +67,19 @@ public class WishVO {
 		this.price_weekend = price_weekend;
 	}
 
+	public int getIdx() {
+		return idx;
+	}
+
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+
 	@Override
 	public String toString() {
 		return "WishVO [userId=" + userId + ", roomsId=" + roomsId + ", address=" + address + ", hostId=" + hostId
 				+ ", details=" + details + ", price_weekdays=" + price_weekdays + ", price_weekend=" + price_weekend
-				+ "]";
+				+ ", idx=" + idx + "]";
 	}
 
 }

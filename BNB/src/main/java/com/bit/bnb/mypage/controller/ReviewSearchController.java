@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.mypage.model.ReviewSearchVO;
@@ -20,6 +21,7 @@ public class ReviewSearchController {
 	private ReviewSearchService service;
 	
 	@RequestMapping(value="/reviewSearchList", method=RequestMethod.GET)
+	@ResponseBody
 	public ModelAndView reviewSearch(@ModelAttribute("rvs") ReviewSearchVO rvs, HttpSession session) {
 		
 		UserVO user = (UserVO) session.getAttribute("loginUser");

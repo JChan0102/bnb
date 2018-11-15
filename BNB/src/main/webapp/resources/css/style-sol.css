@@ -45,29 +45,11 @@
 	margin: 0 auto;
 }
 
-#review_table {
-	width: 100%;
-	background-color: #FFEAEA;
-	margin-bottom: 30px;
-}
-
-.review_photo {
-	width: 200px;
-	/* height: 150px; */
-}
-
-.review_host {
-	height: 40px;
-	width: 350px;
-	/* line-height: 40px; */
-}
-
-#review_img {
-	width: 130px;
-	border-radius: 70px;
-	/* padding: 10px; */
-	margin-left: 20px;
-	margin-top: 20px;
+#review_photo{
+	max-width: 90px;
+	max-height: 90px;
+	overflow: hidden;
+	margin:0px 15px;
 }
 
 #review_write_table {

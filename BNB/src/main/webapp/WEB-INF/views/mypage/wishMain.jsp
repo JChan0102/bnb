@@ -20,18 +20,61 @@
 				<div class="row">
 					<c:forEach var="wd" items="${wishDiv}">
 						<div class="col-4">
-							<a href="${pageContext.request.contextPath}/wishList?userId=${loginUser.userId}&address=${wd.address}" style="text-align: center; font-size: 18px; text-decoration: none; color:black;"class="wish_div">
-							<div class="card border-secondary wish_hover" style="height: 200px; margin-bottom: 20px;">
-									<div class="card-body text-center">
-										<span class="card-text" style="float: right; font-size: 18px;font-weight: 600;">♥ ${wishCnt}개</span>
-										<br><br><input type="text" class="form-control-plaintext" value="${wd.address}" name="address" id="address" style="text-align: center;" readonly>
+							<a
+								href="${pageContext.request.contextPath}/wishList?userId=${loginUser.userId}&address=${wd.address}"
+								style="text-align: center; font-size: 18px; text-decoration: none; color: black;"
+								class="wish_div">
+								<div class="card border-secondary wish_hover" style="height: 200px; margin-bottom: 20px;">
+									<div class="card-body">
+										<span class="card-text" style="float: right; font-size: 18px; font-weight: 600;">
+										<i class="fas fa-heart" style="color: #EB0000"></i> <span id="idx"></span>개 </span><br>
+										<br><input class="form-control-plaintext wishAddress text-center" name="address" value="${wd.address}" readonly/>
 									</div>
-								</div></a>
+								</div>
+							</a>
 						</div>
 					</c:forEach>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+		$(document).ready(function() {
+			var wishList = $('.wishAddress');
+			var arr = [];
+			for (var i = 0; i < wishList.length; i++) {
+				 /* console.log($("input[name='address']").eq(i).val());  */
+				arr.push($("input[name='address']").eq(i).val());
+			}
+
+			var jsonInfo = JSON.stringify(arr);
+
+			for (var j = 0; j < wishList.length; j++) {
+				$("span[id='idx']").eq(j).addClass("wishIdx" + j);
+				 /* console.log($("span[id='idx']").eq(j).addClass("wishIdx" + j));  */
+			}
+
+			$.ajax({
+				type : 'post',
+				url : '${pageContext.request.contextPath}/wishCnt',
+				contentType : 'application/json',
+				data : jsonInfo,
+				success : function(response) {
+					 /* console.log(response);  */
+					var obj = JSON.parse(response);
+					$.each(obj, function(key, val) {
+						for (var i = 0; i < wishList.length; i++) {
+							var loc = $("input[name='address']").eq(i).val();
+							if (loc == key) {
+								/* console.log(loc);
+								console.log($('.wishIdx' + i).text(val));  */
+								$('.wishIdx' + i).text(val);
+							}
+						}
+					});
+				}
+			});
+		});
+	</script>
 </body>
 </html>

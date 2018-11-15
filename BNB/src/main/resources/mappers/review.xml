@@ -7,7 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.bit.bnb.mypage.dao.ReviewDao">
 
 	<!-- 내가쓴 리뷰리스트뿌리기 -->
-	<select id="reviewToList" resultType="com.bit.bnb.mypage.model.ReviewVO">
+	<select id="reviewToList"
+		resultType="com.bit.bnb.mypage.model.ReviewVO">
 		select re.reservationNum, r.userId, r.hostId,
 		re.scope ,
 		re.reviewContent , re.reviewDate from reservation r inner
@@ -19,7 +20,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- 작성해야할리스트찾기 -->
-	<select id="reviewWriteList"  resultType="com.bit.bnb.mypage.model.ReviewVO">
+	<select id="reviewWriteList"
+		resultType="com.bit.bnb.mypage.model.ReviewVO">
 		SELECT r.reservationNum, r.userId, r.hostId,
 		re.reviewContent,
 		r.checkIn, r.checkOut from reservation r
@@ -35,15 +37,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 리뷰작성하기 -->
 	<insert id="reviewWrite">
 		insert into review (reservationNum,
-		reviewContent, scope)
+		reviewContent,
+		scope)
 		values (#{reservationNum}, #{reviewContent},
 		#{scope})
 	</insert>
 
 	<!-- 리뷰 셀렉하기 -->
-	<select id="reviewPick" resultType="com.bit.bnb.mypage.model.ReviewVO">
+	<select id="reviewPick"
+		resultType="com.bit.bnb.mypage.model.ReviewVO">
 		select * from
-		review where reservationNum = #{reservationNum}
+		review where reservationNum =
+		#{reservationNum}
 	</select>
 
 	<!-- 수정하기 -->
@@ -69,6 +74,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		on r.reservationNum = re.reservationNum
 		where r.userId = #{userId}
 		<if test="rvs.searchType != null">
+			<if test="rvs.searchType == 'all'.toString()">
+				and re.reviewDate LIKE CONCAT('%',#{rvs.keyword},'%')
+				or r.hostId LIKE CONCAT('%',#{rvs.keyword},'%')
+				or re.scope LIKE CONCAT('%',#{rvs.keyword},'%')
+			</if>
 			<if test="rvs.searchType == 'reviewDate'.toString()">
 				and re.reviewDate LIKE CONCAT('%',#{rvs.keyword},'%')
 			</if>
