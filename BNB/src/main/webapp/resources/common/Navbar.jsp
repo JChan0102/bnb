@@ -343,9 +343,14 @@ function onSignIn(googleUser) {
 	console.log(google_email);
 	console.log(google_name);
 	console.log(google_photo);
-	
+
 	// ajax로 아이디 중복여부 체크
-	// 중복이면 로그인 처리
+	// 중복인가?
+	// 유저키가 g인가?
+	// 로그인시켜줌 - 세션저장
+	// 중복인가?
+	// 유저키가 g가 아닌가?
+	// 이미 가입되어있음 - 로그인하세요
 	// 중복 안되면(가입안된경우)
 	// 가입처리 
 	// 새로운 가입폼
@@ -354,7 +359,10 @@ function onSignIn(googleUser) {
 	// 어드민은 0; 유저키는 y; 유저체크 0; 포인트 0; 디스에이블드 1;
 	// 섭밋;
 	// 가입처리;
-	//
+	
+	
+	
+	
 	
 	//진행중
 	

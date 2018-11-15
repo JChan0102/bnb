@@ -17,13 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bit.bnb.user.service.UserLoginService;
 
 @Controller
-@RequestMapping("/login")
 public class UserLoginContoller {
 
 	@Autowired
 	private UserLoginService userLoginService;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public ModelAndView getLoginForm(HttpServletRequest request) {
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -44,7 +43,7 @@ public class UserLoginContoller {
 		return modelAndView;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="/login", method = RequestMethod.POST)
 	@ResponseBody
 	public String userLogin(@RequestParam(value = "userId", required = false) String userId,
 			@RequestParam(value = "userPw", required = false) String userPw, String rememberMe, HttpSession session,
@@ -83,5 +82,18 @@ public class UserLoginContoller {
 
 		}
 		return result;
+	}
+	
+	
+	@RequestMapping(value="/googleLogin", method=RequestMethod.POST)
+	@ResponseBody
+	public String googleLogin(@RequestParam(value = "gId", required = false) String gId,
+							  HttpSession session) {
+		
+		
+	
+		
+		
+		return "";
 	}
 }
