@@ -16,6 +16,9 @@ public class UserLoginService {
 	private UserDao userDao;
 
 	@Autowired
+	private EncryptSha256Service sha256Service;
+	
+	@Autowired
 	private NewMessageCkServie messageCkServie;
 	
 	public String userLogin(String userId, String userPw, HttpSession session) {
@@ -24,8 +27,12 @@ public class UserLoginService {
 		
 		UserVO userVO = userDao.selectUser(userId);
 		
-		// 해당 아이디의 인스턴스가 null이 아니고 패스워드가 일치하면 로그인 처리한다
-		if(userVO != null && (userVO.getUserPw().equals(userPw)) && userVO.getUserKey().equals("y")) {
+		String ePw = sha256Service.encrypt(userPw);
+		
+		// 해당 아이디의 인스턴스가 null이 아니고 패스워드가 일치하면 로그인 처리한다 + 유저키가 y면 로그인처리(메일인증된상태)
+		if(userVO != null && (userVO.getUserPw().equals(ePw)) && userVO.getUserKey().equals("y")) {
+			
+			
 			
 			// 세션에 사용자 데이터를 저장한다 - 보안을 위해서 패스워드는 비워줌
 			userVO.setUserPw("");
@@ -49,7 +56,7 @@ public class UserLoginService {
 			// =====================================================
 			
 			// 아이디와 비밀번호는 일치하지만 이메일이 인증되지 않았을 경우
-		} else if(userVO != null && (userVO.getUserPw().equals(userPw))) {
+		} else if(userVO != null && (userVO.getUserPw().equals(ePw))) {
 			
 			// 만약 loginUser라는 세션값이 이미 존재하고 있다면 지워준다
 			if(session.getAttribute("loginUser") != null) {
@@ -67,6 +74,7 @@ public class UserLoginService {
 			// =====================================================
 			
 			// 아이디가 존재하지 않거나 비밀번호가 일치하지 않는 경우
+			// result "";
 		}
 		
 		return result;

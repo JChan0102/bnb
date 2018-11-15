@@ -24,6 +24,10 @@ public class UserRegService {
 	@Autowired
 	private UserDao userDao;
 	
+	@Autowired
+	private EncryptSha256Service sha256Service;
+	
+	
 	private UserVO user;
 	
 	@Autowired
@@ -67,6 +71,10 @@ public class UserRegService {
 			
 			// 아이디 중복이 아니면 가입시도
 			if(user == null) {
+				
+				// 비밀번호 암호화해서 다시 넣어준다
+				String ePw = sha256Service.encrypt(userVO.getUserPw());
+				userVO.setUserPw(ePw);
 			
 				// 생년월일을 합쳐서 객체에 넣어줌
 				String birth = userVO.getYear()+"-"+userVO.getMonth()+"-"+userVO.getDay();

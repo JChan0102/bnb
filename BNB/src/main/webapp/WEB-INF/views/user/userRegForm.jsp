@@ -48,7 +48,7 @@
 						<label class="form-check-label mt-2 mb-2">사진 </label>
 						<input type="file" name="photoFile" class="form-control hyeon-reg-input" />
 						<input type="hidden" name="host" value=1 style="display:none" />
-						<input type="hidden" name="admin" value=1 style="display:none" />
+						<input type="hidden" name="admin" value=0 style="display:none" />
 						<!-- <input type="hidden" name="userKey" value="asd123" style="display:none" /> -->
 						<input type="hidden" name="userCheck" value=1 style="display:none" />
 						<input type="hidden" name="point" value=0 style="display:none" />
