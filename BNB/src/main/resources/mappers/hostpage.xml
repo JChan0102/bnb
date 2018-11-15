@@ -12,17 +12,16 @@
     </select>
 
     <select id="getNotEvaluation" parameterType="java.lang.String" resultType="com.bit.bnb.hostpage.model.EvaluationVO">
-        select re.userId, u.userName,u.userPhoto, re.roomsId,re.checkIn,re.checkOut from reservation re LEFT OUTER JOIN evaluation e on re.reservationNum = e.reservationNum inner JOIN user u on re.userId = u.userId
-        where hostId=#{hostId} and e.evaluationContent is null and checkOut<![CDATA[ < ]]>current_timestamp ORDER BY checkOut desc ;
+        select re.userId, u.userName,u.userPhoto, re.roomsId, re.checkIn, re.checkOut from reservation re LEFT OUTER JOIN evaluation e on re.reservationNum = e.reservationNum inner JOIN user u on re.userId = u.userId
+        where hostId=#{hostId} and e.evaluationContent is null and re.checkOut <![CDATA[ < ]]> current_timestamp ORDER BY checkOut desc ;
     </select>
     <select id="getEvaluation" parameterType="java.lang.String" resultType="com.bit.bnb.hostpage.model.EvaluationVO">
         select re.userId, u.userName,u.userPhoto, re.roomsId,re.checkIn,re.checkOut, e.evaluationContent,e.evaluationDate from reservation re inner JOIN evaluation e on re.reservationNum = e.reservationNum inner JOIN user u on re.userId = u.userId
-        where hostId=#{hostId} and e.evaluationContent is not null and checkOut<![CDATA[ < ]]>current_timestamp ORDER BY checkOut desc ;
+        where hostId=#{hostId} and e.evaluationContent is not null and re.checkOut <![CDATA[ < ]]>current_timestamp ORDER BY checkOut desc ;
     </select>
 
   <insert id="insertEvaluation" parameterType="com.bit.bnb.hostpage.model.EvaluationVO">
 
-
-
   </insert>
+
 </mapper>

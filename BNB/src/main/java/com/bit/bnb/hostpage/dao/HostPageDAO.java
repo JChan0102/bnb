@@ -26,10 +26,12 @@ public class HostPageDAO {
     }
 
     public List<EvaluationVO> getNotEvaluation(String hostId){
+        System.out.println("gg");
         return sqlSessionTemplate.selectList(namespace+"getNotEvaluation",hostId);
     }
 
     public List<EvaluationVO> getEvaluation(String hostId){
+        System.out.println("gg");
         return sqlSessionTemplate.selectList(namespace+"getEvaluation",hostId);
     }
 
