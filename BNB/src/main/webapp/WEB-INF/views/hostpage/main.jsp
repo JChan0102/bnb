@@ -47,10 +47,23 @@
                                     datatype: 'json',
                                     success: function (data) {
                                         var str='';
+                                        var today = new Date();
+                                        today.setDate(today.getDate()+5);
                                         $(data).each(function (key, value){
+                                            var year = value.checkIn.substr(0,4);
+                                            var month = value.checkIn.substr(5,2);
+                                            var day = value.checkIn.substr(8,2);
+                                            var date = new Date(year,month,day);
+                                            date.setMonth(date.getMonth()-1);
                                             str+='<img style="width:30px; height:30px" src="${pageContext.request.contextPath}/resources/images/userphoto/nopic.jpg" alt="" />'
-                                            +value.userName+'('+value.userId+')'+ value.checkIn.substring(0,9)
-                                                +' ~ '+value.checkOut.substring(0,9) +' '+value.price+ '<button class="btn" onclick="rescancle('+value.reservationNum+')">예약 취소</button> <br>'
+                                            +value.userName+'('+value.userId+')'+ value.checkIn.substring(0,10)
+                                                +' ~ '+value.checkOut.substring(0,10) +' '+value.price;
+                                                if(date>today){
+                                                    str+='<button class="btn" onclick="rescancle('+value.reservationNum+')">예약 취소</button> <br>';
+                                                }else{
+                                                    str+='<br>';
+                                                }
+
                                         });
                                         $('#myroom'+roomsid).html(str);
                                         $('#myroom'+roomsid).css('display','block')
@@ -72,8 +85,6 @@
                                         alert(error);
                                     }
                                 });
-
-
                             }
                         </script>
 
@@ -86,11 +97,6 @@
                         <img class="card-img-top">
                         <div class="card-body">
                             <p class="card-text">
-                                18<br>서울특별시 종로구 교남동<br>
-                                \0
-                                -
-                                \0
-                                /박<br>
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-muted">

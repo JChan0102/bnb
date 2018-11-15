@@ -484,11 +484,8 @@ function closee(){
             console.log('open');
         };
         sock.onmessage = function (evt) {
-            console.log('소캣을 왜 못받니')
             var data = evt.data;
             var obj = JSON.parse(data);
-            console.log(obj);
-            console.log('들어와라');
             appendMessage(obj);
         };
     }
@@ -496,7 +493,6 @@ function closee(){
     var messageuserId=null;
     var messageroomsId=null;
     function send() {
-        console.log('보냈니');
         var msg = $("#message").val();
         console.log(msg);
         if (msg != "") {
@@ -507,14 +503,11 @@ function closee(){
             message.roomsId = messageroomsId//고정값이여야함
             message.sender = '${sessionScope.loginUser.userId}'
         }
-        console.log('진짜보냄');
         sock.send(JSON.stringify(message));
-        console.log('리얼로다가');
         $("#message").val("");
     }
 
     function appendMessage(obj) {
-        console.log('들어와라2');
         console.log(obj);
         message = $("#message").val();
 
