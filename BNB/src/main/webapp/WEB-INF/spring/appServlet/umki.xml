@@ -18,9 +18,10 @@
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	
-	<!-- <interceptors>
+<!-- 	<interceptors>
 		<interceptor>
-			<mapping path=""/>
+			<mapping path="/reservation/reservationCheck"/>
+			<beans:bean class = "com.bit.bnb.reservation.intercepter.ReservationLoginInterceptor" />
 		</interceptor>
 	</interceptors> -->
 	 

@@ -31,7 +31,7 @@ VALUES
 #{checkIn},
 #{checkOut},
 #{roomsId},
-#{price}*(TO_DAYS(#{checkOut})-TO_DAYS(#{checkIn})),
+#{price}<!-- *(TO_DAYS(#{checkOut})-TO_DAYS(#{checkIn})) -->,
 #{people},
 TO_DAYS(#{checkOut})-TO_DAYS(#{checkIn})
 );

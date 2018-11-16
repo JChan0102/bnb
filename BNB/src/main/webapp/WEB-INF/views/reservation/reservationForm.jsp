@@ -94,14 +94,23 @@
 				</div>
 			</div>
 		
-
+		
 		<input type="hidden" value="${selectedRoom.hostId}" name="hostId" id="umki-hostId" /> 
-		<input type="hidden" value="${loginUser.userId}" name="userId" />
+		<input type="hidden" value="${loginUser.userId}" name="userId" id="userId" />
 		<input type="hidden" value="${selectedRoom.roomsId}" name="roomsId" />
-		<input type="hidden" value="${selectedRoom.price_weekdays}" name="price" />
+		<input type="hidden" value="${selectedRoom.price_weekdays}" name="price" id="totalPrice" />
 		<input type="hidden" value="1" name="people" id="people" />
-
+		<c:choose>
+		<c:when test="${loginUser.userId != null}">
 	<div style="cursor: pointer;" onclick = "reservationDo()">예약하기</div>
+	</c:when>
+	<c:otherwise>
+	<a id="login-go" class="nav-link text-dark"
+						data-target="#layerpop" data-toggle="modal"
+						href="#">로그인</a>    
+	   
+	</c:otherwise>
+	</c:choose>
 </div>  
 		<!-- <input type="submit" value="예약하기"/> -->
 	</form>
@@ -389,9 +398,10 @@
                     success: function(data) {
                     	console.log("체크인 : " +checkIn1);
                     	console.log("체크아웃 : " +checkOut1);
-                    	console.log("돈 : " +data);                    	
-                    	if(checkIn1.getFullYear()>=now.getFullYear() && checkOut1.getFullYear()>=now.getFullYear() ){   
+                    	console.log("돈 : " +data);
+                    	if(checkIn1.getFullYear()>=now.getFullYear() && checkOut1.getFullYear()>=now.getFullYear() ){
                     		$("#price").text(data +"원 입니다.");
+                    		$("#totalPrice").val(data);
                         	pri = data;
                     	}
                     }
@@ -407,10 +417,14 @@
             	if(!$("#return").val()) {
             	    alert("체크아웃체크해");
             	  }else   
-            	if(!$("#umki-hostId").val()) {
+            	if(!$("#userId").val()) {
+            		alert($("#userId").val());
             	    alert("로그인해");
             	  }
-            	else{
+            	/* else{
+            		$('#fr').submit();
+            	} */
+else{
             	IMP.request_pay({
                     pg : 'inicis', // version 1.1.0부터 지원.
                     pay_method : 'card',
@@ -433,12 +447,11 @@
                     } else {
                         var msg = '결제에 실패하였습니다.';
                         msg += '에러내용 : ' + rsp.error_msg;
-                        
+                    	alert(msg); 
                     }
-                    alert(msg);  
                	  
                 });
-            }
+            }  
             }
            
  
