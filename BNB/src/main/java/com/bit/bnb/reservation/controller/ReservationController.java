@@ -31,6 +31,7 @@ public class ReservationController {
 	
 	@RequestMapping(value = "/reservation", method = RequestMethod.POST)
 	public ModelAndView reservationDo(ReservationInfo info) {
+		System.out.println("test");
 		ModelAndView modelAndView = new ModelAndView();
 		check = service.reservationDo(info);
 		modelAndView.setViewName("reservation/reservationCheck");
