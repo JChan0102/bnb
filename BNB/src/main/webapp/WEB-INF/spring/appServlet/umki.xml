@@ -24,7 +24,8 @@
 			<beans:bean class = "com.bit.bnb.reservation.intercepter.ReservationLoginInterceptor" />
 		</interceptor>
 	</interceptors> -->
-	 
+	 <beans:bean id="regNoti"
+		class="com.bit.bnb.reservation.service.SimpleRegistrationNotifier" />
 	
 	
 </beans:beans>

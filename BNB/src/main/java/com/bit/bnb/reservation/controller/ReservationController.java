@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.reservation.model.ReservationInfo;
 import com.bit.bnb.reservation.service.ReservationDoService;
+import com.bit.bnb.reservation.service.SimpleRegistrationNotifier;
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.service.RoomViewService;
 
@@ -18,6 +19,8 @@ public class ReservationController {
 	ReservationDoService service;
 	@Autowired
 	RoomViewService roomViewService;
+	@Autowired
+	SimpleRegistrationNotifier noti;
 	int check = 0;
 	
 	@RequestMapping(value = "/reservation", method = RequestMethod.GET)
@@ -34,6 +37,7 @@ public class ReservationController {
 		ModelAndView modelAndView = new ModelAndView();
 		check = service.reservationDo(info);
 		if(check == 1) {
+			noti.mailSendHtml(info.getUserId(), info);
 			modelAndView.addObject("info", info);
 		}
 		modelAndView.setViewName("reservation/reservationCheck");
