@@ -55,7 +55,7 @@
 				<div class="modal-dialog modal-80size modal-center" role="document">
 					<div class="modal-content modal-80size">
 						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">Modal 제목</h4>
+							<h4 class="modal-title" id="myModalLabel">인원수</h4>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -95,11 +95,10 @@
 			</div>
 		
 
-		<input type="hidden" value="${loginUser.userId}" name="hostId"
-			id="umki-hostId" /> <input type="hidden" value="${loginUser.userId}"
-			name="userId" /> <input type="hidden"
-			value="${selectedRoom.roomsId}" name="roomsId" /> <input
-			type="hidden" value="${selectedRoom.price_weekdays}" name="price" />
+		<input type="hidden" value="${selectedRoom.hostId}" name="hostId" id="umki-hostId" /> 
+		<input type="hidden" value="${loginUser.userId}" name="userId" />
+		<input type="hidden" value="${selectedRoom.roomsId}" name="roomsId" />
+		<input type="hidden" value="${selectedRoom.price_weekdays}" name="price" />
 		<input type="hidden" value="1" name="people" id="people" />
 
 	<div style="cursor: pointer;" onclick = "reservationDo()">예약하기</div>
@@ -417,7 +416,7 @@
                     pay_method : 'card',
                     merchant_uid : 'merchant_' + new Date().getTime(),
                     name : '주문명:결제테스트',
-                    amount : 100,/* pri, */                        
+                    amount : pri,                        
                     buyer_email : 'iamport@siot.do',
                     buyer_name : '구매자이름',
                     buyer_tel : '010-1234-5678',

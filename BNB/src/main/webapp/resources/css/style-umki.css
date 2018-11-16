@@ -80,7 +80,7 @@
 }
 
 .modal.modal-center { /* 모달 위치 조정 */
-	text-align: left;  
+	text-align: center;  
 }
 
 @media screen and (min-width: 768px) {
