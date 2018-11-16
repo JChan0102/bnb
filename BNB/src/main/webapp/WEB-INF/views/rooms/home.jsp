@@ -83,7 +83,7 @@
 			<input type="hidden" class="form-control mt-1" id="address"
 				name="address" placeholder="주소로 검색.."> <input type="hidden"
 				id="price_weekdays" name="price_weekdays" value="${min_price}">
-			<input type="text" id="price_weekend" name="price_weekend"
+			<input type="hidden" id="price_weekend" name="price_weekend"
 				value="${max_price}">
 
 			<script>
