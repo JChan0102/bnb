@@ -94,7 +94,7 @@
 				</div>
 			</div>
 		
-		
+		<!-- 핀테크? 본인확인이 가능한 api? -->
 		<input type="hidden" value="${selectedRoom.hostId}" name="hostId" id="umki-hostId" /> 
 		<input type="hidden" value="${loginUser.userId}" name="userId" id="userId" />
 		<input type="hidden" value="${selectedRoom.roomsId}" name="roomsId" />
@@ -456,6 +456,7 @@ else{
            
  
         </script>
+        
 </body>
 
 </html>
