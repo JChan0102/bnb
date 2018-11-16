@@ -41,7 +41,7 @@
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item"><fmt:formatDate
 									pattern="YY년 MM월 dd일" value="${his.checkIn}" /> ~<fmt:formatDate
-									pattern="YY년 MM월 dd일" value="${his.checkOut}" /> ×
+									pattern="YY년 MM월 dd일" value="${his.checkOut}" /> × 게스트
 								${his.people}명</li>
 							<li class="list-group-item">${his.address}</li>
 							<li class="list-group-item">${his.price}</li>

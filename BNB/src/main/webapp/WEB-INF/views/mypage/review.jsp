@@ -27,8 +27,8 @@
 							name="searchType">
 							<option value="all"
 								<c:out value="${rvs.searchType == all?'selected':''}" />>전체검색</option>
-							<option value="reviewDate"
-								<c:out value="${rvs.searchType eq 'reviewDate'?'selected':''}" />>날짜</option>
+							<option value="reviewContent"
+								<c:out value="${rvs.searchType eq 'reviewContent'?'selected':''}" />>내용</option>
 							<option value="hostId"
 								<c:out value="${rvs.searchType eq 'hostId'?'selected':''}" />>호스트명</option>
 							<option value="scope"
@@ -101,7 +101,7 @@
 											<i class="fas fa-star" style="color: #FF5675"></i>
 										</c:forEach>
 									</h6>
-									<div class="mt-3 col-3" style="left:65px;">
+									<div class="mt-3 col-3" style="left: 65px;">
 										<button type="button" class="btn btn-secondary btn-sm"
 											onclick="javascript:location.href='${pageContext.request.contextPath}/reviewEdit?reservationNum=${reTo.reservationNum}'">수정</button>
 										<!-- Button trigger modal -->
@@ -135,62 +135,14 @@
 										</div>
 									</div>
 								</div>
-								<p class="mb-0" style="margin-top:10px;">${reTo.reviewContent}<br> <br>
+								<p class="mb-0" style="margin-top: 10px;">${reTo.reviewContent}<br>
+									<br>
 									<fmt:formatDate pattern="yyyy년 MM월 dd일"
 										value="${reTo.reviewDate}" />
 									<br> <br>
 								</p>
 							</div>
 						</div>
-						<%-- <table id="review_table" rules="none" style="border-radius: 10px;">
-							<tr>
-								<td class="review_photo" rowspan='2'><img
-									src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
-									id="review_img"></td>
-								<td class="review_host"><b>${reTo.hostId}</b>님의 대한 후기</td>
-								<td><c:forEach var="scope" begin="1" end="${reTo.scope}">
-										<i class="fas fa-star" style="color: #FF5675"></i>
-									</c:forEach></td>
-								<td
-									style="text-align: right; padding-right: 10px; line-height: 40px;">
-									<button type="button" class="btn btn-secondary btn-sm"
-										onclick="javascript:location.href='${pageContext.request.contextPath}/reviewEdit?reservationNum=${reTo.reservationNum}'">수정</button>
-									<!-- Button trigger modal -->
-									<button type="button" class="btn btn-secondary btn-sm"
-										data-toggle="modal" data-target="#deleteModal">삭제</button> <!-- Modal -->
-									<div class="modal fade" id="deleteModal" tabindex="-1"
-										role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
-										<div class="modal-dialog modal-dialog-centered"
-											role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalCenterTitle">후기삭제</h5>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body" style="text-align: center;">
-													<b>${reTo.hostId}</b>님의 대한 후기를 삭제하시겠습니까?
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-danger"
-														onclick="javascript:location.href='review_delete?reservationNum=${reTo.reservationNum}'">삭제하기</button>
-													<button type="button" class="btn btn-secondary"
-														data-dismiss="modal">취소</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan='3'>${reTo.reviewContent}<br> <br> <fmt:formatDate
-										pattern="yyyy년 MM월 dd일" value="${reTo.reviewDate}" /><br>
-									<br>
-								</td>
-							</tr>
-						</table> --%>
 					</c:if>
 				</c:forEach>
 			</div>

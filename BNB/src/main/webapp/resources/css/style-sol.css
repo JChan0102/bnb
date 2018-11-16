@@ -45,11 +45,11 @@
 	margin: 0 auto;
 }
 
-#review_photo{
+#review_photo {
 	max-width: 90px;
 	max-height: 90px;
 	overflow: hidden;
-	margin:0px 15px;
+	margin: 0px 15px;
 }
 
 #review_write_table {
@@ -99,8 +99,8 @@
 }
 
 .historyCard {
-	max-width: 17rem;
-	max-height: 200px;
+	max-width: 900px;
+	max-height: 180px;
 	overflow: hidden;
 }
 
@@ -117,7 +117,37 @@
 	width: 900px;
 	margin: 0 auto;
 }
-.wish_div:hover .wish_hover{
+
+.wish_div:hover .wish_hover {
 	background-color: #aaaaaa;
-	opacity:1;
+	opacity: 1;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+	border: 3px solid #fff;
+}
+
+::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment
+	{
+	display: block;
+	height: 10px;
+	background: #efefef
+}
+
+::-webkit-scrollbar-track {
+	background: #efefef;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .2)
+}
+
+::-webkit-scrollbar-thumb {
+	height: 50px;
+	width: 50px;
+	background: rgba(0, 0, 0, .2);
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .1)
 }

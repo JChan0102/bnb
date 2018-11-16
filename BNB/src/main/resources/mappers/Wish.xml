@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 즐겨찾기목록 -->
 	<select id="wishList" resultType="com.bit.bnb.mypage.model.WishVO">
-		select SUBSTRING_INDEX(r.address, ' ', 2) as address, w.idx,
+		select r.address, w.idx,
 		r.hostId, r.price_weekdays, r.price_weekend, left(r.details, 100) as details,
 		w.userId, w.roomsId from rooms r inner join wish w 
 		on r.roomsId = w.roomsId and w.userId = #{userId}

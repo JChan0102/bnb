@@ -75,12 +75,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where r.userId = #{userId}
 		<if test="rvs.searchType != null">
 			<if test="rvs.searchType == 'all'.toString()">
-				and re.reviewDate LIKE CONCAT('%',#{rvs.keyword},'%')
+				and re.reviewContent LIKE CONCAT('%',#{rvs.keyword},'%')
 				or r.hostId LIKE CONCAT('%',#{rvs.keyword},'%')
 				or re.scope LIKE CONCAT('%',#{rvs.keyword},'%')
 			</if>
-			<if test="rvs.searchType == 'reviewDate'.toString()">
-				and re.reviewDate LIKE CONCAT('%',#{rvs.keyword},'%')
+			<if test="rvs.searchType == 'reviewContent'.toString()">
+				and re.reviewContent LIKE CONCAT('%',#{rvs.keyword},'%')
 			</if>
 			<if test="rvs.searchType == 'hostId'.toString()">
 				and r.hostId LIKE CONCAT('%',#{rvs.keyword},'%')

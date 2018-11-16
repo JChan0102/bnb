@@ -25,8 +25,8 @@
 							name="searchType">
 							<option value="all"
 								<c:out value="${rvs.searchType == null?'selected':''}" />>전체검색</option>
-							<option value="reviewDate"
-								<c:out value="${rvs.searchType eq 'reviewDate'?'selected':''}" />>날짜</option>
+							<option value="reviewContent"
+								<c:out value="${rvs.searchType eq 'reviewContent'?'selected':''}" />>내용</option>
 							<option value="hostId"
 								<c:out value="${rvs.searchType eq 'hostId'?'selected':''}" />>호스트명</option>
 							<option value="scope"
