@@ -72,11 +72,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="rv.time_checkout != null">
 				AND time_checkout like #{rv.time_checkout}
 			</if>
-			<if test="rv.price_weekdays != 0">
-				AND price_weekdays >= #{price_weekdays}
-			</if>
 			<if test="rv.price_weekend != 0">
-				AND price_weekend >= #{rv.price_weekend}
+				AND price_weekdays <![CDATA[<]]>= #{rv.price_weekend}
+				AND price_weekdays >= #{rv.price_weekdays}
+				AND price_weekend <![CDATA[<]]>= #{rv.price_weekend}
+				AND price_weekend >= #{rv.price_weekdays}
 			</if>
 			<if test="rv.address != null">
 				AND address like CONCAT('%', #{rv.address},'%')
@@ -135,11 +135,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="rv.time_checkout != null">
 				AND time_checkout like #{rv.time_checkout}
 			</if>
-			<if test="rv.price_weekdays != 0">
-				AND price_weekdays >= #{price_weekdays}
-			</if>
 			<if test="rv.price_weekend != 0">
-				AND price_weekend >= #{rv.price_weekend}
+				AND price_weekdays <![CDATA[<]]>= #{rv.price_weekend}
+				AND price_weekdays >= #{rv.price_weekdays}
+				AND price_weekend <![CDATA[<]]>= #{rv.price_weekend}
+				AND price_weekend >= #{rv.price_weekdays}
 			</if>
 			<if test="rv.address != null">
 				AND address like CONCAT('%', #{rv.address},'%')
@@ -147,9 +147,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="rv.disabled != 0">
 				AND disabled >= #{rv.disabled}
 			</if>
-			<!-- 어메니티, 가격2, 비활성화 재고 -->
+			<!-- 수정시 count 쿼리 동일 수정 -->
+			<!-- 어메니티, 가격, 비활성화 재고 -->
 		</where>
 		ORDER BY roomsId desc
+	</select>
+
+	<select id="selectMinPrice" resultType="java.lang.Integer">
+		SELECT
+		MIN(price_weekdays)
+		FROM `bnb`.`rooms`;
+	</select>
+
+	<select id="selectMaxPrice" resultType="java.lang.Integer">
+		SELECT
+		MAX(price_weekend)
+		FROM `bnb`.`rooms`;
 	</select>
 
 	<!-- 페이징 처리를 위한 테이블 카운트 -->
@@ -277,4 +290,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 	</select>
+<!-- 	
+	SELECT roomsId
+   FROM rooms r
+  WHERE r.roomsId NOT IN (select roomsId from reservation where checkIn >= '2018-11-15' and checkOut <= '2019-01-02' group by roomsId);
+ -->
 </mapper>

@@ -58,8 +58,8 @@
 
 			<div class="dropdown mt-1">
 				<button class="btn btn-light col-12 dropdown-toggle" type="button"
-					id="dropdownMenu_avail" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false">침대와 침실</button>
+					id="dropdownMenu_availf" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false">침대와 침실</button>
 				<div class="dropdown-menu" id="avail">
 					<span class="dropdown-item-text">침실</span> <span
 						class="dropdown-item-text"><input type="number"
@@ -77,45 +77,50 @@
 			</div>
 
 			<div class="alert alert-secondary text-center mt-1 mb-0" role="alert"
-				id="amount">
-			</div>
+				id="amount"></div>
 			<div id="slider-range"></div>
 
-			<input type="text" class="form-control mt-1" id="address"
-				name="address" placeholder="주소로 검색.."> <input type="text"
-				id="price_weekdays" name="price_weekdays" value="0"> <input
-				type="text" id="price_weekend" name="price_weekend" value="0">
+			<input type="hidden" class="form-control mt-1" id="address"
+				name="address" placeholder="주소로 검색.."> <input type="hidden"
+				id="price_weekdays" name="price_weekdays" value="${min_price}">
+			<input type="text" id="price_weekend" name="price_weekend"
+				value="${max_price}">
 
 			<script>
 				$(function() {
 					// $("#slider-range").slider("option", "values", [50,500]);
 					// https://stackoverflow.com/questions/8795431/how-do-i-dynamically-change-min-max-values-for-jquery-ui-slider
-					var min_price = 10;
-					var max_price = 10000;
+
 					$("#slider-range").slider(
-							{
-								range : true,
-								min : min_price,
-								max : max_price,
-								step : 10,
-								values : [ min_price, max_price ],
-								slide : function(event, ui) {
-									$("#amount").html(
-											"\\" + ui.values[0] + " - \\"
-													+ ui.values[1]);
-									$('#price_weekdays').val(
-											$("#slider-range").slider("values",
-													0));
-									$('#price_weekend').val(
-											$("#slider-range").slider("values",
-													1));
-								}
-							});
+									{
+										range : true,
+										min : ${min_price},
+										max : ${max_price},
+										step : 10,
+										values : [ ${min_price}, ${max_price} ],
+										slide : function(event, ui) {
+											$("#amount").html("\\"+ ui.values[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+																	+ " - \\"
+																	+ ui.values[1].toString().replace(/\B(?=(\d{3})+(?!\d))/g,","));
+
+											$('#price_weekdays').val(+ui.values[0].toString());
+											$('#price_weekend').val(+ui.values[1].toString());
+											
+											searchRoomsList();
+										}
+									});
 
 					$("#amount").html(
-							"\\" + $("#slider-range").slider("values", 0)
+							"\\"
+									+ $("#slider-range").slider("values", 0)
+											.toString().replace(
+													/\B(?=(\d{3})+(?!\d))/g,
+													",")
 									+ " - \\"
-									+ $("#slider-range").slider("values", 1));
+									+ $("#slider-range").slider("values", 1)
+											.toString().replace(
+													/\B(?=(\d{3})+(?!\d))/g,
+													","));
 				});
 				// 드롭다운 메뉴의 유지 처리
 				$(document).on('click', '#avail', function(e) {
@@ -157,6 +162,7 @@
 
 				// 리셋버튼에 기능 부여
 				$('#resetBtn').click(function() {
+					$('#slider-range').slider("option", "values", [${min_price}, ${max_price}]);
 					$('#dropdownMenu_avail').html('인원');
 					$('#searchForm')[0].reset();
 					searchRoomsList();
@@ -182,63 +188,7 @@
 		<div id="map" style="width: 100%; height: 500px;" class="mb-4"></div>
 		<div class="row" id="roomsList">
 			<input type=hidden id="page" name="page" value="1">
-			<%-- <c:forEach items="${rooms}" var="item" varStatus="status">
-				<div class="col-md-3">
-					<div class="card mb-3 box-shadow">
-						<img class="card-img-top">
-						<div class="card-body">
-							<p class="card-text">
-								${item.roomsId}<br>${item.address}<br>
-								<fmt:formatNumber value="${item.price_weekdays}"
-									pattern="\###,###,###" />
-								-
-								<fmt:formatNumber value="${item.price_weekend}"
-									pattern="\###,###,###" />
-								/박<br>
-							</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<small class="text-muted"> <c:forEach
-										items="${reviewSummary}" var="reviewSummary">
-										<c:if test="${item.roomsId eq reviewSummary.roomsId}">
-											<c:forEach begin="1" end="${reviewSummary.avgScope}" step="1">★</c:forEach>
-											<fmt:formatNumber value="${reviewSummary.avgScope}"
-												pattern="0.0" />
-										(${reviewSummary.reviewCount})
-								</c:if>
-									</c:forEach>
-								</small>
-								<div class="btn-group">
-									<c:if test="${item.hostId eq loginUser.userId}">
-										<a
-											href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=${item.roomsId}&_hostId=${item.hostId}"><button
-												type="button" class="btn btn-sm btn-outline-secondary ml-1">Edit</button></a>
-									</c:if>
-									<a
-										href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${item.roomsId}&hostId=${item.hostId}"><button
-											type="button" class="btn btn-sm btn-outline-secondary ml-1">View</button></a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</c:forEach> --%>
 		</div>
-		<!-- 페이징 처리 -->
-		<%-- <nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center">
-				<li class="page-item"><a class="page-link"
-					href="${pageContext.request.contextPath}/rooms?page=${paging.prevPageNo}">Previous</a></li>
-				<c:set var="pageIdx" value="${paging.startPageNo}" />
-				<c:forEach varStatus="status" begin="${paging.startPageNo}"
-					end="${paging.endPageNo}" step="1">
-					<li class="page-item"><a class="page-link"
-						href="${pageContext.request.contextPath}/rooms?page=${pageIdx}">${pageIdx}</a></li>
-					<c:set var="pageIdx" value="${pageIdx+1}" />
-				</c:forEach>
-				<li class="page-item"><a class="page-link"
-					href="${pageContext.request.contextPath}/rooms?page=${paging.nextPageNo}">Next</a></li>
-			</ul>
-		</nav> --%>
 	</div>
 	</main>
 	<!-- 스피너 사용을 위한 JS -->
@@ -283,6 +233,7 @@
 			$
 					.ajax({
 						type : 'POST',
+						async: false,
 						url : '${pageContext.request.contextPath}/rooms/getRoomsList',
 						contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 						data : queryString,

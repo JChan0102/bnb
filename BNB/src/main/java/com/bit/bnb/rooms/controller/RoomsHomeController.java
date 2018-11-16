@@ -27,6 +27,8 @@ public class RoomsHomeController {
 //		modelAndView.addObject("paging", paging);
 //		modelAndView.addObject("rooms", roomsLIstService.getRoomsList(rv, paging));
 //		modelAndView.addObject("reviewSummary", roomsLIstService.getReviewSummary());
+		modelAndView.addObject("min_price", roomsLIstService.getMinPrice());
+		modelAndView.addObject("max_price", roomsLIstService.getMaxPrice());
 		modelAndView.setViewName("rooms/home");
 		return modelAndView;
 	}

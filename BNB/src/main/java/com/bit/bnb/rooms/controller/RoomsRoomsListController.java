@@ -26,7 +26,7 @@ public class RoomsRoomsListController {
 		// Paging paging = roomViewService.getPaging("review", currentPageNo, 4);
 		// Paging paging = roomsLIstService.getPaging("rooms", currentPageNo, 20);
 		Paging paging = roomsLIstService.getRoomSearchPaging(rv, currentPageNo, 20);
-		System.out.println(currentPageNo);
+		// System.out.println(currentPageNo);
 
 		// Object to JSON in String
 		ObjectMapper mapper = new ObjectMapper();
@@ -36,9 +36,9 @@ public class RoomsRoomsListController {
 		map.put("reviewSummary", roomsLIstService.getReviewSummary());
 
 		System.out.println(rv);
-		System.out.println("------------------");
-		System.out.println("룸리스트컨트롤러" + roomsLIstService.getRoomsList(rv, paging));
-		System.out.println("룸리스트컨트롤러" + paging);
+		// System.out.println("------------------");
+		// System.out.println("룸리스트컨트롤러" + roomsLIstService.getRoomsList(rv, paging));
+		// System.out.println("룸리스트컨트롤러" + paging);
 
 		String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
 		return jsonInString;

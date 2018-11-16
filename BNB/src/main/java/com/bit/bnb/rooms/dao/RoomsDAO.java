@@ -54,6 +54,14 @@ public class RoomsDAO {
 		return sqlSessionTemplate.selectOne(mapperPath + "totalCount", tableName);
 	}
 
+	public int selectMinPrice() {
+		return sqlSessionTemplate.selectOne(mapperPath + "selectMinPrice");
+	}
+	
+	public int selectMaxPrice() {
+		return sqlSessionTemplate.selectOne(mapperPath + "selectMaxPrice");
+	}
+
 	public List<RoomsReviewVO> selectRoomsReview(HashMap<String, Object> map) {
 		return sqlSessionTemplate.selectList(mapperPath + "selectRoomsReview", map);
 	}

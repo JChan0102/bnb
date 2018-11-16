@@ -45,4 +45,12 @@ public class RoomsLIstService {
 		return roomsDAO.selectRoomsReviewSummary();
 	}
 
+	public int getMinPrice() {
+		return roomsDAO.selectMinPrice();
+	}
+
+	public int getMaxPrice() {
+		return roomsDAO.selectMaxPrice();
+	}
+
 }
