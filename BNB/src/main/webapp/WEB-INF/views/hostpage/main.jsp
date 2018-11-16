@@ -21,10 +21,12 @@
                data-toggle="list" href="#list-profi" role="tab" aria-controls="profile">내방보기</a>
             <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
                href="#list-profile" role="tab" aria-controls="profile" onclick="eval()">사용자평가</a>
-            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list"
-               href="#list-messages" role="tab" aria-controls="messages">호스트게시판</a>
+            <a class="list-group-item list-group-item-action" id="list-messages-list"
+               href="${pageContext.request.contextPath}/host" >호스트게시판</a>
             <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list"
                href="#list-settings" role="tab" aria-controls="settings">인출</a>
+            <a class="list-group-item list-group-item-action" id="list-settings-li" data-toggle="list"
+               href="#list-settings" role="tab" aria-controls="settings">통계</a>
         </div>
     </div>
     <div class="col-8">
@@ -202,25 +204,54 @@
 
             </div>
             <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-                <div class="row" id="evalu">
+                <div class="row" id="evalu" >
+                    <div class="col-12 row justify-content-center" id="noteval" style="margin-bottom: 70px;">
+
+                        </div>
+                    <div class="col-12 row justify-content-center"  id="yeseval">
+                    </div>
+
                 </div>
                 <script>
                     function eval() {
+
+                        $('#noteval').html('');
+                        $('#yeseval').html('');
+                        var str1 = '';
+                        var str2='';
+
                         $.ajax({
                             url: '${pageContext.request.contextPath}/hostpage/eval',
                             type: 'get',
                             datatype: 'json',
                             success: function (data) {
+                                if(data[0].length!=0){
+                                    $(data[0]).each(function (key, value) {
+                                        str1 +='<div class="col-12 row justify-content-center">' +
+                                            '<div class="col-md-1"  style="margin-bottom: 30px;"><img width="80px" src="${pageContext.request.contextPath}/resources/images/userphoto/nopic.jpg"></div>' +
+                                            '<div class="col-md-7">'+value.checkIn.substr(0,10)+' ~ '+ value.checkOut.substr(0,10)+ '에 '+value.roomsId+'방을 이용한 사용자 '+value.userName+'('+value.userId+')님을 평가해주세요!</div>' +
+                                            '<div class="col-md-2"><button onclick="writee('+value.reservationNum+')">평가하기</button></div>' +
+                                            '  </div>'
+                                    });
 
-                                $(data[0]).each(function (key, value) {
-                                        console.log(value);
-                                });
-                                $(data[1]).each(function (key, value) {
-                                    console.log(value);
-                                });
+                                } else{
+                                        str1+= '<p style="text-align: center">평가할 사용자가 없습니다!</p>'
+                                }
+                               if(data[1].length!=0){
 
-                                $('#myroom' + roomsid).html(str);
-                                $('#myroom' + roomsid).css('display', 'block')
+                                   $(data[1]).each(function (key, value) {
+                                       str2 +='<div class="col-12 row justify-content-center">' +
+                                           '<div class="col-md-1"  style="margin-bottom: 30px;"><img width="80px" src="${pageContext.request.contextPath}/resources/images/userphoto/nopic.jpg"></div>' +
+                                           '<div class="col-md-7"><p>['+value.reservationNum+'] ' +value.checkIn.substr(0,10)+' ~ '+ value.checkOut.substr(0,10)+ '에 '+value.roomsId+'방을 이용한 사용자 '+value.userName+'('+value.userId+')님을 평가했습니다.</p>'
+                                       +value.evaluationContent+
+                                           '<p style="text-align: right">'+value.evaluationDate.substr(0,10)+'</p> </div>' +
+                                           '<div class="col-md-2"><button onclick="moddiy('+value.reservationNum+')">수정하기</button></div>' +
+                                           '</div>'
+
+                                   });
+                               }
+                            $('#noteval').html(str1);
+                            $('#yeseval').html(str2);
                             },
                             error: function () {
                                 alert(error);
@@ -230,6 +261,82 @@
 
 
 
+                    }
+                   function writee(reservationNum){
+                       $('#yeseval').html('');
+                       $('#noteval').html('');
+                        var str = '<div class="col-12 row justify-content-center"> <div class="col-md-7 form-group"><label for="evalcontent">예약번호 : '+reservationNum+'</label> ' +
+                       '<textarea class="form-control" rows="10" id="evalcontent"></textarea><input type="button" onclick="inserteval('+reservationNum+')" class="form-control" value="작성하기"> </div></div>'
+                       $('#noteval').html(str);
+                   }
+                    function moddiy(num){
+                        $('#yeseval').html('');
+                        $('#noteval').html('');
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/hostpage/eval/select',
+                            type: 'post',
+                            data: {
+                                reservationNum:num
+                            },
+                            datatype: 'json',
+                            success: function (data) {
+                                $('#yeseval').html('');
+                                $('#noteval').html('');
+                                var str = '<div class="col-12 row justify-content-center"> <div class="col-md-7 form-group"><label for="evalcontent">예약번호 : '+data.reservationNum+'</label> ' +
+                                    '<textarea class="form-control" rows="10" id="evalcontent" >'+data.evaluationContent+'</textarea><input type="button" onclick="realmodi('+data.reservationNum+')" class="form-control" value="작성하기"> </div></div>'
+                                $('#noteval').html(str);
+                            },
+                            error: function () {
+                                alert(error);
+                            }
+                        });
+
+                    }
+                    function realmodi(num){
+                        var msg = $('#evalcontent').val();
+                        if(msg!=''){
+                            $.ajax({
+                                url: '${pageContext.request.contextPath}/hostpage/eval/modi',
+                                type: 'post',
+                                data: {
+                                    reservationNum:num,
+                                    evaluationContent:msg
+                                },
+                                datatype: 'json',
+                                success: function (data) {
+                                    eval();
+                                },
+                                error: function () {
+                                    alert(error);
+                                }
+                            });
+                        }else{
+                            eval();
+                        }
+                    }
+
+
+                    function inserteval(num) {
+                        var msg = $('#evalcontent').val();
+                        if(msg!=''){
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/hostpage/eval/write',
+                            type: 'post',
+                            data: {
+                                reservationNum:num,
+                                evaluationContent:msg
+                            },
+                            datatype: 'json',
+                            success: function (data) {
+                                eval();
+                            },
+                            error: function () {
+                                alert(error);
+                            }
+                        });
+                    }else{
+                        eval();
+                    }
                     }
 
                 </script>

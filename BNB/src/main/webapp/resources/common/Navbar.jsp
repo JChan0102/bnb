@@ -41,13 +41,21 @@
 
 				<!--  로그인 상태 -->
 				<c:if test="${loginUser ne null}">
-					<li class="nav-item"><a class="nav-link text-dark" href="#">호스팅
-							시작하기</a></li>
+					<c:choose>
+						<c:when test="${loginUser.host eq 0}">
+							<li class="nav-item"><a class="nav-link text-dark" href="#">호스팅
+								시작하기</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/hostpage/main">호스트 페이지</a></li>
+						</c:otherwise>
+						
+					</c:choose>
+
 					<li class="nav-item text-dark dropdown"><a
 						class="nav-link  dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false" onclick="getListmessage()"> 알림
-
 						<span class="badge badge-secondary" id="jchannotice" style="display: none">new</span>
 					</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">

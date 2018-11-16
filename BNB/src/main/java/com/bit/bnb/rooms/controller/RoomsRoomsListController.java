@@ -45,7 +45,7 @@ public class RoomsRoomsListController {
 	}
 
 
-	@RequestMapping(value = "/rooms/getRoomsList", method = RequestMethod.GET)
+	@RequestMapping(value = "/rooms/getRoomsList", method = RequestMethod.GET, produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String getRoomsReviewList11(RoomsVO rv,
 									 @RequestParam(value = "page", required = false, defaultValue = "1") int currentPageNo)

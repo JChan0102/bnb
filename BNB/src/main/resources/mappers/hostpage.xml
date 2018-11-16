@@ -4,24 +4,67 @@
 <mapper namespace="mappers.hostpage">
     <select id="ckMyRooms" resultType="com.bit.bnb.hostpage.model.MyRoomVO">
 
-    select roomsId, count(*) reservationCount from reservation where checkOut <![CDATA[ > ]]> current_timestamp and hostId=#{userId} group by roomsId
+        select roomsId, count(*) reservationCount
+        from reservation
+        where checkOut <![CDATA[ > ]]> current_timestamp
+          and hostId = #{userId}
+        group by roomsId
 
     </select>
     <select id="getRoomMember" parameterType="int" resultType="com.bit.bnb.hostpage.model.ReservationRoomUserVO">
-        select re.reservationNum,re.userId,u.userName,u.userPhoto, re.checkIn, re.checkOut,re.price, re.people from reservation re inner JOIN user u on re.userId=u.userId where re.checkOut <![CDATA[ > ]]> current_timestamp and re.roomsId=#{roomsId}
+        select re.reservationNum,
+               re.userId,
+               u.userName,
+               u.userPhoto,
+               re.checkIn,
+               re.checkOut,
+               re.price,
+               re.people
+        from reservation re
+                 inner JOIN user u on re.userId = u.userId
+        where re.checkOut <![CDATA[ > ]]> current_timestamp
+          and re.roomsId = #{roomsId}
     </select>
 
     <select id="getNotEvaluation" parameterType="java.lang.String" resultType="com.bit.bnb.hostpage.model.EvaluationVO">
-        select re.userId, u.userName,u.userPhoto, re.roomsId, re.checkIn, re.checkOut from reservation re LEFT OUTER JOIN evaluation e on re.reservationNum = e.reservationNum inner JOIN user u on re.userId = u.userId
-        where hostId=#{hostId} and e.evaluationContent is null and re.checkOut <![CDATA[ < ]]> current_timestamp ORDER BY checkOut desc ;
+        select re.userId, u.userName, u.userPhoto, re.roomsId, re.checkIn, re.checkOut, re.reservationNum
+        from reservation re
+                 LEFT OUTER JOIN evaluation e on re.reservationNum = e.reservationNum
+                 inner JOIN user u on re.userId = u.userId
+        where hostId = #{hostId}
+          and e.evaluationContent is null
+          and re.checkOut <![CDATA[ < ]]> current_timestamp
+        ORDER BY checkOut desc;
     </select>
     <select id="getEvaluation" parameterType="java.lang.String" resultType="com.bit.bnb.hostpage.model.EvaluationVO">
-        select re.userId, u.userName,u.userPhoto, re.roomsId,re.checkIn,re.checkOut, e.evaluationContent,e.evaluationDate from reservation re inner JOIN evaluation e on re.reservationNum = e.reservationNum inner JOIN user u on re.userId = u.userId
-        where hostId=#{hostId} and e.evaluationContent is not null and re.checkOut <![CDATA[ < ]]>current_timestamp ORDER BY checkOut desc ;
+        select re.userId,
+               u.userName,
+               u.userPhoto,
+               re.roomsId,
+               re.checkIn,
+               re.checkOut,
+               re.reservationNum,
+               e.evaluationContent,
+               e.evaluationDate
+        from reservation re
+                 inner JOIN evaluation e on re.reservationNum = e.reservationNum
+                 inner JOIN user u on re.userId = u.userId
+        where hostId = #{hostId}
+          and e.evaluationContent is not null
+          and re.checkOut <![CDATA[ < ]]>current_timestamp
+        ORDER BY checkOut desc;
     </select>
 
-  <insert id="insertEvaluation" parameterType="com.bit.bnb.hostpage.model.EvaluationVO">
+    <insert id="insertEvaluation" parameterType="com.bit.bnb.hostpage.model.EvaluationVO">
+        insert into evaluation (reservationNum, evaluationContent)
+        VALUES (#{reservationNum}, #{evaluationContent})
+    </insert>
+    <select id="selectOneEvaluation" parameterType="int" resultType="com.bit.bnb.hostpage.model.EvaluationVO">
+        select * from evaluation where reservationNum=#{reservationNum}
+    </select>
 
-  </insert>
+    <update id="updateEvaluation" parameterType="com.bit.bnb.hostpage.model.EvaluationVO">
+        update evaluation set evaluationContent=#{evaluationContent}, evaluationDate=CURRENT_TIMESTAMP where reservationNum=#{reservationNum}
+    </update>
 
 </mapper>

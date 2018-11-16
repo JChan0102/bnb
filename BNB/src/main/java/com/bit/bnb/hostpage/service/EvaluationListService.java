@@ -15,7 +15,6 @@ public class EvaluationListService {
 
     public List<EvaluationVO> notEvaluationList(String hostId){
         List<EvaluationVO> list =dao.getNotEvaluation(hostId);
-        System.out.println(list);
         return list;
 
     }

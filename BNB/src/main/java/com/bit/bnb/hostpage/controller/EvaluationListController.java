@@ -29,7 +29,7 @@ public class EvaluationListController {
 
         list.add(listService.notEvaluationList(user.getUserId()));
         list.add(listService.EvaluationList(user.getUserId()));
-        System.out.println(list.toString());
+        System.out.println(list);
         return list;
     }
 
