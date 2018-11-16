@@ -90,7 +90,11 @@ public class UserLoginContoller {
 	public String googleLogin(@RequestParam(value = "gId", required = false) String gId,
 							  HttpSession session) {
 		
+		System.out.println("구글 로그인 컨트롤러 진입");
+		
 		String result = userLoginService.googleLogin(gId, session);
+		
+		System.out.println("result : " + result);
 	
 		return result;
 	}

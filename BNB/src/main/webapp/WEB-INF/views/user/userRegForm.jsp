@@ -33,20 +33,20 @@
 					<form method="post" enctype="multipart/form-data">
 					
 						<input type="email" id="inputUserId" name="userId" class="form-control hyeon-reg-input" placeholder="이메일 주소" />
-						<div id="alertId" style="display:none"></div >
+						<div id="alertId" class="regAlert" style="display:none; color: #dc3545;"></div >
 						<input type="hidden" id="fail-id" name="fail-id" />
 						<input type="password" id="userPw-1" name="userPw" class="form-control hyeon-reg-input" placeholder="비밀번호 설정" />
-						<div id="alertPw" style="display:none"></div >
+						<div id="alertPw" class="regAlert" style="display:none; color: #dc3545;"></div >
 						<input type="password" id="userPw-2" class="form-control hyeon-reg-input" placeholder="비밀번호 확인" />
-						<div id="chkPw" style="display:none"></div >
+						<div id="chkPw" class="regAlert" style="display:none; color: #dc3545;"></div >
 						<input type="hidden" id="fail-pw-1" class="form-control hyeon-reg-input" name="fail-pw-1"/>
 						<input type="hidden" id="fail-pw-2" class="form-control hyeon-reg-input" name="fail-pw-2"/>
 						<!-- <input type="hidden" id="fail-pw" name="fail-pw" /> -->
 						
 						<input type="text" id="inputUserName" name="userName" class="form-control hyeon-reg-input" placeholder="이름" />
-						<div id="chkName" style="display:none"></div >
-						<label class="form-check-label mt-2 mb-2">사진 </label>
-						<input type="file" name="photoFile" class="form-control hyeon-reg-input" />
+						<div id="chkName" class="regAlert" style="display:none; color: #dc3545;"></div >
+						<label class="form-check-label mt-2 mb-2" style="font-weight: bold;">사진 </label>
+						<input type="file" name="photoFile" class="form-control hyeon-reg-input" style="margin-top:3px;" />
 						<input type="hidden" name="host" value=1 style="display:none" />
 						<input type="hidden" name="admin" value=0 style="display:none" />
 						<!-- <input type="hidden" name="userKey" value="asd123" style="display:none" /> -->
@@ -55,8 +55,8 @@
 						<input type="hidden" name="disabled" value=1 style="display:none" />
 						
 						<div>
-						<p style="font-weight: bold;">생일</p>
-						<p>회원 가입을 하시려면 만 18세 이상이어야 합니다. 
+						<label class="form-check-label mt-2 mb-2" style="font-weight: bold;">생일</label>
+						<p style="font-size: 0.9em">회원 가입을 하시려면 만 18세 이상이어야 합니다. <br>
 						생일은 다른 회원에게는 공개되지 않습니다.</p>
 						</div>
 						<div>
@@ -115,6 +115,7 @@
 				
 			var checkNumber = $('#userPw-1').val().search(/[0-9]/g);
 			var checkEnglish = $('#userPw-1').val().search(/[a-z]/ig);
+			var userIdPart = $('#inputUserId').val().split('@');
 
 			if(!/^[a-zA-Z0-9]{8,15}$/.test($('#userPw-1').val())){
 				$('#alertPw').css("display","");
@@ -126,9 +127,9 @@
 				$('#alertPw').css("display","");
 				$('#alertPw').append("같은 문자를 4번 이상 연속하여 사용하실 수 없습니다.");
 			} else if ($('#inputUserId').val() != '' && $('#inputUserId').val() != null){
-				if($('#userPw-1').val().search($('#inputUserId').val()) > -1){
+				if($('#userPw-1').val().search(userIdPart[0]) > -1){
 					$('#alertPw').css("display","");
-					$('#alertPw').append("비밀번호에 아이디가 포함되었습니다.");
+					$('#alertPw').append("비밀번호에 아이디가 포함될 수 없습니다.");
 				}else{
 					$('#fail-pw-1').val('ok');
 					/* alert($('#fail-pw-1').val()); */

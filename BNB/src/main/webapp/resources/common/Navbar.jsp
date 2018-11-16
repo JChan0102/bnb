@@ -256,7 +256,7 @@
 					</div>
 				</div>
 				<div class="container">
-					<div class="g-signin2" data-longtitle="true"></div>
+					<div class="g-signin2" id="google-login-btn" data-longtitle="true"></div>
 					 <!-- data-onsuccess="onSignIn" -->
 				</div>
 			</div>
@@ -332,8 +332,8 @@ $('#btn-login').click(function loginModal() {
 });
 
 
-// 구글로그인관련
-/* function onSignIn(googleUser) {
+// 구글 로그인중일때
+function onSignIn(googleUser) {
 	
 	var google_profile = googleUser.getBasicProfile();
 	
@@ -344,7 +344,32 @@ $('#btn-login').click(function loginModal() {
 	console.log(google_email);
 	console.log(google_name);
 	console.log(google_photo);
+	
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', 'googleLogin');
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.onload = function() {
+	  console.log('Signed in as: ' + xhr.responseText);
+	};
+	xhr.send('gId=' + google_email);
+	
+	
+	/* var xhr = new XMLHttpRequest();
+	var data = {'gId' : google_email};
+	
+	xhr.open('POST', 'https://localhost/bnb/googleLogin');
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.onload = function() {
+	  console.log('Signed in as: ' + xhr.responseText);
+	};
+	xhr.send(data); */
+	
+}
 
+
+// 구글 로그인 버튼 눌렀을 때
+//$('#google-login-btn').click(function(){
 	// ajax로 아이디 중복여부 체크
 	// 중복인가?
 	// 유저키가 g인가?
@@ -361,15 +386,22 @@ $('#btn-login').click(function loginModal() {
 	// 섭밋;
 	// 가입처리;
 	
-	alert("온 사인 인");
 	
-/* 	
-	$.ajax({
+
+
+	
+	//alert("온 사인 인");
+
+	/* alert(onSignIn().google_email); */
+	
+	
+	
+	/* $.ajax({
               type : "POST",
               url : "googleLogin",
               data : {"gId" : google_email},
               success : function(result) {
-              	
+              	alert(result);
             	 if(result == 'googleLoginSuccess'){ // 구글아이디로 로그인 성공할경우
               		
             	   // 메인화면가기
@@ -390,16 +422,13 @@ $('#btn-login').click(function loginModal() {
             	   
                }
               }
-          })
-	 */
-	
+          });
+ */
+
 	
 	//진행중
 	
-	
-	
-	
-//} */
+//});
 
 
 
