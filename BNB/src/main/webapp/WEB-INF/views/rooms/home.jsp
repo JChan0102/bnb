@@ -6,6 +6,10 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="/resources/common/includeHead.jsp"%>
+<!-- range slider -->
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
 
@@ -71,10 +75,48 @@
 						id="avail_bathroom" name="avail_bathroom"></span>
 				</div>
 			</div>
+
+			<div class="alert alert-secondary text-center mt-1 mb-0" role="alert"
+				id="amount">
+			</div>
+			<div id="slider-range"></div>
+
 			<input type="text" class="form-control mt-1" id="address"
-				name="address" placeholder="주소로 검색..">
+				name="address" placeholder="주소로 검색.."> <input type="text"
+				id="price_weekdays" name="price_weekdays" value="0"> <input
+				type="text" id="price_weekend" name="price_weekend" value="0">
 
 			<script>
+				$(function() {
+					// $("#slider-range").slider("option", "values", [50,500]);
+					// https://stackoverflow.com/questions/8795431/how-do-i-dynamically-change-min-max-values-for-jquery-ui-slider
+					var min_price = 10;
+					var max_price = 10000;
+					$("#slider-range").slider(
+							{
+								range : true,
+								min : min_price,
+								max : max_price,
+								step : 10,
+								values : [ min_price, max_price ],
+								slide : function(event, ui) {
+									$("#amount").html(
+											"\\" + ui.values[0] + " - \\"
+													+ ui.values[1]);
+									$('#price_weekdays').val(
+											$("#slider-range").slider("values",
+													0));
+									$('#price_weekend').val(
+											$("#slider-range").slider("values",
+													1));
+								}
+							});
+
+					$("#amount").html(
+							"\\" + $("#slider-range").slider("values", 0)
+									+ " - \\"
+									+ $("#slider-range").slider("values", 1));
+				});
 				// 드롭다운 메뉴의 유지 처리
 				$(document).on('click', '#avail', function(e) {
 					e.stopPropagation();
@@ -130,23 +172,6 @@
 					<td>체크아웃</td>
 					<td><input type="time" class="form-control" id="time_checkout"
 						name="time_checkout" value="12:00"></td>
-				</tr>
-				<tr>
-					<td>주중가격</td>
-					<td><input type="number" class="form-control"
-						id="price_weekdays" name="price_weekdays" value="0" min="0"
-						max="10000000" step="1000"></td>
-				</tr>
-				<tr>
-					<td>주말가격</td>
-					<td><input type="number" class="form-control"
-						id="price_weekend" name="price_weekend" value="0" min="0"
-						max="10000000" step="1000" class="form-control"></td>
-				</tr>
-				<tr>
-					<td>주소</td>
-					<td><input type="text" class="form-control" id="address"
-						name="address"></td>
 				</tr>
 			</table> -->
 			<input type=hidden id="page" name="page" value="1">
