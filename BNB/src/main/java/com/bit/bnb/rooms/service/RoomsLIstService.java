@@ -10,7 +10,6 @@ import com.bit.bnb.rooms.dao.RoomsDAO;
 import com.bit.bnb.rooms.model.RoomsReviewSummaryVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.util.Paging;
-import com.bit.bnb.user.model.UserVO;
 
 @Service
 public class RoomsLIstService {
@@ -30,6 +29,14 @@ public class RoomsLIstService {
 
 	public Paging getPaging(String tableName, int currentPageNo, int dataPerPage) {
 		Paging paging = new Paging(roomsDAO.totalCount(tableName), currentPageNo, dataPerPage);
+		paging.makePageing();
+		return paging;
+	}
+
+	public Paging getRoomSearchPaging(RoomsVO rv, int currentPageNo, int dataPerPage) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rv", rv);
+		Paging paging = new Paging(roomsDAO.selectRoomsListCount(map), currentPageNo, dataPerPage);
 		paging.makePageing();
 		return paging;
 	}

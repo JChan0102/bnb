@@ -24,7 +24,8 @@ public class RoomsRoomsListController {
 			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPageNo)
 			throws JsonProcessingException {
 		// Paging paging = roomViewService.getPaging("review", currentPageNo, 4);
-		Paging paging = roomsLIstService.getPaging("rooms", currentPageNo, 20);
+		// Paging paging = roomsLIstService.getPaging("rooms", currentPageNo, 20);
+		Paging paging = roomsLIstService.getRoomSearchPaging(rv, currentPageNo, 20);
 		System.out.println(currentPageNo);
 
 		// Object to JSON in String
@@ -38,7 +39,6 @@ public class RoomsRoomsListController {
 		System.out.println("------------------");
 		System.out.println("룸리스트컨트롤러" + roomsLIstService.getRoomsList(rv, paging));
 		System.out.println("룸리스트컨트롤러" + paging);
-		System.out.println("룸리스트컨트롤러" + roomsLIstService.getReviewSummary());
 
 		String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
 		return jsonInString;

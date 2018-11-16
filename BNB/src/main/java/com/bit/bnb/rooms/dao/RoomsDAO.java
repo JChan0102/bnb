@@ -46,6 +46,10 @@ public class RoomsDAO {
 		return sqlSessionTemplate.selectList(mapperPath + "selectRoomsList", map);
 	}
 
+	public int selectRoomsListCount(HashMap<String, Object> map) {
+		return sqlSessionTemplate.selectOne(mapperPath + "selectRoomsListCount", map);
+	}
+
 	public int totalCount(String tableName) {
 		return sqlSessionTemplate.selectOne(mapperPath + "totalCount", tableName);
 	}
@@ -61,7 +65,7 @@ public class RoomsDAO {
 	public int selectRoomsReviewCount(int roomsId) {
 		return sqlSessionTemplate.selectOne(mapperPath + "selectRoomsReviewCount", roomsId);
 	}
-	
+
 	public List<UserVO> selectRoomsHost(UserVO uv) {
 		return sqlSessionTemplate.selectList(mapperPath + "selectRoomsHost", uv);
 	}

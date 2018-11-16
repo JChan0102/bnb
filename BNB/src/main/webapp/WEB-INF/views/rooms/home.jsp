@@ -154,7 +154,7 @@
 
 	</div>
 	<div class="col-lg-10 pl-4">
-		<div id="map" style="width: 100%; height: 800px;"></div>
+		<div id="map" style="width: 100%; height: 500px;" class="mb-4"></div>
 		<div class="row" id="roomsList">
 			<input type=hidden id="page" name="page" value="1">
 			<%-- <c:forEach items="${rooms}" var="item" varStatus="status">
@@ -248,8 +248,8 @@
 		});
 		function searchRoomsList() {
 			output = '';
-			getRoomsList();
 			$('#page').val(1);
+			getRoomsList();
 		}
 		// 숙소 목록을 가져옴
 		function getRoomsList() {

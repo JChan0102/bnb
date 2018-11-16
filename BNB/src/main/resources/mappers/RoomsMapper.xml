@@ -84,12 +84,72 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="rv.disabled != 0">
 				AND disabled >= #{rv.disabled}
 			</if>
-			<!-- 어메니티, 가격2, 비활성화 재고 -->
+			<!-- 수정시 count 쿼리 동일 수정 -->
+			<!-- 어메니티, 가격, 비활성화 재고 -->
 		</where>
 		ORDER BY roomsId desc
 		<if test="paging != null">
 			LIMIT #{paging.offset}, #{paging.dataPerPage}
 		</if>
+	</select>
+
+	<!-- 페이징 처리를 위한 검색 카운트 -->
+	<select id="selectRoomsListCount"
+		parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM
+		`bnb`.`rooms`
+		<where>
+			<if test="rv.roomsId != 0">
+				roomsId = #{rv.roomsId}
+			</if>
+			<if test="rv.hostId != null">
+				AND hostId like #{rv.hostId}
+			</if>
+			<if test="rv.details != null">
+				AND details like #{rv.details}
+			</if>
+			<if test="rv.avail_adults != 0">
+				AND avail_adults >= #{rv.avail_adults}
+			</if>
+			<if test="rv.avail_children != 0">
+				AND avail_children >= #{rv.avail_children}
+			</if>
+			<if test="rv.avail_infants != 0">
+				AND avail_infants >= #{rv.avail_infants}
+			</if>
+			<if test="rv.avail_bedroom != 0">
+				AND avail_bedroom >= #{rv.avail_bedroom}
+			</if>
+			<if test="rv.avail_bed != 0">
+				AND avail_bed >= #{rv.avail_bed}
+			</if>
+			<if test="rv.avail_bathroom != 0">
+				AND avail_bathroom >= #{rv.avail_bathroom}
+			</if>
+			<if test="rv.amenities != null">
+				AND amenities like #{rv.amenities}
+			</if>
+			<if test="rv.time_checkin != null">
+				AND time_checkin like #{rv.time_checkin}
+			</if>
+			<if test="rv.time_checkout != null">
+				AND time_checkout like #{rv.time_checkout}
+			</if>
+			<if test="rv.price_weekdays != 0">
+				AND price_weekdays >= #{price_weekdays}
+			</if>
+			<if test="rv.price_weekend != 0">
+				AND price_weekend >= #{rv.price_weekend}
+			</if>
+			<if test="rv.address != null">
+				AND address like CONCAT('%', #{rv.address},'%')
+			</if>
+			<if test="rv.disabled != 0">
+				AND disabled >= #{rv.disabled}
+			</if>
+			<!-- 어메니티, 가격2, 비활성화 재고 -->
+		</where>
+		ORDER BY roomsId desc
 	</select>
 
 	<!-- 페이징 처리를 위한 테이블 카운트 -->
