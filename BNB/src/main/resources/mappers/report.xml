@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mappers.report">
+<select id="notckreportList">
+
+    select * from report where reportCk='F';
+
+
+</select>
+
+    <insert id="insert" parameterType="com.bit.bnb.report.model.ReportVO">
+        insert into report (reservationNum, reportContent)
+        values (#{reservationNum},#{reportContent});
+    </insert>
+
+</mapper>

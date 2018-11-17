@@ -28,7 +28,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT OUTER JOIN review re
 		ON
 		re.reservationNum = r.reservationNum
-		where re.reviewContent is null
+        LEFT OUTER JOIN report r2 on r.reservationNum = r2.reservationNum
+		where re.reviewContent is null and r2.reportContent is null
 		<![CDATA[ and r.checkOut <= current_timestamp ]]>
 		and r.userId = #{userId}
 		order by r.checkIn
