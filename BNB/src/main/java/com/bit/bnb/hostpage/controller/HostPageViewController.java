@@ -2,6 +2,7 @@ package com.bit.bnb.hostpage.controller;
 
 import com.bit.bnb.hostpage.model.ReservationRoomUserVO;
 import com.bit.bnb.hostpage.service.GetReservationListService;
+import com.bit.bnb.hostpage.service.StatisticsService;
 import com.bit.bnb.user.model.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ public class HostPageViewController {
 
     @Autowired
     GetReservationListService service;
+    @Autowired
+    private StatisticsService statisticsService;
 
     @RequestMapping(value = "/hostpage/main", method = RequestMethod.GET)
     public ModelAndView gethostPage(HttpSession session){
@@ -47,4 +50,23 @@ public class HostPageViewController {
     public void delReservation(@RequestParam("idx") int idx){
 
     }
+    @RequestMapping(value = "/hostpage/getlist",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Integer> getmyroomlist(HttpSession session){
+        UserVO vo = (UserVO) session.getAttribute("loginUser");
+
+        List<Integer> list =statisticsService.getList(vo.getUserId());
+        return list;
+    }
+
+    @RequestMapping(value = "/hostpage/getprice",method = RequestMethod.GET)
+    @ResponseBody
+    public int allPrice(HttpSession session){
+        UserVO vo = (UserVO) session.getAttribute("loginUser");
+
+        return statisticsService.getallprice(vo.getUserId());
+    }
+
+
+
 }

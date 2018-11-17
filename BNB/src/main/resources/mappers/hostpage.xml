@@ -66,5 +66,12 @@
     <update id="updateEvaluation" parameterType="com.bit.bnb.hostpage.model.EvaluationVO">
         update evaluation set evaluationContent=#{evaluationContent}, evaluationDate=CURRENT_TIMESTAMP where reservationNum=#{reservationNum}
     </update>
+    <select id="allprice" parameterType="java.lang.String" resultType="int">
 
+        select sum(price) from reservation where hostId=#{hostId}
+    </select>
+    <select id="myroomview" parameterType="java.lang.String" resultType="int">
+
+        select roomsId from rooms where hostId=#{hostId};
+    </select>
 </mapper>

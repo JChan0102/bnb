@@ -26,7 +26,7 @@
             <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list"
                href="#list-settings" role="tab" aria-controls="settings">인출</a>
             <a class="list-group-item list-group-item-action" id="list-settings-li" data-toggle="list"
-               href="#list-settings" role="tab" aria-controls="settings">통계</a>
+               href="#list-settings2" role="tab" aria-controls="settings" onclick="selectroom()">통계</a>
         </div>
     </div>
     <div class="col-8">
@@ -342,8 +342,292 @@
                 </script>
 
             </div>
-            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
-            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                인출이니다.
+
+
+<div class="jus"></div>
+            </div>
+            <div class="tab-pane fade" id="list-settings2" role="tabpanel" aria-labelledby="list-settings-li">
+                <div class="row my-3 justify-content-between">
+                    <div class="col-1"></div>
+                    <div class="col-4">
+                        <h4 id="id11"></h4>
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-2"><select class="form-control" id="roomselectlist" onchange="totall()">
+
+                    </select></div>
+                    <div class="col-1"></div>
+                </div>
+                <div  id="stchart" style="visibility: hidden">
+                <div class="row my-2 justify-content-center">
+                    <div class="col-md-9 py-1">
+                        <h4 id="id22"></h4>
+                        <div class="card">
+                            <div class="card-body">
+                                <canvas id="chLine"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row py-2 justify-content-center">
+                    <div class="col-md-3 py-1">
+                        <div class="card">
+                            <div class="card-body">
+                                <canvas id="chDonut1"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 py-1">
+                        <div class="card">
+                            <div class="card-body">
+                                <canvas id="chDonut2"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 py-1">
+                        <div class="card">
+                            <div class="card-body">
+                                <canvas id="chDonut3"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-9">
+                        <p id="id33"></p>
+
+                    </div>
+
+                </div>
+                </div>
+                <script>
+                    function selectroom() {
+                        var str='<option >방 선택</option>';
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/hostpage/getlist',
+                            type: 'GET',
+                            datatype: 'json',
+                            success: function(data) {
+                                $(data).each(
+                                    function(key, value) {
+                                    str+= '<option value="'+value+'">'+value+' 방</option>'
+                            });
+                              $('#roomselectlist').html(str);
+                        }
+                        });
+
+
+                    }
+
+
+                    function totall() {
+                        var impossible = new Array();
+                        var counttt = new Array(12);
+                        var pricemonth = new Array(12);
+                        var datee= new Date();
+
+                        var room= $('#roomselectlist').val();
+                        console.log(room)
+                        var lastDay1 = ( new Date(datee.getFullYear(), datee.getMonth()-1, 0) ).getDate();
+                        var lastDay2 = ( new Date(datee.getFullYear(), datee.getMonth(), 0) ).getDate();
+                        var lastDay3 = ( new Date(datee.getFullYear(), datee.getMonth()+1, 0) ).getDate();
+                        var totalday=0;
+                        var totalprice=0;
+                        var realtotalprice=0;
+
+                        $('#id11').text(''+room+'방의 매출 통계입니다');
+                        $('#id22').text('이번년도 매출');
+                        for (var i = 0; i<counttt.length; i++){
+                            counttt[i]=0;
+                            pricemonth[i]=0;
+                        }
+                           $.ajax({
+                               url: '${pageContext.request.contextPath}/hostpage/getprice',
+                               async: false,
+                               type: 'GET',
+                               datatype: 'json',
+                               success: function(data) {
+                                 realtotalprice=data;
+
+                                   $.ajax({
+                                       async: false,
+                                       url: '${pageContext.request.contextPath}/reservation/possible',
+                                       type: 'GET',
+                                       datatype: 'json',
+                                       data: {
+                                           "roomsId": room
+                                       },
+                                       success: function(data) {
+                                           $(data).each(
+                                               function(key, value) {
+                                                   day = value.day;
+
+                                                   inyy = Number(value.checkIn.substring(
+                                                       0, 4));
+                                                   inmm = Number(value.checkIn.substring(
+                                                       5, 7));
+                                                   indd = Number(value.checkIn.substring(
+                                                       8, 10));
+                                                   if(datee.getFullYear()==inyy){
+                                                       pricemonth[inmm-1]=pricemonth[inmm-1]+value.price;
+                                                   }
+                                                   totalprice = totalprice+value.price;
+                                                   if (inmm != 12) {
+                                                       for (i = 0; i < day; i++) {
+                                                           impossible.push(new Date(inyy,
+                                                               inmm - 1, indd + i));
+                                                           totalday++;
+                                                       }
+                                                   } else if (inmm == 12) {
+                                                       for (i = 0; i < day; i++) {
+                                                           impossible.push(new Date(
+                                                               inyy + 1, 0 - 1, indd +
+                                                               i));
+                                                           totalday++;
+                                                       }
+                                                   }
+                                               });
+
+                                           $(impossible).each(
+                                               function (key, value) {
+                                                   if (value.getFullYear() == datee.getFullYear()) {
+                                                       counttt[value.getMonth()] = counttt[value.getMonth()] + 1;
+                                                   }
+
+                                               });
+
+                                           lastDay1 = counttt[datee.getMonth()-1]/lastDay1*100;
+                                           lastDay2 = counttt[datee.getMonth()]/lastDay2*100;
+                                           lastDay3 = counttt[datee.getMonth()+1]/lastDay3*100;
+
+                                           $('#id33').html('${sessionScope.loginUser.userName}의 총매출은 '+realtotalprice+'원 입니다.<br/>'+
+                                           room+'번 방의 전체 매출은 '+totalprice+'원 입니다<br/>'+room+'번 방의 총 예약일수는 '+totalday+'일 입니다.');
+                                           $('#stchart').css('visibility','visible')
+                                       }
+                                   });
+
+                               }
+
+                           });
+
+
+
+                        /* chart.js chart examples */
+
+// chart colors
+                        var colors = ['#007bff','#28a745','#333333','#c3e6cb'];
+
+                        /* large line chart */
+                        var chLine = document.getElementById("chLine");
+                        var chartData = {
+                            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+                            datasets: [
+                                {
+                                    data: [pricemonth[0], pricemonth[1], pricemonth[2], pricemonth[3], pricemonth[4], pricemonth[5], pricemonth[6],
+                                        pricemonth[7], pricemonth[8], pricemonth[9], pricemonth[10], pricemonth[11]],
+                                    backgroundColor: colors[3],
+                                    borderColor: colors[1],
+                                    borderWidth: 4,
+                                    pointBackgroundColor: colors[1]
+                                }]
+                        };
+                        if (chLine) {
+                            new Chart(chLine, {
+                                type: 'line',
+                                data: chartData,
+                                options: {
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: false
+                                            }
+                                        }]
+                                    },
+                                    legend: {
+                                        display: false
+                                    },
+                                    responsive: true
+                                }
+                            });
+                        }
+
+                        /* 3 donut charts */
+                        var donutOptions = {
+                            cutoutPercentage: 85,
+                            legend: {position:'bottom', padding:5, labels: {pointStyle:'circle', usePointStyle:true}}
+                        };
+
+// donut 1
+                        var chDonutData1 = {
+                            labels: [(datee.getMonth())+'월 예약률' ],
+                            datasets: [
+                                {
+                                    backgroundColor: colors.slice(2,3),
+                                    borderWidth: 0,
+                                    data: [lastDay1,100-lastDay1]
+                                }
+                            ]
+                        };
+
+                        var chDonut1 = document.getElementById("chDonut1");
+                        if (chDonut1) {
+                            new Chart(chDonut1, {
+                                type: 'pie',
+                                data: chDonutData1,
+                                options: donutOptions
+                            });
+                        }
+
+// donut 2
+                        var chDonutData2 = {
+                            labels: [(datee.getMonth()+1)+'월 예약률'],
+                            datasets: [
+                                {
+                                    backgroundColor: colors.slice(0,1),
+                                    borderWidth: 0,
+                                    data: [lastDay2, 100-lastDay2]
+                                }
+                            ]
+                        };
+                        var chDonut2 = document.getElementById("chDonut2");
+                        if (chDonut2) {
+                            new Chart(chDonut2, {
+                                type: 'pie',
+                                data: chDonutData2,
+                                options: donutOptions
+                            });
+                        }
+
+// donut 3
+                        var chDonutData3 = {
+                            labels: [(datee.getMonth()+2)+'월 예약률'],
+                            datasets: [
+                                {
+                                    backgroundColor: colors.slice(3,4),
+                                    borderWidth: 0,
+                                    data: [lastDay3, 100-lastDay3]
+                                }
+                            ]
+                        };
+                        var chDonut3 = document.getElementById("chDonut3");
+                        if (chDonut3) {
+                            new Chart(chDonut3, {
+                                type: 'pie',
+                                data: chDonutData3,
+                                options: donutOptions
+                            });
+                        }
+
+
+
+
+
+                    }
+                </script>
+            </div>
         </div>
 
     </div>

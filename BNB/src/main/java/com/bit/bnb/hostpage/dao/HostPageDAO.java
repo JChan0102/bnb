@@ -47,5 +47,11 @@ public class HostPageDAO {
         sqlSessionTemplate.update(namespace+"updateEvaluation",vo);
     }
 
+    public int allprice(String hostId){
+       return sqlSessionTemplate.selectOne(namespace+"allprice",hostId);
+    }
 
+    public List<Integer> myroomview(String hostId){
+        return sqlSessionTemplate.selectList(namespace+"myroomview",hostId);
+    }
 }
