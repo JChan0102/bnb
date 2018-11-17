@@ -47,7 +47,7 @@
 						<div id="chkName" class="regAlert" style="display:none; color: #dc3545;"></div >
 						<label class="form-check-label mt-2 mb-2" style="font-weight: bold;">사진 </label>
 						<input type="file" name="photoFile" class="form-control hyeon-reg-input" style="margin-top:3px;" />
-						<input type="hidden" name="host" value=1 style="display:none" />
+						<input type="hidden" name="host" value=0 style="display:none" />
 						<input type="hidden" name="admin" value=0 style="display:none" />
 						<!-- <input type="hidden" name="userKey" value="asd123" style="display:none" /> -->
 						<input type="hidden" name="userCheck" value=1 style="display:none" />

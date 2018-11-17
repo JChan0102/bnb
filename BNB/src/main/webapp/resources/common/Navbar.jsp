@@ -209,14 +209,13 @@
 								class="form-control-input" />
 							<button id="btn-login" class="btn btn-lg btn-danger btn-block" type="button">
 								로그인</button>
-
+						<br>
+						<!-- <div class="g-signin2" data-onsuccess="onSignIn"  style="width:auto;"></div> -->
+						 <input type="button" id="gLoginBtn" value="Login With Google" style="width: 100%; height: 47px;"/>
 						</div>
 					</div>
 				</div>
-				<div class="container">
-					<div class="g-signin2" id="google-login-btn" data-longtitle="true"></div>
-					 <!-- data-onsuccess="onSignIn" -->
-				</div>
+					
 			</div>
 			<!-- Footer -->
 				<div class="modal-footer">BIBIBIT 대한민국 숙박정보 BnB</div>
@@ -225,15 +224,56 @@
 </div>
 <!-- 로그인 모달 끝 -->
 
+
+<!-- 회원가입 선택 모달 시작 -->
+
+<div class="modal fade" id="regchoicelayerpop">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- header -->
+			<div class="modal-header">
+				<!-- header title -->
+				<h4 class="modal-title">회원가입하기</h4>
+				<!-- 닫기(x) 버튼 -->
+				<button type="button" class="close" data-dismiss="modal">×</button>
+			</div>
+			<!-- body -->
+			<div class="modal-body">
+				<div class="container">
+					<div class="row justify-content-md-center">
+						<div class="col col-md-4 col-lg-8">
+							<button id="btn-regEmail" class="btn btn-lg btn-danger btn-block" type="button">
+								이메일로 회원 가입</button>
+							<button id="btn-regGoogle" class="btn btn-lg btn-danger btn-block" type="button">
+								구글 계정으로 회원 가입</button>
+						</div>
+					</div>
+				</div>
+					
+			</div>
+			<!-- Footer -->
+				<div class="modal-footer">BIBIBIT 대한민국 숙박정보 BnB</div>
+		</div>
+	</div>
+</div>
+
+<!-- 회원가입 선택 모달 끝 -->
+
 <!-- 로그인 관련 스크립트 -->
 <script>
 	
 $('#login-go').click(function(){
+	
+	var userCookie = '${cookieUserId}';
 
-	if(${cookie.cookieUserId eq null}){
+	/* if(${cookie.cookieUserId eq null}){
+		$('#input_userId').val("");
+	} */
+
+	if(userCookie == null){
 		$('#input_userId').val("");
 	}
-
+	
 	$('#input_userPw').val("");
 	$('#loginHidden').css("display","none");
 
@@ -259,8 +299,6 @@ $('#input_userPw').keypress(function(event){
 
 $('#btn-login').click(function loginModal() {
 
-	$('#loginHidden').empty();
-
           var userId = $('#input_userId').val();
           var userPw = $('#input_userPw').val();
           var rememberMe = $('#chk_rememberMe').is(':checked');
@@ -273,6 +311,7 @@ $('#btn-login').click(function loginModal() {
             	  	  "userPw" : userPw,
             	  	  "rememberMe" : rememberMe},
               success : function(result) {
+            	  $('#loginHidden').empty();
                 if (result == 'loginFail') {
           			$('#loginHidden').css("display","");
           			$('#loginHidden').append("아이디와 비밀번호를 확인하세요");
@@ -290,70 +329,117 @@ $('#btn-login').click(function loginModal() {
 });
 
 
-// 구글 로그인중일때
-function onSignIn(googleUser) {
+/*
+// 구글 로그인 상태 체크
+function chkGLoginStatus(){
+	var gLoginBtn = $('#gLoginBtn');
 	
-	var google_profile = googleUser.getBasicProfile();
+	if(gauth.isSignedIn.get()){
+		console.log('logined');
+		var profile = gauth.currentUser.get().getBasicProfile();
+		console.log(profile.getEmail());
+	}else{
+		console.log('unLogined');
+		gLoginBtn.val('Login With Google');
+	}
+}
+*/
+
+// auth2.0 초기화 / 버튼설정
+function init(){
+	console.log('init');
+	gapi.load('auth2', function() {
+		console.log('auth2');
+		window.gauth = gapi.auth2.init({
+			 client_id: '173449746481-er69j4j9c3d2im90aprllmfr7jcpcs71.apps.googleusercontent.com'
+		})
+		gauth.then(function(){
+			console.log('googleAuth Success');
+			/* chkGLoginStatus(); */
+		}, function(){
+			console.log('googleAuth Fail');
+		});
+	});
+}
+
+
+$('#gLoginBtn').click(function(){
 	
-	var google_email = google_profile.getEmail();
-	var google_name = google_profile.getName();
-	var google_photo = google_profile.getImageUrl();
-	
-	console.log(google_email);
-	console.log(google_name);
-	console.log(google_photo);
-	
-	
-	var xhr = new XMLHttpRequest();
+	// if(this.value == 'Login With Google'){
+		gauth.signIn().then(function(){
+			console.log('구글로그인 성공');
+			/* chkGLoginStatus(); */
+			
+			var profile = gauth.currentUser.get().getBasicProfile();
+			var gMail = profile.getEmail();
+			var gName = profile.getName();
+			var gPhoto = profile.getImageUrl();
+			
+			
+			 $.ajax({
+	              type : "POST",
+	              url : "googleLogin",
+	              data : {"gId" : gMail},
+	              success : function(result) {
+	            	$('#loginHidden').empty();
+	              	console.log('구글로그인 ajax 결과 : ' + result);
+	            	 if(result == 'googleLoginSuccess'){ // 구글아이디로 로그인 성공할경우
+	              		
+	            		 console.log('가입된 회원. 구글로그인 완료');
+	            	   // 메인화면가기
+	            		location.href = '${pageContext.request.contextPath}/';
+	            	   
+	               } else if(result == 'notGoogleUser'){ // 이미 동일아이디로 일반계정이 존재할경우
+	            	   
+	            	  // 일반계정으로 로그인 요청
+	            	  $('#loginHidden').css("display","");
+	            	  $('#loginHidden').append("일반 게정으로 가입되어 있습니다. 로그인해주세요.");
+	            	   
+	               } else if(result == 'googleUserReg'){ // 해당계정이 없는경우
+	            	   
+	            	   alert('로그인하신 구글 로그인 계정은 존재하지 않습니다. 회원 가입 하세요.');
+	            	   // 구글계정용 회원가입폼 띄워주기
+	            	   //location.href = '${pageContext.request.contextPath}/googleReg?gMail='+gMail;
+	            	   $('#layerpop').modal('hide');
+					   $('#regchoicelayerpop').modal();
+					   
+					   $('#btn-regEmail').click(function(){
+							location.href = '${pageContext.request.contextPath}/userReg';
+						});
+
+					   $('#btn-regGoogle').click(function(){
+							location.href = '${pageContext.request.contextPath}/googleReg?gMail='+gMail+'&gName='+gName+'&gPhoto='+gPhoto;
+						});
+	               }
+	              }
+	          });
+		});
+	/* } else {
+		gauth.signOut().then(function(){
+			console.log('gauth.signOut()');
+			 chkGLoginStatus(); 
+		});
+	} */
+});
+
+
+/* function onSignIn(googleUser) {
+	  var profile = googleUser.getBasicProfile();
+	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	  console.log('Name: ' + profile.getName());
+	  console.log('Image URL: ' + profile.getImageUrl());
+	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	} */
+
+
+	/* var xhr = new XMLHttpRequest();
 	xhr.open('POST', 'googleLogin');
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.onload = function() {
 	  console.log('Signed in as: ' + xhr.responseText);
 	};
-	xhr.send('gId=' + google_email);
-	
-	
-	/* var xhr = new XMLHttpRequest();
-	var data = {'gId' : google_email};
-	
-	xhr.open('POST', 'https://localhost/bnb/googleLogin');
-	xhr.setRequestHeader('Content-Type', 'application/json');
-	xhr.onload = function() {
-	  console.log('Signed in as: ' + xhr.responseText);
-	};
-	xhr.send(data); */
-	
-}
-
-
-// 구글 로그인 버튼 눌렀을 때
-//$('#google-login-btn').click(function(){
-	// ajax로 아이디 중복여부 체크
-	// 중복인가?
-	// 유저키가 g인가?
-	// 로그인시켜줌 - 세션저장
-	// 중복인가?
-	// 유저키가 g가 아닌가?
-	// 이미 가입되어있음 - 로그인하세요
-	// 중복 안되면(가입안된경우)
-	// 가입처리 
-	// 새로운 가입폼
-	// 폼에서 입력받을것 : 버ㄹ스(필수), 유저인포(선택사항); 구글포토가 없을경우 사진(선택사항)
-	// 아이디는 구글이메일 ; 비밀번호는 임의로 지정; 이름은 구글이름; 포토는 구글포토; 호스트는 0
-	// 어드민은 0; 유저키는 y; 유저체크 0; 포인트 0; 디스에이블드 1;
-	// 섭밋;
-	// 가입처리;
-	
-	
-
-
-	
-	//alert("온 사인 인");
-
-	/* alert(onSignIn().google_email); */
-	
-	
-	
+	xhr.send('gId=' + google_email); */
+//}
 	/* $.ajax({
               type : "POST",
               url : "googleLogin",
@@ -392,6 +478,9 @@ function onSignIn(googleUser) {
 
 
 </script>
+
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+
 <!-- 로그인 스크립트 끝 -->
 <div id="frame" style="position: absolute; right: 0px; bottom: 0px; z-index: -5; visibility: hidden">
 	<div id="sidepanel">
@@ -653,4 +742,3 @@ function closee(){
         return zero + n;
     }
 </script>
-

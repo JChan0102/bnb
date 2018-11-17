@@ -17,11 +17,6 @@
 	<%@ include file="/resources/common/includeHead.jsp"%>
 	<%@ include file="/resources/common/Navbar.jsp"%>
 
-	<c:if test="${regFail}">
-		<script>alert("회원가입 실패. 다시 시도해주세요.");</script>
-		<c:remove var="regFail" scope="session"/>
-	</c:if>
-
 	<div id="userRegForm">
 		<!-- Begin page content -->
 		<div role="main" class="hyeon-container">
@@ -32,22 +27,12 @@
 				
 					<form method="post" enctype="multipart/form-data">
 					
-						<input type="email" id="inputUserId" name="userId" class="form-control hyeon-reg-input" placeholder="이메일 주소" />
-						<div id="alertId" style="display:none"></div >
-						<input type="hidden" id="fail-id" name="fail-id" />
-						<input type="password" id="userPw-1" name="userPw" class="form-control hyeon-reg-input" placeholder="비밀번호 설정" />
-						<div id="alertPw" style="display:none"></div >
-						<input type="password" id="userPw-2" class="form-control hyeon-reg-input" placeholder="비밀번호 확인" />
-						<div id="chkPw" style="display:none"></div >
-						<input type="hidden" id="fail-pw-1" class="form-control hyeon-reg-input" name="fail-pw-1"/>
-						<input type="hidden" id="fail-pw-2" class="form-control hyeon-reg-input" name="fail-pw-2"/>
-						<!-- <input type="hidden" id="fail-pw" name="fail-pw" /> -->
-						
-						<input type="text" id="inputUserName" name="userName" class="form-control hyeon-reg-input" placeholder="이름" />
-						<div id="chkName" style="display:none"></div >
-						<label class="form-check-label mt-2 mb-2">사진 </label>
+						<input type="email" id="inputUserId" name="userId" class="form-control hyeon-reg-input" value="${gMail}" readonly />
+						<input type="hidden" id="userPw-1" name="userPw" class="form-control hyeon-reg-input" value="" />
+						<input type="text" id="inputUserName" name="userName" class="form-control hyeon-reg-input" value="${gName}" readonly />
+						<label class="form-check-label mt-2 mb-2" style="margin-bottom: 3px; font-weight: bold;">사진 </label>
 						<input type="file" name="photoFile" class="form-control hyeon-reg-input" />
-						<input type="hidden" name="host" value=1 style="display:none" />
+						<input type="hidden" name="host" value=0 style="display:none" />
 						<input type="hidden" name="admin" value=0 style="display:none" />
 						<!-- <input type="hidden" name="userKey" value="asd123" style="display:none" /> -->
 						<input type="hidden" name="userCheck" value=1 style="display:none" />
@@ -55,8 +40,8 @@
 						<input type="hidden" name="disabled" value=1 style="display:none" />
 						
 						<div>
-						<p style="font-weight: bold;">생일</p>
-						<p>회원 가입을 하시려면 만 18세 이상이어야 합니다. 
+						<label class="form-check-label mt-2 mb-2" style="margin-bottom: 3px; font-weight: bold;">생일</label>
+						<p>회원 가입을 하시려면 만 18세 이상이어야 합니다.<br>
 						생일은 다른 회원에게는 공개되지 않습니다.</p>
 						</div>
 						<div>

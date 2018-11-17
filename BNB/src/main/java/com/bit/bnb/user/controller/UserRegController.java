@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,8 +82,35 @@ public class UserRegController {
 	}
 	
 	
-	@RequestMapping("/googleReg")
-	public String getGoogleRegForm() {
+	@RequestMapping(value="/googleReg", method=RequestMethod.GET)
+	public String getGoogleRegForm(@RequestParam("gMail") String gMail,
+								   @RequestParam("gName") String gName,
+								   @RequestParam("gPhoto") String gPhoto,
+								   Model model) {
+		
+		model.addAttribute("gMail", gMail);
+		model.addAttribute("gName", gName);
+		model.addAttribute("gPhoto", gPhoto);
+		
 		return "user/googleRegForm";
+	}
+	
+	@RequestMapping(value="/googleReg", method=RequestMethod.POST)
+	public String googleReg(UserVO userVO, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
+		
+		String result = "redirect:/";
+		
+		int resultCnt = 0;
+		
+		resultCnt = userRegService.googleReg(userVO, request);
+		
+		if(resultCnt != 1) {
+			session.setAttribute("regFail", true);
+			result = "redirect:/userReg";
+		} else {
+			session.removeAttribute("regFail");
+		}
+		
+		return result;
 	}
 }

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import com.bit.bnb.chatting.service.NewMessageCkServie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.bnb.user.dao.UserDao;
 import com.bit.bnb.user.model.UserVO;
@@ -21,6 +22,7 @@ public class UserLoginService {
 	@Autowired
 	private NewMessageCkServie messageCkServie;
 
+	@Transactional
 	public String userLogin(String userId, String userPw, HttpSession session) {
 
 		String result = "loginFail";
@@ -45,10 +47,6 @@ public class UserLoginService {
 				session.removeAttribute("loginUser");
 			}
 
-			if (session.getAttribute("userKeyConfirm") != null) {
-				session.removeAttribute("userKeyConfirm");
-			}
-
 			// 세션에 loginUser라는 이름으로 유저 인스턴스를 저장
 			session.setAttribute("loginUser", userVO);
 
@@ -66,12 +64,6 @@ public class UserLoginService {
 				session.removeAttribute("loginUser");
 			}
 
-			if (session.getAttribute("userKeyConfirm") != null) {
-				session.removeAttribute("userKeyConfirm");
-			}
-
-			session.setAttribute("userKeyConfirm", "KeyConfirm");
-
 			result = "userKeyConfirm";
 			// 인증키 확인 요망 처리 끝
 			// =====================================================
@@ -80,13 +72,14 @@ public class UserLoginService {
 		return result;
 	}
 
+	@Transactional
 	public String googleLogin(String gId, HttpSession session) {
 
 		UserVO userVO = userDao.selectUser(gId);
 
 		String result = "";
 		
-		// 구글아이디가  db에 있고 유저키가 g이면 로그인처리
+		// 구글아이디가  db에 있고 유저키가 g이면 로그인처리 : 구글계정으로 가입되어있는 경우
 		if (userVO != null && userVO.getUserKey().equals("g")) {
 			
 			// 세션에 사용자 데이터를 저장한다 - 보안을 위해서 패스워드는 비워줌
@@ -97,11 +90,7 @@ public class UserLoginService {
 				session.removeAttribute("loginUser");
 			}
 
-			if (session.getAttribute("userKeyConfirm") != null) {
-				session.removeAttribute("userKeyConfirm");
-			}
-
-			// 세션에 loginUser라는 이름으로 유저 인스턴스를 저장
+			// 세션에 유저VO 저장
 			session.setAttribute("loginUser", userVO);
 
 			messageCkServie.getList(userVO.getUserId(), session);
@@ -109,8 +98,10 @@ public class UserLoginService {
 			result = "googleLoginSuccess";
 
 		} else if (userVO != null && !userVO.getUserKey().equals("g")) {
+			
 			result = "notGoogleUser";
 		} else {
+			
 			result = "googleUserReg";
 		}
 		return result;

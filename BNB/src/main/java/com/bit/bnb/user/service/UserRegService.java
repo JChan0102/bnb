@@ -27,11 +27,10 @@ public class UserRegService {
 	@Autowired
 	private EncryptSha256Service sha256Service;
 	
-	
-	private UserVO user;
-	
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	private UserVO user;
 	
 	@Transactional
 	public int userReg(UserVO userVO, HttpServletRequest request) throws IllegalStateException, IOException {
@@ -170,4 +169,70 @@ public class UserRegService {
 		
 		return result;
 	}
+	
+	
+	
+	@Transactional
+	public int googleReg(UserVO userVO, HttpServletRequest request) throws IllegalStateException, IOException {
+		int resultCnt = 0;
+
+		// DB 저장용 파일 이름, 물리적 저장할때의 이름
+		String imgName = "";
+				
+		// 물리적 저장 경로
+		String uploadUri = "/resources/images/userphoto";
+				
+		// uploadUri 경로의 시스템 경로
+		String dir = request.getSession().getServletContext().getRealPath(uploadUri);
+				
+		if(!userVO.getPhotoFile().isEmpty()) {
+				
+			imgName = userVO.getUserId()+"_"+userVO.getPhotoFile().getOriginalFilename();
+					
+			// 물리적 저장
+			userVO.getPhotoFile().transferTo(new File(dir, imgName));
+					
+			// DB에 저정할 이름 SET
+			userVO.setUserPhoto(imgName);
+			
+			// System.out.println(dir);
+			// System.out.println(imgName);
+		}
+		
+		// 빠짐없이 가입항목을 다 입력했는지 확인
+		if(userVO.getUserId() != null && userVO.getUserPw() != null && 
+		   userVO.getUserName() != null && userVO.getYear() != null && 
+		   userVO.getMonth() !=null &&  userVO.getDay() != null) {
+			
+			// 아이디 중복검사
+			user = userDao.selectUser(userVO.getUserId());
+			
+			// 아이디 중복이 아니면 가입시도
+			if(user == null) {
+				
+				// 비밀번호 암호화해서 다시 넣어준다
+				String ePw = sha256Service.encrypt(userVO.getUserPw());
+				userVO.setUserPw(ePw);
+			
+				// 생년월일을 합쳐서 객체에 넣어줌
+				String birth = userVO.getYear()+"-"+userVO.getMonth()+"-"+userVO.getDay();
+				userVO.setBirth(birth);
+
+				// 구글 계정이므로 유저키에는 g를 삽입한다
+				userVO.setUserKey("g");
+				
+				// 인서트 시도
+				resultCnt = userDao.insertUser(userVO);
+				
+			// 아이디 중복이면 가입실패
+			} else {
+				resultCnt = 0;
+			}
+		// 입력시 빠진 항목이 있으면 가입실패
+		} else {
+			resultCnt = 0;
+		}
+		return resultCnt;
+	}
+	
 }
