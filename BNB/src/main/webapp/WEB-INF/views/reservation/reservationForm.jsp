@@ -30,92 +30,90 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
-
 <body class="umkibody">
-	<form action="${pageContext.request.contextPath}/reservation" method="post" id="fr">
-		<div class="wrapperr">  
-			<input name="checkIn" type="text" id="datepicker" placeholder=" 체크인 "
-				readonly="true" /> <i class="ion-calendar"></i>
+    <div class="wrapperr">
+    <div id="show">
+   	<div id="showpri"><i class="fas fa-won-sign"></i> ${selectedRoom.price_weekdays}</div>
+   	<div id="showbak">/박</div>
+   	</div>
+        <form action="${pageContext.request.contextPath}/reservation" method="post" id="fr">
+       <div class="umki-di">날짜</div>
+        <div class="umki-check">
+            <input name="checkIn" type="text" id="datepicker" placeholder=" 체크인 " readonly /> <i class="ion-calendar" id="datep1"></i>
+            <input name="checkOut" type="text" id="return" placeholder=" 체크아웃 " readonly> <i class="ion-calendar" id="datep2"></i>
 		</div>
-		<div class="wrapperr">
-			<input name="checkOut" type="text" id="return" placeholder=" 체크아웃 "
-				readonly="true"> <i class="ion-calendar"></i>
-		</div>
-		<div class="wrapperr">
-
-			<div id="umki_people" data-toggle="modal"
-				data-target="#my80sizeCenterModal">게스트 1명</div>
-
-			<div id="price">가격</div>
-
-			<!-- 80%size Modal at Center -->
-			<div class="modal modal-center fade" id="my80sizeCenterModal"
-				tabindex="-1" role="dialog"
-				aria-labelledby="my80sizeCenterModalLabel">
-				<div class="modal-dialog modal-80size modal-center" role="document">
-					<div class="modal-content modal-80size">
-						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">인원수</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-
-						<div class="modal-body">
-							<div class="umki-people">성인</div>
-							<div class="umki-number">
-								<div onclick="minusAdult(this)" class="umki-pd umki-rad-m">-</div>
-								<div class="umki-pd">1</div>
-								<div onclick="plusAdult(this)" class="umki-pd umki-rad-p">+</div>
-							</div>
-						</div>
-						<div class="modal-body">
-							<div class="umki-people">어린이</div>
-							<div class="umki-number">
-								<div onclick="minusChild(this)" class="umki-pd umki-rad-m">-</div>
-								<div class="umki-pd">0</div>
-								<div onclick="plusChild(this)" class="umki-pd umki-rad-p">+</div>
-							</div>
-						</div>
-						<div class="modal-body">
-							<div class="umki-people">유아</div>
-							<div class="umki-number">
-								<div onclick="minusLittle(this)" class="umki-pd umki-rad-m">-</div>
-								<div class="umki-pd-little">0</div>
-								<div onclick="plusLittle(this)" class="umki-pd umki-rad-p">+</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button onclick="peoplee()" type="button" class="btn btn-default"
-								data-dismiss="modal">확인</button>
-						</div>
-					</div>
-				</div>
+	<div class="umki-di">인원</div>
+	<div class="umki-check" id="umki-guest" data-toggle="modal" data-target="#my80sizeCenterModal">    
+            <div id="umki_people">게스트 1명 </div>
+			<div id="arrow"><i class="fas fa-angle-down"></i></div>
 			</div>
-		
-		<!-- 핀테크? 본인확인이 가능한 api? -->
-		<input type="hidden" value="${selectedRoom.hostId}" name="hostId" id="umki-hostId" /> 
-		<input type="hidden" value="${loginUser.userId}" name="userId" id="userId" />
-		<input type="hidden" value="${selectedRoom.roomsId}" name="roomsId" />
-		<input type="hidden" value="${selectedRoom.price_weekdays}" name="price" id="totalPrice" />
-		<input type="hidden" value="1" name="people" id="people" />
-		<c:choose>
-		<c:when test="${loginUser.userId != null}">
-	<div style="cursor: pointer;" onclick = "reservationDo()">예약하기</div>
-	</c:when>
-	<c:otherwise>
-	<a id="login-go" class="nav-link text-dark"
-						data-target="#layerpop" data-toggle="modal"
-						href="#">로그인</a>    
-	   
-	</c:otherwise>
-	</c:choose>
-</div>  
-		<!-- <input type="submit" value="예약하기"/> -->
-	</form>
-	
-	<form action="/reservation"></form>
+			<div id="total-pri">     
+			<div id="total"></div>  
+            <div id="price" ></div>
+</div>
+            <!-- 80%size Modal at Center -->
+            <div class="modal modal-center fade" id="my80sizeCenterModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel">
+                <div class="modal-dialog modal-80size modal-center" role="document">
+                    <div class="modal-content modal-80size">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">인원수</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="umki-people">성인</div>
+                            <div class="umki-number">
+                                <div onclick="minusAdult(this)" class="umki-pd umki-rad-m">-</div>
+                                <div class="umki-pd">1</div>
+                                <div onclick="plusAdult(this)" class="umki-pd umki-rad-p">+</div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="umki-people">어린이</div>
+                            <div class="umki-number">
+                                <div onclick="minusChild(this)" class="umki-pd umki-rad-m">-</div>
+                                <div class="umki-pd">0</div>
+                                <div onclick="plusChild(this)" class="umki-pd umki-rad-p">+</div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="umki-people">유아</div>
+                            <div class="umki-number">
+                                <div onclick="minusLittle(this)" class="umki-pd umki-rad-m">-</div>
+                                <div class="umki-pd-little">0</div>
+                                <div onclick="plusLittle(this)" class="umki-pd umki-rad-p">+</div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button onclick="peoplee()" type="button" class="btn btn-default" data-dismiss="modal">확인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 핀테크? 본인확인이 가능한 api? -->
+            <input type="hidden" value="${selectedRoom.hostId}" name="hostId" id="umki-hostId" />
+            <input type="hidden" value="${loginUser.userId}" name="userId" id="userId" />
+            <input type="hidden" value="${selectedRoom.roomsId}" name="roomsId" />
+            <input type="hidden" value="${selectedRoom.price_weekdays}" name="price" id="totalPrice" />
+            <input type="hidden" value="1" name="people" id="people" />
+            <c:choose>
+                <c:when test="${loginUser.userId != null}">
+                    <div class="do" style="cursor: pointer;" onclick="reservationDo()">예약하기</div>
+                </c:when>
+                <c:otherwise>
+                      
+                    <div class="do" data-target="#layerpop" data-toggle="modal" style="cursor: pointer;">로그인</div>  
+
+                </c:otherwise>
+            </c:choose>
+            <!-- <input type="submit" value="예약하기"/> -->
+        </form>
+    </div>   
+
+    <form action="/reservation"></form>
 
 	<script>
             var impossible = new Array();
@@ -254,6 +252,7 @@
                         window.parent.postMessage(selected, "*");
                     },
                     beforeShowDay: function(date) {
+                    	
                     	if(impossible.length > 0 ){
                         $(impossible)
                             .each(
@@ -289,6 +288,7 @@
                         else{
                         	return [true];     
                         }
+                    	    
                     },
                     onClose: function(selected) {
                     	var year = Number(selected.substring(0, 4));
@@ -396,14 +396,13 @@
                     },
                     datatype: 'json',
                     success: function(data) {
-                    	console.log("체크인 : " +checkIn1);
-                    	console.log("체크아웃 : " +checkOut1);
-                    	console.log("돈 : " +data);
                     	if(checkIn1.getFullYear()>=now.getFullYear() && checkOut1.getFullYear()>=now.getFullYear() ){
-                    		$("#price").text(data +"원 입니다.");
+                    		/* $("#price").text(${selectedRoom.price_weekdays} +" X "+count+" 입니다."); */  
+                    		$("#total").text("합계");
+                    		$("#price").html('<i class="fas fa-won-sign"></i> '+ data);          
                     		$("#totalPrice").val(data);
                         	pri = data;
-                    	}
+                    	}     
                     }
                 });
             }  

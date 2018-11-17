@@ -26,34 +26,105 @@
 }
 
 .wrapperr {
-	position: relative;
-	width: 200px;
+	position: relative;  
+	width: 300px;
 	height: 45px;
-	margin: 10px;
+	margin: 30px;
+	position: fixed;     
 }
 
+#total{
+	float: left;
+	width: 50px;
+	padding-top: 7px;   
+}
+
+#price{
+	float: right;
+	width: 250px;  
+	text-align:right;   
+	font-size: 25px;
+}
+
+#total-pri{
+	overflow: hidden;
+	margin: 10px 0;
+}
+
+#showpri{
+	font-size: 25px;
+	float: left;
+}
+#showbak{
+	float: left;
+	padding: 8px 0 0 3px;
+}
+#show{
+	overflow: hidden;   
+	border-bottom: 1px solid #cccccc;  
+	padding: 15px;  
+	margin-bottom: 25px;   
+}
+
+#arrow{
+	float: right;
+	padding-right: 30px;  
+}   
+ 
 .ion-calendar {
 	position: absolute;
-	right: 20px;
-	top: 14px;
+}
+
+#datep1{
+	left: 16px;    
+	top: 129px;    
+}
+#datep2{
+	left: 166px;    
+	top: 129px;  
+} 
+
+.do{
+	background-color: #FF5A5F;
+	overflow: hidden;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	color: white;
+	cursor: pointer;
+	height: 45px;
+	width: 300px;
+	border-radius: 5px;
 }
 
 /* input */
 #datepicker, #return {
-	border: 1px solid #c6e2f7;
-	border-radius: 5px;
-	width: 100%;
-	height: 100%;
+	width: 50%;   
 	font-size: 16px;
 	text-align: center;
 	cursor: pointer;
+	float: left;
+	height: 45px;
+	border: none;
 }
 
-#datepicker:hover { /* 체크인 박스 호버 */
+
+.umki-check{   
+	overflow: hidden;
+	border: 1px solid #c6e2f7;
+	border-radius: 5px;
+	display: table-cell;
+	vertical-align: middle;
+	cursor: pointer;
+	height: 45px;
+	width: 300px;
+}
+
+#datepicker:hover {
 	background-color: #eaf7ff;
 }
 
-#return:hover { /* 체크아웃 박스 호버 */
+#return:hover { 
 	background-color: #eaf7ff;
 }
 
@@ -61,12 +132,24 @@
 	outline: none;
 }
 
-#umki_people {
-	cursor: pointer;
-	border: 1px solid #c6e2f7;
+#umki-guest:hover{
+	background-color: #eaf7ff;
 }
 
-/* 모달 */
+#umki_people {
+	
+	width: 200px;        
+	font-size: 16px;
+	padding-left: 20px;  
+	text-align: left;
+	float: left;  
+}
+
+.umki-di {
+	margin-top: 10px;
+}
+
+/* 모달 */  
         .modal-dialog.modal-80size {
 	width: 20%;
 	/* height: 50%; */
@@ -143,9 +226,8 @@
 	background-color: #fff;
 	border: 1px solid #cccccc;
 	border-radius: 5px;
-	margin-top: 10px;
-	margin-left: 42.5px;
-	margin-right: 42.5px;
+	margin-left : "141px";
+	margin-top: "-223px";
 	padding: 20px;
 	width: 360px;
 }
