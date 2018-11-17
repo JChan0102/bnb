@@ -51,23 +51,8 @@
 						</c:otherwise>
 						
 					</c:choose>
+					<li class="nav-item"><a class="nav-link text-dark" href="#" onclick="getListmessage()">알림 <span class="badge badge-secondary" id="jchannotice" style="display: none">new</span></a></li>
 
-					<li class="nav-item text-dark dropdown"><a
-						class="nav-link  dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false" onclick="getListmessage()"> 알림
-						<span class="badge badge-secondary" id="jchannotice" style="display: none">new</span>
-					</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#" id="list1"></a>
-							<a class="dropdown-item" href="#" id="list2"></a>
-							<a class="dropdown-item" href="#" id="list3"></a>
-							<a class="dropdown-item" href="#" id="list4"></a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item"
-								href="${pageContext.request.contextPath}/chat/list">더보기..</a>
-						</div></li>
-						
 				<c:if test="${loginUser.admin eq 1 }">		
 					<li class="nav-item"><a class="nav-link text-dark"
 						href="${pageContext.request.contextPath}/admin">관리페이지</a></li>
@@ -129,41 +114,6 @@
                         getListmessage();
 
                         function getListmessage() {
-                            $.ajax({
-                                url: '${pageContext.request.contextPath}/chat/unreadlist',
-                                type: 'get',
-                                datatype: 'json',
-                                success: function (data) {
-                                    var listindex=1;
-                                    $(data).each(function (key, value){
-                                        msg= value.messagecontent;
-                                        if(value.messagecontent.length>10){
-                                            msg = msg.substring(9,0)+'...';
-                                        }
-                                        if(value.userId=='${sessionScope.loginUser.userId}'&&value.receive=='U'){
-                                            $('#list'+listindex).text(value.hostId+' : '+msg + ' ('+value.unreadCount+')' );
-                                            $('#list'+listindex).attr('href','${pageContext.request.contextPath}/chat/list?roomsId='+value.roomsId+'&hostId='+value.hostId+'&userId='+value.userId);
-                                            listindex++;
-                                        }
-                                        if(value.hostId=='${sessionScope.loginUser.userId}'&&value.receive=='H'){
-                                            $('#list'+listindex).text(value.userId+' : '+msg + ' ('+value.unreadCount+')' );
-                                            $('#list'+listindex).attr('href','${pageContext.request.contextPath}/chat/list?roomsId='+value.roomsId+'&hostId='+value.hostId+'&userId='+value.userId);
-                                            listindex++;
-                                        }
-                                        if(listindex==5){
-                                            return false;
-                                        }
-                                    });
-                                    if(listindex==1){
-                                        $('#jchannotice').css('display','none');
-                                    } else{
-                                        $('#jchannotice').css('display','inline');
-                                    }
-                                },
-                                error: function () {
-                                    alert(error);
-                                }
-                            });
 
                             $('#frame').css('z-index',200);
 							$('#frame').css('visibility','visible');
