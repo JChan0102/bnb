@@ -16,12 +16,27 @@
 <body>
 	<%@ include file="/resources/common/includeHead.jsp"%>
 	<%@ include file="/resources/common/Navbar.jsp"%>
+	
+	<c:if test="${regFail ne null}">
+		<script>alert("회원가입 실패. 다시 시도해주세요.");</script>
+		<c:remove var="regFail" scope="session"/>
+	</c:if>
 
 	<div id="userRegForm">
 		<!-- Begin page content -->
 		<div role="main" class="hyeon-container">
 			<div class="row justify-content-md-center">
 				<div class="col col-md-5 col-lg-4">
+				
+				<c:if test="${InvalidBirth ne null}">
+						<div id="dateAlert" style="color:red;">생년월일을 정확하게 입력해주세요.</div> <br>
+							<script>
+								$(document).ready(function(){
+									$('#dateAlert').fadeOut(5000);
+								});
+							</script>
+						<c:remove var="InvalidBirth" scope="session"/>
+					</c:if>
 				
 				<div class="hyeon-title"><h2>회원가입</h2></div>
 				

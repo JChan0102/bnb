@@ -17,7 +17,7 @@
 	<%@ include file="/resources/common/includeHead.jsp"%>
 	<%@ include file="/resources/common/Navbar.jsp"%>
 
-	<c:if test="${regFail}">
+	<c:if test="${regFail ne null}">
 		<script>alert("회원가입 실패. 다시 시도해주세요.");</script>
 		<c:remove var="regFail" scope="session"/>
 	</c:if>
@@ -27,7 +27,15 @@
 		<div role="main" class="hyeon-container">
 			<div class="row justify-content-md-center">
 				<div class="col col-md-5 col-lg-4">
-				
+					<c:if test="${InvalidBirth ne null}">
+						<div id="dateAlert" style="color:red;">생년월일을 정확하게 입력해주세요.</div> <br>
+							<script>
+								$(document).ready(function(){
+									$('#dateAlert').fadeOut(5000);
+								});
+							</script>
+						<c:remove var="InvalidBirth" scope="session"/>
+					</c:if>
 				<div class="hyeon-title"><h2>회원가입</h2></div>
 				
 					<form method="post" enctype="multipart/form-data">
@@ -104,7 +112,6 @@
 		// 아이디 입력란에 포커스 주기
 		$(document).ready(function(){
 			$('#inputUserId').focus();
-			
 		});
 		
 		// 비밀번호 유효성 검사
@@ -209,54 +216,9 @@
 	});
 	 	
 		
-		
-	
-	/* 
-		var pw-1 = $('#userPw-1');
-		var pw-1 = $('#userPw-2');
-		alert(pw-1 +':'+ pw-2); */
-	
-	
+
 	</script>
 	
-<!-- 	<script>
-		$(document).ready(function(){
-			var date = new Date();
-			var nowYear = date.getHullYear();
-			var lastYear = nowYear - 120;
-			$('#select-year').prepend("<option>년도</option>")
-			
-			for(var i=nowYear; i<lastYear; i--){
-				$('#select-year').prepend("<option>"+i+"년</option>")
-			}
-			
-			
-		});
-	
-	
-	</script> -->
-<!-- 	<div id="userRegForm">
-		<form method="post" enctype="multipart/form-data">
-			아이디(이메일 ) : <input type="email" name="userId" required /><br>
-			비밀번호 설정 : <input type="password" name="userPw" required /><br>
-			이름 : <input type="text" name="userName" required /><br> 
-			사진 : <input type="file" name="photoFile" /><br>
-			<input type="hidden" name="host" value=1 /><br>
-			<input type="hidden" name="admin" value=1 /><br>
-			<input type="hidden" name="userKey" value="asd123" /><br>
-			<input type="hidden" name="userCheck" value=1 /><br>
-			<input type="hidden" name="point" value=0 /><br>
-			<input type="hidden" name="disabled" value=1 /><br>
-			<select
-				name="month">
-				<option>월</option>
-				<option>1</option>
-			
-			</select> <input type="text" name="day" placeholder="일" /> <input type="text"
-				name="year" placeholder="년(4자리)" />
-			<textarea name="userInfo" cols="30" placeholder="자기소개"></textarea>
-			<br> <input type="submit" value="가입하기" />
-		</form>
-	</div> -->
+
 </body>
 </html>

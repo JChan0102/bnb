@@ -2,6 +2,8 @@ package com.bit.bnb.user.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -9,6 +11,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -30,10 +33,13 @@ public class UserRegService {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+	@Autowired
+	private DateCheckService dateCheckService;
+	
 	private UserVO user;
 	
 	@Transactional
-	public int userReg(UserVO userVO, HttpServletRequest request) throws IllegalStateException, IOException {
+	public int userReg(UserVO userVO, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
 		
 		int resultCnt = 0;
 
@@ -75,8 +81,17 @@ public class UserRegService {
 				String ePw = sha256Service.encrypt(userVO.getUserPw());
 				userVO.setUserPw(ePw);
 			
-				// 생년월일을 합쳐서 객체에 넣어줌
+				// 생년월일을 합친다
 				String birth = userVO.getYear()+"-"+userVO.getMonth()+"-"+userVO.getDay();
+				
+				// 생년월일이 유효한지 검사해서 유효하지 않으면 리턴 0
+				if(!dateCheckService.dateCheck(birth)) {
+					session.setAttribute("InvalidBirth", "InvalidBirth");
+					System.out.println("생년월일의 상태가...???");
+					return 0;
+				}
+				
+				// 생년월일이 유효하면 userVO에 추가한 후 가입 진행
 				userVO.setBirth(birth);
 				
 				// 메일인증을 위한 인증키 생성하기
@@ -173,7 +188,7 @@ public class UserRegService {
 	
 	
 	@Transactional
-	public int googleReg(UserVO userVO, HttpServletRequest request) throws IllegalStateException, IOException {
+	public int googleReg(UserVO userVO, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
 		int resultCnt = 0;
 
 		// DB 저장용 파일 이름, 물리적 저장할때의 이름
@@ -214,8 +229,17 @@ public class UserRegService {
 				String ePw = sha256Service.encrypt(userVO.getUserPw());
 				userVO.setUserPw(ePw);
 			
-				// 생년월일을 합쳐서 객체에 넣어줌
+				// 생년월일을 합친다
 				String birth = userVO.getYear()+"-"+userVO.getMonth()+"-"+userVO.getDay();
+				
+				// 생년월일이 유효한지 검사해서 유효하지 않으면 리턴 0
+				if(!dateCheckService.dateCheck(birth)) {
+					session.setAttribute("InvalidBirth", "InvalidBirth");
+					System.out.println("생년월일의 상태가...???");
+					return 0;
+				}
+				
+				// 생년월일이 유효하면 userVO에 추가한 후 가입 진행
 				userVO.setBirth(birth);
 
 				// 구글 계정이므로 유저키에는 g를 삽입한다

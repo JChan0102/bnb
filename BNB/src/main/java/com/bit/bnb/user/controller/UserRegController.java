@@ -1,6 +1,7 @@
 package com.bit.bnb.user.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -45,7 +46,7 @@ public class UserRegController {
 		System.out.println(fail1 +" : " + fail2);
 
 		if(fail1.equals("ok") && fail2.equals("ok")) {
-			resultCnt = userRegService.userReg(userVO, request);
+			resultCnt = userRegService.userReg(userVO, request, session);
 		} else {
 			resultCnt = 0;
 		}
@@ -102,11 +103,12 @@ public class UserRegController {
 		
 		int resultCnt = 0;
 		
-		resultCnt = userRegService.googleReg(userVO, request);
+		resultCnt = userRegService.googleReg(userVO, request, session);
 		
 		if(resultCnt != 1) {
 			session.setAttribute("regFail", true);
-			result = "redirect:/userReg";
+			System.out.println("gName: " + userVO.getUserName());
+			result = "redirect:/googleReg?gMail="+userVO.getUserId()+"&gName="+userVO.getUserName()+"&gPhoto="+userVO.getUserPhoto();
 		} else {
 			session.removeAttribute("regFail");
 		}
