@@ -225,7 +225,6 @@
 		});
 		function searchRoomsList() {
 			output = '';
-			console.log('새로그림');
 			$('#page').val(1);
 			getRoomsList();
 		}
@@ -242,7 +241,7 @@
 						data : queryString,
 						dataType : 'JSON',
 						success : function(data) {
-							console.log(data)
+							// console.log(data)
 
 							if (data.roomsList.length == 0) {
 								$('#roomsList')

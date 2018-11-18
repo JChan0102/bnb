@@ -218,7 +218,7 @@
 								}
 								$('#review').html(output + moreBtn);
 							}
-							console.log(json.review);
+							// console.log(json.review);
 						},
 						error : function(error) {
 							console.log("error : " + error);

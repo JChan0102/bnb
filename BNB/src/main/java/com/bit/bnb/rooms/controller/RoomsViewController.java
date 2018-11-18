@@ -24,7 +24,7 @@ public class RoomsViewController {
 //		modelAndView.addObject("paging", paging);
 //		System.out.println(roomViewService.getReviewList(paging, rv.getRoomsId()).toString());
 //		modelAndView.addObject("review", roomViewService.getReviewList(paging, rv.getRoomsId()));
-		System.out.println(rv);
+//		System.out.println(rv);
 
 		UserVO hostVO = new UserVO();
 		hostVO.setUserId(rv.getHostId());
