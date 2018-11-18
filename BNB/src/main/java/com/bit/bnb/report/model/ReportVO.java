@@ -4,6 +4,15 @@ public class ReportVO {
     private int reservationNum;
     private String reportContent;
     private String reportCk;
+    private int totalCount;
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
 
     public int getReservationNum() {
         return reservationNum;

@@ -11,6 +11,7 @@
 	<%@ include file="/resources/common/Navbar.jsp"%>
 
 	<h1>관리자페이지</h1>
+	<a href="${pageContext.request.contextPath}/adminpage/report?page=1"><button>신고 목록보기</button></a>
 
 </body>
 </html>

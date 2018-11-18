@@ -5,6 +5,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class ReportDao {
     @Autowired
@@ -17,5 +19,11 @@ public void insert (ReportVO vo){
     sqlSessionTemplate.insert(namespace+"insert",vo);
 }
 
+public List<ReportVO> notckreportList (int firstRow){
 
+    return sqlSessionTemplate.selectList(namespace+"notckreportList",firstRow);
+}
+public int totalCount(){
+    return sqlSessionTemplate.selectOne(namespace+"totalCount");
+}
 }
