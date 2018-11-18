@@ -51,7 +51,28 @@
 			<div id="total"></div>  
             <div id="price" ></div>
 </div>
-            <!-- 80%size Modal at Center -->
+          
+
+            <!-- 핀테크? 본인확인이 가능한 api? -->
+            <input type="hidden" value="${selectedRoom.hostId}" name="hostId" id="umki-hostId" />
+            <input type="hidden" value="${loginUser.userId}" name="userId" id="userId" />
+            <input type="hidden" value="${selectedRoom.roomsId}" name="roomsId" />
+            <input type="hidden" value="${selectedRoom.price_weekdays}" name="price" id="totalPrice" />
+            <input type="hidden" value="1" name="people" id="people" />
+            <c:choose>
+                <c:when test="${loginUser.userId != null}">
+                    <div class="do" style="cursor: pointer;" onclick="reservationDo()">예약하기</div>
+                </c:when>
+                <c:otherwise>
+                      
+                    <div class="do" data-target="#layerpop" data-toggle="modal" style="cursor: pointer;">로그인</div>  
+
+                </c:otherwise>
+            </c:choose>
+            <!-- <input type="submit" value="예약하기"/> -->
+        </form>
+    </div>   
+  <!-- 80%size Modal at Center -->
             <div class="modal modal-center fade" id="my80sizeCenterModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel">
                 <div class="modal-dialog modal-80size modal-center" role="document">
                     <div class="modal-content modal-80size">
@@ -92,28 +113,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- 핀테크? 본인확인이 가능한 api? -->
-            <input type="hidden" value="${selectedRoom.hostId}" name="hostId" id="umki-hostId" />
-            <input type="hidden" value="${loginUser.userId}" name="userId" id="userId" />
-            <input type="hidden" value="${selectedRoom.roomsId}" name="roomsId" />
-            <input type="hidden" value="${selectedRoom.price_weekdays}" name="price" id="totalPrice" />
-            <input type="hidden" value="1" name="people" id="people" />
-            <c:choose>
-                <c:when test="${loginUser.userId != null}">
-                    <div class="do" style="cursor: pointer;" onclick="reservationDo()">예약하기</div>
-                </c:when>
-                <c:otherwise>
-                      
-                    <div class="do" data-target="#layerpop" data-toggle="modal" style="cursor: pointer;">로그인</div>  
-
-                </c:otherwise>
-            </c:choose>
-            <!-- <input type="submit" value="예약하기"/> -->
-        </form>
-    </div>   
-
-    <form action="/reservation"></form>
 
 	<script>
             var impossible = new Array();
@@ -410,16 +409,16 @@
 
             
             function reservationDo(){
+            	if(!$("#userId").val()) {
+            		alert($("#userId").val());
+            	    alert("로그인해");
+            	  }else
             	if(!$("#datepicker").val()) {
             	    alert("체크인체크해");
             	  }else
             	if(!$("#return").val()) {
             	    alert("체크아웃체크해");
-            	  }else   
-            	if(!$("#userId").val()) {
-            		alert($("#userId").val());
-            	    alert("로그인해");
-            	  }
+            	  }   
             	/* else{
             		$('#fr').submit();
             	} */
