@@ -1,15 +1,15 @@
 @charset "UTF-8";
 
 #left_list {
-	width: 250px;
+ 	/* width: 250px; */
 	height: 300px;
-	margin: 20px 40px;
+	margin-left:40px;
 	background-color: white;
 	border-radius: 20px;
 }
 
 #mypage_wrap_cont {
-	width: 85%;
+	/* width: 85%; */
 	margin: 0 auto;
 	position: relative;
 }
@@ -21,17 +21,18 @@
 }
 
 #list {
-	width: 100px;
-	margin: 0 auto;
+	/* width: 100px; */
+	/* margin: 0 auto; */
+	text-align:center;
 	padding-top: 65px;
 }
 
 #mypage_cont {
-	width: 1000px;
+	/* width: 1000px; */
 	background-color: white;
 	position: absolute;
 	top: 0px;
-	right: 0px;
+	right: 50px;
 	border-radius: 25px;
 }
 
@@ -41,7 +42,7 @@
 
 #review_cont {
 	padding: 20px;
-	width: 970px;
+	/* width: 970px; */
 	margin: 0 auto;
 }
 
@@ -82,7 +83,7 @@
 }
 
 #reviewCont_wrap {
-	width: 800px;
+	/* width: 800px; */
 	height: 360px;
 	padding-top: 30px;
 	margin: 0 auto;
@@ -114,7 +115,7 @@
 }
 
 #wish_wrap {
-	width: 900px;
+	/* width: 900px; */
 	margin: 0 auto;
 }
 

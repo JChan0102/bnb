@@ -10,19 +10,19 @@
 <title>WishList</title>
 <%@ include file="/resources/common/includeHead.jsp"%>
 <script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RjRRELdZtqF2DId12vbe&submodules=geocoder"></script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=31560f6f51cc23c9f8ef204f4664e637&libraries=services"></script>
 </head>
 <body style="background-color: #EEEEEE;">
 	<%@ include file="/resources/common/Navbar.jsp"%>
-	<div id="mypage_wrap_cont">
+	<div id="mypage_wrap_cont" class="row">
 		<%@ include file="/WEB-INF/views/mypage/leftlist.jsp"%>
-		<div id="mypage_cont" class="text-center">
+		<div id="mypage_cont" class="col-9">
 			<h1 style="text-align: center; padding: 10px; font-weight: 800;">
 				<i class="far fa-grin-hearts"></i> WISH LIST
 			</h1>
-			<div class="row" style="height: 450px; width: 900px; margin: 0 auto;">
+			<div class="row" style="height: 600px;/* width: 900px; */ margin: 0 auto;">
 				<div class="col-6" style="overflow: scroll">
-					<h2 style="font-weight: 600;">${address}</h2>
+					<h2 style="font-weight: 600; text-align: center;"><i class="fas fa-map-marker-alt" style="color:red;"></i>&ensp;${address}</h2>
 					<br>
 					<c:forEach var="wl" items="${wishList}">
 						<div class="card" style="margin-bottom: 20px;">
@@ -33,12 +33,12 @@
 								<h6 class="card-title">
 									<b>${wl.hostId}</b>님의 숙소
 								</h6>
-								<p class="card-text" id="price">￦ ${wl.price_weekdays} ~
-									${wl.price_weekend} /박</p>
+								<p class="card-text price" id="price">￦ ${wl.price_weekdays}
+									~ ${wl.price_weekend} /박</p>
 								<p class="card-text">리뷰평균(리뷰수)</p>
 								<a
 									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${wl.roomsId}"
-									class="btn btn-primary">보러가기</a>
+									class="btn" style="background-color: #FF5A5F; color:white; float:right;">보러가기</a>
 							</div>
 							<input type="hidden" value="${wl.address}" id="de_add"
 								class="de_add" name="address">
@@ -48,66 +48,85 @@
 				<div class="col-6" id="map"></div>
 			</div>
 			<br>
+			<div class="text-center">
 			<button onclick="javascript:history.back();"
 				class="btn btn-outline-secondary" style="margin: 10px;">목록으로</button>
-			<br> <br>
+				</div>
+			<br>
 		</div>
 	</div>
 	<script>
-		$(function() {
-			$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
-				if (options.crossDomain && jQuery.support.cors) {
-					options.url = "https://cors-anywhere.herokuapp.com/"
-							+ options.url;
-				}
-			});
-		});
-		//지도를 삽입할 HTML 요소 또는 HTML 요소의 id를 지정합니다.
-		var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
+		var mapContainer = document.getElementById('map'); // 지도를 표시할 div  
+		mapOption = {
+			center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표 
+			level : 6
+		// 지도의 확대 레벨
+		};
 
-		/* var map = new naver.maps.Map(mapDiv, {
-		    zoom: 11, //지도의 초기 줌 레벨
-		    });  */
-		var map = new naver.maps.Map(mapDiv);
-		var myaddress = '';// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
+		var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		var geocoder = new daum.maps.services.Geocoder();
+		var addressArray = [];
 		var wishList = $('.de_add');
 
 		for (var i = 0; i < wishList.length; i++) {
-			myaddress = $("input[name='address']").eq(i).val();
+			addressArray.push({
+				'groupAddress' : $("input[name='address']").eq(i).val()
+			});
+		}
 
-			console.log(myaddress);
-				naver.maps.Service.geocode({
-					address : myaddress
-				}, function(status, response) {
-					if (status !== naver.maps.Service.Status.OK) {
-						return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
-					}
-					var result = response.result;
-					console.log(result);
-					// 검색 결과 갯수: result.total
-					// 첫번째 결과 결과 주소: result.items[0].address
-					// 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
-					var myaddr = new naver.maps.Point(result.items[i].point.x, result.items[i].point.y);
-					/* map.setCenter(myaddr); */ // 검색된 좌표로 지도 이동
-					// 마커 표시
-					var marker = new naver.maps.Marker({
-						position : myaddr,
-						map : map
-					});
-					// 마커 클릭 이벤트 처리
-					/* naver.maps.Event.addListener(marker, "click", function(e) {
-						if (infowindow.getMap()) {
-							infowindow.close();
-						} else {
-							infowindow.open(map, marker);
-						}
-					});
-					// 마크 클릭시 인포윈도우 오픈
-					var infowindow = new naver.maps.InfoWindow({
-						content : ''
-					}); */
-				}); 
-			}
+		for (var i = 0; i < addressArray.length; i++) {
+			// 주소로 좌표를 검색합니다
+			geocoder
+					.addressSearch(
+							addressArray[i].groupAddress,
+							function(result, status, data) {
+
+								// 정상적으로 검색이 완료됐으면 
+								if (status === daum.maps.services.Status.OK) {
+
+									var coords = new daum.maps.LatLng(
+											result[0].y, result[0].x);
+
+									// 결과값으로 받은 위치를 마커로 표시합니다
+									var marker = new daum.maps.Marker({
+										map : map,
+										position : coords
+									});
+
+									// 마커를 지도에 표시합니다.
+									marker.setMap(map);
+
+									// 마커에 마우스오버 이벤트를 등록합니다
+									daum.maps.event
+											.addListener(marker, 'mouseover',
+													function() {
+														// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+														infowindow.open(map,
+																marker);
+													});
+
+									// 마커에 마우스아웃 이벤트를 등록합니다
+									daum.maps.event.addListener(marker,
+											'mouseout', function() {
+												// 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+												infowindow.close();
+											});
+
+									 var iwContent = '<div style="font-size:11px; text-align:center;">'+result[0].address_name+'</div>';
+
+									// 인포윈도우를 생성합니다
+									var infowindow = new daum.maps.InfoWindow({
+										position : coords,
+										content : iwContent
+									});
+
+
+									// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+									map.setCenter(coords);
+								}
+							});
+
+		}
 	</script>
 </body>
 </html>

@@ -12,9 +12,9 @@
 <body style="background-color: #EEEEEE;">
 	<%@ include file="/resources/common/Navbar.jsp"%>
 
-	<div id="mypage_wrap_cont">
+	<div id="mypage_wrap_cont" class="row">
 		<%@ include file="/WEB-INF/views/mypage/leftlist.jsp"%>
-		<div id="mypage_cont">
+		<div id="mypage_cont" class="col-9">
 			<ul class="nav reviewNav">
 				<li class="nav-item"><a class="nav-link active"
 					href="${pageContext.request.contextPath }/review">내가 쓴 후기</a></li>

@@ -10,9 +10,9 @@
 </head>
 <body style="background-color: #EEEEEE;">
 	<%@ include file="/resources/common/Navbar.jsp"%>
-	<div id="mypage_wrap_cont">
+	<div id="mypage_wrap_cont" class="row">
 		<%@ include file="/WEB-INF/views/mypage/leftlist.jsp"%>
-		<div id="mypage_cont">
+		<div id="mypage_cont" class="col-9">
 			<h1 style="text-align: center; font-weight: 800; padding: 10px;">
 				<i class="fas fa-user-edit"></i> PROFILE EDIT
 			</h1>

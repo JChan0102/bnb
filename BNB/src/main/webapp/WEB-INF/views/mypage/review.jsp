@@ -12,10 +12,10 @@
 <body style="background-color: #EEEEEE;">
 	<%@ include file="/resources/common/Navbar.jsp"%>
 
-	<div id="mypage_wrap_cont">
+	<div id="mypage_wrap_cont" class="row">
 		<%@ include file="/WEB-INF/views/mypage/leftlist.jsp"%>
-		<div id="mypage_cont">
-			<ul class="nav reviewNav">
+		<div id="mypage_cont" class="col-9">
+			<ul class="nav reviewNav text-center">
 				<li class="nav-item"><a class="nav-link active"
 					href="${pageContext.request.contextPath }/review">내가 쓴 후기</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">내게 쓴 후기</a></li>
@@ -49,35 +49,37 @@
 			</form>
 			<div id="review_cont">
 				<!-- 써야할 리뷰 리스트 -->
-				<table id="review_write_table" rules="none"
-					style="border-radius: 10px;">
-					<tr style="height: 30px;">
-						<th colspan="2" style="text-align: center; height: 50px;"><i
-							class="fas fa-edit"></i>&ensp;작성해야할 후기</th>
-					</tr>
-					<c:if test="${empty reviewWrite}">
-						<tr>
-							<td style="width: 800px; text-align: center;">작성해야할 후기가
-								없습니다.</td>
+				<div class="row">
+					<table id="review_write_table" rules="none"
+						style="border-radius: 10px;">
+						<tr style="height: 30px;">
+							<th colspan="2" style="text-align: center; height: 50px;"><i
+								class="fas fa-edit"></i>&ensp;작성해야할 후기</th>
 						</tr>
-					</c:if>
-					<c:set var="now" value="<%=new java.util.Date()%>" />
-					<c:forEach var="reWrite" items="${reviewWrite}">
-						<c:if
-							test="${reWrite.reviewContent eq null && reWrite.checkOut <= now && loginUser.userId eq reWrite.userId}">
+						<c:if test="${empty reviewWrite}">
 							<tr>
-								<td style="width: 800px; height: 50px; text-align: center;"><b><fmt:formatDate
-											pattern="MM월 dd일" value="${reWrite.checkIn}" /> - <fmt:formatDate
-											pattern="MM월 dd일" value="${reWrite.checkOut}" /></b>에 숙박한 숙소에 대한
-									후기를 써주세요.</td>
-								<td><a
-									href="${pageContext.request.contextPath }/reviewWrite?reservationNum=${reWrite.reservationNum}">후기쓰기</a>
-									<a href="${pageContext.request.contextPath}/reportWrite?reservationNum=${reWrite.reservationNum}">신고</a>
-								</td>
+								<td style="text-align: center;">작성해야할 후기가 없습니다.</td>
 							</tr>
 						</c:if>
-					</c:forEach>
-				</table>
+						<c:set var="now" value="<%=new java.util.Date()%>" />
+						<c:forEach var="reWrite" items="${reviewWrite}">
+							<c:if
+								test="${reWrite.reviewContent eq null && reWrite.checkOut <= now && loginUser.userId eq reWrite.userId}">
+								<tr>
+									<td style="height: 50px; text-align: center;"><b><fmt:formatDate
+												pattern="MM월 dd일" value="${reWrite.checkIn}" /> - <fmt:formatDate
+												pattern="MM월 dd일" value="${reWrite.checkOut}" /></b>에 숙박한 숙소에
+										대한 후기를 써주세요.</td>
+									<td><a
+										href="${pageContext.request.contextPath }/reviewWrite?reservationNum=${reWrite.reservationNum}">후기쓰기</a>
+										<a
+										href="${pageContext.request.contextPath}/reportWrite?reservationNum=${reWrite.reservationNum}">신고</a>
+									</td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</table>
+				</div>
 
 				<c:if test="${empty reviewTo}">
 					<h1 style="text-align: center; padding: 20px; font-weight: 800;">작성한
@@ -103,7 +105,7 @@
 											<i class="fas fa-star" style="color: #FF5675"></i>
 										</c:forEach>
 									</h6>
-									<div class="mt-3 col-3" style="left: 65px;">
+									<div class="mt-3 col-3">
 										<button type="button" class="btn btn-secondary btn-sm"
 											onclick="javascript:location.href='${pageContext.request.contextPath}/reviewEdit?reservationNum=${reTo.reservationNum}'">수정</button>
 										<!-- Button trigger modal -->

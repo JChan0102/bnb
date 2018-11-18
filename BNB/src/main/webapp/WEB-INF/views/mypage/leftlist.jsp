@@ -9,7 +9,7 @@
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
 <body>
-	<div id="left_list">
+	<div id="left_list" class="col-2">
 		<div id="list">
 			<ul>
 				<li class="mypage_list"><i class="fas fa-user-circle"></i>&ensp;<a

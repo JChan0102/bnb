@@ -10,9 +10,9 @@
 <body style="background-color: #EEEEEE;">
 	<%@ include file="/resources/common/Navbar.jsp"%>
 
-	<div id="mypage_wrap_cont">
+	<div id="mypage_wrap_cont" class="row">
 		<%@ include file="/WEB-INF/views/mypage/leftlist.jsp"%>
-		<div id="mypage_cont">
+		<div id="mypage_cont" class="col-9">
 			<div id="reviewCont_wrap">
 				<form method="post" name="reEdit">
 					<input type="text" name="reservationNum" class="form-control-plaintext"
@@ -30,7 +30,10 @@
 						<option value="4">★★★★</option>
 						<option value="5">★★★★★</option>
 					</select><br>
-					<button type="button" class="btn btn-warning" onclick="javascript:document.reEdit.submit();" style="float:right;">수정하기</button>
+					<div id="editButton">
+					<button type="button" class="btn btn-warning" onclick="javascript:document.reEdit.submit();">수정하기</button>
+					<button type="reset" class="btn btn-outline-danger" onclick="javascript:history.back();">취소</button>
+					</div>
 				</form>
 			</div>
 		</div>
