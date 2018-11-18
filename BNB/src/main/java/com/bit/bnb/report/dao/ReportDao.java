@@ -26,4 +26,8 @@ public List<ReportVO> notckreportList (int firstRow){
 public int totalCount(){
     return sqlSessionTemplate.selectOne(namespace+"totalCount");
 }
+
+public void ckupdate(ReportVO vo){
+    sqlSessionTemplate.update(namespace+"ckupdate",vo);
+}
 }

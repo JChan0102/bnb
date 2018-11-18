@@ -23,4 +23,7 @@ public class AdminReportService {
         return dao.totalCount();
     }
 
+    public void update(ReportVO vo){
+        dao.ckupdate(vo);
+    }
 }

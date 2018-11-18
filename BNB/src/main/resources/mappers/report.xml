@@ -21,4 +21,7 @@
         from report
         where reportCk = 'F';
     </select>
+    <update id="ckupdate" parameterType="com.bit.bnb.report.model.ReportVO">
+        update report SET reportCk=#{reportCk} where reservationNum=#{reservationNum}
+    </update>
 </mapper>

@@ -16,17 +16,17 @@
     <div class="col-2">
         <div class="list-group" id="list-tab" role="tablist">
             <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
-               href="#list-home" role="tab" aria-controls="home">예약현황</a>
+               href="#list-home" role="tab" aria-controls="home"><i class="far fa-calendar-alt"></i> 예약현황</a>
             <a class="list-group-item list-group-item-action" onclick="viewMyroomList()" id="list-profid"
-               data-toggle="list" href="#list-profi" role="tab" aria-controls="profile">내방보기</a>
+               data-toggle="list" href="#list-profi" role="tab" aria-controls="profile"><i class="fas fa-home"></i> 내방보기</a>
             <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
-               href="#list-profile" role="tab" aria-controls="profile" onclick="eval()">사용자평가</a>
+               href="#list-profile" role="tab" aria-controls="profile" onclick="eval()"><i class="fas fa-user-check"></i> 사용자평가</a>
             <a class="list-group-item list-group-item-action" id="list-messages-list"
-               href="${pageContext.request.contextPath}/host" >호스트게시판</a>
+               href="${pageContext.request.contextPath}/host" ><i class="far fa-list-alt"></i> 호스트게시판</a>
             <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list"
-               href="#list-settings" role="tab" aria-controls="settings">인출</a>
+               href="#list-settings" role="tab" aria-controls="settings"><i class="fas fa-hand-holding-usd"></i> 인출</a>
             <a class="list-group-item list-group-item-action" id="list-settings-li" data-toggle="list"
-               href="#list-settings2" role="tab" aria-controls="settings" onclick="selectroom()">통계</a>
+               href="#list-settings2" role="tab" aria-controls="settings" onclick="selectroom()"><i class="fas fa-chart-line"></i> 통계</a>
         </div>
     </div>
     <div class="col-8">
