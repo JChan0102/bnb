@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bit.bnb.rooms.dao.RoomsDAO;
 import com.bit.bnb.rooms.model.AmenitiesVO;
+import com.bit.bnb.rooms.model.RoomsReviewSummaryVO;
 import com.bit.bnb.rooms.model.RoomsReviewVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.util.Paging;
@@ -53,5 +54,9 @@ public class RoomViewService {
 
 	public UserVO getHostInfo(UserVO uv) {
 		return roomsDAO.selectRoomsHost(uv).get(0);
+	}
+
+	public List<RoomsReviewSummaryVO> getReviewSummary() {
+		return roomsDAO.selectRoomsReviewSummary();
 	}
 }

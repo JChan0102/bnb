@@ -26,16 +26,23 @@
 		});
 	</script>
 	<script>
-		$(document).ready(function() {
-			$('#wishBtn').click(function() {
-				var roomsId = $('#roomsId').val();
-				var url = '${pageContext.request.contextPath}/wishIn?roomsId='+roomsId;
-				$.ajax({
-					url : url,
-					success : $('.wishIn').toggle()
-				});
-			});
-		});
+		$(document)
+				.ready(
+						function() {
+							$('#wishBtn')
+									.click(
+											function() {
+												var roomsId = $('#roomsId')
+														.val();
+												var url = '${pageContext.request.contextPath}/wishIn?roomsId='
+														+ roomsId;
+												$.ajax({
+													url : url,
+													success : $('.wishIn')
+															.toggle()
+												});
+											});
+						});
 	</script>
 	<%@ include file="/resources/common/Navbar.jsp"%>
 	<!-- Begin page content -->
@@ -134,7 +141,17 @@
 					</tr>
 					<tr>
 						<td colspan="2"><div class="alert alert-secondary"
-								role="alert">이 숙소의 후기</div>
+								role="alert">
+								이 숙소의 후기 
+								<c:forEach items="${reviewSummary}" var="reviewSummary">
+									<c:if test="${selectedRoom.roomsId eq reviewSummary.roomsId}">
+										<small class="text-muted"> <c:forEach begin="1"
+												end="${reviewSummary.avgScope}" step="1">★</c:forEach> <fmt:formatNumber
+												value="${reviewSummary.avgScope}" pattern="0.0" />
+											(${reviewSummary.reviewCount})</small>
+									</c:if>
+								</c:forEach>
+							</div>
 							<table class="table" id="review">
 							</table></td>
 					</tr>
@@ -145,7 +162,11 @@
 							value="${selectedRoom.disabled}"> <a
 							href="${pageContext.request.contextPath}/chat/sendmessage?roomsId=${selectedRoom.roomsId}&hostId=${selectedRoom.hostId}"><input
 								type="button" class="btn btn-danger ml-1 mr-1" value="문의하기"></a>
-							<button type="button" class="btn btn-danger ml-1 mr-1" id="wishBtn"><span class="wishIn">즐겨찾기추가</span><span class="wishIn" style="display:none;">즐겨찾기해제</span></button></td>
+							<button type="button" class="btn btn-danger ml-1 mr-1"
+								id="wishBtn">
+								<span class="wishIn">즐겨찾기추가</span><span class="wishIn"
+									style="display: none;">즐겨찾기해제</span>
+							</button></td>
 					</tr>
 				</table>
 			</form>

@@ -31,6 +31,7 @@ public class RoomsViewController {
 		modelAndView.addObject("hostInfo", roomViewService.getHostInfo(hostVO));
 		modelAndView.addObject("amenities", roomViewService.getAmenities(av));
 		modelAndView.addObject("selectedRoom", roomViewService.getViewRooms(rv));
+		modelAndView.addObject("reviewSummary", roomViewService.getReviewSummary());
 		modelAndView.setViewName("rooms/viewRooms");
 
 		return modelAndView;
