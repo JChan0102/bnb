@@ -20,22 +20,35 @@ public class RoomsRoomsListController {
 
 	@RequestMapping(value = "/rooms/getRoomsList", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	@ResponseBody
-	public String getRoomsReviewList(RoomsVO rv,
+	public String getRoomsReviewList(RoomsVO rv, String checkIn, String checkOut,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPageNo)
 			throws JsonProcessingException {
 		// Paging paging = roomViewService.getPaging("review", currentPageNo, 4);
 		// Paging paging = roomsLIstService.getPaging("rooms", currentPageNo, 20);
-		Paging paging = roomsLIstService.getRoomSearchPaging(rv, currentPageNo, 20);
 		// System.out.println(currentPageNo);
+		// Paging paging = roomsLIstService.getRoomSearchPaging(rv, currentPageNo, 20);
+
+		if (!checkIn.equals("")) {
+			checkIn += " 09:00";
+		} else {
+			checkIn = null;
+		}
+		if (!checkOut.equals("")) {
+			checkOut += " 09:00";
+		} else {
+			checkOut = null;
+		}
+
+		Paging paging = roomsLIstService.getRoomSearchPaging(rv, currentPageNo, 20, checkIn, checkOut);
 
 		// Object to JSON in String
 		ObjectMapper mapper = new ObjectMapper();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("roomsList", roomsLIstService.getRoomsList(rv, paging));
+		map.put("roomsList", roomsLIstService.getRoomsList(rv, paging, checkIn, checkOut));
 		map.put("paging", paging);
+
 		map.put("reviewSummary", roomsLIstService.getReviewSummary());
 
-		System.out.println(rv);
 		// System.out.println("------------------");
 		// System.out.println("룸리스트컨트롤러" + roomsLIstService.getRoomsList(rv, paging));
 		// System.out.println("룸리스트컨트롤러" + paging);
@@ -44,11 +57,10 @@ public class RoomsRoomsListController {
 		return jsonInString;
 	}
 
-
 	@RequestMapping(value = "/rooms/getRoomsList", method = RequestMethod.GET, produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String getRoomsReviewList11(RoomsVO rv,
-									 @RequestParam(value = "page", required = false, defaultValue = "1") int currentPageNo)
+			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPageNo)
 			throws JsonProcessingException {
 		// Paging paging = roomViewService.getPaging("review", currentPageNo, 4);
 		Paging paging = roomsLIstService.getPaging("rooms", currentPageNo, 20);

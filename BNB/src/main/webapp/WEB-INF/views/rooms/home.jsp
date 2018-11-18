@@ -75,7 +75,9 @@
 						id="avail_bathroom" name="avail_bathroom"></span>
 				</div>
 			</div>
-
+			
+			<%@ include file="searchCal.jsp"%>
+			
 			<div class="alert alert-secondary text-center mt-1 mb-0" role="alert"
 				id="amount"></div>
 			<div id="slider-range"></div>
@@ -223,6 +225,7 @@
 		});
 		function searchRoomsList() {
 			output = '';
+			console.log('새로그림');
 			$('#page').val(1);
 			getRoomsList();
 		}
@@ -239,7 +242,7 @@
 						data : queryString,
 						dataType : 'JSON',
 						success : function(data) {
-							// console.log(data)
+							console.log(data)
 
 							if (data.roomsList.length == 0) {
 								$('#roomsList')

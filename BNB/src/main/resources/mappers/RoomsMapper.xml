@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectRoomsList" parameterType="java.util.HashMap"
 		resultType="com.bit.bnb.rooms.model.RoomsVO">
 		SELECT * FROM
-		`bnb`.`rooms`
+		rooms
 		<where>
 			<if test="rv.roomsId != 0">
 				roomsId = #{rv.roomsId}
@@ -73,9 +73,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				AND time_checkout like #{rv.time_checkout}
 			</if>
 			<if test="rv.price_weekend != 0">
-				AND price_weekdays <![CDATA[<]]>= #{rv.price_weekend}
+				AND price_weekdays <![CDATA[<=]]>
+				#{rv.price_weekend}
 				AND price_weekdays >= #{rv.price_weekdays}
-				AND price_weekend <![CDATA[<]]>= #{rv.price_weekend}
+				AND
+				price_weekend <![CDATA[<=]]>
+				#{rv.price_weekend}
 				AND price_weekend >= #{rv.price_weekdays}
 			</if>
 			<if test="rv.address != null">
@@ -83,6 +86,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="rv.disabled != 0">
 				AND disabled >= #{rv.disabled}
+			</if>
+			<if test="checkIn != null || checkOut != null">
+				AND rooms.roomsId NOT IN (SELECT
+				distinct roomsId
+				FROM
+				reservation
+				WHERE
+				(#{checkIn} <![CDATA[<=]]>
+				checkIn and checkIn <![CDATA[<]]>
+				#{checkOut}) OR
+				(#{checkIn} <![CDATA[<]]>
+				checkOut and checkOut <![CDATA[<=]]>
+				#{checkOut}))
 			</if>
 			<!-- 수정시 count 쿼리 동일 수정 -->
 			<!-- 어메니티, 가격, 비활성화 재고 -->
@@ -97,7 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectRoomsListCount"
 		parameterType="java.util.HashMap" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM
-		`bnb`.`rooms`
+		rooms
 		<where>
 			<if test="rv.roomsId != 0">
 				roomsId = #{rv.roomsId}
@@ -136,9 +152,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				AND time_checkout like #{rv.time_checkout}
 			</if>
 			<if test="rv.price_weekend != 0">
-				AND price_weekdays <![CDATA[<]]>= #{rv.price_weekend}
+				AND price_weekdays <![CDATA[<=]]>
+				#{rv.price_weekend}
 				AND price_weekdays >= #{rv.price_weekdays}
-				AND price_weekend <![CDATA[<]]>= #{rv.price_weekend}
+				AND
+				price_weekend <![CDATA[<=]]>
+				#{rv.price_weekend}
 				AND price_weekend >= #{rv.price_weekdays}
 			</if>
 			<if test="rv.address != null">
@@ -146,6 +165,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="rv.disabled != 0">
 				AND disabled >= #{rv.disabled}
+			</if>
+			<if test="checkIn != null || checkOut != null">
+				AND rooms.roomsId NOT IN (SELECT
+				distinct roomsId
+				FROM
+				reservation
+				WHERE
+				(#{checkIn} <![CDATA[<=]]>
+				checkIn and checkIn <![CDATA[<]]>
+				#{checkOut}) OR
+				(#{checkIn} <![CDATA[<]]>
+				checkOut and checkOut <![CDATA[<=]]>
+				#{checkOut}))
 			</if>
 			<!-- 수정시 count 쿼리 동일 수정 -->
 			<!-- 어메니티, 가격, 비활성화 재고 -->
@@ -290,9 +322,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 	</select>
-<!-- 	
-	SELECT roomsId
-   FROM rooms r
-  WHERE r.roomsId NOT IN (select roomsId from reservation where checkIn >= '2018-11-15' and checkOut <= '2019-01-02' group by roomsId);
- -->
+	<!-- SELECT roomsId FROM rooms r WHERE r.roomsId NOT IN (select roomsId 
+		from reservation where checkIn >= '2018-11-15' and checkOut <= '2019-01-02' 
+		group by roomsId); -->
 </mapper>

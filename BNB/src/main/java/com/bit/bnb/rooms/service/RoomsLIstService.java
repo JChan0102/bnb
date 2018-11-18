@@ -27,6 +27,18 @@ public class RoomsLIstService {
 		return roomsDAO.selectRoomsList(map);
 	}
 
+	public List<RoomsVO> getRoomsList(RoomsVO rv, Paging paging, String checkIn, String checkOut) {
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		map.put("paging", paging);
+		map.put("rv", rv);
+		map.put("checkIn", checkIn);
+		map.put("checkOut", checkOut);
+
+		return roomsDAO.selectRoomsList(map);
+	}
+
 	public Paging getPaging(String tableName, int currentPageNo, int dataPerPage) {
 		Paging paging = new Paging(roomsDAO.totalCount(tableName), currentPageNo, dataPerPage);
 		paging.makePageing();
@@ -36,6 +48,17 @@ public class RoomsLIstService {
 	public Paging getRoomSearchPaging(RoomsVO rv, int currentPageNo, int dataPerPage) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("rv", rv);
+		Paging paging = new Paging(roomsDAO.selectRoomsListCount(map), currentPageNo, dataPerPage);
+		paging.makePageing();
+		return paging;
+	}
+
+	public Paging getRoomSearchPaging(RoomsVO rv, int currentPageNo, int dataPerPage, String checkIn, String checkOut) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rv", rv);
+		map.put("checkIn", checkIn);
+		map.put("checkOut", checkOut);
+
 		Paging paging = new Paging(roomsDAO.selectRoomsListCount(map), currentPageNo, dataPerPage);
 		paging.makePageing();
 		return paging;
