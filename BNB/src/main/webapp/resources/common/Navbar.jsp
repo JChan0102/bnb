@@ -378,7 +378,7 @@ $('#gLoginBtn').click(function(){
 			
 			 $.ajax({
 	              type : "POST",
-	              url : "googleLogin",
+	              url : "${pageContext.request.contextPath}/googleLogin",
 	              data : {"gId" : gMail},
 	              success : function(result) {
 	            	$('#loginHidden').empty();

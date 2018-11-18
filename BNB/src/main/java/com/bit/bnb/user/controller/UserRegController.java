@@ -107,8 +107,11 @@ public class UserRegController {
 		
 		if(resultCnt != 1) {
 			session.setAttribute("regFail", true);
-			System.out.println("gName: " + userVO.getUserName());
-			result = "redirect:/googleReg?gMail="+userVO.getUserId()+"&gName="+userVO.getUserName()+"&gPhoto="+userVO.getUserPhoto();
+			
+			// 이름이 한글로 들어오는 것을 위해 인코딩해서 파라미터값에 넣어준다
+			String gName = URLEncoder.encode(userVO.getUserName(), "utf-8");
+			
+			result = "redirect:/googleReg?gMail="+userVO.getUserId()+"&gName="+gName+"&gPhoto="+userVO.getUserPhoto();
 		} else {
 			session.removeAttribute("regFail");
 		}
