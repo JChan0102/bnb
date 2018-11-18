@@ -306,7 +306,7 @@ $('#btn-login').click(function loginModal() {
 
           $.ajax({
               type : "POST",
-              url : "login",
+              url : "${pageContext.request.contextPath}/login",
               data : {"userId" : userId,
             	  	  "userPw" : userPw,
             	  	  "rememberMe" : rememberMe},
