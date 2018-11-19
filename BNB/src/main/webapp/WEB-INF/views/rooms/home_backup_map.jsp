@@ -212,11 +212,11 @@
 			getRoomsList();
 		});
 		function searchRoomsList() {
+			updateMarkers(map, markers);
 			// 마커 모두 지우기
 			for (var i = 0; i < markers.length; i++) {
-		    	markers[i].setMap(null);
-		    }
-			minLat = 0, maxLat = 0, minLng = 0, maxLng = 0;
+		    	hideMarker(map, markers[i]);
+		    } 
 			// 네이버 지도 마커 초기화
 			markers = [];
 			// 숙소 리스트 카드 초기화
@@ -312,7 +312,7 @@
 									$('#page').val(-1);
 								}
 								$('#roomsList').html(output);
-
+								updateMarkers(map, markers);
 								// console.log(markers);
 								// console.log('--- ajax ---');
 							}
@@ -338,9 +338,6 @@
 	<script type="text/javascript"
 		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RjRRELdZtqF2DId12vbe&submodules=geocoder"></script>
 	<script>
-		// 지도 경계선을 위한 전역 변수 설정
-		var minLat = 0, maxLat = 0, minLng = 0, maxLng = 0;
-
 		// 지도 끄고 시작
 		$('#map').css('display', 'none');
 
@@ -378,35 +375,6 @@
 								var item = response.result.items[0], point = new naver.maps.Point(item.point.x, item.point.y);
 								var position = new naver.maps.LatLng(item.point.y, item.point.x);
 								
-								if (minLat == 0 &&  maxLat == 0 && minLng == 0 && maxLng == 0){
-									minLat = item.point.y;
-									maxLat = item.point.y;
-									minLng = item.point.x;
-									maxLng = item.point.x;
-								} else if (item.point.y < minLat){
-						    		minLat = item.point.y;
-						    	}
-						    	if (item.point.y > maxLat){
-						    		maxLat = item.point.y;
-						    	}
-						    	if (item.point.x < minLng){
-						    		minLng = item.point.x;
-						    	}
-						    	if (item.point.x > maxLng){
-						    		maxLng = item.point.x;
-						    	}
-						    	
-							    bounds = new naver.maps.LatLngBounds(
-						                new naver.maps.LatLng(minLat, minLng),
-						                new naver.maps.LatLng(maxLat, maxLng));
-							    map.fitBounds(bounds);
-							    
-							    // console.log(minLat);
-							    // console.log(minLng);
-							    // console.log(maxLat);
-							    // console.log(maxLng);
-							    // console.log(bounds);
-								
 								var marker = new naver.maps.Marker({
 							        map: map,
 							        position: position,
@@ -423,10 +391,72 @@
 								});
 								
 								markers.push(marker);
+								
 							});
 		}
 		// https://navermaps.github.io/maps.js/docs/tutorial-1-marker-simple.example.html
 		// https://navermaps.github.io/maps.js/docs/tutorial-marker-viewportevents.example.html
+
+
+
+		function updateMarkers(map, markers) {
+	
+			var minLat = 0, maxLat = 0, minLng = 0, maxLng = 0;
+			
+		    for (var i = 0; i < markers.length; i++) {
+		    	if (i==0) {
+		    		minLat = markers[i].getPosition().y;
+		    		maxLat = markers[i].getPosition().y;
+		    		minLng = markers[i].getPosition().x;
+		    		maxLng = markers[i].getPosition().x;
+		    	}
+		    	if (markers[i].getPosition().y < minLat){
+		    		minLat = markers[i].getPosition().y;
+		    	}
+		    	if (markers[i].getPosition().y > maxLat){
+		    		maxLat = markers[i].getPosition().y;
+		    	}
+		    	if (markers[i].getPosition().x < minLng){
+		    		minLng = markers[i].getPosition().x;
+		    	}
+		    	if (markers[i].getPosition().x > maxLng){
+		    		maxLng = markers[i].getPosition().x;
+		    	}		    	
+	    	
+		    	if (markers[i].setMap()) {
+		    		// 이미 그려진 마커들
+		    	} else {
+		    		markers[i].setMap(map);
+		    	}
+		    	
+		        marker = markers[i];
+		        position = markers[i].getPosition();
+
+		        showMarker(map, marker);
+		    }
+		    
+		    bounds = new naver.maps.LatLngBounds(
+	                new naver.maps.LatLng(minLat, minLng),
+	                new naver.maps.LatLng(maxLat, maxLng));
+		    map.fitBounds(bounds);
+		    console.log(minLat);
+		    console.log(minLng);
+		    console.log(maxLat);
+		    console.log(maxLng);
+		    console.log(bounds);
+		}
+	
+		function showMarker(map, marker) {
+	
+		    if (marker.setMap()) return;
+		    marker.setMap(map);
+		}
+	
+		function hideMarker(map, marker) {
+	
+		    if (!marker.setMap()) return;
+		    marker.setMap(null);
+		}
 	</script>
 </body>
 </html>
