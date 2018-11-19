@@ -7,7 +7,7 @@
 	<!-- 회원가입 이후 메일인증안내 -->
 	<c:if test="${mailConfirm ne null}">
 		<script>
-			alert("환영합니다!\n 가입시 입력하신 이메일로 인증메일이 발송되었습니다.\n 이메일을 확인해주세요. ");
+			alert("환영합니다!\n가입시 입력하신 이메일로 인증메일이 발송되었습니다.\n이메일을 확인해주세요. ");
 		</script>
 		<c:remove var="mailConfirm" scope="session" />
 	</c:if>
@@ -265,10 +265,8 @@
 								class="form-control-input" />
 							<button id="btn-login" class="btn btn-lg btn-danger btn-block"
 								type="button">로그인</button>
-							<br>
-							<!-- <div class="g-signin2" data-onsuccess="onSignIn"  style="width:auto;"></div> -->
 							<input type="button" id="gLoginBtn" value="Login With Google"
-								style="width: 100%; height: 47px;" />
+								class="btn-gLogin btn btn-lg btn-block" />
 						</div>
 						<div class="col-2"></div>
 					</div>
@@ -353,17 +351,14 @@
 		}
 	});
 
-	$('#btn-login')
-			.click(
-					function loginModal() {
+	$('#btn-login').click(function loginModal() {
 
 						var userId = $('#input_userId').val();
 						var userPw = $('#input_userPw').val();
 						var rememberMe = $('#chk_rememberMe').is(':checked');
 						var result = "";
 
-						$
-								.ajax({
+						$.ajax({
 									type : "POST",
 									url : "${pageContext.request.contextPath}/login",
 									data : {
