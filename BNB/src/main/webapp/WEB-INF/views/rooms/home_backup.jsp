@@ -60,7 +60,7 @@
 				<button class="btn btn-light col-12 dropdown-toggle" type="button"
 					id="dropdownMenu_availf" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">침대와 침실</button>
-				<div class="dropdown-menu" id="availf">
+				<div class="dropdown-menu" id="avail">
 					<span class="dropdown-item-text">침실</span> <span
 						class="dropdown-item-text"><input type="number"
 						class="form-control" value="0" min="0" max="100" step="1"
@@ -75,23 +75,26 @@
 						id="avail_bathroom" name="avail_bathroom"></span>
 				</div>
 			</div>
-			<input type="text" class="form-control mt-1 text-center" id="address"
-				name="address" placeholder="주소로 검색..">
+			
 			<%@ include file="searchCal.jsp"%>
-
+			
 			<div class="alert alert-secondary text-center mt-1 mb-0" role="alert"
 				id="amount"></div>
 			<div id="slider-range"></div>
 
-			<input type="hidden" id="price_weekdays" name="price_weekdays"
-				value="${min_price}"> <input type="hidden"
-				id="price_weekend" name="price_weekend" value="${max_price}">
+			<input type="hidden" class="form-control mt-1" id="address"
+				name="address" placeholder="주소로 검색.."> <input type="hidden"
+				id="price_weekdays" name="price_weekdays" value="${min_price}">
+			<input type="hidden" id="price_weekend" name="price_weekend"
+				value="${max_price}">
 
 			<script>
-				// $("#slider-range").slider("option", "values", [50,500]);
-				// https://stackoverflow.com/questions/8795431/how-do-i-dynamically-change-min-max-values-for-jquery-ui-slider
 				$(function() {
-					$("#slider-range").slider({
+					// $("#slider-range").slider("option", "values", [50,500]);
+					// https://stackoverflow.com/questions/8795431/how-do-i-dynamically-change-min-max-values-for-jquery-ui-slider
+
+					$("#slider-range").slider(
+									{
 										range : true,
 										min : ${min_price},
 										max : ${max_price},
@@ -125,9 +128,7 @@
 				$(document).on('click', '#avail', function(e) {
 					e.stopPropagation();
 				});
-				$(document).on('click', '#availf', function(e) {
-					e.stopPropagation();
-				});
+
 				// ajax 실시간 검색 처리 부분: 인원 + 시설 부분
 				$('input[name^=avail_]').change(
 						function() {
@@ -223,17 +224,8 @@
 			getRoomsList();
 		});
 		function searchRoomsList() {
-			// 마커 모두 지우기
-			for (var i = 0; i < markers.length; i++) {
-		    	hideMarker(map, markers[i]);
-		    } 
-			// 네이버 지도 마커 초기화
-			markers = [];
-			// 숙소 리스트 카드 초기화
 			output = '';
-			// 페이징의 페이지 정보 초기화
 			$('#page').val(1);
-			// 숙소 정보 가져오기
 			getRoomsList();
 		}
 		// 숙소 목록을 가져옴
@@ -257,8 +249,6 @@
 												'<tr><td class="border-top-0 text-center align-middle">해당하는 숙소가 없습니다 \' ㅅ\');;</td></tr>');
 							} else {
 								for (i = 0; i < data.roomsList.length; i++) {
-									addPoints(data.roomsList[i]);
-									
 									output += '<div class="col-md-3">';
 									output += '<div class="card mb-3 box-shadow">';
 									output += '<img class="card-img-top">';
@@ -322,9 +312,6 @@
 									$('#page').val(-1);
 								}
 								$('#roomsList').html(output);
-								updateMarkers(map, markers);
-								// console.log(markers);
-								// console.log('--- ajax ---');
 							}
 						},
 						error : function(error) {
@@ -366,77 +353,116 @@
 			mapTypeControl : true
 		});
 
+		var infoWindow = new naver.maps.InfoWindow({
+			borderWidth : 0,
+			backgroundColor : 'transparant',
+			anchorSize : {
+				width : 10,
+				height : 10
+			}
+		});
+
 		map.setCursor('pointer');
-		
-		var markers = [];
-		
-		function addPoints(obj) {
+
+		// search by tm128 coordinate
+		function searchCoordinateToAddress(latlng) {
+			var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlng);
+
+			infoWindow.close();
+
+			naver.maps.Service
+					.reverseGeocode(
+							{
+								location : tm128,
+								coordType : naver.maps.Service.CoordType.TM128
+							},
+							function(status, response) {
+								if (status === naver.maps.Service.Status.ERROR) {
+									$('#address').val('');
+									return alert('유효하지 않은 주소 입니다! 주소를 확인해 주세요.');
+								}
+
+								var items = response.result.items, htmlAddresses = [];
+
+								for (var i = 0, ii = items.length, item, addrType; i < ii; i++) {
+									item = items[i];
+
+									if (i == 0) {
+										addrType = item.isRoadAddress ? '[도로명주소]'
+												: '[지번주소]';
+
+										// htmlAddresses.push((i + 1) + '. ' + addrType+ ' ' + item.address);
+										htmlAddresses.push(addrType + ' '
+												+ item.address);
+										$('#address').val(item.address);
+									}
+								}
+
+								infoWindow
+										.setContent([
+												'<div class="alert alert-light border border-secondary map_info mb-0" role="alert">',
+												'<b>검색 좌표</b><br>',
+												htmlAddresses.join('<br>'),
+												'</div>' ].join('\n'));
+
+								infoWindow.open(map, latlng);
+							});
+		}
+
+		// result by latlng coordinate
+		function searchAddressToCoordinate(address) {
 			naver.maps.Service
 					.geocode(
 							{
-								address : obj.address
+								address : address
 							},
-							
 							function(status, response) {
 								if (status === naver.maps.Service.Status.ERROR) {
-									conlsole.log("유효하지 않은 주소 : " + address);
+									$('#address').val('');
+									return alert('유효하지 않은 주소 입니다! 주소를 확인해 주세요.');
 								}
 
-								var item = response.result.items[0], point = new naver.maps.Point(item.point.x, item.point.y);
-								var position = new naver.maps.LatLng(item.point.y, item.point.x);
-								
-								var marker = new naver.maps.Marker({
-							        map: map,
-							        position: position,
-							        icon: {
-							            content: [
-							            	'<div class="alert alert-light border border-secondary map_info pt-1 pl-1 pr-1 pb-1 balloon text-center" role="alert">',
-							            	'<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=', obj.roomsId,'&hostId=', obj.hostId, '">',
-							            	' \\', obj.price_weekdays.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","), ' - \\',
-											obj.price_weekend.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","), '</div>',
-							                    ].join(''),
-							            // size: new naver.maps.Size(200, 54),
-							            anchor: new naver.maps.Point(0, 30)
-							        },
-								});
-								
-								markers.push(marker);
-								
+								var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명주소]'
+										: '[지번주소]', point = new naver.maps.Point(
+										item.point.x, item.point.y);
+
+								$('#address').val(item.address);
+
+								infoWindow
+										.setContent([
+												'<div class="alert alert-light border border-secondary map_info mb-0" role="alert">',
+												'<b>검색 주소 : '
+														+ response.result.userquery
+														+ '</b><br>',
+												addrType + ' ' + item.address
+														+ '<br>', '</div>' ]
+												.join('\n'));
+
+								map.setCenter(point);
+								infoWindow.open(map, point);
 							});
 		}
-		// https://navermaps.github.io/maps.js/docs/tutorial-1-marker-simple.example.html
-		// https://navermaps.github.io/maps.js/docs/tutorial-marker-viewportevents.example.html
 
-		function updateMarkers(map, markers) {
-	
-		    var mapBounds = map.getBounds();
-		    var marker, position;
-	
-		    for (var i = 0; i < markers.length; i++) {
-		    	if (markers[i].setMap()) {
-		    		// 이미 그려진 마커들
-		    	} else {
-		    		markers[i].setMap(map);
-		    	}
-		    	
-		        marker = markers[i];
-		        position = markers[i].getPosition();
+		function initGeocoder() {
+			map.addListener('click', function(e) {
+				searchCoordinateToAddress(e.coord);
+			});
 
-		        showMarker(map, marker);
-		    } 
+			// 주소창에 enter 입력시
+			/* $('#address').on('keydown', function(e) {
+				var keyCode = e.which;
+				if (keyCode === 13) { // Enter Key
+					searchAddressToCoordinate($('#address').val());
+				}
+			});
+
+			// 주소창에 입력후 엔터를 입력하지 않았으나, 포커스를 벗어날  경우
+			$('#address').blur(function(e) {
+				searchAddressToCoordinate($('#address').val());
+			}); */
 		}
-	
-		function showMarker(map, marker) {
-	
-		    if (marker.setMap()) return;
-		    marker.setMap(map);
-		}
-	
-		function hideMarker(map, marker) {
-	
-		    if (!marker.setMap()) return;
-		    marker.setMap(null);
-		}
+
+		naver.maps.onJSContentLoaded = initGeocoder;
 	</script>
 </body>
 </html>
