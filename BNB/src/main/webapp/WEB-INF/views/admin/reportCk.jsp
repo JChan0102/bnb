@@ -36,10 +36,10 @@
                 <td>
                     <c:choose>
                         <c:when test="${list.reportCk eq 'F'}">
-                            <a href="${pageContext.request.contextPath}/adminpage/report/comfirm?reservationNum=${list.reservationNum}">
+                            <a href="${pageContext.request.contextPath}/adminpage/report/comfirm?reservationNum=${list.reservationNum}&reportCk=T">
                                 <button class="btn btn-danger">승인</button>
                             </a>
-                            <a href="${pageContext.request.contextPath}/adminpage/report/nope?reservationNum=${list.reservationNum}">
+                            <a href="${pageContext.request.contextPath}/adminpage/report/comfirm?reservationNum=${list.reservationNum}&reportCk=B">
                                 <button class="btn btn-warning">보류</button>
                             </a>
                         </c:when>

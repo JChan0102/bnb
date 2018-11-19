@@ -30,4 +30,16 @@ public int totalCount(){
 public void ckupdate(ReportVO vo){
     sqlSessionTemplate.update(namespace+"ckupdate",vo);
 }
+
+public ReportVO getHostId(ReportVO vo){
+return sqlSessionTemplate.selectOne(namespace+"getHostId",vo);
+}
+public int hostGetReportCk(ReportVO vo){
+    return sqlSessionTemplate.selectOne(namespace+"hostGetReportCk",vo);
+
+}
+public int roomDisabled(String hostId){
+    return sqlSessionTemplate.update(namespace+"roomDisabled",hostId);
+}
+
 }

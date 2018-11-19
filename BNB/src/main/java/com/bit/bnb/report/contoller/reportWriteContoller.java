@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class reportWriteContoller {
 
@@ -30,14 +32,10 @@ public class reportWriteContoller {
     public void reviewInsert(ReportVO vo) {
         service.insertt(vo);
     }
-    @RequestMapping(value = "/adminpage/report/nope", method = RequestMethod.GET)
-    @ResponseBody
-    public void nopeReport(ReportVO vo){
-        vo.setReportCk("B");
-    }
     @RequestMapping(value = "/adminpage/report/comfirm", method = RequestMethod.GET)
-    @ResponseBody
-    public void comfirmReport(ReportVO vo){
-        vo.setReportCk("T");
+    public String comfirmReport(ReportVO vo, HttpServletRequest request){
+        service.ckupdate(vo);
+        String str = request.getContextPath();
+        return "redirect:"+str+"/adminpage/report?page=1";
     }
 }

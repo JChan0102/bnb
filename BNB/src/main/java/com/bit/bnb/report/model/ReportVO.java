@@ -6,6 +6,16 @@ public class ReportVO {
     private String reportCk;
     private int totalCount;
 
+    private String hostId;
+
+    public String getHostId() {
+        return hostId;
+    }
+
+    public void setHostId(String hostId) {
+        this.hostId = hostId;
+    }
+
     public int getTotalCount() {
         return totalCount;
     }
@@ -40,10 +50,12 @@ public class ReportVO {
 
     @Override
     public String toString() {
-        return "reportVO{" +
+        return "ReportVO{" +
                 "reservationNum=" + reservationNum +
                 ", reportContent='" + reportContent + '\'' +
                 ", reportCk='" + reportCk + '\'' +
+                ", totalCount=" + totalCount +
+                ", hostId='" + hostId + '\'' +
                 '}';
     }
 }
