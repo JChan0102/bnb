@@ -49,8 +49,20 @@ SET
 WHERE `userId` = #{hostId}
 </update>
 
+<select id="withdraw" resultType="com.bit.bnb.user.model.UserVO">
+	SELECT * FROM bnb.user WHERE `userId` = #{userId} and host = 1
+</select>
 
 
+<update id="withdrawDo">
+UPDATE `bnb`.`user`
+SET
+
+`point` = point - #{price}
+
+WHERE `userId` = #{userId}
+
+</update>
 
 
 

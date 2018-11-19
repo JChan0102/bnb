@@ -17,10 +17,10 @@ import com.bit.bnb.user.model.UserVO;
 public class RoomsDAO {
 
 	@Autowired
-	private SqlSessionTemplate sqlSessionTemplate;
+	private SqlSessionTemplate sqlSessionTemplate;	
 
 	private String mapperPath = "mappers.RoomsMapper.";
-
+	
 	public int insertRooms(RoomsVO rv) {
 		return sqlSessionTemplate.update(mapperPath + "insertRooms", rv);
 	}
@@ -77,4 +77,5 @@ public class RoomsDAO {
 	public List<UserVO> selectRoomsHost(UserVO uv) {
 		return sqlSessionTemplate.selectList(mapperPath + "selectRoomsHost", uv);
 	}
+
 }

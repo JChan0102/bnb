@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mypage</title>
+<title>History</title>
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
 <body style="background-color: #EEEEEE;">

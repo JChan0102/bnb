@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="/resources/common/includeHead.jsp"%>
-
 </head>
 <body>
 	<script type="text/javascript">
@@ -26,21 +25,23 @@
 		});
 	</script>
 	<script>
-		$(document)
-				.ready(
-						function() {
-							$('#wishBtn')
-									.click(
+		$(document).ready(function() {
+							$('#wishBtn').click(
 											function() {
-												var roomsId = $('#roomsId')
-														.val();
-												var url = '${pageContext.request.contextPath}/wishIn?roomsId='
-														+ roomsId;
+												var roomsId = $('#roomsId').val();
+												var url = '${pageContext.request.contextPath}/wishIn?roomsId=' + roomsId;
 												$.ajax({
-													url : url,
-													success : $('.wishIn')
-															.toggle()
-												});
+															url : url,
+															success : function(response) {
+																if (response == 1) {
+																	$('#wishIcon').attr("src",
+																					"${pageContext.request.contextPath}/resources/images/full.png");
+																} else {
+																	$('#wishIcon').attr("src",
+																					"${pageContext.request.contextPath}/resources/images/empty.png");
+																}
+															}
+														});
 											});
 						});
 	</script>
@@ -52,6 +53,21 @@
 		<div class="col-md-7">
 			<h1>
 				<b>숙소 보기</b>
+				<button style="border: none; background-color: white; float: right; outline: 0;" id="wishBtn">
+					<c:choose>
+						<c:when test="${0 eq wish}">
+							<img id="wishIcon"
+								src="${pageContext.request.contextPath}/resources/images/empty.png"
+								style="width: 45px;padding-bottom: 5px;">
+						</c:when>
+						<c:when test="${2 eq wish}"></c:when>
+						<c:otherwise>
+							<img id="wishIcon"
+								src="${pageContext.request.contextPath}/resources/images/full.png"
+								style="width: 45px;padding-bottom: 5px;">
+						</c:otherwise>
+					</c:choose>
+				</button>
 			</h1>
 			<form method="post">
 				<table class="table">
@@ -142,13 +158,14 @@
 					<tr>
 						<td colspan="2"><div class="alert alert-secondary"
 								role="alert">
-								이 숙소의 후기 
+								이 숙소의 후기
 								<c:forEach items="${reviewSummary}" var="reviewSummary">
 									<c:if test="${selectedRoom.roomsId eq reviewSummary.roomsId}">
 										<small class="text-muted"> <c:forEach begin="1"
 												end="${reviewSummary.avgScope}" step="1">★</c:forEach> <fmt:formatNumber
 												value="${reviewSummary.avgScope}" pattern="0.0" />
-											(${reviewSummary.reviewCount})</small>
+											(${reviewSummary.reviewCount})
+										</small>
 									</c:if>
 								</c:forEach>
 							</div>
@@ -162,11 +179,21 @@
 							value="${selectedRoom.disabled}"> <a
 							href="${pageContext.request.contextPath}/chat/sendmessage?roomsId=${selectedRoom.roomsId}&hostId=${selectedRoom.hostId}"><input
 								type="button" class="btn btn-danger ml-1 mr-1" value="문의하기"></a>
-							<button type="button" class="btn btn-danger ml-1 mr-1"
-								id="wishBtn">
-								<span class="wishIn">즐겨찾기추가</span><span class="wishIn"
-									style="display: none;">즐겨찾기해제</span>
-							</button></td>
+							<%-- <c:choose>
+								<c:when test="${0 eq wish}">
+									<button type="button" class="btn btn-danger ml-1 mr-1"
+										id="wishBtn">
+										<span class="wishIn">즐겨찾기추가</span>
+									</button>
+								</c:when>
+								<c:when test="${2 eq wish}"></c:when>
+								<c:otherwise>
+									<button type="button" class="btn btn-danger ml-1 mr-1"
+										id="wishBtn">
+										<span class="wishIn">즐겨찾기해제</span>
+									</button>
+								</c:otherwise>
+							</c:choose> --%></td>
 					</tr>
 				</table>
 			</form>
