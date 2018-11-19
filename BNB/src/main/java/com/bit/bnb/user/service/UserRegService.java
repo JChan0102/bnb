@@ -84,8 +84,14 @@ public class UserRegService {
 				// 생년월일을 합친다
 				String birth = userVO.getYear()+"-"+userVO.getMonth()+"-"+userVO.getDay();
 				
-				// 생년월일이 유효한지 검사해서 유효하지 않으면 리턴 0
-				if(!dateCheckService.dateCheck(birth)) {
+				int year = Integer.parseInt(userVO.getYear());
+				int month = Integer.parseInt(userVO.getMonth());
+				int day = Integer.parseInt(userVO.getDay());
+				
+				int age = dateCheckService.getAge(year, month, day);
+				
+				// 생년월일이 유효한지 검사해서 유효하지 않으면 OR 만나이 18세 미만일 경우 리턴 0 
+				if(!dateCheckService.dateCheck(birth) || age<18) {
 					session.setAttribute("InvalidBirth", "InvalidBirth");
 					System.out.println("생년월일의 상태가...???");
 					return 0;
@@ -116,15 +122,16 @@ public class UserRegService {
 				// 인서트 시도
 				resultCnt = userDao.insertUser(userVO);
 				
-				// 인서트가 성공적으로 되었으면 세션 생성(메일인증안내)
+				// 인서트가 성공적으로 되었으면 인증메일 발송하고 세션 생성(메일인증안내)
 				if(resultCnt == 1) {
+					mailSendWithUserKey(userVO.getUserId(), userVO.getUserName(), userVO.getUserKey());
+					
 					if (session.getAttribute("mailConfirm") != null) {
 						session.removeAttribute("mailConfirm");
 					}
 					session.setAttribute("mailConfirm", "mailConfirm");
 				}
 				
-				mailSendWithUserKey(userVO.getUserId(), userVO.getUserName(), userVO.getUserKey());
 			
 			// 아이디 중복이면 가입실패
 			} else { 
@@ -250,8 +257,14 @@ public class UserRegService {
 				// 생년월일을 합친다
 				String birth = userVO.getYear()+"-"+userVO.getMonth()+"-"+userVO.getDay();
 				
-				// 생년월일이 유효한지 검사해서 유효하지 않으면 리턴 0
-				if(!dateCheckService.dateCheck(birth)) {
+				int year = Integer.parseInt(userVO.getYear());
+				int month = Integer.parseInt(userVO.getMonth());
+				int day = Integer.parseInt(userVO.getDay());
+				
+				int age = dateCheckService.getAge(year, month, day);
+				
+				// 생년월일이 유효한지 검사해서 유효하지 않으면 OR 만나이 18세 미만일 경우 리턴 0 
+				if(!dateCheckService.dateCheck(birth) || age<18) {
 					session.setAttribute("InvalidBirth", "InvalidBirth");
 					System.out.println("생년월일의 상태가...???");
 					return 0;
