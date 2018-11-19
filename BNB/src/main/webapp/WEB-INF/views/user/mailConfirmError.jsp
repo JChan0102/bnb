@@ -17,7 +17,7 @@
 	<%@ include file="/resources/common/includeHead.jsp"%>
 	<%@ include file="/resources/common/Navbar.jsp"%>
 
-<h1>이미 메일인증이 되었습니다. 로그인 해주세요</h1>
+<h1>잘못된 접근입니다.</h1>
 <h2><a href="${pageContext.request.contextPath}/">BITBNB 홈페이지 가기</a></h2>
 
 	
