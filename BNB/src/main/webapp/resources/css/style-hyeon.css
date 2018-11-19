@@ -79,3 +79,7 @@
 .hyeon-right{
 	float: right;
 }
+
+#gLoginBtn{
+	width: 100%; height: 47px
+}
