@@ -593,7 +593,7 @@
 			<div class="wrap">
 				<%--${loginUser.userPhoto}로 바껴야함--%>
 				<img id="profile-img"
-					src="${pageContext.request.contextPath}/resources/images/userphoto/nopic.jpg"
+					src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/${loginUser.userPhoto}"
 					class="online" alt="" />
 				<p>${loginUser.userName}</p>
 			</div>
@@ -685,7 +685,7 @@
 		//photo로 바껴야함
 		$('#con')
 				.attr('src',
-						'${pageContext.request.contextPath}/resources/images/userphoto/nopic.jpg');
+						'http://13.209.99.134:8080/imgserver/resources/img/userphoto/'+photo);
 		$('#conname').text(name);
 		$('.messages ul').text('');
 		messagehostId = hostId;//고정값이여야함
@@ -722,7 +722,7 @@
 																		+ value.messagecontent);
 											} else {
 												$(
-														'<li class="sent"><img src="'+ '${pageContext.request.contextPath}/resources/images/userphoto/nopic.jpg' +'" alt="" /><p>'
+														'<li class="sent"><img src="'+ 'http://13.209.99.134:8080/imgserver/resources/img/userphoto/'+value.hostPhoto +'" alt="" /><p>'
 																+ value.messagecontent
 																+ '</p></li>')
 														.appendTo(
@@ -802,7 +802,7 @@
 				} else {
 					//$('#con').attr('src')로 수정해야댐
 					$(
-							'<li class="sent"><img src="${pageContext.request.contextPath}/resources/images/userphoto/nopic.jpg" alt="" /><p>'
+							'<li class="sent"><img src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/'+obj.hostPhoto+'" alt="" /><p>'
 									+ obj.messagecontent + '</p></li>')
 							.appendTo($('.messages ul'));
 					//  $('<li>' + getTimeStamp(obj.messageDate) + '</li>').appendTo($('.messages ul'));

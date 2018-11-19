@@ -9,7 +9,7 @@
 <%@ include file="/resources/common/includeHead.jsp"%>
 
 </head>
-<body style="background-color: #EEEEEE; overflow-x: hidden">
+<body style=" overflow-x: hidden">
 	<%@ include file="/resources/common/Navbar.jsp"%>
 
 
@@ -286,7 +286,7 @@
 																function(key,
 																		value) {
 																	str1 += '<div class="col-12 row justify-content-center">'
-																			+ '<div class="col-md-1"  style="margin-bottom: 30px;"><img width="80px" src="${pageContext.request.contextPath}/resources/images/userphoto/nopic.jpg"></div>'
+																			+ '<div class="col-md-1"  style="margin-bottom: 30px;"><img width="80px" src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/'+value.userPhoto+'"></div>'
 																			+ '<div class="col-md-7">'
 																			+ value.checkIn
 																					.substr(
@@ -320,7 +320,7 @@
 																function(key,
 																		value) {
 																	str2 += '<div class="col-12 row justify-content-center">'
-																			+ '<div class="col-md-1"  style="margin-bottom: 30px;"><img width="80px" src="${pageContext.request.contextPath}/resources/images/userphoto/nopic.jpg"></div>'
+																			+ '<div class="col-md-1"  style="margin-bottom: 30px;"><img width="80px" src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/'+value.userPhoto+'"></div>'
 																			+ '<div class="col-md-7"><p>['
 																			+ value.reservationNum
 																			+ '] '
