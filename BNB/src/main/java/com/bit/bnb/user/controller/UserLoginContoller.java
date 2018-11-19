@@ -62,6 +62,7 @@ public class UserLoginContoller {
 			// 2. 아이디와 패스워드가 일치하고 메일인증 완료된 경우 - 로그인 처리(+쿠키생성) : loginSuccess
 			// 3. 아이디와 패스워드는 일치하지만 메일인증이 안된경우 - 메일인증요청 : userKeyConfirm
 			// 4. 아이디로 셀렉되는 로우가 없거나 패스워드가 일치하지 않는 경우 - 아이디와 패스워드 확인요청 : loginFail
+			// 5. 이미 탈퇴한 회원의 아이디 - disabled가 0인경우 : disabled
 
 			if (result.equals("loginSuccess")) {
 

@@ -320,15 +320,17 @@ $('#btn-login').click(function loginModal() {
             	  $('#loginHidden').empty();
                 if (result == 'loginFail') {
           			$('#loginHidden').css("display","");
-          			$('#loginHidden').append("아이디와 비밀번호를 확인하세요");
+          			$('#loginHidden').append("아이디와 비밀번호를 확인하세요.");
                   } else if (result == 'userKeyConfirm'){
                 	$('#loginHidden').css("display","");
             		$('#loginHidden').append("인증되지 않은 회원입니다. 이메일을 확인해주세요.");
                   } else if(result == 'google') {
                 	$('#loginHidden').css("display","");
               		$('#loginHidden').append("구글을 통해 만든 계정이 이미 있습니다.<br> 구글로 로그인하세요.");
+                  } else if(result == 'disabled') {
+                	$('#loginHidden').css("display","");
+              		$('#loginHidden').append("이미 탈퇴처리된 계정입니다.");
                   } else if(result == 'loginSuccess'){
-                	  
                 	  var uri = '${pageContext.request.requestURI}';
                 	  if(uri == '/bnb/WEB-INF/views/user/userRegForm.jsp'){
                 		  location.href = '${pageContext.request.contextPath}/';
