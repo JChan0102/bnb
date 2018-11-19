@@ -181,8 +181,8 @@ input::-moz-placeholder {
 					},
 					onClose : function(selected) {
 						var year = Number(selected.substring(0, 4));
-						var month = Number(selected.substring(6, 8)) - 1;
-						var date = Number(selected.substring(10, 12)) + 1;
+						var month = Number(selected.substring(5, 7)) - 1;
+						var date = Number(selected.substring(8, 10)) + 1;
 
 						$("#checkOut").datepicker("option",
 								"minDate", new Date(year, month, date));
