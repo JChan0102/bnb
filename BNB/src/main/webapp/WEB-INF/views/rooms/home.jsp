@@ -109,11 +109,7 @@
 										}
 									});
 
-					$("#amount").html(
-							"\\"
-									+ $("#slider-range").slider("values", 0)
-											.toString().replace(
-													/\B(?=(\d{3})+(?!\d))/g,
+					$("#amount").html("\\" + $("#slider-range").slider("values", 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g,
 													",")
 									+ " - \\"
 									+ $("#slider-range").slider("values", 1)
@@ -121,13 +117,7 @@
 													/\B(?=(\d{3})+(?!\d))/g,
 													","));
 				});
-				// 드롭다운 메뉴의 유지 처리
-				$(document).on('click', '#avail', function(e) {
-					e.stopPropagation();
-				});
-				$(document).on('click', '#availf', function(e) {
-					e.stopPropagation();
-				});
+
 				// ajax 실시간 검색 처리 부분: 인원 + 시설 부분
 				$('input[name^=avail_]').change(
 						function() {
@@ -208,7 +198,20 @@
 		// 전역변수 
 		var output = '';
 
+		// 드롭다운 메뉴의 유지 처리
+		$('#avail').on('click', function(event){
+		    // The event won't be propagated up to the document NODE and 
+		    // therefore delegated events won't be fired
+		    event.stopPropagation();
+		});
+		$('#availf').on('click', function(event){
+		    // The event won't be propagated up to the document NODE and 
+		    // therefore delegated events won't be fired
+		    event.stopPropagation();
+		});
+		
 		$(document).ready(function() {
+
 			getRoomsList();
 		});
 		function searchRoomsList() {
