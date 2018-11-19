@@ -42,7 +42,7 @@ public class ReservationController {
 		check = service.reservationDo(info);
 		if(check == 1) {
 			noti.mailSendHtml(info.getUserId(), info);
-			depositService.deposit(info);
+			depositService.deposit(info); 
 			modelAndView.addObject("info", info);
 		}
 		modelAndView.setViewName("reservation/reservationCheck");
