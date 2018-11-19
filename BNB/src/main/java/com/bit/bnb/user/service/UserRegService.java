@@ -116,10 +116,18 @@ public class UserRegService {
 				// 인서트 시도
 				resultCnt = userDao.insertUser(userVO);
 				
-				mailSendWithUserKey(userVO.getUserId(), userVO.getUserName(), userVO.getUserKey());
+				// 인서트가 성공적으로 되었으면 세션 생성(메일인증안내)
+				if(resultCnt == 1) {
+					if (session.getAttribute("mailConfirm") != null) {
+						session.removeAttribute("mailConfirm");
+					}
+					session.setAttribute("mailConfirm", "mailConfirm");
+				}
 				
+				mailSendWithUserKey(userVO.getUserId(), userVO.getUserName(), userVO.getUserKey());
+			
 			// 아이디 중복이면 가입실패
-			} else {
+			} else { 
 				resultCnt = 0;
 			}
 		// 입력시 빠진 항목이 있으면 가입실패
@@ -138,6 +146,8 @@ public class UserRegService {
 		
 		if(user == null) {
 			userIdChk = "y";
+		} else if(user != null && user.getDisabled() == 0) {
+			userIdChk = "d";
 		}
 		
 		return userIdChk;

@@ -4,6 +4,11 @@
 
 <header>
 
+	<!-- 회원가입 이후 메일인증안내 -->
+	<c:if test="${mailConfirm ne null}">
+		<script>alert("환영합니다!\n 가입시 입력하신 이메일로 인증메일이 발송되었습니다.\n 이메일을 확인해주세요. ");</script>
+		<c:remove var="mailConfirm" scope="session"/>
+	</c:if>
 
 	<!-- https://work.smarchal.com/twbscolor/css/e74c3cc0392becf0f1ffbbbc0 -->
 	<!--  -->

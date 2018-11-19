@@ -40,7 +40,8 @@
 				
 					<form method="post" enctype="multipart/form-data">
 					
-						<input type="email" id="inputUserId" name="userId" class="form-control hyeon-reg-input" placeholder="이메일 주소" />
+						<span style="font-size: 11px">인증메일이 발송되오니 확인 가능한 이메일 주소를 입력 바랍니다.</span>
+						<input type="email" id="inputUserId" name="userId" class="form-control hyeon-reg-input" style="margin-top: 5px;" placeholder="이메일 주소" />
 						<div id="alertId" class="regAlert" style="display:none; color: #dc3545;"></div >
 						<input type="hidden" id="fail-id" name="fail-id" />
 						<input type="password" id="userPw-1" name="userPw" class="form-control hyeon-reg-input" placeholder="비밀번호 설정" />
@@ -202,11 +203,15 @@
 				url: "userIdChk",
 				data: {"userId" : userId},
 				success: function(data){
-					if(data == "n"){
+					if(data == "n") {
 						$('#alertId').empty();
 						$('#alertId').css("display","");
 						$('#alertId').append("중복된 아이디입니다.");
-					}else{
+					} else if(data == "d"){
+						$('#alertId').empty();
+						$('#alertId').css("display","");
+						$('#alertId').append("이미 탈퇴처리된 아이디는 사용이 불가합니다.");
+					} else if(data == "y"){
 						$('#alertId').empty();
 						$('#alertId').css("display","none");
 					}
