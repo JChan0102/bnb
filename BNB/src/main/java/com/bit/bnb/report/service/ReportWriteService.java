@@ -8,11 +8,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReportWriteService {
 
-@Autowired
+    @Autowired
     private ReportDao dao;
 
-public void insertt(ReportVO vo){
+    public void insertt(ReportVO vo) {
 
-    dao.insert(vo);
-}
+        dao.insert(vo);
+    }
+
+    public void ckupdate(ReportVO vo) {
+        dao.ckupdate(vo);
+    }
 }

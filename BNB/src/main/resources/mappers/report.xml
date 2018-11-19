@@ -5,7 +5,6 @@
     <select id="notckreportList" parameterType="int" resultType="com.bit.bnb.report.model.ReportVO">
         select *
         from report
-        where reportCk = 'F'
         order by reservationNum
         limit #{firstRow},10;
 
@@ -18,10 +17,11 @@
 
     <select id="totalCount" resultType="int">
         select count(*)
-        from report
-        where reportCk = 'F';
+        from report;
     </select>
     <update id="ckupdate" parameterType="com.bit.bnb.report.model.ReportVO">
         update report SET reportCk=#{reportCk} where reservationNum=#{reservationNum}
     </update>
+
+
 </mapper>

@@ -30,4 +30,14 @@ public class reportWriteContoller {
     public void reviewInsert(ReportVO vo) {
         service.insertt(vo);
     }
+    @RequestMapping(value = "/adminpage/report/nope", method = RequestMethod.GET)
+    @ResponseBody
+    public void nopeReport(ReportVO vo){
+        vo.setReportCk("B");
+    }
+    @RequestMapping(value = "/adminpage/report/comfirm", method = RequestMethod.GET)
+    @ResponseBody
+    public void comfirmReport(ReportVO vo){
+        vo.setReportCk("T");
+    }
 }

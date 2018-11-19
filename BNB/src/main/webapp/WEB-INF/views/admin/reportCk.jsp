@@ -34,12 +34,22 @@
                         ${list.reportContent}
                 </td>
                 <td>
-                    <a href="${pageContext.request.contextPath}/adminpage/report/comfirm?reservationNum=${list.reservationNum}">
-                        <button class="btn btn-danger">승인</button>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/adminpage/report/nope?reservationNum=${list.reservationNum}">
-                        <button class="btn btn-warning">보류</button>
-                    </a>
+                    <c:choose>
+                        <c:when test="${list.reportCk eq 'F'}">
+                            <a href="${pageContext.request.contextPath}/adminpage/report/comfirm?reservationNum=${list.reservationNum}">
+                                <button class="btn btn-danger">승인</button>
+                            </a>
+                            <a href="${pageContext.request.contextPath}/adminpage/report/nope?reservationNum=${list.reservationNum}">
+                                <button class="btn btn-warning">보류</button>
+                            </a>
+                        </c:when>
+                        <c:when test="${list.reportCk eq 'T'}">
+                            승인됨
+                        </c:when>
+                        <c:otherwise>
+                            보류됨
+                        </c:otherwise>
+                    </c:choose>
                 </td>
             </tr>
         </c:forEach>
