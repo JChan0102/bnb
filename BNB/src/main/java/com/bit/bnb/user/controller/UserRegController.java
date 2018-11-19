@@ -62,12 +62,12 @@ public class UserRegController {
 		return modelAndView;
 	}
 	
+	// 아이디 중복검사
 	@RequestMapping("/userIdChk")
 	@ResponseBody
 	public String userIdChk(@RequestParam("userId") String userId) {
-		System.out.println("체크컨트롤러진입");
 		String userIdChk = userRegService.getUserIdChk(userId);
-		System.out.println(userIdChk);
+		System.out.println("사용할수 있는 아이디? : " + userIdChk);
 		return userIdChk;
 	}
 	
@@ -77,9 +77,15 @@ public class UserRegController {
 	public String userKeyConfirm(@RequestParam("userId") String userId, 
 								 @RequestParam("userKey") String userKey) {
 		
-		userRegService.userConfirm(userId, userKey);
+		String result = "redirect:/";
+		
+		int resultCnt = userRegService.userConfirm(userId, userKey);
+		
+		if(resultCnt != 1) {
+			result = "redirect:/user/mailConfirmError";
+		}
 
-		return "redirect:/";
+		return result;
 	}
 	
 	
@@ -117,5 +123,11 @@ public class UserRegController {
 		}
 		
 		return result;
+	}
+	
+	
+	@RequestMapping("/user/mailConfirmError")
+	public String mailConfirmError() {
+		return "user/mailConfirmError";
 	}
 }

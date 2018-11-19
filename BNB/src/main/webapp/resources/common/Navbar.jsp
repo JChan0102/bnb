@@ -323,7 +323,13 @@ $('#btn-login').click(function loginModal() {
                 	$('#loginHidden').css("display","");
               		$('#loginHidden').append("구글을 통해 만든 계정이 이미 있습니다.<br> 구글로 로그인하세요.");
                   } else if(result == 'loginSuccess'){
-                      location.href = '${pageContext.request.contextPath}/';
+                	  
+                	  var uri = '${pageContext.request.requestURI}';
+                	  if(uri == '/bnb/WEB-INF/views/user/userRegForm.jsp'){
+                		  location.href = '${pageContext.request.contextPath}/';
+                	  }else{
+	                      window.history.go(0);
+                	  }
                   }
               }
           })

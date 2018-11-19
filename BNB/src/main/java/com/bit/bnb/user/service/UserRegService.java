@@ -129,7 +129,7 @@ public class UserRegService {
 		return resultCnt;
 	}
 	
-	
+	// 아이디 중복검사
 	@Transactional
 	public String getUserIdChk(String userId) {
 		user = userDao.selectUser(userId);
@@ -168,7 +168,7 @@ public class UserRegService {
 	}
 	
 	
-	// 메일 확인된 유저 인증 서비스
+	// 인증메일 확인
 	@Transactional
 	public int userConfirm(String userId, String userKey) {
 		
@@ -177,10 +177,18 @@ public class UserRegService {
 		
 		user = userDao.selectUser(userId);
 		
-		if(user != null && user.getUserKey().equals(userKey)) {
+		// 이미 인증된 회원이면 ( 유저키가 y )
+		if(user != null && user.getUserKey().equals("y")) {
+			result = 0;
+		} else if (user != null && user.getUserKey().equals(userKey)) {
+			// 인증키 업데이트 쿼리
+			result = userDao.updateUserKey(userId);
+		}
+
+		/*if(user != null && user.getUserKey().equals(userKey)) {
 				// 인증키 업데이트 쿼리
 				result = userDao.updateUserKey(userId);
-		}
+		}*/
 		
 		return result;
 	}
