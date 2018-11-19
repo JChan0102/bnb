@@ -20,7 +20,7 @@
 				<div class="col-sm-5 profile_left">
 					<div id="profile_photo">
 						<img
-							src="${pageContext.request.contextPath}/resources/images/userphoto/이제훈.jpg"
+							src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/${user.userPhoto}"
 							style="width: 100%; object-fit: contain;" class="rounded">
 					</div>
 					<br>

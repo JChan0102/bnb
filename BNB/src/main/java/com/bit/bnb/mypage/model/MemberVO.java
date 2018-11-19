@@ -8,7 +8,7 @@ public class MemberVO {
 	private String userName; // 유저이름
 	private String userPw; // 유저비밀번호
 	private String userPhoto; // DB에 저장될 사진 이름
-	private MultipartFile userPhotoFile; // 실제파일
+	private MultipartFile photoFile; // 실제파일
 	private int host; // 호스트여부
 	private int admin; // 관리자 여부
 	private int userCheck; // 본인확인여부
@@ -32,9 +32,6 @@ public class MemberVO {
 		return userPhoto;
 	}
 
-	public MultipartFile getUserPhotoFile() {
-		return userPhotoFile;
-	}
 
 	public int getHost() {
 		return host;
@@ -76,8 +73,12 @@ public class MemberVO {
 		this.userPhoto = userPhoto;
 	}
 
-	public void setUserPhotoFile(MultipartFile userPhotoFile) {
-		this.userPhotoFile = userPhotoFile;
+	public MultipartFile getPhotoFile() {
+		return photoFile;
+	}
+
+	public void setPhotoFile(MultipartFile photoFile) {
+		this.photoFile = photoFile;
 	}
 
 	public void setHost(int host) {
@@ -106,9 +107,18 @@ public class MemberVO {
 
 	@Override
 	public String toString() {
-		return "MemberVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userPhoto="
-				+ userPhoto + ", userPhotoFile=" + userPhotoFile + ", host=" + host + ", admin=" + admin
-				+ ", userCheck=" + userCheck + ", point=" + point + ", birth=" + birth + ", userInfo=" + userInfo + "]";
+		return "MemberVO{" +
+				"userId='" + userId + '\'' +
+				", userName='" + userName + '\'' +
+				", userPw='" + userPw + '\'' +
+				", userPhoto='" + userPhoto + '\'' +
+				", photoFile=" + photoFile +
+				", host=" + host +
+				", admin=" + admin +
+				", userCheck=" + userCheck +
+				", point=" + point +
+				", birth='" + birth + '\'' +
+				", userInfo='" + userInfo + '\'' +
+				'}';
 	}
-
 }

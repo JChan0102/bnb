@@ -59,7 +59,6 @@
     <ul class="pagination">
         <c:forEach begin="1" end="${totalPage}" var="i">
             <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/adminpage/report?page=${i}">${i}</a></li>
-
         </c:forEach>
 
     </ul>

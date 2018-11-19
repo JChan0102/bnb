@@ -17,7 +17,7 @@
 				<i class="fas fa-user-edit"></i> PROFILE EDIT
 			</h1>
 			<div id="editForm_wrap">
-				<form method="post" enctype="multipart/form-data">
+				<form method="post" id ="modiform" enctype="multipart/form-data">
 					<!-- 아이디 -->
 					<div class="form-group row">
 						<label for="staticEmail" class="col-sm-2 col-form-label">ID</label>
@@ -76,16 +76,38 @@
 					</div>
 					<!-- 사진업로드 -->
 					<div class="custom-file">
-						<input type="file" class="custom-file-input" id="customFile" name="userPhotoFile">
-						<input type="hidden" name="before" value="${member.userPhoto}">
+						<input type="file" class="custom-file-input" id="customFile" name="photoFile">
+						<input type="hidden" id ="before" name="before" value="${member.userPhoto}">
+						<input type="hidden" id="userPhoto" name="userPhoto">
 						<label class="custom-file-label" for="customFile">파일을 선택하세요.</label>
 					</div>
 					<br><br>
 					<div id="editButton">
-					<button type="submit" class="btn btn-outline-secondary">수정하기</button>
+					<button id = "uploadbutton" class="btn btn-outline-secondary">수정하기</button>
 					<button type="reset" class="btn btn-outline-danger" onclick="javascript:history.back();">취소</button>
 					</div>
 				</form>
+				<script>
+                    $(function(){
+                        $("#uploadbutton").click(function(){
+                            var form = $('#modiform')[0];
+                            var formData = new FormData(form);
+                            $.ajax({
+                                url: 'http://13.209.99.134:8080/imgserver/upload/userPhoto',
+                                processData: false,
+                                contentType: false,
+                                datatype : 'JSON',
+                                data: formData,
+                                type: 'POST',
+                                success: function(result){
+                                    $('#userPhoto').val(''+result);
+                                    $('#modiform').submit();
+                                }
+                            });
+                        });
+                    })
+
+				</script>
 			</div>
 		</div>
 	</div>

@@ -22,12 +22,12 @@ public class ProfileEditService {
 	public int myUserUpdate(MemberVO member, HttpServletRequest request) throws IllegalStateException, IOException {
 		
 		mypageUserDao = sqlSessionTemplate.getMapper(MypageUserDao.class);
-		
+		/*
 		String uploadUri = "/resources/images/userphoto";
 
 		// uploadUri 경로의 시스템 경로
 		String dir = request.getSession().getServletContext().getRealPath(uploadUri);
-		
+
 		// DB 저장용 파일 이름, 물리적 저장할때의 이름
 		String imgName = "";
 
@@ -43,8 +43,12 @@ public class ProfileEditService {
 		} else {
 			imgName = request.getParameter("before");
 			member.setUserPhoto(imgName);
+		}*/
+		System.out.println(member.getUserPhoto().equals(""));
+		if(member.getUserPhoto().equals("")){
+			member.setUserPhoto(request.getParameter("before"));
 		}
-		
+		System.out.println(member.toString());
 		return mypageUserDao.userUpdate(member);
 	}
 	
