@@ -39,6 +39,11 @@
 			<beans:bean
 				class="com.bit.bnb.rooms.intercepter.HostCheckInterceptor" />
 		</interceptor>
+		<interceptor>
+			<mapping path="/chat/**" />
+			<beans:bean
+				class="com.bit.bnb.rooms.intercepter.LoginCheckInterceptor" />
+		</interceptor>
 	</interceptors>
 
 	<!-- file Upload -->
