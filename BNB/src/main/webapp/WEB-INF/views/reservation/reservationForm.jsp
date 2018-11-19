@@ -408,7 +408,7 @@
 
             
             function reservationDo(){
-
+            	
             	if(!$("#datepicker").val()) {
             	    alert("체크인체크해");
             	  }else
