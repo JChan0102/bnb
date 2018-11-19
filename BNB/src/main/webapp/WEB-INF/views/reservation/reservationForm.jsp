@@ -408,10 +408,7 @@
 
             
             function reservationDo(){
-            	if(!$("#userId").val()) {
-            		alert($("#userId").val());
-            	    alert("로그인해");
-            	  }else
+
             	if(!$("#datepicker").val()) {
             	    alert("체크인체크해");
             	  }else
@@ -448,7 +445,7 @@ else{
                     }
                	  
                 });
-            }
+            }  
             }
            
  
