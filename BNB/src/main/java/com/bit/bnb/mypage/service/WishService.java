@@ -30,7 +30,7 @@ public class WishService {
 		return wishDao.wishDelete(userId, roomsId);
 	}
 
-	public List<WishVO> wishSelect(String userId, int roomsId) { // 즐겨찾기 있는지확인
+	public int wishSelect(String userId, int roomsId) { // 즐겨찾기 있는지확인
 
 		wishDao = sqlSessionTemplate.getMapper(WishDao.class);
 		return wishDao.wishSelect(userId, roomsId);
@@ -54,10 +54,4 @@ public class WishService {
 		return wishDao.wishDivCnt(userId, address);
 	}
 	
-/*	public List<ReviewVO> wishReview(String userId) { // 방별 리뷰수ㅎ
-		
-		wishDao = sqlSessionTemplate.getMapper(WishDao.class);
-		return wishDao.wishReview(userId);
-	}
-*/
 }
