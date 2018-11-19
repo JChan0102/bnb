@@ -13,37 +13,67 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<!-- 즐겨찾기목록 -->
-	<select id="wishList" resultType="com.bit.bnb.mypage.model.WishVO">
-		select r.address, w.idx,
-		r.hostId, r.price_weekdays, r.price_weekend, left(r.details, 100) as details,
-		w.userId, w.roomsId from rooms r inner join wish w 
-		on r.roomsId = w.roomsId and w.userId = #{userId}
-		and address like CONCAT('%',#{address},'%')
+	<select id="wishList"
+		resultType="com.bit.bnb.mypage.model.WishVO">
+		<!-- select r.address, w.idx, r.hostId, r.price_weekdays, r.price_weekend, 
+			left(r.details, 100) as details, w.userId, w.roomsId from rooms r inner join 
+			wish w on r.roomsId = w.roomsId and w.userId = #{userId} and address like 
+			CONCAT('%',#{address},'%') -->
+		select ro.address, ro.roomsId, ro.hostId, ro.price_weekdays,
+		ro.price_weekend, w.userId, count(r2.reviewContent) reviewCount, avg(r2.scope) avgScope
+		from rooms ro left outer join wish w on ro.roomsId = w.roomsId left
+		outer join reservation r on ro.roomsId = r.roomsId
+		left outer join review r2 on r.reservationNum = r2.reservationNum
+		where w.userId=#{userId} and ro.address like CONCAT('%',#{address},'%')
+		group by ro.roomsId;
 	</select>
-	
+
 	<!-- div생성용 즐겨찾기 목록 -->
-	<select id="wishDivList" resultType="com.bit.bnb.mypage.model.WishVO">
-		select DISTINCT SUBSTRING_INDEX(r.address, ' ', 2) as address from rooms r inner join wish w 
-		on r.roomsId = w.roomsId and w.userId = #{userId}
+	<select id="wishDivList"
+		resultType="com.bit.bnb.mypage.model.WishVO">
+		select DISTINCT SUBSTRING_INDEX(r.address, ' ', 2) as
+		address from rooms r inner join wish w
+		on r.roomsId = w.roomsId and
+		w.userId = #{userId}
 	</select>
-	
+
 	<!-- div생성시 각 지역별 위시 개수찾기 -->
 	<select id="wishDivCnt" resultType="int">
-		select count(*) from rooms r inner join wish w 
+		select count(*) from rooms r
+		inner join wish w
 		on r.roomsId = w.roomsId and w.userId = #{userId}
-		and r.address like CONCAT('%',#{address},'%')
+		and
+		r.address like
+		CONCAT('%',#{address},'%')
 	</select>
 
 	<!-- 즐겨찾기해제 -->
 	<delete id="wishDelete">
-		delete from wish where userId=#{userId} 
-		and roomsId = #{roomsId}
+		delete from wish where userId=#{userId}
+		and roomsId =
+		#{roomsId}
 	</delete>
-	
+
 	<!-- 즐겨찾기있는지 확인 -->
-	<select id="wishSelect" resultType="com.bit.bnb.mypage.model.WishVO">
+	<select id="wishSelect"
+		resultType="com.bit.bnb.mypage.model.WishVO">
 		select * from wish where userId=#{userId}
-		and roomsId = #{roomsId}
+		and roomsId =
+		#{roomsId}
 	</select>
-	
+
+	<!-- 위시리스트 각 방별 리뷰 -->
+	<!-- <select id="wishReview"
+		resultType="com.bit.bnb.mypage.model.WishVO">
+		SELECT count(*) reviewCount, avg(scope) avgScope,
+		rs.roomsId
+		FROM review rv
+		INNER
+		JOIN reservation rs ON
+		rv.reservationNum =
+		rs.reservationNum
+		where userId=#{userId}
+		group by rs.roomsId;
+	</select> -->
+
 </mapper>

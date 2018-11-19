@@ -17,13 +17,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<!-- 유저정보픽 -->
-	<select id="userPick" resultType="com.bit.bnb.mypage.model.MemberVO">
+	<select id="userPick"
+		resultType="com.bit.bnb.mypage.model.MemberVO">
 		select * from user
 		where userId=#{userId}
 	</select>
 
 	<!-- 유저탈퇴 -->
-	<delete id="userDelete">
-		delete from user where userId = #{userId}
-	</delete>
+	<update id="userDelete">
+		update user set disabled = false where
+		userId=#{userId}
+	</update>
 </mapper>

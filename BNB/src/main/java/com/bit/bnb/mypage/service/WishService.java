@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.bnb.mypage.dao.WishDao;
+import com.bit.bnb.mypage.model.ReviewVO;
 import com.bit.bnb.mypage.model.WishVO;
 
 @Service
@@ -35,7 +36,7 @@ public class WishService {
 		return wishDao.wishSelect(userId, roomsId);
 	}
 
-	public List<WishVO> wishList(String userId, String address) { // 지역별로나뉜 목록
+	public List<WishVO> wishList(String userId, String address) { // 지역별로나뉜 목록 + 리뷰수/리뷰평균
 
 		wishDao = sqlSessionTemplate.getMapper(WishDao.class);
 		return wishDao.wishList(userId, address);
@@ -52,5 +53,11 @@ public class WishService {
 		wishDao = sqlSessionTemplate.getMapper(WishDao.class);
 		return wishDao.wishDivCnt(userId, address);
 	}
-
+	
+/*	public List<ReviewVO> wishReview(String userId) { // 방별 리뷰수ㅎ
+		
+		wishDao = sqlSessionTemplate.getMapper(WishDao.class);
+		return wishDao.wishReview(userId);
+	}
+*/
 }

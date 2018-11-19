@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,25 +20,42 @@
 			<h1 style="text-align: center; padding: 10px; font-weight: 800;">
 				<i class="far fa-grin-hearts"></i> WISH LIST
 			</h1>
-			<div class="row" style="height: 600px;/* width: 900px; */ margin: 0 auto;">
+			<div class="row"
+				style="height: 600px; /* width: 900px; */ margin: 0 auto;">
 				<div class="col-6" style="overflow: scroll">
-					<h2 style="font-weight: 600; text-align: center;"><i class="fas fa-map-marker-alt" style="color:red;"></i>&ensp;${address}</h2>
-					<br>
+					<h2 style="font-weight: 600; text-align: center;">
+						<i class="fas fa-map-marker-alt" style="color: red;"></i>&ensp;${address}
+					</h2><br>
 					<c:forEach var="wl" items="${wishList}">
+							<c:set var="priceAvg" value="${wl.price_weekdays + wl.price_weekend / 2}" />
+						<fmt:formatNumber type="int" var="price"
+							value="${priceAvg}" pattern="#,###" />
 						<div class="card" style="margin-bottom: 20px;">
 							<img class="card-img-top"
 								src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
 								alt="Card image cap">
 							<div class="card-body">
-								<h6 class="card-title">
+								<h5 class="card-title">
 									<b>${wl.hostId}</b>님의 숙소
-								</h6>
-								<p class="card-text price" id="price">￦ ${wl.price_weekdays}
-									~ ${wl.price_weekend} /박</p>
-								<p class="card-text">리뷰평균(리뷰수)</p>
-								<a
+								</h5>
+								<span class="card-text" id="price">￦ ${price} / 박</span>
+								<c:choose>
+									<c:when test="${0 ne wl.reviewCount and 0 ne wl.avgScope}">
+										<span class="card-text"> 
+										<c:forEach var="scope" begin="1" end="${wl.avgScope}">
+												<i class="fas fa-star fa-sm" style="color:#FF5A5F;"></i>
+											</c:forEach>(${wl.reviewCount})
+										</span>
+									</c:when>
+									<c:otherwise>
+										<span class="card-text"><i class="fas fa-exclamation-circle" style="color:red;"></i> 작성된 후기가 없습니다.</span>
+									</c:otherwise>
+								</c:choose>
+								<br>
+								<br> <a
 									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${wl.roomsId}"
-									class="btn" style="background-color: #FF5A5F; color:white; float:right;">보러가기</a>
+									class="btn"
+									style="background-color: #FF5A5F; color: white; float: right;">보러가기</a>
 							</div>
 							<input type="hidden" value="${wl.address}" id="de_add"
 								class="de_add" name="address">
@@ -49,9 +66,9 @@
 			</div>
 			<br>
 			<div class="text-center">
-			<button onclick="javascript:history.back();"
-				class="btn btn-outline-secondary" style="margin: 10px;">목록으로</button>
-				</div>
+				<button onclick="javascript:history.back();"
+					class="btn btn-outline-secondary" style="margin: 10px;">목록으로</button>
+			</div>
 			<br>
 		</div>
 	</div>
@@ -97,13 +114,11 @@
 									marker.setMap(map);
 
 									// 마커에 마우스오버 이벤트를 등록합니다
-									daum.maps.event
-											.addListener(marker, 'mouseover',
-													function() {
-														// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-														infowindow.open(map,
-																marker);
-													});
+									daum.maps.event.addListener(marker,
+											'mouseover', function() {
+												// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+												infowindow.open(map, marker);
+											});
 
 									// 마커에 마우스아웃 이벤트를 등록합니다
 									daum.maps.event.addListener(marker,
@@ -112,14 +127,14 @@
 												infowindow.close();
 											});
 
-									 var iwContent = '<div style="font-size:11px; text-align:center;">'+result[0].address_name+'</div>';
+									var iwContent = '<div style="font-size:11px; text-align:center;">'
+											+ result[0].address_name + '</div>';
 
 									// 인포윈도우를 생성합니다
 									var infowindow = new daum.maps.InfoWindow({
 										position : coords,
 										content : iwContent
 									});
-
 
 									// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 									map.setCenter(coords);
