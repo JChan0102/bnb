@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="UTF-8">
 <title>방 예약하기</title>
-<link rel="stylesheet" href="resources/css/style-umki.css">
+
 <!-- 결제 시작 -->
 <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>  -->
 <script type="text/javascript"
@@ -31,9 +32,9 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body class="umkibody">
-    <div class="wrapperr">
+    <div class="wrapperr">     
     <div id="show">
-   	<div id="showpri"><i class="fas fa-won-sign"></i> ${selectedRoom.price_weekdays}</div>
+   	<div id="showpri"><i class="fas fa-won-sign"></i> <fmt:formatNumber value="${selectedRoom.price_weekdays}" pattern="\###,###,###" /></div>
    	<div id="showbak">/박</div>
    	</div>
         <form action="${pageContext.request.contextPath}/reservation" method="post" id="fr">
@@ -398,7 +399,7 @@
                     	if(checkIn1.getFullYear()>=now.getFullYear() && checkOut1.getFullYear()>=now.getFullYear() ){
                     		/* $("#price").text(${selectedRoom.price_weekdays} +" X "+count+" 입니다."); */  
                     		$("#total").text("합계");
-                    		$("#price").html('<i class="fas fa-won-sign"></i> '+ data);          
+                    		$("#price").html('<i class="fas fa-won-sign"></i> '+ data.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","));          
                     		$("#totalPrice").val(data);
                         	pri = data;
                     	}     
