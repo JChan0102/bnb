@@ -108,6 +108,7 @@ input::-moz-placeholder {
 	text-decoration: none !important;
 }
 
+
 /* past days */
 .ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover {
 	cursor: auto !important;

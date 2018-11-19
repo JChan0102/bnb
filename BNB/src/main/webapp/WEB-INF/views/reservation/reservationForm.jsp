@@ -34,7 +34,7 @@
 <body class="umkibody">
     <div class="wrapperr">     
     <div id="show">
-   	<div id="showpri"><i class="fas fa-won-sign"></i> <fmt:formatNumber value="${selectedRoom.price_weekdays}" pattern="\###,###,###" /></div>
+   	<div id="showpri"><i class="fas fa-won-sign"></i> <fmt:formatNumber value="${selectedRoom.price_weekdays}" pattern="###,###,###" /></div>
    	<div id="showbak">/박</div>
    	</div>
         <form action="${pageContext.request.contextPath}/reservation" method="post" id="fr">
@@ -65,9 +65,7 @@
                     <div class="do" style="cursor: pointer;" onclick="reservationDo()">예약하기</div>
                 </c:when>
                 <c:otherwise>
-                      
-                    <div class="do" data-target="#layerpop" data-toggle="modal" style="cursor: pointer;">로그인</div>  
-
+                    <div class="do" data-target="#layerpop" data-toggle="modal" style="cursor: pointer;">로그인</div>
                 </c:otherwise>
             </c:choose>
             <!-- <input type="submit" value="예약하기"/> -->
@@ -450,7 +448,7 @@ else{
                     }
                	  
                 });
-            }  
+            }
             }
            
  

@@ -42,6 +42,13 @@ TO_DAYS(#{checkOut})-TO_DAYS(#{checkIn})
 	reservation a join rooms b on b.roomsId=#{roomsId} limit 0,1;
 </select>
 
+<update id="deposit">
+	UPDATE `bnb`.`user`
+SET
+`point` = #{price} + point
+WHERE `userId` = #{hostId}
+</update>
+
 
 
 

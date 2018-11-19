@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.reservation.model.ReservationInfo;
+import com.bit.bnb.reservation.service.ReservationDepositService;
 import com.bit.bnb.reservation.service.ReservationDoService;
 import com.bit.bnb.reservation.service.SimpleRegistrationNotifier;
 import com.bit.bnb.rooms.model.RoomsVO;
@@ -21,6 +22,9 @@ public class ReservationController {
 	RoomViewService roomViewService;
 	@Autowired
 	SimpleRegistrationNotifier noti;
+	@Autowired
+	ReservationDepositService depositService;
+	
 	int check = 0;
 	
 	@RequestMapping(value = "/reservation", method = RequestMethod.GET)
@@ -38,6 +42,7 @@ public class ReservationController {
 		check = service.reservationDo(info);
 		if(check == 1) {
 			noti.mailSendHtml(info.getUserId(), info);
+			depositService.deposit(info);
 			modelAndView.addObject("info", info);
 		}
 		modelAndView.setViewName("reservation/reservationCheck");
