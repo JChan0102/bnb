@@ -63,9 +63,49 @@
 						<fmt:formatNumber type="int" var="price" value="${priceAvg}"
 							pattern="#,###" />
 						<div class="card" style="margin-bottom: 20px;">
-							<img class="card-img-top"
+
+							<div id="demo" class="carousel slide" data-ride="carousel" data-interval="false">
+
+								<!-- Indicators -->
+								<ul class="carousel-indicators">
+									<li data-target="#demo" data-slide-to="0" class="active"></li>
+									<li data-target="#demo" data-slide-to="1"></li>
+									<li data-target="#demo" data-slide-to="2"></li>
+								</ul>
+
+								<!-- The slideshow -->
+								<div class="carousel-inner"
+									style="max-width: 100%; max-height: 300px; overflow: hidden;">
+									<div class="carousel-item active">
+										<img
+											src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
+											alt="Los Angeles" style="width: 100%; object-fit: contain;">
+									</div>
+									<div class="carousel-item">
+										<img
+											src="${pageContext.request.contextPath}/resources/images/userphoto/이제훈.jpg"
+											alt="Chicago" style="width: 100%; object-fit: contain;">
+									</div>
+									<div class="carousel-item">
+										<img
+											src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
+											alt="New York" style="width: 100%; object-fit: contain;">
+									</div>
+								</div>
+
+								<!-- Left and right controls -->
+								<a class="carousel-control-prev" href="#demo" data-slide="prev">
+									<span class="carousel-control-prev-icon"></span>
+								</a> <a class="carousel-control-next" href="#demo" data-slide="next">
+									<span class="carousel-control-next-icon"></span>
+								</a>
+							</div>
+
+							<%-- <img class="card-img-top"
 								src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
-								alt="Card image cap">
+								alt="Card image cap"> --%>
+
+
 							<div class="card-body">
 								<h5 class="card-title">
 									<b>${wl.hostId}</b>님의 숙소
