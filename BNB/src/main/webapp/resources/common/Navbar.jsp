@@ -266,7 +266,7 @@
 							<button id="btn-login" class="btn btn-lg btn-danger btn-block"
 								type="button">로그인</button>
 							<input type="button" id="gLoginBtn" value="Login With Google"
-								class="btn-gLogin btn btn-lg btn-block" />
+								class="btn-gLogin btn btn-lg btn-block" ></input>
 						</div>
 						<div class="col-2"></div>
 					</div>
@@ -318,13 +318,11 @@
 
 <!-- 로그인 관련 스크립트 -->
 <script>
+	
+	// 쿠키 여부에 따라서 아이디 인풋박스 비워줄지 쿠키값 넣어줄지
 	$('#login-go').click(function() {
 
 		var userCookie = '${cookieUserId}';
-
-		/* if(${cookie.cookieUserId eq null}){
-			$('#input_userId').val("");
-		} */
 
 		if (userCookie == null) {
 			$('#input_userId').val("");
@@ -334,7 +332,9 @@
 		$('#loginHidden').css("display", "none");
 
 	});
-
+	
+	
+	// 로그인 모달창 열때 아이디나 비밀번호 인풋박스에 포커스
 	$('#layerpop').on('shown.bs.modal', function() {
 
 		if ($('#input_userId').val() == null) {
@@ -344,6 +344,7 @@
 		}
 	});
 
+	// 패스워드 입력후 엔터키로 로그인
 	$('#input_userPw').keypress(function(event) {
 		if (event.which == 13) {
 			$('#btn-login').click();
@@ -351,56 +352,48 @@
 		}
 	});
 
+	// 
 	$('#btn-login').click(function loginModal() {
 
-						var userId = $('#input_userId').val();
-						var userPw = $('#input_userPw').val();
-						var rememberMe = $('#chk_rememberMe').is(':checked');
-						var result = "";
+		var userId = $('#input_userId').val();
+		var userPw = $('#input_userPw').val();
+		var rememberMe = $('#chk_rememberMe').is(':checked');
+		var result = "";
 
-						$.ajax({
-									type : "POST",
-									url : "${pageContext.request.contextPath}/login",
-									data : {
-										"userId" : userId,
-										"userPw" : userPw,
-										"rememberMe" : rememberMe
-									},
-									success : function(result) {
-										$('#loginHidden').empty();
-										if (result == 'loginFail') {
-											$('#loginHidden')
-													.css("display", "");
-											$('#loginHidden').append(
-													"아이디와 비밀번호를 확인하세요.");
-										} else if (result == 'userKeyConfirm') {
-											$('#loginHidden')
-													.css("display", "");
-											$('#loginHidden')
-													.append(
-															"인증되지 않은 회원입니다. 이메일을 확인해주세요.");
-										} else if (result == 'google') {
-											$('#loginHidden')
-													.css("display", "");
-											$('#loginHidden')
-													.append(
-															"구글을 통해 만든 계정이 이미 있습니다.<br> 구글로 로그인하세요.");
-										} else if (result == 'disabled') {
-											$('#loginHidden')
-													.css("display", "");
-											$('#loginHidden').append(
-													"이미 탈퇴처리된 계정입니다.");
-										} else if (result == 'loginSuccess') {
-											var uri = '${pageContext.request.requestURI}';
-											if (uri == '/bnb/WEB-INF/views/user/userRegForm.jsp') {
-												location.href = '${pageContext.request.contextPath}/';
-											} else {
-												window.history.go(0);
-											}
-										}
-									}
-								})
-					});
+		$.ajax({
+			type : "POST",
+			url : "${pageContext.request.contextPath}/login",
+			data : {
+					 "userId" : userId,
+		  			 "userPw" : userPw,
+					 "rememberMe" : rememberMe
+					},
+			success : function(result) {
+				$('#loginHidden').empty();
+									
+				if (result == 'loginFail') {
+					$('#loginHidden').css("display", "");
+					$('#loginHidden').append("아이디와 비밀번호를 확인하세요.");
+				} else if (result == 'userKeyConfirm') {
+					$('#loginHidden').css("display", "");
+					$('#loginHidden').append("인증되지 않은 회원입니다. 이메일을 확인해주세요.");
+				} else if (result == 'google') {
+					$('#loginHidden').css("display", "");
+					$('#loginHidden').append("구글을 통해 만든 계정이 이미 있습니다.<br> 구글로 로그인하세요.");
+				} else if (result == 'disabled') {
+					$('#loginHidden').css("display", "");
+					$('#loginHidden').append("이미 탈퇴처리된 계정입니다.");
+				} else if (result == 'loginSuccess') {
+					var uri = '${pageContext.request.requestURI}';
+					if (uri == '/bnb/WEB-INF/views/user/userRegForm.jsp') {
+						location.href = '${pageContext.request.contextPath}/';
+					} else {
+						window.history.go(0);
+					}
+				}
+			}
+		})
+	});
 
 	/*
 	 // 구글 로그인 상태 체크
@@ -421,117 +414,76 @@
 	// auth2.0 초기화 / 버튼설정
 	function init() {
 		console.log('init');
-		gapi
-				.load(
-						'auth2',
-						function() {
-							console.log('auth2');
-							window.gauth = gapi.auth2
-									.init({
-										client_id : '173449746481-er69j4j9c3d2im90aprllmfr7jcpcs71.apps.googleusercontent.com'
-									})
-							gauth.then(function() {
-								console.log('googleAuth Success');
+		gapi.load('auth2', function() {
+			console.log('auth2');
+			window.gauth = gapi.auth2.init({
+					client_id : '173449746481-er69j4j9c3d2im90aprllmfr7jcpcs71.apps.googleusercontent.com'
+							})
+			gauth.then(function() {
+				console.log('googleAuth Success');
 								/* chkGLoginStatus(); */
-							}, function() {
-								console.log('googleAuth Fail');
-							});
-						});
+			}, function() {
+				console.log('googleAuth Fail');
+			});
+		});
 	}
 
-	$('#gLoginBtn')
-			.click(
-					function() {
+	$('#gLoginBtn').click(function() {
 
-						// if(this.value == 'Login With Google'){
-						gauth
-								.signIn()
-								.then(
-										function() {
-											console.log('구글로그인 성공');
-											/* chkGLoginStatus(); */
+		// if(this.value == 'Login With Google'){
+		gauth.signIn().then(function() {
+			console.log('구글로그인 성공');
+			/* chkGLoginStatus(); */
 
-											var profile = gauth.currentUser
-													.get().getBasicProfile();
-											var gMail = profile.getEmail();
-											var gName = profile.getName();
-											var gPhoto = profile.getImageUrl();
+			var profile = gauth.currentUser.get().getBasicProfile();
+			var gMail = profile.getEmail();
+			var gName = profile.getName();
+			var gPhoto = profile.getImageUrl();
 
-											$
-													.ajax({
-														type : "POST",
-														url : "${pageContext.request.contextPath}/googleLogin",
-														data : {
-															"gId" : gMail
-														},
-														success : function(
-																result) {
-															$('#loginHidden')
-																	.empty();
-															console
-																	.log('구글로그인 ajax 결과 : '
-																			+ result);
-															if (result == 'googleLoginSuccess') { // 구글아이디로 로그인 성공할경우
+			$.ajax({
+				type : "POST",
+				url : "${pageContext.request.contextPath}/googleLogin",
+				data : {
+					"gId" : gMail
+					},
+				success : function(result) {
+					$('#loginHidden').empty();
+					console.log('구글로그인 ajax 결과 : ' + result);
+					if (result == 'googleLoginSuccess') { // 구글아이디로 로그인 성공할경우
+						console.log('가입된 회원. 구글로그인 완료');
+						// 메인화면가기
+						location.href = '${pageContext.request.contextPath}/';
 
-																console
-																		.log('가입된 회원. 구글로그인 완료');
-																// 메인화면가기
-																location.href = '${pageContext.request.contextPath}/';
+					} else if (result == 'notGoogleUser') { // 이미 동일아이디로 일반계정이 존재할경우
+						// 일반계정으로 로그인 요청
+						$('#loginHidden').css("display", "");
+						$('#loginHidden').append("일반 게정으로 가입되어 있습니다. 로그인해주세요.");
 
-															} else if (result == 'notGoogleUser') { // 이미 동일아이디로 일반계정이 존재할경우
+					} else if (result == 'googleUserReg') { // 해당계정이 없는경우
+						alert('로그인하신 구글 로그인 계정은 존재하지 않습니다. 회원 가입 하세요.');
+						// 구글계정용 회원가입폼 띄워주기
+						//location.href = '${pageContext.request.contextPath}/googleReg?gMail='+gMail;
+						$('#layerpop').modal('hide');
+						$('#regchoicelayerpop').modal();
+						$('#btn-regEmail').click(function() {
+							location.href = '${pageContext.request.contextPath}/userReg';
+						});
 
-																// 일반계정으로 로그인 요청
-																$(
-																		'#loginHidden')
-																		.css(
-																				"display",
-																				"");
-																$(
-																		'#loginHidden')
-																		.append(
-																				"일반 게정으로 가입되어 있습니다. 로그인해주세요.");
-
-															} else if (result == 'googleUserReg') { // 해당계정이 없는경우
-
-																alert('로그인하신 구글 로그인 계정은 존재하지 않습니다. 회원 가입 하세요.');
-																// 구글계정용 회원가입폼 띄워주기
-																//location.href = '${pageContext.request.contextPath}/googleReg?gMail='+gMail;
-																$('#layerpop')
-																		.modal(
-																				'hide');
-																$(
-																		'#regchoicelayerpop')
-																		.modal();
-
-																$(
-																		'#btn-regEmail')
-																		.click(
-																				function() {
-																					location.href = '${pageContext.request.contextPath}/userReg';
-																				});
-
-																$(
-																		'#btn-regGoogle')
-																		.click(
-																				function() {
-																					location.href = '${pageContext.request.contextPath}/googleReg?gMail='
-																							+ gMail
-																							+ '&gName='
-																							+ gName
-																							+ '&gPhoto='
-																							+ gPhoto;
-																				});
-															}
-														}
-													});
-										});
+						$('#btn-regGoogle').click(function() {
+							location.href = '${pageContext.request.contextPath}/googleReg?gMail='
+							+ gMail + '&gName=' + gName + '&gPhoto=' + gPhoto;
+						});
+					}
+				}
+			});
+		});
 						/* } else {
 							gauth.signOut().then(function(){
 								console.log('gauth.signOut()');
 								 chkGLoginStatus(); 
 							});
 						} */
-					});
+	});
 
 	/* function onSignIn(googleUser) {
 	 var profile = googleUser.getBasicProfile();
