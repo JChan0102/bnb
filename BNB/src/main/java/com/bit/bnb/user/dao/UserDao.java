@@ -1,6 +1,7 @@
 package com.bit.bnb.user.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class UserDao {
 	}
 	
 	public int updateUserPw(HashMap<String, String> map) {
-		return sqlSessionTemplate.update(userMapperPath+".updateUserKeySearchPw", map);
+		return sqlSessionTemplate.update(userMapperPath+".updateUserPw", map);
 	}
 
 }

@@ -622,13 +622,13 @@ $('#searchPwLinkSending').click(function(){
 				$('#forgetHidden').css("display", "");
 				$('#forgetHidden').append("존재하지 않는 계정입니다.");
 			} else if (result == 'mailSendForPw') { // 메일전송완료시
-				alert('입력하신 이메일로 비밀번호 재설정 링크를 전송하였습니다').
+				alert('입력하신 이메일로 비밀번호 재설정 링크를 전송하였습니다');
 				location.href = '${pageContext.request.contextPath}/';
 			} else if (result == 'mailSendForPwFail') { // 메일전송 실패시
 				alert('메일 전송에 실패하였습니다. 재시도 하시거나 관리자에게 문의 주세요.');
-			} else if (result == 'userConfirm') { // 인증되지 않은 회원인 경우
-				alert('아직 본인 메일 인증이 되지 않았습니다. 메일을 확인해주세요.');
-			}
+			} /* else if (result == 'userConfirm') { // 인증되지 않은 회원인 경우
+				alert('아직 본인 메일 인증이 되지 않았거나 이미 재설정 링크가 전송되었습니다. 메일을 확인해주세요.');
+			} */
 		}
 	});
 });

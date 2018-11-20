@@ -19,8 +19,8 @@
 		update user set userKey='y' where userId=#{userId}
 	</update>
 	
-	<update id="updateUserKeySearchPw" parameterType="HashMap">
-		update user set userKey=#{userKey} where userId=#{userId}
+	<update id="updateUserKeySearchPw" parameterType="java.util.HashMap">
+		update user set userKey=#{param1} where userId=#{param2}
 	</update>
 	
 	<update id="updateUserPw" parameterType="HashMap">

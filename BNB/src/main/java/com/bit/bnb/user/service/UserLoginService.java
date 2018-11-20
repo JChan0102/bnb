@@ -153,13 +153,21 @@ public class UserLoginService {
 
 		// 계정이 존재하면 유저키를 확인 - y나 g인지
 		if (user != null) {
-			if (user.getUserKey().equals("y") || user.getUserKey().equals("g")) {
+			//if (user.getUserKey().equals("y") || user.getUserKey().equals("g")) {
 
 				// 우선 유저키를 난수로 바꾼다
 				String userKey = getRandomStringService.getRandomString();
+				
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put(userKey, userId);
+				
+				map.put("param1", userKey);
+				map.put("param2", userId);
+				
+				System.out.println("유저로그인서비스 - 맵: " + map);
+				
 				int resultCnt = userDao.updateUserKeySearchPw(map);
+				
+				System.out.println("쿼리결과 : " + resultCnt);
 				
 				// 그리고 메일발송
 				if(resultCnt == 1) {
@@ -170,11 +178,11 @@ public class UserLoginService {
 					
 					result = "mailSendForPwFail";
 				}
-			} else {
+			}/* else {
 				// 인증되지 않은 회원이면 인증부터 진행해달라고 요청해야함
 				result = "userConfirm";
 			}
-		}
+		}*/
 		return result;
 	}
 	
