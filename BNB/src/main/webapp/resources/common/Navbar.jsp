@@ -51,7 +51,7 @@
 				<c:if test="${loginUser ne null}">
 					<c:choose>
 						<c:when test="${loginUser.host eq 0}">
-							<li class="nav-item"><a class="nav-link text-dark" href="#">호스팅
+							<li class="nav-item"><a class="nav-link text-dark" href="${pageContext.request.contextPath}/hostapplication">호스팅
 									시작하기</a></li>
 						</c:when>
 						<c:otherwise>
