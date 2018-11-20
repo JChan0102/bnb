@@ -55,7 +55,7 @@
 									룸 번호 ( ${room.roomsId} ) <span
 										class="badge badge-pill badge-primary">${room.reservationCount}</span>
 								</div>
-								<div class="dis" style="display: none"
+								<div class="dis row" style="display: none"
 									id="myroom${room.roomsId}"></div>
 							</c:forEach>
 
@@ -97,7 +97,7 @@
 																		date
 																				.setMonth(date
 																						.getMonth() - 1);
-																		str += '<img style="width:30px; height:30px" src="${pageContext.request.contextPath}/resources/images/userphoto/nopic.jpg" alt="" />'
+																		str += '<img style="width:30px; height:30px" src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/'+value.userPhoto+'" alt="" />'
 																				+ value.userName
 																				+ '('
 																				+ value.userId
