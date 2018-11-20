@@ -67,38 +67,8 @@ function sendFileToCloudVision (content) {
     data: JSON.stringify(request),
     contentType: 'application/json'
   }).fail(function (jqXHR, textStatus, errorThrown) {
-    $('#results').text('ERRORS: ' + textStatus + ' ' + errorThrown);
+    $('#results').text('신분증 사진을 올려주세요.: ' + textStatus + ' ' + errorThrown);
   }).done(displayJSON);
 }
 
-/**
- * Displays the results.
- */
-function displayJSON (data) {
-//  var contents = JSON.stringify(data, null, 4);
-//  $('#results').text(contents);
-//  var evt = new Event('results-displayed');
-//  evt.results = contents.description;
-	$('#results').text('');
-  var str = data.responses[0].fullTextAnnotation.text;
-  var trimStr = str.replace(/ /gi, ""); // 모든 공백을 제거
-  var temp = '950717';
-  
-  $.ajax({
-	  async: false,
-      url: '${pageContext.request.contextPath}/textDetection',
-      type: 'GET',
-      datatype: 'json',
-      data: {
-          "userId": "${loginUser.userId}"
-      },
-      success: function(data) {
-    	  console.log(data);
-      }
-  });
 
-  console.log(trimStr);  
-  console.log(trimStr.indexOf(temp));
-
-//  document.dispatchEvent(evt);
-}
