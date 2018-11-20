@@ -84,18 +84,18 @@ function displayJSON (data) {
   var trimStr = str.replace(/ /gi, ""); // 모든 공백을 제거
   var temp = '950717';
   
-//  $.ajax({
-//	  async: false,
-//      url: '${pageContext.request.contextPath}/textDetection',
-//      type: 'GET',
-//      datatype: 'json',
-//      data: {
-//          "userId": "${loginUser.userId}"
-//      },
-//      success: function(data) {
-//      
-//      }
-//  });
+  $.ajax({
+	  async: false,
+      url: '${pageContext.request.contextPath}/textDetection',
+      type: 'GET',
+      datatype: 'json',
+      data: {
+          "userId": "${loginUser.userId}"
+      },
+      success: function(data) {
+    	  console.log(data);
+      }
+  });
 
   console.log(trimStr);  
   console.log(trimStr.indexOf(temp));

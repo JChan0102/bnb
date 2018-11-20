@@ -13,9 +13,15 @@ public class TextDetectionService {
 	SqlSessionTemplate sqlSessionTemplate;
 	TextDetectionDao dao;
 	UserVO user = null;
-	
-	public UserVO textDetection() {
+
+	public UserVO checkInfo(String userId) {
 		dao = sqlSessionTemplate.getMapper(TextDetectionDao.class);
+		
+		try {
+			user = dao.checkInfo(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return user;
 	}
