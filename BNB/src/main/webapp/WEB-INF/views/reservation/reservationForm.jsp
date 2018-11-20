@@ -245,7 +245,8 @@
                         yearSuffix: "년"
                     })
 
-                    $("#datepicker").datepicker({
+                    $("#datepicker")
+                        .datepicker({
                             showAnim: 'drop',
                             minDate: 0,
                             onSelect: function(selected, event) {
@@ -271,7 +272,8 @@
                                                     }
 
                                                 } else if (value
-                                                    .getFullYear() > now.getFullYear() &&
+                                                    .getFullYear() > now
+                                                    .getFullYear() &&
                                                     String(date) == String(value)) {
                                                     re = [false, "not", ""];
                                                     return false;
@@ -298,7 +300,8 @@
                                     date + 1);
 
                                 if (selected != "") {
-                                    $.ajax({
+                                    $
+                                        .ajax({
                                             async: false,
                                             url: '${pageContext.request.contextPath}/reservation/possibleDuration',
                                             type: 'GET',
@@ -311,7 +314,8 @@
                                             success: function(data) {
                                                 $(data).each(
                                                     function(
-                                                        key, value) {
+                                                        key,
+                                                        value) {
                                                         $('#return').datepicker(
                                                             "option", "maxDate", "+" + value + "d");
                                                     });
