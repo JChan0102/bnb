@@ -7,14 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Review</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
 <body style="background-color: #EEEEEE;">
@@ -44,8 +36,8 @@
 									<c:out value="${rvs.searchType eq 'reviewContent'?'selected':''}" />>내용</option>
 								<option value="hostId"
 									<c:out value="${rvs.searchType eq 'hostId'?'selected':''}" />>호스트명</option>
-								<option value="scope"
-									<c:out value="${rvs.searchType eq 'scope'?'selected':''}" />>별점</option>
+								<%-- <option value="scope"
+									<c:out value="${rvs.searchType eq 'scope'?'selected':''}" />>별점</option> --%>
 							</select>&ensp; <input class="form-control mr-sm-2" type="search"
 								placeholder="검색하기" aria-label="Search" name="keyword"
 								id="keywordInput" value="${rvs.keyword}">
@@ -98,7 +90,7 @@
 									style="background-color: #FFEAEA; border-radius: 10px; margin-bottom: 15px;">
 									<div id="review_photo" class="align-self-center">
 										<img class="align-self-center mr-3 rounded"
-											src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
+											src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/${reTo.userPhoto}"
 											style="width: 100%; object-fit: contain;">
 									</div>
 									<div class="media-body" style="padding: 0 10px;">
@@ -171,17 +163,17 @@
 									style="background-color: #FFEAEA; border-radius: 10px; margin-bottom: 15px;">
 									<div id="review_photo" class="align-self-center">
 										<img class="align-self-center mr-3 rounded"
-											src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
-											style="width: 100%; object-fit: contain;">
+											src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/${hostRe.userPhoto }"
+											style="height:100px; object-fit: contain;">
 									</div>
 									<div class="media-body" style="padding: 0 10px;">
 
 										<h6 class="mt-3">
-											나에 대한 <b>${hostRe.hostId}</b>님의 후기
+											나에 대한 <b>${hostRe.userName}</b>님의 후기
 										</h6>
 										<br>
-										<p>${hostRe.evaluationContent}<br>
-											<br>${hostRe.evaluationDate}"<br>
+										<p>${hostRe.evaluationContent}<br><br>
+										<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${hostRe.reviewDate}" /><br>
 										</p>
 									</div>
 								</div>

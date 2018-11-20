@@ -11,12 +11,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="com.bit.bnb.mypage.model.ReviewVO">
 		select re.reservationNum, r.userId, r.hostId,
 		re.scope ,
+		u.userPhoto,
 		re.reviewContent , re.reviewDate from reservation r inner
 		join review
 		re
 		on r.reservationNum = re.reservationNum
+		inner join user u
+		on r.userId = u.userId
 		where r.userId = #{userId}
-		order by re.reviewDate desc
+		order by
+		re.reviewDate
+		desc;
 	</select>
 
 	<!-- 작성해야할리스트찾기 -->
@@ -28,9 +33,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT OUTER JOIN review re
 		ON
 		re.reservationNum = r.reservationNum
-		LEFT OUTER JOIN report r2 on r.reservationNum = r2.reservationNum
+		LEFT OUTER JOIN report r2 on
+		r.reservationNum = r2.reservationNum
 		where
-		re.reviewContent is null and r2.reportContent is null
+		re.reviewContent is null and
+		r2.reportContent is null
 		<![CDATA[ and r.checkOut <= current_timestamp ]]>
 		and r.userId = #{userId}
 		order by r.checkIn
@@ -65,22 +72,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{reservationNum}
 	</delete>
 
-	<!-- 리뷰검색하기 -->
+	<!-- 리뷰검색하기 내가 쓴 후기에서 -->
 	<select id="searchReview"
 		resultType="com.bit.bnb.mypage.model.ReviewVO">
-		select re.reservationNum, r.userId, r.hostId,
+		select re.reservationNum, r.hostId, u.userName, u.userPhoto,
 		re.scope ,
 		re.reviewContent , re.reviewDate from reservation r inner
 		join review
 		re
 		on r.reservationNum = re.reservationNum
+		inner join user u on r.userId = u.userId
 		where r.userId = #{userId}
 		<if test="rvs.searchType != null">
 			<if test="rvs.searchType == 'all'.toString()">
 				and re.reviewContent LIKE CONCAT('%',#{rvs.keyword},'%')
-				or r.hostId LIKE CONCAT('%',#{rvs.keyword},'%')
-				or re.scope LIKE
-				CONCAT('%',#{rvs.keyword},'%')
+				and r.hostId LIKE CONCAT('%',#{rvs.keyword},'%')
 			</if>
 			<if test="rvs.searchType == 'reviewContent'.toString()">
 				and re.reviewContent LIKE CONCAT('%',#{rvs.keyword},'%')
@@ -88,13 +94,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="rvs.searchType == 'hostId'.toString()">
 				and r.hostId LIKE CONCAT('%',#{rvs.keyword},'%')
 			</if>
-			<if test="rvs.searchType == 'scope'.toString()">
+<!-- 			<if test="rvs.searchType == 'scope'.toString()">
 				and re.scope LIKE CONCAT('%',#{rvs.keyword},'%')
-			</if>
+			</if> -->
 		</if>
 		order by re.reviewDate desc
 	</select>
 
+	<!-- 리뷰검색하기 호스트가 내게 써준 것중 -->
+	<select id="searchReviewHost"
+		resultType="com.bit.bnb.hostpage.model.EvaluationVO">
+		select re.hostId, u.userPhoto, re.roomsId,
+		e.evaluationContent,
+		e.evaluationDate as reviewDate from reservation re inner JOIN
+		evaluation e on
+		re.reservationNum
+		= e.reservationNum inner JOIN user u
+		on u.userId = re.hostId where
+		re.userId
+		= #{userId} and
+		e.evaluationContent is not null
+		<if test="rvs.searchType != null">
+			<if test="rvs.searchType == 'all'.toString()">
+				and e.evaluationContent LIKE
+				CONCAT('%',#{rvs.keyword},'%')
+				and re.hostId LIKE
+				CONCAT('%',#{rvs.keyword},'%')
+			</if>
+			<if test="rvs.searchType == 'reviewContent'.toString()">
+				and e.evaluationContent LIKE
+				CONCAT('%',#{rvs.keyword},'%')
+			</if>
+			<if test="rvs.searchType == 'hostId'.toString()">
+				and re.hostId LIKE CONCAT('%',#{rvs.keyword},'%')
+			</if>
+		</if>
+	</select>
+	
 	<!-- 호스트가 쓴 나에대한 리뷰 리스트 -->
 	<select id="hostReview"
 		resultType="com.bit.bnb.hostpage.model.EvaluationVO">
@@ -103,11 +139,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		u.userPhoto,
 		re.roomsId,
 		e.evaluationContent,
-		e.evaluationDate
+		e.evaluationDate as reviewDate
 		from reservation re
-		inner JOIN evaluation e on re.reservationNum = e.reservationNum
-		inner JOIN user u on u.userId = re.hostId
+		inner JOIN
+		evaluation e on re.reservationNum = e.reservationNum
+		inner JOIN user u
+		on u.userId = re.hostId
 		where re.userId = #{userId}
-		and e.evaluationContent is not null;
+		and
+		e.evaluationContent is not null
 	</select>
 </mapper>

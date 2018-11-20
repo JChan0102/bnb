@@ -31,7 +31,7 @@ public class WishController {
 	@ResponseBody
 	public int wishInsert(HttpSession session, @RequestParam("roomsId") int roomsId) { // 좋아요클릭시 ajax처리를 위한 컨트롤러매핑
 
-		System.out.println("즐겨찾기 컨트롤러진입");
+		/*System.out.println("즐겨찾기 컨트롤러진입");*/
 		UserVO user = (UserVO) session.getAttribute("loginUser");
 		if (service.wishSelect(user.getUserId(), roomsId) == 0) { // 아이디랑 룸넘버가 즐겨찾기에 들어가있는게 없으면
 			service.wishInput(user.getUserId(), roomsId); // 넣ㅇㅓ주고

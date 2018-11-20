@@ -1,5 +1,7 @@
 package com.bit.bnb.hostpage.model;
 
+import java.sql.Timestamp;
+
 public class EvaluationVO {
 
 	private String userId;
@@ -12,6 +14,7 @@ public class EvaluationVO {
 	private String evaluationContent;
 	private String evaluationDate;
 	private int reservationNum;
+	private Timestamp reviewDate;
 
 	public int getReservationNum() {
 		return reservationNum;
@@ -93,12 +96,20 @@ public class EvaluationVO {
 		this.hostId = hostId;
 	}
 
+	public Timestamp getReviewDate() {
+		return reviewDate;
+	}
+
+	public void setReviewDate(Timestamp reviewDate) {
+		this.reviewDate = reviewDate;
+	}
+
 	@Override
 	public String toString() {
 		return "EvaluationVO [userId=" + userId + ", hostId=" + hostId + ", userName=" + userName + ", userPhoto="
 				+ userPhoto + ", roomsId=" + roomsId + ", checkIn=" + checkIn + ", checkOut=" + checkOut
 				+ ", evaluationContent=" + evaluationContent + ", evaluationDate=" + evaluationDate
-				+ ", reservationNum=" + reservationNum + "]";
+				+ ", reservationNum=" + reservationNum + ", reviewDate=" + reviewDate + "]";
 	}
 
 }

@@ -8,6 +8,7 @@ public class ReviewVO {
 
 	private int reservationNum; // 예약넘버
 	private String userId; // 유저아이디
+	private String userName; // 유저이름
 	private String hostId; // 호스트아이디
 	private String reviewContent; // 리뷰 내용
 	private int scope; // 별점
@@ -16,7 +17,6 @@ public class ReviewVO {
 	private Timestamp reviewDate; // 리뷰작성시간
 	private Timestamp checkIn; // 체크인시간
 	private Timestamp checkOut; // 체크아웃시간
-
 
 	public int getReservationNum() {
 		return reservationNum;
@@ -32,7 +32,7 @@ public class ReviewVO {
 
 	public String getReviewContent() {
 		return reviewContent;
-		}
+	}
 
 	public int getScope() {
 		return scope;
@@ -98,11 +98,19 @@ public class ReviewVO {
 		this.checkOut = checkOut;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	@Override
 	public String toString() {
-		return "ReviewVO [reservationNum=" + reservationNum + ", userId=" + userId + ", hostId=" + hostId
-				+ ", reviewContent=" + reviewContent + ", scope=" + scope + ", userPhoto=" + userPhoto
-				+ ", userPhotoFile=" + userPhotoFile + ", reviewDate=" + reviewDate + ", checkIn=" + checkIn
+		return "ReviewVO [reservationNum=" + reservationNum + ", userId=" + userId + ", userName=" + userName
+				+ ", hostId=" + hostId + ", reviewContent=" + reviewContent + ", scope=" + scope + ", userPhoto="
+				+ userPhoto + ", userPhotoFile=" + userPhotoFile + ", reviewDate=" + reviewDate + ", checkIn=" + checkIn
 				+ ", checkOut=" + checkOut + "]";
 	}
 
