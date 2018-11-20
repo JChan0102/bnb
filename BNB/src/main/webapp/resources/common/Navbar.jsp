@@ -114,7 +114,7 @@
 										textAlign : 'left', // Text alignment i.e. left, right or center
 										loader : false, // Whether to show loader or not. True by default
 										loaderBg : '#9EC600', // Background color of the toast loader
-										icon : info,
+										icon : 'info',
 										beforeShow : function() {
 										}, // will be triggered before the toast is shown
 										afterShown : function() {
@@ -161,7 +161,7 @@
 																		str += '<span class="contact-status online"></span>';
 																	}
 					<%--${list.hostPhoto}로 바꿔야함--%>
-						str += '<img src="${pageContext.request.contextPath}/resources/images/userphoto/nopic.jpg" alt=""/>'
+						str += '<img src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/'+value.hostPhoto+'" alt=""/>'
 																			+ '<div class="meta">'
 																			+ '<p class="name">'
 																			+ value.hostName
@@ -194,7 +194,7 @@
 																		str += '<span class="contact-status online"></span>';
 																	}
 					<%--${list.hostPhoto}로 바꿔야함--%>
-						str += '<img src="${pageContext.request.contextPath}/resources/images/userphoto/nopic.jpg" alt=""/>'
+						str += '<img src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/'+value.userPhoto+'" alt=""/>'
 																			+ '<div class="meta">'
 																			+ '<p class="name">'
 																			+ value.userName
@@ -674,7 +674,7 @@
 																		+ value.messagecontent);
 											} else {
 												$(
-														'<li class="sent"><img src="'+ 'http://13.209.99.134:8080/imgserver/resources/img/userphoto/'+value.hostPhoto +'" alt="" /><p>'
+														'<li class="sent"><img src="'+ 'http://13.209.99.134:8080/imgserver/resources/img/userphoto/'+photo +'" alt="" /><p>'
 																+ value.messagecontent
 																+ '</p></li>')
 														.appendTo(
