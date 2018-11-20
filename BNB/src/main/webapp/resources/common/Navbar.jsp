@@ -345,9 +345,8 @@
 							<input type="email" id="forgetPwModal-id" name="forgetPwModal-id" class="form-control" />
 							<div id="forgetHidden" style="display: none; color: #dc3545;"></div>
 							<br>
-							<button id="searchPwLinkSending"
-								class="btn btn-lg btn-danger btn-block">
-								재설정 링크 전송하기</button>
+							<input type="button" id="searchPwLinkSending"
+								class="btn btn-lg btn-danger btn-block" value="재설정 링크 전송하기" />
 						</div>
 						<div class="col-2"></div>
 					</div>
@@ -534,53 +533,6 @@
 						} */
 	});
 
-	/* function onSignIn(googleUser) {
-	 var profile = googleUser.getBasicProfile();
-	 console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-	 console.log('Name: ' + profile.getName());
-	 console.log('Image URL: ' + profile.getImageUrl());
-	 console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-	 } */
-
-	/* var xhr = new XMLHttpRequest();
-	xhr.open('POST', 'googleLogin');
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.onload = function() {
-	  console.log('Signed in as: ' + xhr.responseText);
-	};
-	xhr.send('gId=' + google_email); */
-	//}
-	/* $.ajax({
-	          type : "POST",
-	          url : "googleLogin",
-	          data : {"gId" : google_email},
-	          success : function(result) {
-	          	alert(result);
-	        	 if(result == 'googleLoginSuccess'){ // 구글아이디로 로그인 성공할경우
-	          		
-	        	   // 메인화면가기
-	        		location.href = '${pageContext.request.contextPath}/';
-	        	   
-	           } else if(result == 'notGoogleUser'){ // 이미 동일아이디로 일반계정이 존재할경우
-	        	   
-	        	   // 로그인창 띄워주기 + 얼럿
-	        	  alert("다른 이메일로 가입되어 있습니다. 로그인해주세요.");
-	        	  location.href = '${pageContext.request.contextPath}/';
-	        	  loginModal();
-	        	  
-	        	   
-	           } else if(result == 'googleUserReg'){ // 해당계정이 없는경우
-	        	   
-	        	   // 구글계정용 회원가입폼 띄워주기
-	        	   location.href = '${pageContext.request.contextPath}/';
-	        	   
-	           }
-	          }
-	      });
-	 */
-
-	//진행중
-	//});
 </script>
 
 <script src="https://apis.google.com/js/platform.js?onload=init" async
@@ -607,6 +559,8 @@ $('#searchPwLinkSending').click(function(){
 	// ajax로 아이디 정보 보내서 존재하는 값인지 확인
 	// 존재한다면 링크 전송하는 컨트롤러로 보냄
 	
+	$('#searchPwLinkSending').val('이메일 전송중...');
+	
 	var userId = $('#forgetPwModal-id').val();
 	
 	$.ajax({
@@ -626,11 +580,19 @@ $('#searchPwLinkSending').click(function(){
 				location.href = '${pageContext.request.contextPath}/';
 			} else if (result == 'mailSendForPwFail') { // 메일전송 실패시
 				alert('메일 전송에 실패하였습니다. 재시도 하시거나 관리자에게 문의 주세요.');
-			} /* else if (result == 'userConfirm') { // 인증되지 않은 회원인 경우
-				alert('아직 본인 메일 인증이 되지 않았거나 이미 재설정 링크가 전송되었습니다. 메일을 확인해주세요.');
-			} */
+			}
+			$('#searchPwLinkSending').val('재설정 링크 전송하기');
 		}
 	});
+});
+
+
+//패스워드 입력후 엔터키로 로그인
+$('#forgetPwModal-id').keypress(function(event) {
+	if (event.which == 13) {
+		$('#searchPwLinkSending').click();
+		return false;
+	}
 });
 
 </script>

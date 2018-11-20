@@ -1,7 +1,5 @@
 package com.bit.bnb.user.service;
 
-import java.util.HashMap;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +21,6 @@ public class UserLoginService {
 
 	@Autowired
 	private NewMessageCkServie messageCkServie;
-
-	@Autowired
-	private GetRandomStringService getRandomStringService;
-	
-	@Autowired
-	private MailSendService mailSendService;
 
 	@Transactional
 	public String userLogin(String userId, String userPw, HttpSession session) {
@@ -139,87 +131,5 @@ public class UserLoginService {
 		}
 		return result;
 	}
-
 	
-	// 
-	@Transactional
-	public String searchPw(String userId) {
-
-		UserVO user = new UserVO();
-		String result = "idNotFound";
-
-		// 입력된 이메일의 계정있는지 확인
-		user = userDao.selectUser(userId);
-
-		// 계정이 존재하면 유저키를 확인 - y나 g인지
-		if (user != null) {
-			//if (user.getUserKey().equals("y") || user.getUserKey().equals("g")) {
-
-				// 우선 유저키를 난수로 바꾼다
-				String userKey = getRandomStringService.getRandomString();
-				
-				HashMap<String, String> map = new HashMap<String, String>();
-				
-				map.put("param1", userKey);
-				map.put("param2", userId);
-				
-				System.out.println("유저로그인서비스 - 맵: " + map);
-				
-				int resultCnt = userDao.updateUserKeySearchPw(map);
-				
-				System.out.println("쿼리결과 : " + resultCnt);
-				
-				// 그리고 메일발송
-				if(resultCnt == 1) {
-					mailSendService.mailSendSearchPw(userId, user.getUserName(), userKey);
-					
-					result = "mailSendForPw";
-				} else { // 인증키 업데이트 실패시
-					
-					result = "mailSendForPwFail";
-				}
-			}/* else {
-				// 인증되지 않은 회원이면 인증부터 진행해달라고 요청해야함
-				result = "userConfirm";
-			}
-		}*/
-		return result;
-	}
-	
-	
-	// 메일 링크 클릭 - 유저 아이디와 키를 비교해서 비밀번호 재설정하는 폼을 띄워준다
-	@Transactional
-	public String getUpdateUserPwForm(String userId, String userKey) {
-		
-		String result = "redirect:/user/mailConfirmError";
-
-		UserVO user = new UserVO();
-		user = userDao.selectUser(userId);
-		
-		if(user.getUserKey().equals(userKey)) {
-			result = "user/updatePw";
-		}
-		
-		return result;
-	}
-	
-	
-	// 비밀번호 재설정
-	@Transactional
-	public int updateUserPw(String userId, String userPw, HttpSession session) {
-		
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put(userId, userPw);
-		
-		int resultCnt = userDao.updateUserPw(map);
-		
-		if(resultCnt == 1) {
-			if (session.getAttribute("updatePw") != null) {
-				session.removeAttribute("updatePw");
-			}
-			session.setAttribute("updatePw", "updatePw");
-		}
-		
-		return resultCnt;
-	}
 }
