@@ -10,6 +10,8 @@
   <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </head>
 <body>
+<%@ include file="/resources/common/includeHead.jsp"%>
+<%@ include file="/resources/common/Navbar.jsp"%>
   <form id="fileform" action="">
     <select style="display: none" name="type">
       <option value="TEXT_DETECTION">TEXT_DETECTION</option>
