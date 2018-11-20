@@ -22,14 +22,16 @@
 			</h1>
 			<div class="row"
 				style="height: 600px; /* width: 900px; */ margin: 0 auto;">
-				<div class="col-6" style="overflow: scroll">
+				<div class="col-5" style="overflow: scroll">
 					<h2 style="font-weight: 600; text-align: center;">
 						<i class="fas fa-map-marker-alt" style="color: red;"></i>&ensp;${address}
-					</h2><br>
+					</h2>
+					<br>
 					<c:forEach var="wl" items="${wishList}">
-							<c:set var="priceAvg" value="${wl.price_weekdays + wl.price_weekend / 2}" />
-						<fmt:formatNumber type="int" var="price"
-							value="${priceAvg}" pattern="#,###" />
+						<c:set var="priceAvg"
+							value="${wl.price_weekdays + wl.price_weekend / 2}" />
+						<fmt:formatNumber type="int" var="price" value="${priceAvg}"
+							pattern="#,###" />
 						<div class="card" style="margin-bottom: 20px;">
 							<img class="card-img-top"
 								src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
@@ -41,18 +43,19 @@
 								<span class="card-text" id="price">￦ ${price} / 박</span>
 								<c:choose>
 									<c:when test="${0 ne wl.reviewCount and 0 ne wl.avgScope}">
-										<span class="card-text"> 
-										<c:forEach var="scope" begin="1" end="${wl.avgScope}">
-												<i class="fas fa-star fa-sm" style="color:#FF5A5F;"></i>
+										<span class="card-text"> <c:forEach var="scope"
+												begin="1" end="${wl.avgScope}">
+												<i class="fas fa-star fa-sm" style="color: #FF5A5F;"></i>
 											</c:forEach>(${wl.reviewCount})
 										</span>
 									</c:when>
 									<c:otherwise>
-										<span class="card-text"><i class="fas fa-exclamation-circle" style="color:red;"></i> 작성된 후기가 없습니다.</span>
+										<span class="card-text"><i
+											class="fas fa-exclamation-circle" style="color: red;"></i>
+											후기없음</span>
 									</c:otherwise>
 								</c:choose>
-								<br>
-								<br> <a
+								<br> <br> <a
 									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${wl.roomsId}"
 									class="btn"
 									style="background-color: #FF5A5F; color: white; float: right;">보러가기</a>
@@ -62,7 +65,7 @@
 						</div>
 					</c:forEach>
 				</div>
-				<div class="col-6" id="map"></div>
+				<div class="col-7" id="map"></div>
 			</div>
 			<br>
 			<div class="text-center">
@@ -76,8 +79,7 @@
 		var mapContainer = document.getElementById('map'); // 지도를 표시할 div  
 		mapOption = {
 			center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표 
-			level : 6
-		// 지도의 확대 레벨
+			level : 7 // 지도의 확대 레벨
 		};
 
 		var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -113,7 +115,7 @@
 									// 마커를 지도에 표시합니다.
 									marker.setMap(map);
 
-									// 마커에 마우스오버 이벤트를 등록합니다
+									/* // 마커에 마우스오버 이벤트를 등록합니다
 									daum.maps.event.addListener(marker,
 											'mouseover', function() {
 												// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
@@ -134,7 +136,20 @@
 									var infowindow = new daum.maps.InfoWindow({
 										position : coords,
 										content : iwContent
-									});
+									}); */
+
+									var content = '<div class ="labelWish"><span class="leftWish"></span><span class="centerWish">' 
+									+ result[0].address_name + '</span><span class="rightWish"></span></div>';
+									
+									// 커스텀 오버레이를 생성합니다
+									var customOverlay = new daum.maps.CustomOverlay(
+											{
+												position : coords,
+												content : content
+											});
+
+									// 커스텀 오버레이를 지도에 표시합니다
+									customOverlay.setMap(map);
 
 									// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 									map.setCenter(coords);

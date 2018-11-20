@@ -1,12 +1,12 @@
 @charset "UTF-8";
 
-#left_list {
-	/* width: 250px; */
+/* #left_list {
+	width: 250px;
 	height: 300px;
 	margin-left: 40px;
 	background-color: white;
 	border-radius: 20px;
-}
+} */
 
 #mypage_wrap_cont {
 	/* width: 85%; */
@@ -14,18 +14,17 @@
 	position: relative;
 }
 
-.mypage_list {
+/* .mypage_list {
 	list-style: none;
 	font-size: 18px;
 	padding-top: 10px;
 }
 
 #list {
-	/* width: 100px; */
-	/* margin: 0 auto; */
-	text-align: center;
+	width: 100px;
+	margin: 0 auto;
 	padding-top: 65px;
-}
+} */
 
 #mypage_cont {
 	/* width: 1000px; */
@@ -33,7 +32,7 @@
 	position: absolute;
 	top: 0px;
 	right: 50px;
-	border-radius: 25px;
+	border-radius: 5px;
 }
 
 .reviewNav {
@@ -122,6 +121,46 @@
 .wish_div:hover .wish_hover {
 	background-color: #aaaaaa;
 	opacity: 1;
+}
+
+.labelWish {
+	margin-bottom: 96px;
+}
+
+.labelWish * {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.labelWish .leftWish {
+	background:
+		url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_l.png")
+		no-repeat;
+	display: inline-block;
+	height: 24px;
+	overflow: hidden;
+	vertical-align: top;
+	width: 7px;
+}
+
+.labelWish .centerWish {
+	background:
+		url(http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png)
+		repeat-x;
+	display: inline-block;
+	height: 24px;
+	font-size: 12px;
+	line-height: 24px;
+}
+
+.labelWish .rightWish {
+	background:
+		url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png")
+		-1px 0 no-repeat;
+	display: inline-block;
+	height: 24px;
+	overflow: hidden;
+	width: 6px;
 }
 
 ::-webkit-scrollbar {
