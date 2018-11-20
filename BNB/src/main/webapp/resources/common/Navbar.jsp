@@ -29,7 +29,7 @@
 			<ul class="nav justify-content-end ml-auto">
 				<!-- 임시 -->
 				<li class="nav-item"><a class="nav-link text-dark"
-					href="${pageContext.request.contextPath}/reservation?roomsId=3">예약
+					href="${pageContext.request.contextPath}/reservationtt">예약
 						임시</a></li>
 				<!-- 임시 -->
 				<li class="nav-item"><a class="nav-link text-dark"
@@ -267,7 +267,11 @@
 								type="button">로그인</button>
 							<input type="button" id="gLoginBtn" value="Login With Google"
 								class="btn-gLogin btn btn-lg btn-block" ></input>
+								<br>
+							<a href="#" id="forgetPw">비밀번호를 잊으셨나요?</a>
 						</div>
+						
+						
 						<div class="col-2"></div>
 					</div>
 				</div>
@@ -297,13 +301,15 @@
 			<div class="modal-body">
 				<div class="container">
 					<div class="row justify-content-md-center">
-						<div class="col col-md-4 col-lg-8">
+						<div class="col-2"></div>
+						<div class="col-8">
 							<button id="btn-regEmail" class="btn btn-lg btn-danger btn-block"
 								type="button">이메일로 회원 가입</button>
 							<button id="btn-regGoogle"
 								class="btn btn-lg btn-danger btn-block" type="button">
 								구글 계정으로 회원 가입</button>
 						</div>
+						<div class="col-2"></div>
 					</div>
 				</div>
 
@@ -315,6 +321,49 @@
 </div>
 
 <!-- 회원가입 선택 모달 끝 -->
+
+<!-- 비밀번호 찾기 모달 시작 -->
+
+<div class="modal fade" id="forgetPwLayerPop">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- header -->
+			<div class="modal-header">
+				<!-- header title -->
+				<h4 class="modal-title">비밀번호 재설정하기</h4>
+				<!-- 닫기(x) 버튼 -->
+				<button type="button" class="close" data-dismiss="modal">×</button>
+			</div>
+			<!-- body -->
+			<div class="modal-body">
+				<div class="container">
+					<div class="row justify-content-md-center">
+						<div class="col-2"></div>
+						<div class="col-8">
+							<p>계정으로 사용하는 이메일 주소를 입력하시면, 비밀번호 재설정 링크를 전송해 드립니다.</p>
+							<label class="form-check-label mt-2 mb-2">이메일 주소</label>
+							<input type="email" id="forgetPwModal-id" name="forgetPwModal-id" class="form-control" />
+							<div id="forgetHidden" style="display: none; color: #dc3545;"></div>
+							<br>
+							<button id="searchPwLinkSending"
+								class="btn btn-lg btn-danger btn-block">
+								재설정 링크 전송하기</button>
+						</div>
+						<div class="col-2"></div>
+					</div>
+				</div>
+
+			</div>
+			<!-- Footer -->
+			<div class="modal-footer">BIBIBIT 대한민국 숙박정보 BnB</div>
+		</div>
+	</div>
+</div>
+
+<!-- 비밀번호 찾기 모달 끝 -->
+
+
+
 
 <!-- 로그인 관련 스크립트 -->
 <script>
@@ -538,6 +587,58 @@
 	defer></script>
 
 <!-- 로그인 스크립트 끝 -->
+
+<!-- 비밀번호 재설정 관련 -->
+
+<script>
+// 비밀번호를 잊으셨나요 클릭시 모달 새로 열리게
+$('#forgetPw').click(function(){
+	$('#layerpop').modal('hide');
+	$('#forgetPwLayerPop').modal();
+});
+
+// 비밀번호 재설정 모달 열릴때 이메일 입력 인풋박스에 포거스
+$('#forgetPwLayerPop').on('shown.bs.modal', function() {
+		$('#forgetPwModal-id').focus();
+});
+
+// 재설정 링크 전송하기 클릭시
+$('#searchPwLinkSending').click(function(){
+	// ajax로 아이디 정보 보내서 존재하는 값인지 확인
+	// 존재한다면 링크 전송하는 컨트롤러로 보냄
+	
+	var userId = $('#forgetPwModal-id').val();
+	
+	$.ajax({
+		type : "POST",
+		url : "${pageContext.request.contextPath}/user/searchPw",
+		data : {
+			"userId" : userId
+			},
+		success : function(result) {
+			$('#forgetHidden').empty();
+			console.log('재설정 링크 전송하기 결과: ' + result);
+			if (result == 'idNotFound') { // 없는 아이디인 경우
+				$('#forgetHidden').css("display", "");
+				$('#forgetHidden').append("존재하지 않는 계정입니다.");
+			} else if (result == 'mailSendForPw') { // 메일전송완료시
+				alert('입력하신 이메일로 비밀번호 재설정 링크를 전송하였습니다').
+				location.href = '${pageContext.request.contextPath}/';
+			} else if (result == 'mailSendForPwFail') { // 메일전송 실패시
+				alert('메일 전송에 실패하였습니다. 재시도 하시거나 관리자에게 문의 주세요.');
+			} else if (result == 'userConfirm') { // 인증되지 않은 회원인 경우
+				alert('아직 본인 메일 인증이 되지 않았습니다. 메일을 확인해주세요.');
+			}
+		}
+	});
+});
+
+</script>
+
+<!-- 비밀번호 재설정 끝 -->
+
+
+
 <div id="frame"
 	style="position: absolute; right: 0px; bottom: 0px; z-index: -5; visibility: hidden">
 	<div id="sidepanel">

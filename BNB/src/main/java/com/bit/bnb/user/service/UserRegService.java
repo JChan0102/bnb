@@ -30,11 +30,17 @@ public class UserRegService {
 	@Autowired
 	private EncryptSha256Service sha256Service;
 	
+	/*@Autowired
+	private JavaMailSender mailSender;*/
+	
 	@Autowired
-	private JavaMailSender mailSender;
+	private MailSendService mailSendService;
 	
 	@Autowired
 	private DateCheckService dateCheckService;
+	
+	@Autowired
+	private GetRandomStringService getRandomStringService;
 	
 	private UserVO user;
 	
@@ -100,7 +106,9 @@ public class UserRegService {
 				// 생년월일이 유효하면 userVO에 추가한 후 가입 진행
 				userVO.setBirth(birth);
 				
-				// 메일인증을 위한 인증키 생성하기
+				
+				
+				/*// 메일인증을 위한 인증키 생성하기
 				Random random = new Random(System.currentTimeMillis());
 				StringBuffer keyBuffer = new StringBuffer();
 				
@@ -113,7 +121,8 @@ public class UserRegService {
 					}
 				}
 				
-				String userKey = keyBuffer.toString();
+				String userKey = keyBuffer.toString();*/
+				String userKey = getRandomStringService.getRandomString();
 				
 				System.out.println("userKey : " + userKey);
 				
@@ -124,7 +133,7 @@ public class UserRegService {
 				
 				// 인서트가 성공적으로 되었으면 인증메일 발송하고 세션 생성(메일인증안내)
 				if(resultCnt == 1) {
-					mailSendWithUserKey(userVO.getUserId(), userVO.getUserName(), userVO.getUserKey());
+					mailSendService.mailSendWithUserKey(userVO.getUserId(), userVO.getUserName(), userVO.getUserKey());
 					
 					if (session.getAttribute("mailConfirm") != null) {
 						session.removeAttribute("mailConfirm");
@@ -161,8 +170,8 @@ public class UserRegService {
 	}
 	
 
-	
-	// 이메일 계정 인증메일 보내기 메서드
+	// 이메일전송서비스 따로뺌
+	/*// 이메일 계정 인증메일 보내기 메서드
 	@Transactional
 	public void mailSendWithUserKey(String email, String name, String userKey) {
 		
@@ -182,7 +191,7 @@ public class UserRegService {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	
 	// 인증메일 확인
