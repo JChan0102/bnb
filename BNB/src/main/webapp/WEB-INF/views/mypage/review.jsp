@@ -91,7 +91,7 @@
 									<div id="review_photo" class="align-self-center">
 										<img class="align-self-center mr-3 rounded"
 											src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/${reTo.userPhoto}"
-											style="width: 100%; object-fit: contain;">
+											style="height:100px; object-fit: contain;">
 									</div>
 									<div class="media-body" style="padding: 0 10px;">
 										<div class="row">

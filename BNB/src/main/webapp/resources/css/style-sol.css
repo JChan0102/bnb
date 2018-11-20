@@ -7,7 +7,6 @@
 	background-color: white;
 	border-radius: 20px;
 } */
-
 #mypage_wrap_cont {
 	/* width: 85%; */
 	margin: 0 auto;
@@ -25,7 +24,6 @@
 	margin: 0 auto;
 	padding-top: 65px;
 } */
-
 #mypage_cont {
 	/* width: 1000px; */
 	background-color: white;
@@ -107,7 +105,7 @@
 .history {
 	text-align: center;
 }
- 
+
 #wishDiv {
 	border: 1px solid;
 	height: 40px;
@@ -163,3 +161,29 @@
 	width: 6px;
 }
 
+.thumbnail_mypage {
+	position: relative;
+	padding-top: 100%; /* 1:1 ratio */
+	overflow: hidden;
+}
+
+.thumbnail_mypage .centered_mypage {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-transform: translate(50%, 50%);
+	-ms-transform: translate(50%, 50%);
+	transform: translate(50%, 50%);
+}
+
+.thumbnail_mypage .centered_mypage img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 300px;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}

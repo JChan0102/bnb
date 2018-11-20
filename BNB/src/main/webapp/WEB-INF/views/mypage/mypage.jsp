@@ -18,10 +18,11 @@
 			</h1>
 			<div class="row profile_wrap">
 				<div class="col-sm-5 profile_left">
-					<div id="profile_photo">
-						<img
-							src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/${user.userPhoto}"
-							style="height: 300px; object-fit: contain;" class="rounded">
+					<div class="thumbnail_mypage">
+						<div class="centered_mypage">
+							<img
+								src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/${user.userPhoto}">
+						</div>
 					</div>
 					<br>
 					<h4>
