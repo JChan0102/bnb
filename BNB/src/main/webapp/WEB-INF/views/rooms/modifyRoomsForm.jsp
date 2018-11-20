@@ -27,7 +27,7 @@
 	<!-- Begin page content -->
 	<!-- https://shaack.com/projekte/bootstrap-input-spinner/ -->
 	<main role="main" class="container">
-	<div class="row justify-content-md-center">
+	<div class="row justify-content-md-center" enctype="multipart/form-data">
 		<div class="col col-md-10 col-lg-8">
 			<h1>
 				<b>숙소 수정</b>
@@ -149,19 +149,37 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<div class="input-group mb-3">
-								<div class="custom-file">
-									<input type="file" class="custom-file-input"
-										id="inputGroupFile02"> <label
-										class="custom-file-label" for="inputGroupFile02"
-										aria-describedby="inputGroupFileAddon02">Choose file</label>
-								</div>
-								<div class="input-group-append">
-									<span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
-								</div>
-							</div>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 						</td>
 					</tr>
+					<!-- https://blueimp.github.io/jQuery-File-Upload/index.html -->
 					<tr>
 						<td colspan="2" class="text-center"><input type="hidden"
 							id="roomsId" name="${selectedRoom.roomsId}" value="0"><input

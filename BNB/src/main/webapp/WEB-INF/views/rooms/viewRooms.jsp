@@ -25,19 +25,32 @@
 		});
 	</script>
 	<script>
-		$(document).ready(function() {
-							$('#wishBtn').click(
+		$(document)
+				.ready(
+						function() {
+							$('#wishBtn')
+									.click(
 											function() {
-												var roomsId = $('#roomsId').val();
-												var url = '${pageContext.request.contextPath}/wishIn?roomsId=' + roomsId;
-												$.ajax({
+												var roomsId = $('#roomsId')
+														.val();
+												var url = '${pageContext.request.contextPath}/wishIn?roomsId='
+														+ roomsId;
+												$
+														.ajax({
 															url : url,
-															success : function(response) {
+															success : function(
+																	response) {
 																if (response == 1) {
-																	$('#wishIcon').attr("src",
+																	$(
+																			'#wishIcon')
+																			.attr(
+																					"src",
 																					"${pageContext.request.contextPath}/resources/images/full.png");
 																} else {
-																	$('#wishIcon').attr("src",
+																	$(
+																			'#wishIcon')
+																			.attr(
+																					"src",
 																					"${pageContext.request.contextPath}/resources/images/empty.png");
 																}
 															}
@@ -53,18 +66,20 @@
 		<div class="col-md-7">
 			<h1>
 				<b>숙소 보기</b>
-				<button style="border: none; background-color: white; float: right; outline: 0;" id="wishBtn">
+				<button
+					style="border: none; background-color: white; float: right; outline: 0;"
+					id="wishBtn">
 					<c:choose>
 						<c:when test="${0 eq wish}">
 							<img id="wishIcon"
 								src="${pageContext.request.contextPath}/resources/images/empty.png"
-								style="width: 45px;padding-bottom: 5px;">
+								style="width: 45px; padding-bottom: 5px;">
 						</c:when>
 						<c:when test="${2 eq wish}"></c:when>
 						<c:otherwise>
 							<img id="wishIcon"
 								src="${pageContext.request.contextPath}/resources/images/full.png"
-								style="width: 45px;padding-bottom: 5px;">
+								style="width: 45px; padding-bottom: 5px;">
 						</c:otherwise>
 					</c:choose>
 				</button>
@@ -150,7 +165,9 @@
 							<table class="table">
 								<tr>
 									<td
-										class="w-25 text-center border-top-0 border-bottom-0 align-top"><h1>사진</h1>${hostInfo.userName}</td>
+										class="w-25 text-center border-top-0 border-bottom-0 align-top"><img
+										src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/${hostInfo.userPhoto}"
+										class="viewRoomsProfile mb-1"><br>${hostInfo.userName}</td>
 									<td class="w-75 border-top-0 border-bottom-0">${hostInfo.userInfo}</td>
 								</tr>
 							</table></td>
@@ -226,7 +243,8 @@
 							} else {
 								for (i = 0; i < json.review.length; i++) {
 									output += '<tr>';
-									output += '<td rowspan="3" class="border-top-0 border-bottom-0 border-right-0 w-25 text-center align-top"><br><h1>사진</h1>'
+									output += '<td rowspan="3" class="border-top-0 border-bottom-0 border-right-0 w-25 text-center align-top">'
+											+ '<img src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/' + json.review[i].userPhoto + '" class="viewRoomsProfile mb-1"><br>'
 											+ json.review[i].userName + '</td>';
 									output += '<td class="w-75 border-top-0 border-bottom-0"><small class="text-muted">';
 									for (j = 0; j < json.review[i].scope; j++) {

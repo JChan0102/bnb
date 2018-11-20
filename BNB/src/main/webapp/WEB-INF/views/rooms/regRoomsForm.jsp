@@ -22,6 +22,29 @@
 			});
 
 		});
+		$(function() {
+			$("#uploadbutton")
+					.click(
+							function() {
+								var form = $('#modiform')[0];
+								var formData = new FormData(form);
+								$
+										.ajax({
+											url : 'http://13.209.99.134:8080/imgserver/upload/userPhoto',
+											processData : false,
+											contentType : false,
+											datatype : 'JSON',
+											data : formData,
+											type : 'POST',
+											success : function(result) {
+												$('#userPhoto')
+														.val('' + result);
+												$('#modiform').submit();
+											}
+										});
+							});
+		})
+	</script>
 	</script>
 	<%@ include file="/resources/common/Navbar.jsp"%>
 	<!-- Begin page content -->
@@ -54,8 +77,8 @@
 					</tr>
 					<tr>
 						<td>어린이</td>
-						<td><input type="text" class="form-control text-center" value="0"
-							min="0" max="100" step="1" id="avail_children"
+						<td><input type="text" class="form-control text-center"
+							value="0" min="0" max="100" step="1" id="avail_children"
 							name="avail_children" readonly="readonly"></td>
 
 					</tr>
@@ -137,7 +160,7 @@
 					<tr>
 						<td colspan="2">
 							<div class="input-group mb-3">
-								<div class="custom-file">
+								<!-- <div class="custom-file">
 									<input type="file" class="custom-file-input"
 										id="inputGroupFile02"> <label
 										class="custom-file-label" for="inputGroupFile02"
@@ -145,7 +168,82 @@
 								</div>
 								<div class="input-group-append">
 									<span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
-								</div>
+								</div> -->
+								
+								
+								
+								
+								
+								
+								<!-- The file upload form used as target for the file upload widget -->
+		<form id="fileupload" action="https://jquery-file-upload.appspot.com/"
+			method="POST" enctype="multipart/form-data">
+			<!-- Redirect browsers with JavaScript disabled to the origin page -->
+			<noscript>
+				<input type="hidden" name="redirect"
+					value="https://blueimp.github.io/jQuery-File-Upload/">
+			</noscript>
+			<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+			<div class="row fileupload-buttonbar">
+				<div class="col-lg-7">
+					<!-- The fileinput-button span is used to style the file input field as button -->
+					<span class="btn btn-success fileinput-button"> <i
+						class="glyphicon glyphicon-plus"></i> <span>파일 추가</span> <input
+						type="file" name="files[]" multiple>
+					</span>
+					<button type="submit" class="btn btn-primary start">
+						<i class="glyphicon glyphicon-upload"></i> <span>업로드</span>
+					</button>
+					<button type="reset" class="btn btn-warning cancel">
+						<i class="glyphicon glyphicon-ban-circle"></i> <span>업로드 취소</span>
+					</button>
+					<button type="button" class="btn btn-danger delete">
+						<i class="glyphicon glyphicon-trash"></i> <span>파일 삭제</span>
+					</button>
+					<input type="checkbox" class="toggle">
+					<!-- The global file processing state -->
+					<span class="fileupload-process"></span>
+				</div>
+				<!-- The global progress state -->
+				<div class="col-lg-5 fileupload-progress fade">
+					<!-- The global progress bar -->
+					<div class="progress progress-striped active" role="progressbar"
+						aria-valuemin="0" aria-valuemax="100">
+						<div class="progress-bar progress-bar-success" style="width: 0%;"></div>
+					</div>
+					<!-- The extended global progress state -->
+					<div class="progress-extended">&nbsp;</div>
+				</div>
+			</div>
+			<!-- The table listing the files available for upload/download -->
+			<table role="presentation" class="table table-striped">
+				<tbody class="files"></tbody>
+			</table>
+		</form>
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
 							</div>
 						</td>
 					</tr>
