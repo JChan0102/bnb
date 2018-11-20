@@ -17,6 +17,7 @@ public class ReviewVO {
 	private Timestamp checkIn; // 체크인시간
 	private Timestamp checkOut; // 체크아웃시간
 
+
 	public int getReservationNum() {
 		return reservationNum;
 	}

@@ -11,6 +11,36 @@
 <%@ include file="/resources/common/includeHead.jsp"%>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=31560f6f51cc23c9f8ef204f4664e637&libraries=services"></script>
+<style>
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+	border: 3px solid #fff;
+}
+
+::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment
+	{
+	display: block;
+	height: 10px;
+	background: #efefef
+}
+
+::-webkit-scrollbar-track {
+	background: #efefef;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .2)
+}
+
+::-webkit-scrollbar-thumb {
+	height: 50px;
+	width: 50px;
+	background: rgba(0, 0, 0, .2);
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .1)
+}
+</style>
 </head>
 <body style="background-color: #EEEEEE;">
 	<%@ include file="/resources/common/Navbar.jsp"%>
@@ -79,7 +109,8 @@
 		var mapContainer = document.getElementById('map'); // 지도를 표시할 div  
 		mapOption = {
 			center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표 
-			level : 7 // 지도의 확대 레벨
+			level : 7
+		// 지도의 확대 레벨
 		};
 
 		var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -138,9 +169,10 @@
 										content : iwContent
 									}); */
 
-									var content = '<div class ="labelWish"><span class="leftWish"></span><span class="centerWish">' 
-									+ result[0].address_name + '</span><span class="rightWish"></span></div>';
-									
+									var content = '<div class ="labelWish"><span class="leftWish"></span><span class="centerWish">'
+											+ result[0].address_name
+											+ '</span><span class="rightWish"></span></div>';
+
 									// 커스텀 오버레이를 생성합니다
 									var customOverlay = new daum.maps.CustomOverlay(
 											{
