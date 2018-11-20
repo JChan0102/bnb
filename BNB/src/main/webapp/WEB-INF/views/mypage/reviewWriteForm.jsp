@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Review Write</title>
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
 <body style="background-color: #EEEEEE;">
