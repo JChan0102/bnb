@@ -24,6 +24,7 @@ public class HistoryViewController {
 		
 		modelAndView.setViewName("mypage/history");
 		modelAndView.addObject("historys", service.historyView(user.getUserId()));
+		modelAndView.addObject("trip", service.tripView(user.getUserId()));
 		
 		return modelAndView;
 	}

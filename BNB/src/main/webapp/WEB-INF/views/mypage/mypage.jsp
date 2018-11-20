@@ -21,7 +21,7 @@
 					<div id="profile_photo">
 						<img
 							src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/${user.userPhoto}"
-							style="width: 100%; object-fit: contain;" class="rounded">
+							style="height: 300px; object-fit: contain;" class="rounded">
 					</div>
 					<br>
 					<h4>

@@ -27,6 +27,7 @@ public class ReviewSearchController {
 		UserVO user = (UserVO) session.getAttribute("loginUser");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("reviewSearch", service.reviewSearchList(user.getUserId(), rvs));
+		modelAndView.addObject("hostReviewSearch", service.HostReviewSearchList(user.getUserId(), rvs));
 		modelAndView.setViewName("mypage/reviewSearchList");
 		
 		return modelAndView;

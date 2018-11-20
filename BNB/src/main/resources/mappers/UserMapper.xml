@@ -18,4 +18,12 @@
 	<update id="updateUserKey">
 		update user set userKey='y' where userId=#{userId}
 	</update>
+	
+	<update id="updateUserKeySearchPw" parameterType="HashMap">
+		update user set userKey=#{userKey} where userId=#{userId}
+	</update>
+	
+	<update id="updateUserPw" parameterType="HashMap">
+		update user set userPw=#{userPw} where userId=#{userId}
+	</update>
 </mapper>

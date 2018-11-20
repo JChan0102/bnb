@@ -17,18 +17,25 @@ public class ReviewToListService {
 
 	private ReviewDao reviewDao;
 
-	public List<ReviewVO> reviewToListView(String userId) {
+	public List<ReviewVO> reviewToListView(String userId) { // 내가 쓴 후기
 
 		reviewDao = sqlSessionTemplate.getMapper(ReviewDao.class);
 
 		return reviewDao.reviewToList(userId);
 	}
 
-	public List<ReviewVO> reviewWriteList(String userId) {
+	public List<ReviewVO> reviewWriteList(String userId) { // 써야할리스트
 
 		reviewDao = sqlSessionTemplate.getMapper(ReviewDao.class);
 
 		return reviewDao.reviewWriteList(userId);
+	}
+	
+	public List<ReviewVO> hostReview(String userId) { // 호스트가 써준거 ㅎ
+		
+		reviewDao = sqlSessionTemplate.getMapper(ReviewDao.class);
+		
+		return reviewDao.hostReview(userId);
 	}
 
 }

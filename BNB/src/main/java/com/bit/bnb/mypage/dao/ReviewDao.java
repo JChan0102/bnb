@@ -15,5 +15,7 @@ public interface ReviewDao {
 	public int reviewWrite(ReviewVO review); // 후기쓰기
 	public int reviewDelete(int reservationNum); // 삭제하기
 	public int reviewEdit(ReviewVO review); // 리뷰 수정
-	public List<ReviewVO> searchReview(@Param("userId") String userId, @Param("rvs") ReviewSearchVO rvs); // 리뷰 검색하기
+	public List<ReviewVO> searchReview(@Param("userId") String userId, @Param("rvs") ReviewSearchVO rvs); // 리뷰 검색하기 내가쓴거
+	public List<ReviewVO> searchReviewHost(@Param("userId") String userId, @Param("rvs") ReviewSearchVO rvs); // 리뷰 검색 내게쓴거
+	public List<ReviewVO> hostReview(String userId); // 호스트가 쓴 리뷰
 }

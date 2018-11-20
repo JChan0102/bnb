@@ -12,18 +12,22 @@ import com.bit.bnb.mypage.model.ReviewVO;
 
 @Service
 public class ReviewSearchService {
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	private ReviewDao reviewDao;
-	
+
 	public List<ReviewVO> reviewSearchList(String userId, ReviewSearchVO rvs) {
 
 		reviewDao = sqlSessionTemplate.getMapper(ReviewDao.class);
-
 		return reviewDao.searchReview(userId, rvs);
 	}
 
+	public List<ReviewVO> HostReviewSearchList(String userId, ReviewSearchVO rvs) {
+
+		reviewDao = sqlSessionTemplate.getMapper(ReviewDao.class);
+		return reviewDao.searchReviewHost(userId, rvs);
+	}
 
 }

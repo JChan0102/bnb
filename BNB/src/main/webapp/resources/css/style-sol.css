@@ -1,12 +1,12 @@
 @charset "UTF-8";
 
-#left_list {
-	/* width: 250px; */
+/* #left_list {
+	width: 250px;
 	height: 300px;
 	margin-left: 40px;
 	background-color: white;
 	border-radius: 20px;
-}
+} */
 
 #mypage_wrap_cont {
 	/* width: 85%; */
@@ -14,18 +14,17 @@
 	position: relative;
 }
 
-.mypage_list {
+/* .mypage_list {
 	list-style: none;
 	font-size: 18px;
 	padding-top: 10px;
 }
 
 #list {
-	/* width: 100px; */
-	/* margin: 0 auto; */
-	text-align: center;
+	width: 100px;
+	margin: 0 auto;
 	padding-top: 65px;
-}
+} */
 
 #mypage_cont {
 	/* width: 1000px; */
@@ -33,7 +32,7 @@
 	position: absolute;
 	top: 0px;
 	right: 50px;
-	border-radius: 25px;
+	border-radius: 5px;
 }
 
 .reviewNav {
@@ -47,8 +46,8 @@
 }
 
 #review_photo {
-	max-width: 90px;
-	max-height: 90px;
+	max-width: 100px;
+	max-height: 100px;
 	overflow: hidden;
 	margin: 0px 15px;
 }
@@ -108,7 +107,7 @@
 .history {
 	text-align: center;
 }
-
+ 
 #wishDiv {
 	border: 1px solid;
 	height: 40px;
@@ -124,31 +123,43 @@
 	opacity: 1;
 }
 
-::-webkit-scrollbar {
-	width: 8px;
-	height: 8px;
-	border: 3px solid #fff;
+.labelWish {
+	margin-bottom: 96px;
 }
 
-::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment
-	{
-	display: block;
-	height: 10px;
-	background: #efefef
+.labelWish * {
+	display: inline-block;
+	vertical-align: top;
 }
 
-::-webkit-scrollbar-track {
-	background: #efefef;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .2)
+.labelWish .leftWish {
+	background:
+		url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_l.png")
+		no-repeat;
+	display: inline-block;
+	height: 24px;
+	overflow: hidden;
+	vertical-align: top;
+	width: 7px;
 }
 
-::-webkit-scrollbar-thumb {
-	height: 50px;
-	width: 50px;
-	background: rgba(0, 0, 0, .2);
-	-webkit-border-radius: 8px;
-	border-radius: 8px;
-	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .1)
+.labelWish .centerWish {
+	background:
+		url(http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png)
+		repeat-x;
+	display: inline-block;
+	height: 24px;
+	font-size: 12px;
+	line-height: 24px;
 }
+
+.labelWish .rightWish {
+	background:
+		url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png")
+		-1px 0 no-repeat;
+	display: inline-block;
+	height: 24px;
+	overflow: hidden;
+	width: 6px;
+}
+

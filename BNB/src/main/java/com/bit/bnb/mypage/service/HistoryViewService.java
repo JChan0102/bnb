@@ -17,12 +17,16 @@ public class HistoryViewService {
 	
 	private HistoryDao historyDao;
 	
-	public List<HistoryVO> historyView(String userId) {
+	public List<HistoryVO> historyView(String userId) { // 다녀온여행
 		
 		historyDao = sqlSessionTemplate.getMapper(HistoryDao.class);
-		
 		return historyDao.historyList(userId);
+	}
+	
+	public List<HistoryVO> tripView(String userId) { // 갈 여행
 		
+		historyDao = sqlSessionTemplate.getMapper(HistoryDao.class);
+		return historyDao.tripList(userId);
 	}
 
 }

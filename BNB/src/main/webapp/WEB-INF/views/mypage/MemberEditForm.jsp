@@ -40,7 +40,8 @@
 						<label for="inputPassword" class="col-sm-2 col-form-label">비밀번호</label>
 						<div class="col-sm-10">
 							<input type="password" class="form-control" id="inputPassword"
-								placeholder="Password" name="userPw" onchange="checkPw()" required>
+								placeholder="Password" name="userPw" required>
+								<span id="pwOkCk" style="color:red;font-size: 13px;"></span>
 						</div>
 					</div>
 					<!-- 비밀번호 확인 -->
@@ -48,24 +49,42 @@
 						<label for="inputPassword" class="col-sm-2 col-form-label">비번확인</label>
 						<div class="col-sm-10">
 							<input type="password" class="form-control" id="passwordCk"
-								placeholder="Password" onchange="checkPw()" required> <span id="pwCk" style="color:red;font-size: 13px;"></span>
+								placeholder="Password" onchange="checkPw()" required> 
+								<span id="pwCk" style="color:red;font-size: 13px;"></span>
 						</div>
 					</div>
 
 					<script>
-						function checkPw() {
-							var pw = document.getElementById('inputPassword').value;
-							var pwck = document.getElementById('passwordCk').value;
+					// 비밀번호 유효성 검사
+					$('#inputPassword').blur(function checkPassword(){
+							
+						var checkNumber = $('#inputPassword').val().search(/[0-9]/g);
+						var checkEnglish = $('#inputPassword').val().search(/[a-z]/ig);
+
+						if(!/^[a-zA-Z0-9]{8,15}$/.test($('#inputPassword').val())){
+							$('#pwOkCk').html("<b>숫자와 영문자 조합으로 8~15자리를 사용해야 합니다.</b>");
+						} else if (checkNumber <0 || checkEnglish <0){
+							$('#pwOkCk').html("<b>숫자와 영문자를 혼용하여야 합니다.</b>");
+						} else if (/(\w)\1\1\1/.test($('#inputPassword').val())){
+							$('#pwOkCk').html("<b>같은 문자를 4번 이상 연속하여 사용하실 수 없습니다.</b>");
+						} else {
+								$('#pwOkCk').html('');
+							}
+						});
+					
+						$('#passwordCk').blur(function checkPw() {
+							var pw = $('#inputPassword').val();
+							var pwck = $('#passwordCk').val();
 
 							if (pw != pwck) {
-								document.getElementById('pwCk').innerHTML = '<b>비밀번호가 일치하지 않습니다.</b>';
+								$('#pwCk').html('<b>비밀번호가 일치하지 않습니다.</b>');
 								return false;
 							}
 							else {
-								document.getElementById('pwCk').innerHTML = '';
+								$('#pwCk').html('');
 								return true;
 							}
-						}
+						});
 					</script>
 					
 					<!-- 자기소개 -->
