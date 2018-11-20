@@ -51,7 +51,7 @@
                     </c:when>
 						<c:otherwise>
 							<c:forEach var="room" items="${myroomlist}">
-								<div onclick="myroomlistselect('${room.roomsId}')">
+								<div id="mymy${room.roomsId}" onclick="myroomlistselect('${room.roomsId}')">
 									룸 번호 ( ${room.roomsId} ) <span
 										class="badge badge-pill badge-primary">${room.reservationCount}</span>
 								</div>
@@ -125,7 +125,10 @@
 													$('#myroom' + roomsid)
 															.html(str);
 													$('#myroom' + roomsid).css(
-															'display', 'block')
+															'display', 'block');
+                                                    $('#mymy'+roomsid).removeAttr("onclick");
+                                                    $('#mymy'+roomsid).attr("onclick","closee("+roomsid+")")
+
 												},
 												error : function() {
 													alert(error);
@@ -133,6 +136,11 @@
 											});
 
 								}
+								function closee(roomsid) {
+                                    $('.dis').css('display', 'none');
+                                    $('#mymy'+roomsid).removeAttr("onclick");
+                                    $('#mymy'+roomsid).attr("onclick","myroomlistselect("+roomsid+")")
+                                }
 
 								function rescancle(reservationNum) {
 									$
