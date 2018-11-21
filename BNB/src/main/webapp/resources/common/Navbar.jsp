@@ -126,8 +126,8 @@
 								}
 							};
 						}
-						getListmessage();
 
+                        getListmessage();
 						function getListmessage() {
 
 							$('#frame').css('z-index', 200);
@@ -598,7 +598,7 @@ $('#forgetPwModal-id').keypress(function(event) {
 
 <!-- 비밀번호 재설정 끝 -->
 
-
+<c:if test="${loginUser ne null}">
 
 <div id="frame"
 	style="position: absolute; right: 0px; bottom: 0px; z-index: -5; visibility: hidden">
@@ -875,3 +875,4 @@ $('#forgetPwModal-id').keypress(function(event) {
 	//# sourceURL=pen.js
 </script>
 
+	</c:if>
