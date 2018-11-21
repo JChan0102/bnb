@@ -25,7 +25,7 @@ public class ProfileEditService {
 	public int myUserUpdate(MemberVO member, HttpServletRequest request) throws IllegalStateException, IOException {
 
 		mypageUserDao = sqlSessionTemplate.getMapper(MypageUserDao.class);
-		
+
 		/*
 		 * String uploadUri = "/resources/images/userphoto";
 		 * 
@@ -44,16 +44,18 @@ public class ProfileEditService {
 		 * // DB 에 저장할 이름 SET member.setUserPhoto(imgName); } else { imgName =
 		 * request.getParameter("before"); member.setUserPhoto(imgName); }
 		 */
-		
+
 		System.out.println(member.getUserPhoto().equals(""));
 		if (member.getUserPhoto().equals("")) {
 			member.setUserPhoto(request.getParameter("before"));
 		}
 
-		// 비밀번호 암호화해서 다시 넣어준다
-		String ePw = sha256Service.encrypt(member.getUserPw());
-		member.setUserPw(ePw);
-
+		if (member.getUserPw() != null) {
+			// 비밀번호 암호화해서 다시 넣어준다
+			String ePw = sha256Service.encrypt(member.getUserPw());
+			member.setUserPw(ePw);
+		}
+		
 		System.out.println(member.toString());
 		return mypageUserDao.userUpdate(member);
 	}

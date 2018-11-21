@@ -36,8 +36,14 @@ public class ProfileEditController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String profileEditPost(MemberVO member, HttpServletRequest request) throws IllegalStateException, IOException {
-		
+	public String profileEditPost(MemberVO member, HttpServletRequest request, HttpSession session)
+			throws IllegalStateException, IOException {
+
+		UserVO user = (UserVO) session.getAttribute("loginUser");
+		System.out.println(member.getUserPw());
+		if (member.getUserPw() == null) {
+			member.setUserPw(user.getUserPw());
+		}
 		service.myUserUpdate(member, request);
 
 		return "redirect:/mypage";

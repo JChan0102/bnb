@@ -15,6 +15,7 @@ public class MemberVO {
 	private int point; // 정산금액
 	private String birth; // 생일
 	private String userInfo; // 자기소개
+	private String userKey; // 유저키
 
 	public String getUserId() {
 		return userId;
@@ -31,7 +32,6 @@ public class MemberVO {
 	public String getUserPhoto() {
 		return userPhoto;
 	}
-
 
 	public int getHost() {
 		return host;
@@ -105,20 +105,20 @@ public class MemberVO {
 		this.userInfo = userInfo;
 	}
 
+	public String getUserKey() {
+		return userKey;
+	}
+
+	public void setUserKey(String userKey) {
+		this.userKey = userKey;
+	}
+
 	@Override
 	public String toString() {
-		return "MemberVO{" +
-				"userId='" + userId + '\'' +
-				", userName='" + userName + '\'' +
-				", userPw='" + userPw + '\'' +
-				", userPhoto='" + userPhoto + '\'' +
-				", photoFile=" + photoFile +
-				", host=" + host +
-				", admin=" + admin +
-				", userCheck=" + userCheck +
-				", point=" + point +
-				", birth='" + birth + '\'' +
-				", userInfo='" + userInfo + '\'' +
-				'}';
+		return "MemberVO [userId=" + userId + ", userName=" + userName + ", userPw=" + userPw + ", userPhoto="
+				+ userPhoto + ", photoFile=" + photoFile + ", host=" + host + ", admin=" + admin + ", userCheck="
+				+ userCheck + ", point=" + point + ", birth=" + birth + ", userInfo=" + userInfo + ", userKey="
+				+ userKey + "]";
 	}
+
 }
