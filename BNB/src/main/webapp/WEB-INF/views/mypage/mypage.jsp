@@ -56,8 +56,8 @@
 								<c:otherwise>
 									<i class="far fa-times-circle" style="color: #CD0000"></i> 호스트가 아닙니다.
 									<dt>
-										호스트가 되길 원하신다면?
-										<button type="button" class="btn btn-link">호스트신청</button>
+										호스트가 되길 원하신다면? &ensp;
+										<a href="${pageContext.request.contextPath}/hostapplication">호스트신청</a>
 									</dt>
 								</c:otherwise>
 							</c:choose>

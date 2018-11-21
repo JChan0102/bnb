@@ -3,6 +3,7 @@ package com.bit.bnb.mypage.controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.mypage.model.MemberVO;
 import com.bit.bnb.mypage.service.ProfileEditService;
+import com.bit.bnb.user.model.UserVO;
 
 @Controller
 @RequestMapping("/mypageEdit")
@@ -35,7 +37,7 @@ public class ProfileEditController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String profileEditPost(MemberVO member, HttpServletRequest request) throws IllegalStateException, IOException {
-
+		
 		service.myUserUpdate(member, request);
 
 		return "redirect:/mypage";
