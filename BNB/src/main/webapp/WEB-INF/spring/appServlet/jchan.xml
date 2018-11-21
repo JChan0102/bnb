@@ -8,12 +8,20 @@
 	<bean id="chatHandler" class="com.bit.bnb.chatting.handler.EchoHandler" />
 
 	<websocket:handlers>
-
-
 		<websocket:mapping handler="chatHandler" path="/chat" />
 		<websocket:handshake-interceptors>
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>
+		<websocket:sockjs />
+
+
+	</websocket:handlers>
+
+
+	<bean id="chatHandler2" class="com.bit.bnb.chatting.handler.EchoHandler2" />
+	<websocket:handlers>
+
+		<websocket:mapping handler="chatHandler2" path="/devchat" />
 		<websocket:sockjs />
 
 	</websocket:handlers>

@@ -22,7 +22,7 @@
 <script>
     connect();
     function connect() {
-        sock = new SockJS('/chat');
+        sock = new SockJS('${pageContext.request.contextPath}/chat');
         sock.onopen = function () {
             console.log('open');
         };

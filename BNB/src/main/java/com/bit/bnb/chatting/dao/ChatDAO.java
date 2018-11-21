@@ -1,5 +1,6 @@
 package com.bit.bnb.chatting.dao;
 
+import com.bit.bnb.chatting.model.AllMessageVO;
 import com.bit.bnb.chatting.model.ChatRoomVO;
 import com.bit.bnb.chatting.model.MessageVO;
 import com.bit.bnb.rooms.model.RoomsVO;
@@ -171,7 +172,13 @@ public class ChatDAO {
         return sqlSessionTemplate.selectOne(namespace+"getUnReadCountTutor" , map);
     }
 
+    public List<AllMessageVO> devMessageList (){
 
+        return sqlSessionTemplate.selectList(namespace+"devMessageList");
+    }
+    public void allMessageinsert(AllMessageVO vo){
+       sqlSessionTemplate.insert(namespace+"allMessageinsert",vo);
+    }
 
 
 

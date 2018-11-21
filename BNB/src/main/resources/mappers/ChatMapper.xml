@@ -71,6 +71,15 @@
 
     </select>
 
+    
+    <select id="devMessageList" resultType="com.bit.bnb.chatting.model.AllMessageVO">
+        select * from devtalk order by idx asc;
+    </select>
+
+    <insert id="allMessageinsert" parameterType="com.bit.bnb.chatting.model.AllMessageVO">
+        insert into devtalk (userName, message) VALUES (#{userName}, #{message});
+    </insert>
+    
 <!--
 
     <select id="getRoomList2" resultType="com.bit.bnb.chatting.model.ChatRoomVO">

@@ -113,8 +113,7 @@
 										textColor : '#2c2c2c', // Text color of the toast
 										textAlign : 'left', // Text alignment i.e. left, right or center
 										loader : false, // Whether to show loader or not. True by default
-										loaderBg : '#9EC600', // Background color of the toast loader
-										icon : 'info',
+										loaderBg : '#9EC600', // Background color of the toast loader,
 										beforeShow : function() {
 										}, // will be triggered before the toast is shown
 										afterShown : function() {
@@ -692,9 +691,8 @@ $('#forgetPwModal-id').keypress(function(event) {
 		$("#status-options").removeClass("active");
 	});
 
-	$(".messages").animate({
-		scrollTop : $('.messages')[0].scrollHeight
-	}, "fast");
+
+
 
 	function getDBMessage(userId, hostId, roomsId, name, photo) {
 		//photo로 바껴야함
@@ -743,17 +741,14 @@ $('#forgetPwModal-id').keypress(function(event) {
 														.appendTo(
 																$('.messages ul'));
 												//   $('<li>' + getTimeStamp(value.messageDate) + '</li>').appendTo($('.messages ul'));
-												$('.message-input input').val(
-														null);
+											//	$('.message-input input').val(null);
 												$('.contact.active .preview')
 														.html(
 																'<span>You : </span>'
 																		+ value.messagecontent);
 											}
 										});
-						$(".messages").animate({
-							scrollTop : $('.messages')[0].scrollHeight
-						}, "fast");
+                        $(".messages").scrollTop($(".messages")[0].scrollHeight);
 						/*   $(".messages").animate({scrollTop: $(document).height()}, "fast");*/
 					},
 					error : function() {
@@ -776,6 +771,7 @@ $('#forgetPwModal-id').keypress(function(event) {
 		sock.onmessage = function(evt) {
 			var data = evt.data;
 			var obj = JSON.parse(data);
+			console.log('통신');
 			appendMessage(obj);
 		};
 	}
@@ -817,22 +813,17 @@ $('#forgetPwModal-id').keypress(function(event) {
 				} else {
 					//$('#con').attr('src')로 수정해야댐
 					$(
-							'<li class="sent"><img src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/'+obj.hostPhoto+'" alt="" /><p>'
+							'<li class="sent"><img src="'+$("#con").attr("src")+'" alt="" /><p>'
 									+ obj.messagecontent + '</p></li>')
 							.appendTo($('.messages ul'));
 					//  $('<li>' + getTimeStamp(obj.messageDate) + '</li>').appendTo($('.messages ul'));
-					$('.message-input input').val(null);
+				//	$('.message-input input').val(null);
 					$('.contact.active .preview').html(
 							'<span>You : </span>' + obj.messagecontent);
 				}
 
-				$(".messages").animate({
-					scrollTop : $(document).height()
-				}, "fast");
+                $(".messages").scrollTop($(".messages")[0].scrollHeight);
 			}
-			$(".messages").animate({
-				scrollTop : $('.messages')[0].scrollHeight
-			}, "fast");
 			$
 					.ajax({
 						url : '${pageContext.request.contextPath}/chat/list/ck?roomsId='
@@ -884,32 +875,3 @@ $('#forgetPwModal-id').keypress(function(event) {
 	//# sourceURL=pen.js
 </script>
 
-
-<script>
-	function getTimeStamp(datea) {
-		var d = null;
-
-		if (datea) {
-			d = new Date(datea);
-		} else {
-			d = new Date();
-		}
-		var s = leadingZeros(d.getFullYear(), 4) + '-'
-				+ leadingZeros(d.getMonth() + 1, 2) + '-'
-				+ leadingZeros(d.getDate(), 2) + ' '
-				+ leadingZeros(d.getHours(), 2) + ':'
-				+ leadingZeros(d.getMinutes(), 2);
-		return s;
-	}
-
-	function leadingZeros(n, digits) {
-		var zero = '';
-		n = n.toString();
-
-		if (n.length < digits) {
-			for (i = 0; i < digits - n.length; i++)
-				zero += '0';
-		}
-		return zero + n;
-	}
-</script>
