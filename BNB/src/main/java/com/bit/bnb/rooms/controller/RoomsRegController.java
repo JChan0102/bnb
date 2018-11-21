@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.rooms.model.AmenitiesVO;
+import com.bit.bnb.rooms.model.RoomsImgVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.service.RoomsRegService;
 
@@ -27,11 +29,19 @@ public class RoomsRegController {
 
 	// 숙소등록페이지
 	@RequestMapping(value = "/rooms/registerRooms", method = RequestMethod.POST)
-	public ModelAndView regRooms(RoomsVO rv) {
+	public ModelAndView regRooms(RoomsVO rv, RoomsImgVO rimgv, MultipartHttpServletRequest mtpRequest) {
 		ModelAndView modelAndView = new ModelAndView();
 		// 줄 바꿈 처리
 		rv.setDetails(rv.getDetails().replaceAll("\r\n", "<br>"));
 		// 숙소등록에 성공하였을 경우
+
+		// 파일처리 시작
+		// List<MultipartFile> fileList = mtpRequest.getFiles("file");
+		System.out.println(rimgv);
+		
+
+		// 파일 처리 끝
+
 		if (roomsRegService.regRooms(rv) > 0) {
 			modelAndView.setViewName("redirect:/rooms");
 		} else {

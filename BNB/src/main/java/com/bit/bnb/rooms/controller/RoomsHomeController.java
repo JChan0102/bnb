@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.service.RoomsLIstService;
-import com.bit.bnb.rooms.util.Paging;
 
 @Controller
 public class RoomsHomeController {

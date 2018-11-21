@@ -20,32 +20,9 @@
 				});
 				$('#amenities').val(check);
 			});
-
 		});
-		$(function() {
-			$("#uploadbutton")
-					.click(
-							function() {
-								var form = $('#modiform')[0];
-								var formData = new FormData(form);
-								$
-										.ajax({
-											url : 'http://13.209.99.134:8080/imgserver/upload/userPhoto',
-											processData : false,
-											contentType : false,
-											datatype : 'JSON',
-											data : formData,
-											type : 'POST',
-											success : function(result) {
-												$('#userPhoto')
-														.val('' + result);
-												$('#modiform').submit();
-											}
-										});
-							});
-		})
 	</script>
-	</script>
+
 	<%@ include file="/resources/common/Navbar.jsp"%>
 	<!-- Begin page content -->
 	<!-- https://shaack.com/projekte/bootstrap-input-spinner/ -->
@@ -160,91 +137,14 @@
 					<tr>
 						<td colspan="2">
 							<div class="input-group mb-3">
-								<!-- <div class="custom-file">
-									<input type="file" class="custom-file-input"
-										id="inputGroupFile02"> <label
-										class="custom-file-label" for="inputGroupFile02"
-										aria-describedby="inputGroupFileAddon02">Choose file</label>
+								<div class="custom-file">
+									<input multiple="multiple" type="file"
+										class="custom-file-input" id="roomfile" name="roomfile"
+										accept="image/*"> <label class="custom-file-label"
+										for="roomfilename">Choose file</label>
 								</div>
-								<div class="input-group-append">
-									<span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
-								</div> -->
-								
-								
-								
-								
-								
-								
-								<!-- The file upload form used as target for the file upload widget -->
-		<form id="fileupload" action="https://jquery-file-upload.appspot.com/"
-			method="POST" enctype="multipart/form-data">
-			<!-- Redirect browsers with JavaScript disabled to the origin page -->
-			<noscript>
-				<input type="hidden" name="redirect"
-					value="https://blueimp.github.io/jQuery-File-Upload/">
-			</noscript>
-			<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-			<div class="row fileupload-buttonbar">
-				<div class="col-lg-7">
-					<!-- The fileinput-button span is used to style the file input field as button -->
-					<span class="btn btn-success fileinput-button"> <i
-						class="glyphicon glyphicon-plus"></i> <span>파일 추가</span> <input
-						type="file" name="files[]" multiple>
-					</span>
-					<button type="submit" class="btn btn-primary start">
-						<i class="glyphicon glyphicon-upload"></i> <span>업로드</span>
-					</button>
-					<button type="reset" class="btn btn-warning cancel">
-						<i class="glyphicon glyphicon-ban-circle"></i> <span>업로드 취소</span>
-					</button>
-					<button type="button" class="btn btn-danger delete">
-						<i class="glyphicon glyphicon-trash"></i> <span>파일 삭제</span>
-					</button>
-					<input type="checkbox" class="toggle">
-					<!-- The global file processing state -->
-					<span class="fileupload-process"></span>
-				</div>
-				<!-- The global progress state -->
-				<div class="col-lg-5 fileupload-progress fade">
-					<!-- The global progress bar -->
-					<div class="progress progress-striped active" role="progressbar"
-						aria-valuemin="0" aria-valuemax="100">
-						<div class="progress-bar progress-bar-success" style="width: 0%;"></div>
-					</div>
-					<!-- The extended global progress state -->
-					<div class="progress-extended">&nbsp;</div>
-				</div>
-			</div>
-			<!-- The table listing the files available for upload/download -->
-			<table role="presentation" class="table table-striped">
-				<tbody class="files"></tbody>
-			</table>
-		</form>
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
 							</div>
+							<div id="preview" class="row"></div>
 						</td>
 					</tr>
 					<tr>
@@ -258,12 +158,102 @@
 		</div>
 	</div>
 	</main>
+	<a href="https://doublesprogramming.tistory.com/131">https://doublesprogramming.tistory.com/131</a>
+	<a
+		href="
+	http://ktko.tistory.com/entry/Spring-%EB%8B%A8%EC%9D%BC%ED%8C%8C%EC%9D%BC-%EB%8B%A4%EC%A4%91%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C%ED%95%98%EA%B8%B0">두번째</a>
+	<script>
+		var imgidx = 1;
+		var filenames = [];
+		$(function() {
+			$("input[name=roomfile]").change(function(e) {
+				for (i = 0; i < $('#roomfile')[0].files.length; i++) {
+					var formData = new FormData();
+					formData.append("roomfile", $('#roomfile')[0].files[i]);
+					formData.append("imgidx", imgidx);
+					$.ajax({
+						async : false,
+						type : 'POST',
+						url : '${pageContext.request.contextPath}/fileUpload',
+						data : formData,
+						dataType : 'text',
+						processData : false,
+						contentType : false,
+						success : function(data) {
+							// console.log("파일 업로드 성공");
+							// console.log(data);
+							filenames.push(data);
+							drawThumbnail(filenames);
+							//output += '<div class="col-3"><a href="${pageContext.request.contextPath}/fileDelete?deleteFileName='
+							//		+ data
+							//		+ '"><img src="${pageContext.request.contextPath}/resources/upload/' + data + '" name="thumb_'+imgidx+'"></a></div>';
+							// output += '<div class="col-3" name="thumb_'+imgidx+'" id="'+data+'"><img src="${pageContext.request.contextPath}/resources/upload/' + data + '"></div>';
+						},
+						error : function(error) {
+							console.log(error);
+							console.log(error.status);
+						}
+					});
+					imgidx++;
+				}
+				console.log(filenames);
+			});
+		});
+
+		$(function() {
+			$("[name^=thumb_]")
+					.on(
+							"click",
+							function(e) {
+								console.log("들어옴")
+								$
+										.ajax({
+											// async : false,
+											type : 'GET',
+											url : '${pageContext.request.contextPath}/fileDelete?deleteFileName='
+													+ $(this).attr("id"),
+											// data : formData,
+											// dataType : 'text',
+											processData : false,
+											contentType : false,
+											success : function(data) {
+												if (data) {
+													drawThumbnail(filenames);
+												}
+												//output += '<div class="col-3"><a href="${pageContext.request.contextPath}/fileDelete?deleteFileName='
+												//		+ data
+												//		+ '"><img src="${pageContext.request.contextPath}/resources/upload/' + data + '" name="thumb_'+imgidx+'"></a></div>';
+												// output += '<div class="col-3" name="thumb_'+imgidx+'" id="'+data+'"><img src="${pageContext.request.contextPath}/resources/upload/' + data + '"></div>';
+											},
+											error : function(error) {
+												console.log(error);
+												console.log(error.status);
+											}
+										});
+								console.log(filenames);
+							});
+		});
+
+		function drawThumbnail(filenames) {
+			var output = '';
+			$
+					.each(
+							filenames,
+							function(index, item) {
+								// output += '<div class="col-3"><a href="${pageContext.request.contextPath}/fileDelete?deleteFileName='
+								//		+ item
+								//		+ '"><img src="${pageContext.request.contextPath}/resources/upload/' + item + '" id="' + item + '""></a></div>';
+								output += '<div class="col-3"><img src="${pageContext.request.contextPath}/resources/upload/' + item + '" id="' + item + '" name="thumb_'+ item + '"></div>';
+							});
+			$('#preview').html(output);
+		}
+	</script>
 	<!-- 스피너 사용을 위한 JS -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/bootstrap-input-spinner.js"></script>
 	<script>
 		// 스피너 사용	
-		$("input[type='number']").inputSpinner()
+		$("input[type='number']").inputSpinner();
 
 		// input에서 엔터키 사용시 submit을 방지하기 위함
 		$('input[type="text"]').keydown(function() {

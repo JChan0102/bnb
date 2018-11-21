@@ -63,7 +63,7 @@
 	<!-- https://shaack.com/projekte/bootstrap-input-spinner/ -->
 	<main role="main" class="container">
 	<div class="row justify-content-md-center">
-		<div class="col-md-7">
+		<div class="col-lg-7">
 			<h1>
 				<b>숙소 보기</b>
 				<button
@@ -215,7 +215,7 @@
 				</table>
 			</form>
 		</div>
-		<div class="col-md-5">
+		<div class="col-lg-5">
 			<%@ include file="../reservation/reservationForm.jsp"%>
 		</div>
 	</div>

@@ -252,8 +252,8 @@
 								for (i = 0; i < data.roomsList.length; i++) {
 									addPoints(data.roomsList[i]);
 									
-									output += '<div class="col-md-3">';
-									output += '<div class="card mb-3 box-shadow">';
+									output += '<div class="col-lg-3">';
+									output += '<div class="card lg-3 box-shadow">';
 									output += '<img class="card-img-top">';
 									output += '<div class="card-body">';
 									output += '	<p class="card-text">';
