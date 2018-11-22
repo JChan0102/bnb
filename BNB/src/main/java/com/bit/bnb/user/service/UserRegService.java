@@ -2,6 +2,9 @@ package com.bit.bnb.user.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Random;
@@ -30,6 +33,9 @@ public class UserRegService {
 	@Autowired
 	private EncryptSHA256Service sha256Service;
 	
+	@Autowired
+	private EncryptAES256Service aes256Service;
+	
 	/*@Autowired
 	private JavaMailSender mailSender;*/
 	
@@ -45,7 +51,7 @@ public class UserRegService {
 	private UserVO user;
 	
 	@Transactional
-	public int userReg(UserVO userVO, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
+	public int userReg(UserVO userVO, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException, NoSuchAlgorithmException, GeneralSecurityException {
 		
 		int resultCnt = 0;
 
@@ -105,35 +111,20 @@ public class UserRegService {
 				
 				// 생년월일이 유효하면 userVO에 추가한 후 가입 진행
 				userVO.setBirth(birth);
-				
-				
-				
-				/*// 메일인증을 위한 인증키 생성하기
-				Random random = new Random(System.currentTimeMillis());
-				StringBuffer keyBuffer = new StringBuffer();
-				
-				// 20자리의 난수를 발생한다
-				for(int i=0; i<20; i++) {
-					if(random.nextBoolean()) {
-						keyBuffer.append((char)((int)(random.nextInt(26))+97));
-					}else {
-						keyBuffer.append((random.nextInt(10)));
-					}
-				}
-				
-				String userKey = keyBuffer.toString();*/
+
 				String userKey = getRandomStringService.getRandomString();
 				
-				System.out.println("userKey : " + userKey);
+				// 유저키를 암호화 - AES
+				String aesKey = aes256Service.encrypt(userKey);
 				
-				userVO.setUserKey(userKey);
+				userVO.setUserKey(aesKey);
 				
 				// 인서트 시도
 				resultCnt = userDao.insertUser(userVO);
 				
 				// 인서트가 성공적으로 되었으면 인증메일 발송하고 세션 생성(메일인증안내)
 				if(resultCnt == 1) {
-					mailSendService.mailSendWithUserKey(userVO.getUserId(), userVO.getUserName(), userVO.getUserKey());
+					mailSendService.mailSendWithUserKey(userVO.getUserId(), userVO.getUserName(), userKey);
 					
 					if (session.getAttribute("mailConfirm") != null) {
 						session.removeAttribute("mailConfirm");
@@ -141,7 +132,6 @@ public class UserRegService {
 					session.setAttribute("mailConfirm", "mailConfirm");
 				}
 				
-			
 			// 아이디 중복이면 가입실패
 			} else { 
 				resultCnt = 0;
@@ -196,17 +186,20 @@ public class UserRegService {
 	
 	// 인증메일 확인
 	@Transactional
-	public int userConfirm(String userId, String userKey) {
+	public int userConfirm(String userId, String userKey) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		
 		int result = 0;
 		UserVO user = new UserVO();
 		
 		user = userDao.selectUser(userId);
 		
+		// 해당 유저의 유저키를 복호화해서 dKey에 저장
+		String dKey = aes256Service.decrypt(user.getUserKey());
+		
 		// 이미 인증된 회원이면 ( 유저키가 y )
 		if(user != null && user.getUserKey().equals("y")) {
 			result = 0;
-		} else if (user != null && user.getUserKey().equals(userKey)) {
+		} else if (user != null && dKey.equals(userKey)) {
 			// 인증키 업데이트 쿼리
 			result = userDao.updateUserKey(userId);
 		}

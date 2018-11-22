@@ -1,5 +1,8 @@
 package com.bit.bnb.user.service;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -22,13 +25,16 @@ public class PasswordSearchService {
 
 	@Autowired
 	private EncryptSHA256Service sha256Service;
+	
+	@Autowired
+	private EncryptAES256Service aes256Service;
 
 	@Autowired
 	private UserDao userDao;
 
 	// 유저키 변경 + 메일보내기
 	@Transactional
-	public String sendPwUpdateLink(String userId) {
+	public String sendPwUpdateLink(String userId) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 
 		System.out.println("서비스진입 - 유저아이디 : " + userId);
 
@@ -51,11 +57,12 @@ public class PasswordSearchService {
 				// 구글계정이 아니고 탈퇴하지 않은 회원인 경우 비밀번호를 재설정할 수 있는 링크를 메일로 전송합니다.
 				// 유저키 랜덤발생
 				String userKey = getRandomStringService.getRandomString();
+				String aesKey = aes256Service.encrypt(userKey);
 
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				
 				map.put("userId", userId);
-				map.put("userKey", userKey);
+				map.put("userKey", aesKey);
 				map.put("disabled", 2);
 
 				System.out.println("유저로그인서비스 - 맵: " + map);
@@ -83,13 +90,14 @@ public class PasswordSearchService {
 
 	// 메일 링크 클릭 - 유저 아이디와 키를 비교해서 비밀번호 재설정하는 폼을 띄워준다
 	@Transactional
-	public String getUpdateUserPwForm(String userId, String userKey) {
+	public String getUpdateUserPwForm(String userId, String userKey) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 
 		String result = "user/expiredUpdatePw";
 		UserVO user = new UserVO();
 		user = userDao.selectUser(userId);
+		String dKey = aes256Service.decrypt(user.getUserKey());
 
-		if (user.getUserKey().equals(userKey)) {
+		if (dKey.equals(userKey)) {
 			// model.addAttribute("userId", userId);
 			result = "user/updatePwForm";
 		}

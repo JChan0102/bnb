@@ -25,8 +25,7 @@ public class EncryptAES256Service {
 	 * @return 
 	 * @throws UnsupportedEncodingException 키값의 길이가 16이하일 경우 발생
 	 */
-	public void AES256Util() throws UnsupportedEncodingException {
-		// this.iv = key.substring(0, 16);
+	public EncryptAES256Service() throws UnsupportedEncodingException {
 		byte[] keyBytes = new byte[16];
 		byte[] b = iv.getBytes("UTF-8");
 		int len = b.length;

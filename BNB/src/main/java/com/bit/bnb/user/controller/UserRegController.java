@@ -1,7 +1,10 @@
 package com.bit.bnb.user.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -36,7 +39,7 @@ public class UserRegController {
 								@RequestParam("fail-pw-1") String fail1,
 								@RequestParam("fail-pw-2") String fail2, 
 								HttpServletRequest request,
-								HttpSession session) throws IllegalStateException, IOException {
+								HttpSession session) throws IllegalStateException, IOException, NoSuchAlgorithmException, GeneralSecurityException {
 
 		ModelAndView modelAndView = new ModelAndView();
 		
@@ -75,7 +78,7 @@ public class UserRegController {
 	// 계정인증
 	@RequestMapping("/userKeyConfirm")
 	public String userKeyConfirm(@RequestParam("userId") String userId, 
-								 @RequestParam("userKey") String userKey) {
+								 @RequestParam("userKey") String userKey) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		
 		String result = "redirect:/";
 		

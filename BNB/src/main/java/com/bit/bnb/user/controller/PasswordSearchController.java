@@ -1,5 +1,9 @@
 package com.bit.bnb.user.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +25,7 @@ public class PasswordSearchController {
 	// 비밀번호 찾기용 유저키 재설정, 유저 아이디를 받아서 비밀번호 재설정 링크가 담긴 메일을 전송한다
 	@RequestMapping(value="/sendPwUpdateLink", method=RequestMethod.POST)
 	@ResponseBody
-	public String searchPw(@RequestParam("userId") String userId) {
+	public String searchPw(@RequestParam("userId") String userId) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		
 		System.out.println("컨트롤러진입");
 		// 유저 아이디 받아서 서비스로 넘긴다
@@ -31,10 +35,10 @@ public class PasswordSearchController {
 	}
 	
 	// 메일에서 비밀번호 재설정하기 링크 클릭했을때
-	@RequestMapping(value="/user/updatePw", method=RequestMethod.GET)
+	@RequestMapping(value="/user/updatePwForm", method=RequestMethod.POST)
 	public String getUpdatePwForm(@RequestParam("userId") String userId,
 									 @RequestParam("userKey") String userKey,
-									 Model model) {
+									 Model model) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 				
 		System.out.println("유저아이디 : " + userId);
 		System.out.println("유저키 : " + userKey);
