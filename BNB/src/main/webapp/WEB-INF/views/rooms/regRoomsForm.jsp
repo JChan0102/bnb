@@ -20,6 +20,7 @@
 				});
 				$('#amenities').val(check);
 			});
+
 		});
 	</script>
 
@@ -158,10 +159,6 @@
 		</div>
 	</div>
 	</main>
-	<a href="https://doublesprogramming.tistory.com/131">https://doublesprogramming.tistory.com/131</a>
-	<a
-		href="
-	http://ktko.tistory.com/entry/Spring-%EB%8B%A8%EC%9D%BC%ED%8C%8C%EC%9D%BC-%EB%8B%A4%EC%A4%91%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C%ED%95%98%EA%B8%B0">두번째</a>
 	<script>
 		var imgidx = 1;
 		var filenames = [];
@@ -200,40 +197,6 @@
 			});
 		});
 
-		$(function() {
-			$("img[name^='thumb_']")
-					.on(
-							"click",
-							function(e) {
-								console.log("들어옴")
-								$
-										.ajax({
-											// async : false,
-											type : 'GET',
-											url : '${pageContext.request.contextPath}/fileDelete?deleteFileName='
-													+ $(this).attr("id"),
-											// data : formData,
-											// dataType : 'text',
-											processData : false,
-											contentType : false,
-											success : function(data) {
-												if (data) {
-													drawThumbnail(filenames);
-												}
-												//output += '<div class="col-3"><a href="${pageContext.request.contextPath}/fileDelete?deleteFileName='
-												//		+ data
-												//		+ '"><img src="${pageContext.request.contextPath}/resources/upload/' + data + '" name="thumb_'+imgidx+'"></a></div>';
-												// output += '<div class="col-3" name="thumb_'+imgidx+'" id="'+data+'"><img src="${pageContext.request.contextPath}/resources/upload/' + data + '"></div>';
-											},
-											error : function(error) {
-												console.log(error);
-												console.log(error.status);
-											}
-										});
-								console.log(filenames);
-							});
-		});
-
 		function drawThumbnail(filenames) {
 			var output = '';
 			$
@@ -243,10 +206,41 @@
 								// output += '<div class="col-3"><a href="${pageContext.request.contextPath}/fileDelete?deleteFileName='
 								//		+ item
 								//		+ '"><img src="${pageContext.request.contextPath}/resources/upload/' + item + '" id="' + item + '""></a></div>';
-								output += '<div class="col-3"><img src="${pageContext.request.contextPath}/resources/upload/' + item + '" id="' + item + '" name="thumb_'+ item + '"></div>';
+								output += '<div class="col-3" onclick="deleteImage(this);" id="'
+										+ item
+										+ '"><img src="${pageContext.request.contextPath}/resources/upload/' + item + '" class="w-100"></div>';
 							});
 			$('#preview').html(output);
 		}
+		// 여기부터
+		function deleteImage(that) {
+			$
+					.ajax({
+						// async : false,
+						type : 'GET',
+						url : '${pageContext.request.contextPath}/fileDelete?deleteFileName='
+								+ $(that).attr("id"),
+						// data : formData,
+						// dataType : 'text',
+						processData : false,
+						contentType : false,
+						success : function(data) {
+							if (data) {
+								$(that).remove();
+								// console.log(filenames);
+								// console.log(filenames.indexOf($(that).attr("id")));
+								filenames.splice(filenames.indexOf($(that)
+										.attr("id")), 1);
+								// console.log(filenames);
+							}
+						},
+						error : function(error) {
+							console.log(error);
+							console.log(error.status);
+						}
+					});
+			console.log(filenames);
+		};
 	</script>
 	<!-- 스피너 사용을 위한 JS -->
 	<script
