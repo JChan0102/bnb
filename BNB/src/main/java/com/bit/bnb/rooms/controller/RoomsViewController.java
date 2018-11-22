@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bit.bnb.mypage.model.WishVO;
 import com.bit.bnb.mypage.service.WishService;
 import com.bit.bnb.rooms.model.AmenitiesVO;
+import com.bit.bnb.rooms.model.RoomsImgVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.service.RoomViewService;
 import com.bit.bnb.user.model.UserVO;
@@ -26,7 +26,7 @@ public class RoomsViewController {
 	WishService wishService;
 
 	@RequestMapping(value = "/rooms/viewRooms", method = RequestMethod.GET)
-	public ModelAndView getRoomsHome(RoomsVO rv, AmenitiesVO av, HttpSession session, @RequestParam("roomsId") int roomsId) {
+	public ModelAndView getRoomsHome(RoomsVO rv, AmenitiesVO av, RoomsImgVO rimgv, HttpSession session, @RequestParam("roomsId") int roomsId) {
 		ModelAndView modelAndView = new ModelAndView();
 		UserVO user = (UserVO) session.getAttribute("loginUser");
 		
@@ -42,6 +42,8 @@ public class RoomsViewController {
 		modelAndView.addObject("amenities", roomViewService.getAmenities(av));
 		modelAndView.addObject("selectedRoom", roomViewService.getViewRooms(rv));
 		modelAndView.addObject("reviewSummary", roomViewService.getReviewSummary());
+		modelAndView.addObject("roomImages", roomViewService.getRoomImages(rimgv));
+		
 		if(user == null) {
 			modelAndView.addObject("wish", 2);
 		} else {

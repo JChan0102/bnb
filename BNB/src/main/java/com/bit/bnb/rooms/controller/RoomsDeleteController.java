@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bit.bnb.rooms.model.RoomsImgVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.service.RoomsDeleteService;
 
@@ -16,8 +17,10 @@ public class RoomsDeleteController {
 	RoomsDeleteService roomsDeleteService;
 
 	@RequestMapping(value = "/rooms/deleteRoom", method = RequestMethod.GET)
-	public ModelAndView deleteRooms(RoomsVO rv) {
+	public ModelAndView deleteRooms(RoomsVO rv, RoomsImgVO rimgv) {
 		ModelAndView modelAndView = new ModelAndView();
+		// FK문제로 사진부터 삭제
+		roomsDeleteService.deleteRoomImage(rimgv);
 		// 삭제에 성공하였으변
 		if (roomsDeleteService.deleteRooms(rv) > 0) {
 			modelAndView.setViewName("redirect:/rooms");

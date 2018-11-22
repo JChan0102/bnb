@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.rooms.model.AmenitiesVO;
+import com.bit.bnb.rooms.model.RoomsImgVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.service.RoomViewService;
 import com.bit.bnb.rooms.service.RoomsModifyService;
@@ -22,7 +23,7 @@ public class RoomsModifyController {
 
 	// 숙소수정폼페이지
 	@RequestMapping(value = "/rooms/modifyRooms", method = RequestMethod.GET)
-	public ModelAndView getModifyRoomsForm(RoomsVO rv, AmenitiesVO av) {
+	public ModelAndView getModifyRoomsForm(RoomsVO rv, AmenitiesVO av, RoomsImgVO rimgv) {
 		ModelAndView modelAndView = new ModelAndView();
 		// 줄바꿈 처리
 		rv = roomViewService.getViewRooms(rv);
@@ -31,6 +32,7 @@ public class RoomsModifyController {
 		modelAndView.addObject("amenities", roomsModifyService.getAmenities(av));
 		modelAndView.addObject("selectedRoom", rv);
 		modelAndView.setViewName("rooms/modifyRoomsForm");
+		modelAndView.addObject("roomImages", roomViewService.getRoomImages(rimgv));
 		return modelAndView;
 	}
 

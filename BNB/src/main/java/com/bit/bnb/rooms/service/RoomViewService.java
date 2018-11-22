@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.bit.bnb.mypage.dao.WishDao;
 import com.bit.bnb.rooms.dao.RoomsDAO;
 import com.bit.bnb.rooms.model.AmenitiesVO;
+import com.bit.bnb.rooms.model.RoomsImgVO;
 import com.bit.bnb.rooms.model.RoomsReviewSummaryVO;
 import com.bit.bnb.rooms.model.RoomsReviewVO;
 import com.bit.bnb.rooms.model.RoomsVO;
@@ -62,6 +63,10 @@ public class RoomViewService {
 
 	public List<RoomsReviewSummaryVO> getReviewSummary() {
 		return roomsDAO.selectRoomsReviewSummary();
+	}
+	
+	public List<RoomsImgVO> getRoomImages(RoomsImgVO rimgv) {
+		return roomsDAO.selectRoomsPhoto(rimgv);
 	}
 
 }

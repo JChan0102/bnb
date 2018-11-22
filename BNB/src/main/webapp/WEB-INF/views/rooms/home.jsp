@@ -256,7 +256,12 @@
 									output += '<div class="card mb-3 box-shadow">';
 									for(k=0; k<data.thumbnail.length; k++){
 										if (data.roomsList[i].roomsId == data.thumbnail[k].roomsId) {
+											output += '<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
+												+ data.roomsList[i].roomsId;
+											output += '				&hostId='
+												+ data.roomsList[i].hostId + '">';
 											output += '<img class="card-img-top" src="http://13.209.99.134:8080/imgserver/resources/upload/' +data.thumbnail[k].filename+ '">';
+											output += '</a>';
 										} else { // 이미지가 없을 경우, 노이미지
 											output += '<img class="card-img-top">';
 										}

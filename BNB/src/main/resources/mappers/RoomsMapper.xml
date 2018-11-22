@@ -332,6 +332,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO `bnb`.`roomsimg` (`filename`, `roomsId`, `priority`) VALUES (#{filename}, #{roomsId}, #{priority})
 	</insert>
 	
+	<update id="updateRoomsPhoto"
+		parameterType="com.bit.bnb.rooms.model.RoomsImgVO">
+		UPDATE `bnb`.`roomsimg` SET
+		`roomsId`=#{roomsId},
+		`filename`=#{filename},
+		`priority`=#{priority},
+		WHERE filename =
+		#{filename}
+	</update>
+	
 	<select id="selectRoomsPhoto"
 		parameterType="com.bit.bnb.rooms.model.RoomsImgVO"
 		resultType="com.bit.bnb.rooms.model.RoomsImgVO">
@@ -349,8 +359,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 		ORDER BY priority ASC
 	</select>
+	
 	<delete id="deleteRoomsPhoto"
 		parameterType="com.bit.bnb.rooms.model.RoomsImgVO">
-		DELETE FROM `bnb`.`roomsimg` WHERE filename = #{filename}
+		DELETE FROM `bnb`.`roomsimg`
+		<where>
+			<if test="roomsId != 0">
+				AND roomsId = #{roomsId}
+			</if>
+			<if test="filename != null">
+				AND filename = #{filename}
+			</if>
+			<if test="priority != 0">
+				AND priority = #{priority}
+			</if>
+		</where>
 	</delete>
 </mapper>
