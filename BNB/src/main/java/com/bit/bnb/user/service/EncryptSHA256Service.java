@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EncryptSHA256Service {
-
+  
 	public static String encrypt(String planText) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
