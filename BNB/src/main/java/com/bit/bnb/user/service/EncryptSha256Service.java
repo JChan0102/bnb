@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EncryptService {
+public class EncryptSha256Service {
 
 	public static String encrypt(String planText) {
 		try {
@@ -30,8 +30,4 @@ public class EncryptService {
 			throw new RuntimeException();
 		}
 	}
-	
-	
-	
-
 }

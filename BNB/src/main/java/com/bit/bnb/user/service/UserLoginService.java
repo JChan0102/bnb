@@ -19,7 +19,7 @@ public class UserLoginService {
 	private UserDao userDao;
 
 	@Autowired
-	private EncryptService sha256Service;
+	private EncryptSha256Service sha256Service;
 
 	@Autowired
 	private NewMessageCkServie messageCkServie;
