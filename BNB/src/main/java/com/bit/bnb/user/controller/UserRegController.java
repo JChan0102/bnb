@@ -122,7 +122,12 @@ public class UserRegController {
 			
 			result = "redirect:/googleReg?gMail="+userVO.getUserId()+"&gName="+gName+"&gPhoto="+userVO.getUserPhoto();
 		} else {
-			session.removeAttribute("regFail");
+			
+			if (session.getAttribute("regSuccess") != null) {
+				session.removeAttribute("regSuccess");
+			}
+
+			session.setAttribute("regSuccess", "regSuccess");
 		}
 		
 		return result;

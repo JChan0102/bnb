@@ -11,6 +11,16 @@
 		</script>
 		<c:remove var="mailConfirm" scope="session" />
 	</c:if>
+	<!-- 구글계정 가입후 환영메시지 -->
+	<c:if test="${regSuccess ne null }">
+		<div id="regSuccessBox" style="width:100%; text-align:center; color:#ffffff;">
+		<span><h5 style="margin:0px;">회원가입을 환영합니다! 구글 계정으로 로그인 해주세요</h5></span>
+		</div>
+			<script>
+				$('#regSuccessBox').fadeOut(5000);
+			</script>
+	<c:remove var="regSuccess" scope="session" />
+	</c:if>
 
 	<!-- https://work.smarchal.com/twbscolor/css/e74c3cc0392becf0f1ffbbbc0 -->
 	<!--  -->
