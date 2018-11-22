@@ -201,7 +201,7 @@
 		});
 
 		$(function() {
-			$("[name^=thumb_]")
+			$("img[name^='thumb_']")
 					.on(
 							"click",
 							function(e) {
