@@ -171,7 +171,7 @@
 					$.ajax({
 						async : false,
 						type : 'POST',
-						url : '${pageContext.request.contextPath}/fileUpload',
+						url : 'http://13.209.99.134:8080/imgserver/fileUpload',
 						data : formData,
 						dataType : 'text',
 						processData : false,
@@ -208,7 +208,7 @@
 								//		+ '"><img src="${pageContext.request.contextPath}/resources/upload/' + item + '" id="' + item + '""></a></div>';
 								output += '<div class="col-3" onclick="deleteImage(this);" id="'
 										+ item
-										+ '"><img src="${pageContext.request.contextPath}/resources/upload/' + item + '" class="w-100"></div>';
+										+ '"><img src="http://13.209.99.134:8080/imgserver/resources/upload/' + item + '" class="w-100"></div>';
 							});
 			$('#preview').html(output);
 		}
@@ -218,14 +218,15 @@
 					.ajax({
 						// async : false,
 						type : 'GET',
-						url : '${pageContext.request.contextPath}/fileDelete?deleteFileName='
+						url : 'http://13.209.99.134:8080/imgserver/fileDelete?deleteFileName='
 								+ $(that).attr("id"),
 						// data : formData,
 						// dataType : 'text',
 						processData : false,
 						contentType : false,
 						success : function(data) {
-							if (data) {
+						    console.log(data)
+							if (data=="T") {
 								$(that).remove();
 								// console.log(filenames);
 								// console.log(filenames.indexOf($(that).attr("id")));
