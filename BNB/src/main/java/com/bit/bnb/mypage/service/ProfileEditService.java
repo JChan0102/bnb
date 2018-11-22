@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bit.bnb.mypage.dao.MypageUserDao;
 import com.bit.bnb.mypage.model.MemberVO;
-import com.bit.bnb.user.service.EncryptSha256Service;
+import com.bit.bnb.user.service.EncryptService;
 
 @Service
 public class ProfileEditService {
@@ -18,7 +18,7 @@ public class ProfileEditService {
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	@Autowired
-	private EncryptSha256Service sha256Service; // 비밀번호 암호화처리
+	private EncryptService sha256Service; // 비밀번호 암호화처리
 
 	private MypageUserDao mypageUserDao;
 

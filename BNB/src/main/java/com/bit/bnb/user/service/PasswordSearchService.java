@@ -22,7 +22,7 @@ public class PasswordSearchService {
 	private MailSendService mailSendService;
 
 	@Autowired
-	private EncryptSha256Service sha256Service;
+	private EncryptService sha256Service;
 
 	@Autowired
 	private UserDao userDao;
