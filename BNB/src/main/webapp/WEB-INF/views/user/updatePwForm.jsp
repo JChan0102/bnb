@@ -37,7 +37,7 @@
 					
 						<label class="form-check-label mt-2 mb-2">비밀번호는 한 개 이상의 기호나 숫자를 포함하여 8자 이상이어야 합니다.
 						 아이디를 포함할 수 없습니다.</label>
-						<input type="text" id="inputUserId" name="userId" class="form-control hyeon-reg-input" style="margin-top: 5px;" value="${userId}" />
+						<input type="hidden" id="inputUserId" name="userId" class="form-control hyeon-reg-input" style="margin-top: 5px;" value="${userId}" />
 						<input type="password" id="userPw-1" name="userPw" class="form-control hyeon-reg-input" placeholder="비밀번호 설정" />
 						<div id="alertPw" class="regAlert" style="display:none; color: #dc3545;"></div >
 						<input type="password" id="userPw-2" class="form-control hyeon-reg-input" placeholder="비밀번호 확인" />

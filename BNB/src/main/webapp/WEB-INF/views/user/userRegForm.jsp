@@ -163,7 +163,7 @@
 			if($('#userPw-1').val() != $('#userPw-2').val()){
 				$('#chkPw').empty();
 				$('#chkPw').css("display","");
-				$('#chkPw').append("비밀번호를 다시 한 번 확인해주세요");
+				$('#chkPw').append("비밀번호를 다시 한 번 확인해주세요.");
 				$('#fail-pw-2').val('fail');
 			} else {
 				$('#chkPw').empty();
