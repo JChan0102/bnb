@@ -9,7 +9,8 @@
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
 <body>
-<div class="col-2" style="margin-left:40px;">
+
+<div id="gggg" class="col-2" style="position: absolute; top:0px; left: 40px;">
 	<div>
 		<div class="list-group">
 			<a class="list-group-item list-group-item-action"
@@ -38,5 +39,16 @@
 			</ul>
 		</div>
 	</div> --%>
+<script>
+    /* 스크롤따라 움직이는 Div */
+    var currentPositio = parseInt($('#gggg').css('top'));
+
+    $(window).scroll(function() {
+        var position = $(window).scrollTop();
+        $('#gggg').stop().animate({
+            'top' : position + currentPositio + 'px'
+        }, 500);
+    });
+</script>
 </body>
 </html>
