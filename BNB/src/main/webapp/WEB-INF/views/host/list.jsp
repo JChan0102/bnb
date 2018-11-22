@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="/resources/common/includeHead.jsp"%>
-
+<!DOCTYPE html>
+<html>
+<head>
 <h1>Host Community</h1>
 
 <style>
@@ -26,7 +27,9 @@
     }
 
 </style>
-<table width="100%">
+</head>
+<body>
+<table>
     <tr>
         <th width="80">번호</th>
         <th>제목</th>
@@ -44,8 +47,7 @@
 </table>
 <br>
 <a href="${pageContext.request.contextPath}/host/write">
-    <button
-            type="button" class="btn btn-dark">글 작성
-    </button>
+    <button type="button" class="btn btn-dark">글 작성</button>
 </a>
-
+</body>
+</html>

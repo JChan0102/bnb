@@ -1,16 +1,17 @@
 package com.bit.bnb.host.model;
 
-import java.sql.Timestamp;
+
+import java.util.Date;
 
 public class HostModel {
 	
-	int bId;
-	String bUserId;
-	String bTitle;
-	String bContent;
-	Timestamp bDate;
+	private int bId;
+	private String bUserId;
+	private String bTitle;
+	private String bContent;
+	private Date bDate;
 	
-	public HostModel() {}
+
 
 	public int getbId() {
 		return bId;
@@ -44,11 +45,11 @@ public class HostModel {
 		this.bContent = bContent;
 	}
 
-	public Timestamp getbDate() {
+	public Date getbDate() {
 		return bDate;
 	}
 
-	public void setbDate(Timestamp bDate) {
+	public void setbDate(Date bDate) {
 		this.bDate = bDate;
 	}
 
@@ -57,6 +58,9 @@ public class HostModel {
 		return "HostModel [bId=" + bId + ", bUserId=" + bUserId + ", bTitle=" + bTitle + ", bContent=" + bContent
 				+ ", bDate=" + bDate + "]";
 	}
+
+	
+	}
 	
 	
-}
+
