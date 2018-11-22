@@ -14,8 +14,8 @@
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <!-- 결제 끝 -->
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<%--<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>--%>
 <script
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 
@@ -23,13 +23,13 @@
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
 
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<%--<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">--%>
 
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<%--<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>--%>
+<%--<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>--%>
 </head>
 <body class="umkibody">
     <div class="wrapperr">     
@@ -397,14 +397,34 @@
                     	if(checkIn1.getFullYear()>=now.getFullYear() && checkOut1.getFullYear()>=now.getFullYear() ){
                     		/* $("#price").text(${selectedRoom.price_weekdays} +" X "+count+" 입니다."); */  
                     		$("#total").text("합계");
-                    		$("#price").html('<i class="fas fa-won-sign"></i> '+ data.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","));          
+                    		$("#price").html('<i class="fas fa-won-sign"></i> '+ data.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","));
                     		$("#totalPrice").val(data);
                         	pri = data;
                     	}     
                     }
                 });
-            }  
-            
+            }
+            connect();
+            function connect() {
+                sock12 = new SockJS('${pageContext.request.contextPath}/chat');
+                sock12.onopen = function () {
+                    console.log('open');
+                };
+            }
+
+            function sendfirst() {
+                var msg = "예약이 완료 되었습니다. 호스트에게 궁금하신 사항이 있다면 질문 해주세요!";
+                if (msg != "") {
+                    message = {};
+                    message.messagecontent = msg
+                    message.hostId = '${selectedRoom.hostId}'//고정값이여야함
+                    message.userId = '${sessionScope.loginUser.userId}'//고정값이여야함
+                    message.roomsId = '${selectedRoom.roomsId}'//고정값이여야함
+                    message.sender = '${selectedRoom.hostId}'
+                }
+                sockg.send(JSON.stringify(message));
+
+            }
 
             
             function reservationDo(){
@@ -419,6 +439,7 @@
             		$('#fr').submit();
             	} */
 else{
+
             	IMP.request_pay({
                     pg : 'inicis', // version 1.1.0부터 지원.
                     pay_method : 'card',
@@ -437,9 +458,7 @@ else{
                         msg += '상점 거래ID : ' + rsp.merchant_uid;
                         msg += '결제 금액 : ' + rsp.paid_amount;
                         msg += '카드 승인번호 : ' + rsp.apply_num;
-
-
-
+                        sendfirst();
                         $('#fr').submit();
                     } else {
                         var msg = '결제에 실패하였습니다.';
@@ -450,7 +469,7 @@ else{
                 });
             }  
             }
-           
+
  
         </script>
         

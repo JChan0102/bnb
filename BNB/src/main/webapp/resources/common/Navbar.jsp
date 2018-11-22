@@ -90,6 +90,32 @@
 							sockg.onmessage = function(evt) {
 								var data = evt.data;
 								var obj = JSON.parse(data);
+								if( obj.messagecontent == "예약이 완료 되었습니다. 호스트에게 궁금하신 사항이 있다면 질문 해주세요!"){
+                                    $.toast({
+                                        text : '예약되었습니다', // Text that is to be shown in the toast
+                                        heading : 'Reservation', // Optional heading to be shown on the toast
+                                        showHideTransition : 'slide', // fade, slide or plain
+                                        allowToastClose : true, // Boolean value true or false
+                                        hideAfter : 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                                        stack : 7, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                                        position : 'bottom-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                                        bgColor : '#eeeeee', // Background color of the toast
+                                        textColor : '#2c2c2c', // Text color of the toast
+                                        textAlign : 'left', // Text alignment i.e. left, right or center
+                                        loader : false, // Whether to show loader or not. True by default
+                                        loaderBg : '#9EC600', // Background color of the toast loader,
+                                        icon:'success',
+										beforeShow : function() {
+                                        }, // will be triggered before the toast is shown
+                                        afterShown : function() {
+                                        }, // will be triggered after the toat has been shown
+                                        beforeHide : function() {
+                                        }, // will be triggered before the toast gets hidden
+                                        afterHidden : function() {
+                                        } // will be triggered after the toast has been hidden
+                                    });
+
+                                }
 								if ((obj.userId == '${sessionScope.loginUser.userId}' && obj.receive == 'U')) {
 									toastMessage(obj.messagecontent, obj.hostId);
 								} else if ((obj.hostId == '${sessionScope.loginUser.userId}' && obj.receive == 'H')) {

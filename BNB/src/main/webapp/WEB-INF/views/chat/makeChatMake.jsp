@@ -22,8 +22,8 @@
 <script>
     connect();
     function connect() {
-        sock = new SockJS('${pageContext.request.contextPath}/chat');
-        sock.onopen = function () {
+        sock12 = new SockJS('${pageContext.request.contextPath}/chat');
+        sock12.onopen = function () {
             console.log('open');
         };
     }
@@ -38,7 +38,7 @@
             message.roomsId = '${ChatRoomInfo.roomsId}'//고정값이여야함
             message.sender = '${sessionScope.loginUser.userId}'
         }
-        sock.send(JSON.stringify(message));
+        sock12.send(JSON.stringify(message));
         location.href='${pageContext.request.contextPath}'+'/';
     }
 </script>
