@@ -30,7 +30,7 @@
 				<br>
 				<div class="tab-content">
 					<div class="tab-pane container active" id="trip">
-						<div class="card">
+						<%-- <div class="card">
 							<h5 class="card-header">이전 예약</h5>
 							<c:if test="${empty historys}">
 								<h1 style="text-align: center;">다녀온 여행이 없습니다.</h1>
@@ -83,12 +83,12 @@
 											</div>
 
 
-											<%-- <a
+											<a
 												href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${his.roomsId}"><img
 												class="card-img-top"
 												src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
 												alt="Card image cap"
-												style="width: 100%; object-fit: contain;"></a> --%>
+												style="width: 100%; object-fit: contain;"></a>
 										</div>
 										<div class="card-body">
 											<h4 class="card-title">${his.address}</h4>
@@ -109,10 +109,57 @@
 									</div>
 								</c:forEach>
 							</div>
-						</div>
-					</div>
+						</div> --%>
+
+						<c:if test="${empty historys}">
+							<h1 style="text-align: center;">다녀온 여행이 없습니다.</h1>
+						</c:if>
+						<ul class="timeline">
+							<c:forEach var="his" items="${historys}" varStatus="status">
+								<c:choose>
+									<c:when test="${status.index % 2 == 0}">
+										<li>
+									</c:when>
+									<c:otherwise>
+										<li class="timeline-inverted">
+									</c:otherwise>
+								</c:choose>
+								<div class="timeline-badge">
+									<a><i class="fa fa-circle" id=""></i></a>
+								</div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4>${his.address}</h4>
+									</div>
+									<div class="timeline-body">
+										<p>
+											<a
+												href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${his.roomsId}">
+												${his.details}</a><br>
+											<fmt:formatNumber type="int" var="price" value="${his.price}"
+												pattern="#,###" />
+											￦ ${price}<br> <a
+												href="${pageContext.request.contextPath}/review"
+												class="card-link">후기보기</a>
+										</p>
+									</div>
+									<div class="timeline-footer">
+										<p class="text-right">
+											<fmt:formatDate pattern="YY년 MM월 dd일" value="${his.checkIn}" />
+											~
+											<fmt:formatDate pattern="YY년 MM월 dd일" value="${his.checkOut}" />
+											· 게스트 ${his.people}명
+										</p>
+									</div>
+								</div>
+								</li>
+								<li class="clearfix no-float"></li>
+							</c:forEach>
+						</ul>
+
+					</div> 
 					<div class="tab-pane container" id="history">
-						<div class="card">
+						<%-- <div class="card">
 							<h5 class="card-header">현재 예약</h5>
 							<c:if test="${empty trip}">
 								<h1 style="text-align: center;">예정된 여행이 없습니다.</h1>
@@ -163,12 +210,12 @@
 													class="carousel-control-next-icon"></span>
 												</a>
 											</div>
-											<%-- <a
+											<a
 												href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${his.roomsId}"><img
 												class="card-img-top"
 												src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
 												alt="Card image cap"
-												style="width: 100%; object-fit: contain;"></a> --%>
+												style="width: 100%; object-fit: contain;"></a>
 										</div>
 										<div class="card-body">
 											<h4 class="card-title">${trip.address}</h4>
@@ -187,7 +234,53 @@
 									</div>
 								</c:forEach>
 							</div>
-						</div>
+						</div> --%>
+						<c:if test="${empty trip}">
+							<h1 style="text-align: center;">다녀온 여행이 없습니다.</h1>
+						</c:if>
+						<ul class="timeline">
+							<c:forEach var="trip" items="${trip}" varStatus="status">
+								<c:choose>
+									<c:when test="${status.index % 2 == 0}">
+										<li>
+									</c:when>
+									<c:otherwise>
+										<li class="timeline-inverted">
+									</c:otherwise>
+								</c:choose>
+								<div class="timeline-badge">
+									<a><i class="fa fa-circle" id=""></i></a>
+								</div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4>${trip.address}</h4>
+									</div>
+									<div class="timeline-body">
+										<p>
+											<a
+												href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${trip.roomsId}">
+												${trip.details}</a><br>
+											<fmt:formatNumber type="int" var="price"
+												value="${trip.price}" pattern="#,###" />
+											￦ ${price}<br> <a
+												href="${pageContext.request.contextPath}/review"
+												class="card-link">후기보기</a>
+										</p>
+									</div>
+									<div class="timeline-footer">
+										<p class="text-right">
+											<fmt:formatDate pattern="YY년 MM월 dd일" value="${trip.checkIn}" />
+											~
+											<fmt:formatDate pattern="YY년 MM월 dd일"
+												value="${trip.checkOut}" />
+											· 게스트 ${trip.people}명
+										</p>
+									</div>
+								</div>
+								</li>
+								<li class="clearfix no-float"></li>
+							</c:forEach>
+						</ul>
 					</div>
 				</div>
 			</div>
