@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bit.bnb.rooms.model.AmenitiesVO;
+import com.bit.bnb.rooms.model.RoomsImgVO;
 import com.bit.bnb.rooms.model.RoomsReviewSummaryVO;
 import com.bit.bnb.rooms.model.RoomsReviewVO;
 import com.bit.bnb.rooms.model.RoomsVO;
@@ -17,10 +18,10 @@ import com.bit.bnb.user.model.UserVO;
 public class RoomsDAO {
 
 	@Autowired
-	private SqlSessionTemplate sqlSessionTemplate;	
+	private SqlSessionTemplate sqlSessionTemplate;
 
 	private String mapperPath = "mappers.RoomsMapper.";
-	
+
 	public int insertRooms(RoomsVO rv) {
 		return sqlSessionTemplate.update(mapperPath + "insertRooms", rv);
 	}
@@ -57,7 +58,7 @@ public class RoomsDAO {
 	public int selectMinPrice() {
 		return sqlSessionTemplate.selectOne(mapperPath + "selectMinPrice");
 	}
-	
+
 	public int selectMaxPrice() {
 		return sqlSessionTemplate.selectOne(mapperPath + "selectMaxPrice");
 	}
@@ -78,4 +79,15 @@ public class RoomsDAO {
 		return sqlSessionTemplate.selectList(mapperPath + "selectRoomsHost", uv);
 	}
 
+	public int insertRoomsPhoto(RoomsImgVO rimgv) {
+		return sqlSessionTemplate.update(mapperPath + "insertRoomsPhoto", rimgv);
+	}
+
+	public List<RoomsImgVO> selectRoomsPhoto(RoomsImgVO rimgv) {
+		return sqlSessionTemplate.selectList(mapperPath + "selectRoomsPhoto", rimgv);
+	}
+
+	public int deleteRoomsPhoto(RoomsImgVO rimgv) {
+		return sqlSessionTemplate.delete(mapperPath + "deleteRoomsPhoto", rimgv);
+	}
 }

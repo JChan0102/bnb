@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.rooms.model.AmenitiesVO;
@@ -29,21 +29,29 @@ public class RoomsRegController {
 
 	// 숙소등록페이지
 	@RequestMapping(value = "/rooms/registerRooms", method = RequestMethod.POST)
-	public ModelAndView regRooms(RoomsVO rv, RoomsImgVO rimgv, MultipartHttpServletRequest mtpRequest) {
+	public @ResponseBody ModelAndView regRooms(RoomsVO rv, String filenames[]) {
 		ModelAndView modelAndView = new ModelAndView();
 		// 줄 바꿈 처리
 		rv.setDetails(rv.getDetails().replaceAll("\r\n", "<br>"));
+
 		// 숙소등록에 성공하였을 경우
-
-		// 파일처리 시작
-		// List<MultipartFile> fileList = mtpRequest.getFiles("file");
-		System.out.println(rimgv);
-		
-
-		// 파일 처리 끝
-
 		if (roomsRegService.regRooms(rv) > 0) {
 			modelAndView.setViewName("redirect:/rooms");
+			System.out.println(rv.getRoomsId());
+			// 이미지 등록
+			RoomsImgVO rimgv = new RoomsImgVO();
+			rimgv.setRoomsId(rv.getRoomsId());
+			// for 이미지처리
+
+			System.out.println(filenames);
+			for (int i = 0; i < filenames.length; i++) {
+				// 왜인지 모르겠으나 [, ", ]이 포함되어서 replace 처리
+				rimgv.setFilename(filenames[i].replace("\"", "").replace("[", "").replace("]", ""));
+				rimgv.setPriority(i+1);
+				roomsRegService.insertRoomsPhoto(rimgv);
+			}
+			System.out.println(filenames.toString());
+
 		} else {
 			modelAndView.addObject("msg", "등록에 실패하였습니다.");
 			modelAndView.setViewName("rooms/regRoomsForm");

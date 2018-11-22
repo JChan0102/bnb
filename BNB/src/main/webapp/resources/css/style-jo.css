@@ -49,3 +49,10 @@
 	object-fit: cover;
 	border: 1px solid #d6d8db;
 }
+
+.thumbnail {
+	width: 100% !important;
+	object-fit: cover;
+	border: 1px solid #dee2e6 !important;
+	border-radius: .25rem!important;
+}

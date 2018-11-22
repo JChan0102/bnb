@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.bnb.rooms.dao.RoomsDAO;
+import com.bit.bnb.rooms.model.RoomsImgVO;
 import com.bit.bnb.rooms.model.RoomsReviewSummaryVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.util.Paging;
@@ -75,5 +76,10 @@ public class RoomsLIstService {
 	public int getMaxPrice() {
 		return roomsDAO.selectMaxPrice();
 	}
-
+	
+	public List<RoomsImgVO> getRoomsThumbnail(){
+		RoomsImgVO rimgv = new RoomsImgVO();
+		rimgv.setPriority(1);
+		return roomsDAO.selectRoomsPhoto(rimgv);
+	}
 }

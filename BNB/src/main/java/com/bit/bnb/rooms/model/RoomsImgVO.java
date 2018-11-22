@@ -1,41 +1,38 @@
 package com.bit.bnb.rooms.model;
 
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
-
 public class RoomsImgVO {
-	private String roomsId;
-	private List<String> roomfilename;
-	private List<MultipartFile> roomfile;
 
-	public final String getRoomsId() {
+	private int roomsId;
+	private String filename;
+	private int priority;
+
+	public final int getRoomsId() {
 		return roomsId;
 	}
 
-	public final void setRoomsId(String roomsId) {
+	public final void setRoomsId(int roomsId) {
 		this.roomsId = roomsId;
 	}
 
-	public final List<String> getRoomfilename() {
-		return roomfilename;
+	public final String getFilename() {
+		return filename;
 	}
 
-	public final void setRoomfilename(List<String> roomfilename) {
-		this.roomfilename = roomfilename;
+	public final void setFilename(String filename) {
+		this.filename = filename;
 	}
 
-	public final List<MultipartFile> getRoomfile() {
-		return roomfile;
+	public final int getPriority() {
+		return priority;
 	}
 
-	public final void setRoomfile(List<MultipartFile> roomfile) {
-		this.roomfile = roomfile;
+	public final void setPriority(int priority) {
+		this.priority = priority;
 	}
 
 	@Override
 	public String toString() {
-		return "RoomsImgVO [roomsId=" + roomsId + ", roomfilename=" + roomfilename + ", roomfile=" + roomfile + "]";
+		return "RoomsImgVO [roomsId=" + roomsId + ", filename=" + filename + ", priority=" + priority + "]";
 	}
 
 }

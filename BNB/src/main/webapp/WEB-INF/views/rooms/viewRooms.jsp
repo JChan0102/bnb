@@ -8,6 +8,7 @@
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
 <body>
+	<%@ include file="/resources/common/Navbar.jsp"%>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('input:checkbox').change(function() {
@@ -58,7 +59,6 @@
 											});
 						});
 	</script>
-	<%@ include file="/resources/common/Navbar.jsp"%>
 	<!-- Begin page content -->
 	<!-- https://shaack.com/projekte/bootstrap-input-spinner/ -->
 	<main role="main" class="container">

@@ -242,7 +242,7 @@
 						data : queryString,
 						dataType : 'JSON',
 						success : function(data) {
-							// console.log(data)
+							console.log(data)
 
 							if (data.roomsList.length == 0) {
 								$('#roomsList')
@@ -254,7 +254,14 @@
 									
 									output += '<div class="col-lg-3">';
 									output += '<div class="card mb-3 box-shadow">';
-									output += '<img class="card-img-top">';
+									for(k=0; k<data.thumbnail.length; k++){
+										if (data.roomsList[i].roomsId == data.thumbnail[k].roomsId) {
+											output += '<img class="card-img-top" src="http://13.209.99.134:8080/imgserver/resources/upload/' +data.thumbnail[k].filename+ '">';
+										} else { // 이미지가 없을 경우, 노이미지
+											output += '<img class="card-img-top">';
+										}
+									}
+									
 									output += '<div class="card-body">';
 									output += '	<p class="card-text">';
 									output += '		' + data.roomsList[i].roomsId

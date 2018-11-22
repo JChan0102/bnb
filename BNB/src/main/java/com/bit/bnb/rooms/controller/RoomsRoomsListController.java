@@ -48,10 +48,7 @@ public class RoomsRoomsListController {
 		map.put("paging", paging);
 
 		map.put("reviewSummary", roomsLIstService.getReviewSummary());
-
-		// System.out.println("------------------");
-		// System.out.println("룸리스트컨트롤러" + roomsLIstService.getRoomsList(rv, paging));
-		// System.out.println("룸리스트컨트롤러" + paging);
+		map.put("thumbnail", roomsLIstService.getRoomsThumbnail());
 
 		String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
 		return jsonInString;

@@ -20,7 +20,21 @@
 				});
 				$('#amenities').val(check);
 			});
-
+			
+			$("#submitBtn").click(function() {
+				if (filenames.length != 0){
+					$('#filenames').val(JSON.stringify(filenames));
+					/* var outputStr = '';
+					for (i=0; i<filename.length; i++){
+						outputStr += filename[i]+',';
+					}
+					outputStr = outputStr.substring(0, outputStr.length-1);
+					$('#filenames').val(outputStr); */
+					$('#RegRoomSubmit').submit();
+				} else {					
+					alert("사진을 등록해 주세요!");
+				}
+			});
 		});
 	</script>
 
@@ -33,7 +47,7 @@
 			<h1>
 				<b>숙소 등록</b>
 			</h1>
-			<form method="post" enctype="multipart/form-data">
+			<form method="post" enctype="multipart/form-data" id="RegRoomSubmit">
 				<table class="table">
 					<tr>
 						<td>호스트 아이디</td>
@@ -142,17 +156,22 @@
 									<input multiple="multiple" type="file"
 										class="custom-file-input" id="roomfile" name="roomfile"
 										accept="image/*"> <label class="custom-file-label"
-										for="roomfilename">Choose file</label>
+										for="roomfilename">사진 파일 선택하기</label>
 								</div>
 							</div>
-							<div id="preview" class="row"></div>
+							<div id="preview" class="row">
+								<div class="alert alert-success col-12 text-center" role="alert">
+									<small>사진을 업로드해주세요.</small>
+								</div>
+							</div>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center"><input type="hidden"
 							id="roomsId" name="roomsId" value="0"><input
-							type="hidden" id="disabled" name="disabled" value="1"> <input
-							type="submit" class="btn btn-danger" value="등록하기"></td>
+							type="hidden" id="disabled" name="disabled" value="1"><input
+							type="hidden" id="filenames" name="filenames"><input
+							type="button" class="btn btn-danger" id="submitBtn" value="등록하기"></td>
 					</tr>
 				</table>
 			</form>
@@ -199,6 +218,13 @@
 
 		function drawThumbnail(filenames) {
 			var output = '';
+			if (filenames.length != 0) {
+				output += '<div class="alert alert-info col-12 text-center" role="alert">'
+						+ '<small>사진을 선택하면 업로드를 취소할 수 있습니다!</small></div>';
+			} else {
+				output += '<div class="alert alert-success col-12 text-center" role="alert">'
+						+ '<small>사진을 업로드해주세요.</small></div>';
+			}
 			$
 					.each(
 							filenames,
@@ -206,9 +232,9 @@
 								// output += '<div class="col-3"><a href="${pageContext.request.contextPath}/fileDelete?deleteFileName='
 								//		+ item
 								//		+ '"><img src="${pageContext.request.contextPath}/resources/upload/' + item + '" id="' + item + '""></a></div>';
-								output += '<div class="col-3" onclick="deleteImage(this);" id="'
+								output += '<div class="col-3 mb-3" onclick="deleteImage(this);" id="'
 										+ item
-										+ '"><img src="http://13.209.99.134:8080/imgserver/resources/upload/' + item + '" class="w-100"></div>';
+										+ '"><img src="http://13.209.99.134:8080/imgserver/resources/upload/' + item + '" class="thumbnail"></div>';
 							});
 			$('#preview').html(output);
 		}
@@ -225,14 +251,16 @@
 						processData : false,
 						contentType : false,
 						success : function(data) {
-						    console.log(data)
-							if (data=="T") {
+							// console.log(data)
+							if (data == "T") {
 								$(that).remove();
 								// console.log(filenames);
 								// console.log(filenames.indexOf($(that).attr("id")));
 								filenames.splice(filenames.indexOf($(that)
 										.attr("id")), 1);
-								// console.log(filenames);
+								if (filenames.length == 0) {
+									drawThumbnail(filenames);
+								}
 							}
 						},
 						error : function(error) {

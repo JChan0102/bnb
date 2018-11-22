@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.RoomsMapper">
 	<insert id="insertRooms"
-		parameterType="com.bit.bnb.rooms.model.RoomsVO">
+		parameterType="com.bit.bnb.rooms.model.RoomsVO" useGeneratedKeys="true" keyProperty="roomsId">
 		INSERT INTO `bnb`.`rooms` (`hostId`, `details`,
 		`avail_adults`,
 		`avail_children`, `avail_infants`, `avail_bedroom`,
@@ -325,4 +325,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- SELECT roomsId FROM rooms r WHERE r.roomsId NOT IN (select roomsId 
 		from reservation where checkIn >= '2018-11-15' and checkOut <= '2019-01-02' 
 		group by roomsId); -->
+		
+	<!-- https://m.blog.naver.com/amabile29/221008599472 -->
+	<insert id="insertRoomsPhoto"
+		parameterType="com.bit.bnb.rooms.model.RoomsImgVO">
+		INSERT INTO `bnb`.`roomsimg` (`filename`, `roomsId`, `priority`) VALUES (#{filename}, #{roomsId}, #{priority})
+	</insert>
+	
+	<select id="selectRoomsPhoto"
+		parameterType="com.bit.bnb.rooms.model.RoomsImgVO"
+		resultType="com.bit.bnb.rooms.model.RoomsImgVO">
+		SELECT * FROM `bnb`.`roomsimg`
+		<where>
+			<if test="roomsId != 0">
+				AND roomsId = #{roomsId}
+			</if>
+			<if test="filename != null">
+				AND filename = #{filename}
+			</if>
+			<if test="priority != 0">
+				AND priority = #{priority}
+			</if>
+		</where>
+		ORDER BY priority ASC
+	</select>
+	<delete id="deleteRoomsPhoto"
+		parameterType="com.bit.bnb.rooms.model.RoomsImgVO">
+		DELETE FROM `bnb`.`roomsimg` WHERE filename = #{filename}
+	</delete>
 </mapper>
