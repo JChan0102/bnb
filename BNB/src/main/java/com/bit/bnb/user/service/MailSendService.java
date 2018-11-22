@@ -47,7 +47,7 @@ public class MailSendService {
 						  + "비밀번호 재설정을 요청하셨습니다.<br>"
 						  + "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다) <br>"
 						  + "아래의 링크를 이용해 비밀번호를 재설정하세요.<br>"
-						  + "<a href=\"http://localhost/bnb/updatePw?"
+						  + "<a href=\"http://localhost/bnb/user/updatePw?"
 						  + "userId=" + email + "&userKey=" + userKey + "\">비밀번호 재설정하기</a>";
 			
 		try {

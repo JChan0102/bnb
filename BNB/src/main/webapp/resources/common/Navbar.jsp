@@ -590,7 +590,7 @@ $('#searchPwLinkSending').click(function(){
 	
 	$.ajax({
 		type : "POST",
-		url : "${pageContext.request.contextPath}/user/searchPw",
+		url : "${pageContext.request.contextPath}/sendPwUpdateLink",
 		data : {
 			"userId" : userId
 			},
@@ -605,6 +605,9 @@ $('#searchPwLinkSending').click(function(){
 				location.href = '${pageContext.request.contextPath}/';
 			} else if (result == 'mailSendForPwFail') { // 메일전송 실패시
 				alert('메일 전송에 실패하였습니다. 재시도 하시거나 관리자에게 문의 주세요.');
+			} else if (result == 'google'){
+				$('#forgetHidden').css("display", "");
+				$('#forgetHidden').append("구글 계정입니다. 구글 계정 페이지에서 확인해주세요.");
 			}
 			$('#searchPwLinkSending').val('재설정 링크 전송하기');
 		}

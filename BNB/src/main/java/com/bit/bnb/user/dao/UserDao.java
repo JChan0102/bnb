@@ -27,12 +27,16 @@ public class UserDao {
 		return sqlSessionTemplate.update(userMapperPath+".updateUserKey", userId);
 	}
 	
-	public int updateUserKeySearchPw(HashMap<String, String> map) {
-		return sqlSessionTemplate.update(userMapperPath+".updateUserKeySearchPw", map);
+	public int forSearchPw(HashMap<String, Object> map) {
+		return sqlSessionTemplate.update(userMapperPath+".forSearchPw", map);
 	}
 	
 	public int updateUserPw(HashMap<String, String> map) {
 		return sqlSessionTemplate.update(userMapperPath+".updateUserPw", map);
+	}
+	
+	public int updateUserDisabled(String userId) {
+		return sqlSessionTemplate.update(userMapperPath+".updateUserDisabled", userId);
 	}
 
 }

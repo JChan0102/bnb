@@ -19,11 +19,15 @@
 		update user set userKey='y' where userId=#{userId}
 	</update>
 	
-	<update id="updateUserKeySearchPw" parameterType="java.util.HashMap">
-		update user set userKey=#{param1} where userId=#{param2}
+	<update id="forSearchPw" parameterType="java.util.HashMap">
+		update user set userKey=#{userKey}, disabled=#{disabled} where userId=#{userId}
 	</update>
 	
-	<update id="updateUserPw" parameterType="HashMap">
+	<update id="updateUserPw" parameterType="java.util.HashMap">
 		update user set userPw=#{userPw} where userId=#{userId}
+	</update>
+	
+	<update id="updateUserDisabled" parameterType="java.util.HashMap">
+		update user set disabled=1 where userId=#{userId}
 	</update>
 </mapper>

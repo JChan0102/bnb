@@ -33,12 +33,11 @@
 					</c:if>
 				<div class="hyeon-title"><h2>비밀번호 재설정</h2></div>
 				
-					<form method="post" enctype="multipart/form-data">
+					<form action="${pageContext.request.contextPath }/user/updatePw" method="post">
 					
 						<label class="form-check-label mt-2 mb-2">비밀번호는 한 개 이상의 기호나 숫자를 포함하여 8자 이상이어야 합니다.
 						 아이디를 포함할 수 없습니다.</label>
-						<input type="hidden" id="inputUserId" name="userId" class="form-control hyeon-reg-input" style="margin-top: 5px;" value="${userId}" />
-						<!-- <div id="alertId" class="regAlert" style="display:none; color: #dc3545;"></div > -->
+						<input type="text" id="inputUserId" name="userId" class="form-control hyeon-reg-input" style="margin-top: 5px;" value="${userId}" />
 						<input type="password" id="userPw-1" name="userPw" class="form-control hyeon-reg-input" placeholder="비밀번호 설정" />
 						<div id="alertPw" class="regAlert" style="display:none; color: #dc3545;"></div >
 						<input type="password" id="userPw-2" class="form-control hyeon-reg-input" placeholder="비밀번호 확인" />
@@ -55,9 +54,9 @@
 	
 	
 	<script>
-		// 아이디 입력란에 포커스 주기
+		// 비밀번호 입력란에 포커스 주기
 		$(document).ready(function(){
-			$('#inputUserId').focus();
+			$('#userPw-1').focus();
 		});
 		
 		// 비밀번호 유효성 검사
@@ -85,13 +84,10 @@
 					$('#alertPw').append("비밀번호에 아이디가 포함될 수 없습니다.");
 				}else{
 					$('#fail-pw-1').val('ok');
-					/* alert($('#fail-pw-1').val()); */
 				}
 			} else {
 				$('#fail-pw-1').val('ok');
-				/* alert($('#fail-pw-1').val()); */
 			}
-			/* 이 무접점하고는 느낌이 조금 다른데 이 느낌이 더 좋은거 같네..?? */
 		});
 
 		/* $('#userPw-1').blur(function(){
@@ -104,7 +100,7 @@
 		}); */
 
 		 // 비밀번호 두개가 일치하는지 검사
-		 $('#userPw-2').blur(function(){
+		 $('#userPw-2').keyup(function(){
 			if($('#userPw-1').val() != $('#userPw-2').val()){
 				$('#chkPw').empty();
 				$('#chkPw').css("display","");
@@ -117,53 +113,17 @@
 			}
 		});
 		
-		// 이름 입력했는지 검사
-		$('#inputUserName').blur(function(){
-			if($('#inputUserName').val() == null ||$('#inputUserName').val() == ''){
-				$('#chkName').empty();
-				$('#chkName').css("display","");
-				$('#chkName').append("이름을 입력해주세요");
-			} else {
-				$('#chkName').empty();
-				$('#chkName').css("display","none");
-			}
-		});
-		
 		// 아이디가 비밀번호와 겹치거나 아이디가 중복인지 확인
 		$('#inputUserId').blur(function(){
 			var userId = $('#inputUserId').val();
 			
-			if(userId != null && userId != ''){
 				if($('#userPw-1').val().search($('#inputUserId').val()) > -1){
 					$('#alertPw').css("display","");
 					$('#alertPw').empty();
 					$('#alertPw').append("비밀번호에 아이디가 포함되었습니다.");
 					return false;
 				}
-			}
-			
-			if(userId != '' && userId != null){
-				$.ajax({
-				type: "GET",
-				url: "userIdChk",
-				data: {"userId" : userId},
-				success: function(data){
-					if(data == "n") {
-						$('#alertId').empty();
-						$('#alertId').css("display","");
-						$('#alertId').append("중복된 아이디입니다.");
-					} else if(data == "d"){
-						$('#alertId').empty();
-						$('#alertId').css("display","");
-						$('#alertId').append("이미 탈퇴처리된 아이디는 사용이 불가합니다.");
-					} else if(data == "y"){
-						$('#alertId').empty();
-						$('#alertId').css("display","none");
-					}
-				}
 			});
-		}
-	});
 	 	
 
 	</script>

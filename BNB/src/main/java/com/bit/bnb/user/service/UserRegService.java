@@ -162,9 +162,9 @@ public class UserRegService {
 		
 		if(user == null) {
 			userIdChk = "y";
-		} else if(user != null && user.getDisabled() == 0) {
+		} /*else if(user != null && user.getDisabled() == 0) {
 			userIdChk = "d";
-		}
+		}*/
 		
 		return userIdChk;
 	}

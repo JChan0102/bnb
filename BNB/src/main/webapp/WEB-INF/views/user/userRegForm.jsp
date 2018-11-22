@@ -206,7 +206,7 @@
 					if(data == "n") {
 						$('#alertId').empty();
 						$('#alertId').css("display","");
-						$('#alertId').append("중복된 아이디입니다.");
+						$('#alertId').append("이미 탈퇴처리된 아이디이거나 사용중인 아이디입니다.");
 					} else if(data == "d"){
 						$('#alertId').empty();
 						$('#alertId').css("display","");
