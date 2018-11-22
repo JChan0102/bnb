@@ -28,7 +28,7 @@ public class UserRegService {
 	private UserDao userDao;
 	
 	@Autowired
-	private EncryptSha256Service sha256Service;
+	private EncryptSHA256Service sha256Service;
 	
 	/*@Autowired
 	private JavaMailSender mailSender;*/
