@@ -16,7 +16,9 @@
 var CV_URL = 'https://vision.googleapis.com/v1/images:annotate?key=' + window.apiKey;
 
 $(function () {
+	
   $('#fileform').on('submit', uploadFiles);
+  
 });
 
 /**
@@ -67,7 +69,7 @@ function sendFileToCloudVision (content) {
     data: JSON.stringify(request),
     contentType: 'application/json'
   }).fail(function (jqXHR, textStatus, errorThrown) {
-    $('#results').text('신분증 사진을 올려주세요.: ' + textStatus + ' ' + errorThrown);
+    $('#results').text('제대로 된 신분증 사진을 올려주세요.: ' + textStatus + ' ' + errorThrown);
   }).done(displayJSON);
 }
 
