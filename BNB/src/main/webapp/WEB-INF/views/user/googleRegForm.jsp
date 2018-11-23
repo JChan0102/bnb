@@ -44,7 +44,7 @@
 					
 						<input type="email" id="inputUserId" name="userId" class="form-control hyeon-reg-input" value="${gMail}" readonly />
 						<input type="hidden" id="userPw-1" name="userPw" class="form-control hyeon-reg-input" value="" />
-						<input type="text" id="inputUserName" name="userName" class="form-control hyeon-reg-input" value="${gName}" readonly />
+						<input type="text" id="inputUserName" name="userName" class="form-control hyeon-reg-input" value="${gName}" />
 						<label class="form-check-label mt-2 mb-2" style="margin-bottom: 3px; font-weight: bold;">사진 </label>
 						<input type="file" name="photoFile" class="form-control hyeon-reg-input" />
 						<input type="hidden" name="host" value=0 style="display:none" />

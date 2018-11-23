@@ -297,7 +297,7 @@
 							<button id="btn-login" class="btn btn-lg btn-danger btn-block"
 								type="button">로그인</button>
 							<input type="button" id="gLoginBtn" value="Login With Google"
-								class="btn-gLogin btn btn-lg btn-block" ></input>
+								class="btn-gLogin btn btn-lg btn-block" />
 								<br>
 							<a href="#" id="forgetPw">비밀번호를 잊으셨나요?</a>
 						</div>
