@@ -50,7 +50,7 @@
 							<label for="inputPassword" class="col-sm-2 col-form-label">비번확인</label>
 							<div class="col-sm-10">
 								<input type="password" class="form-control" id="passwordCk"
-									placeholder="Password" onchange="checkPw()" required> <span
+									placeholder="Password"  required> <span
 									id="pwCk" style="color: red; font-size: 13px;"></span>
 							</div>
 						</div>
@@ -149,9 +149,11 @@
 								.click(
 										function() {
 											var pW = $('#inputPassword').val();
+											console.log($('#inputPassword').val());
+
 											var form = $('#modiform')[0];
 											var formData = new FormData(form);
-											if (!pW.isEmpty()) {
+											if (pW!='') {
 												$.ajax({
 															url : 'http://13.209.99.134:8080/imgserver/upload/userPhoto',
 															processData : false,
@@ -165,6 +167,7 @@
 																	result = $('#before').val();
 																}
 																$('#userPhoto').val(''+ result);
+
 																$('#modiform').submit();
 															}
 														});
