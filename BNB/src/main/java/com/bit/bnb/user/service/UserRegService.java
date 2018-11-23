@@ -54,29 +54,6 @@ public class UserRegService {
 	public int userReg(UserVO userVO, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException, NoSuchAlgorithmException, GeneralSecurityException {
 		
 		int resultCnt = 0;
-
-		// DB 저장용 파일 이름, 물리적 저장할때의 이름
-		String imgName = "";
-				
-		// 물리적 저장 경로
-		String uploadUri = "/resources/images/userphoto";
-				
-		// uploadUri 경로의 시스템 경로
-		String dir = request.getSession().getServletContext().getRealPath(uploadUri);
-				
-		if(!userVO.getPhotoFile().isEmpty()) {
-				
-			imgName = userVO.getUserId()+"_"+userVO.getPhotoFile().getOriginalFilename();
-					
-			// 물리적 저장
-			userVO.getPhotoFile().transferTo(new File(dir, imgName));
-					
-			// DB에 저정할 이름 SET
-			userVO.setUserPhoto(imgName);
-			
-			// System.out.println(dir);
-			// System.out.println(imgName);
-		}
 		
 		// 빠짐없이 가입항목을 다 입력했는지 확인
 		if(userVO.getUserId() != null && userVO.getUserPw() != null && 
@@ -124,7 +101,7 @@ public class UserRegService {
 				
 				// 인서트가 성공적으로 되었으면 인증메일 발송하고 세션 생성(메일인증안내)
 				if(resultCnt == 1) {
-					mailSendService.mailSendWithUserKey(userVO.getUserId(), userVO.getUserName(), userKey);
+					mailSendService.mailSendWithUserKey(userVO.getUserId(), userVO.getUserName(), userKey, request);
 					
 					if (session.getAttribute("mailConfirm") != null) {
 						session.removeAttribute("mailConfirm");

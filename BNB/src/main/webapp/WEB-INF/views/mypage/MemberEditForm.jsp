@@ -160,6 +160,9 @@
 														type : 'POST',
 														success : function(
 																result) {
+															if(result==''){
+															    result='nopic.jpg'
+															}
 															$('#userPhoto')
 																	.val(
 																			''

@@ -38,7 +38,7 @@
 					</c:if>
 				<div class="hyeon-title"><h2>회원가입</h2></div>
 				
-					<form method="post" enctype="multipart/form-data">
+					<form method="post" id="regform2" enctype="multipart/form-data">
 					
 						<span style="font-size: 11px">인증메일이 발송되오니 확인 가능한 이메일 주소를 입력 바랍니다.</span>
 						<input type="email" id="inputUserId" name="userId" class="form-control hyeon-reg-input" style="margin-top: 5px;" placeholder="이메일 주소" />
@@ -62,7 +62,7 @@
 						<input type="hidden" name="userCheck" value=1 style="display:none" />
 						<input type="hidden" name="point" value=0 style="display:none" />
 						<input type="hidden" name="disabled" value=1 style="display:none" />
-						
+						<input type="hidden" name="userPhoto" id="userPhoto" />
 						<div>
 						<label class="form-check-label mt-2 mb-2" style="font-weight: bold;">생일</label>
 						<p style="font-size: 0.9em">회원 가입을 하시려면 만 18세 이상이어야 합니다. <br>
@@ -101,7 +101,7 @@
 						<div> 
 							<textarea name="userInfo" class="form-control hyeon-reg-input" cols="30" placeholder="자기소개"></textarea>
 						</div>
-						<button class="btn btn-lg btn-danger btn-block" type="submit" style="margin-bottom: 20px">회원가입</button>
+						<button class="btn btn-lg btn-danger btn-block" id="regbtn2" type="button" style="margin-bottom: 20px">회원가입</button>
 					</form>
 				</div>
 			</div>
@@ -219,7 +219,36 @@
 			});
 		}
 	});
-	 	
+
+        $(function() {
+            $("#regbtn2")
+                .click(
+
+                    function() {
+                        console.log('gg');
+                        var form = $('#regform2')[0];
+                        var formData = new FormData(form);
+                        $
+                            .ajax({
+                                url : 'http://13.209.99.134:8080/imgserver/upload/userPhoto',
+                                processData : false,
+                                contentType : false,
+                                datatype : 'JSON',
+                                data : formData,
+                                type : 'POST',
+                                success : function(
+                                    result) {
+                                    $('#userPhoto')
+                                        .val(
+                                            ''
+                                            + result);
+                                    $('#regform2')
+                                        .submit();
+                                }
+                            });
+                    });
+        });
+
 
 	</script>
 	

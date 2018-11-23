@@ -4,6 +4,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,10 +19,10 @@ public class MailSendService {
 	
 	// 이메일 계정 인증메일 보내기 메서드
 	@Transactional
-	public void mailSendWithUserKey(String email, String name, String userKey) {
-			
+	public void mailSendWithUserKey(String email, String name, String userKey, HttpServletRequest request) {
+
 		MimeMessage mail = mailSender.createMimeMessage();
-			
+
 		String htmlStr = "<h2>안녕하세요, " + name + "님!</h2>"
 						  + "이메일 계정을 인증받으시려면 아래의 버튼을 클릭해주세요!<br>"
 						  + "메일 인증과 동시에 BITBNB 홈페이지로 이동합니다.<br>"
