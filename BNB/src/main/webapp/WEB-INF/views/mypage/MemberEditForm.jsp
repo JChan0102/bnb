@@ -152,8 +152,7 @@
 											var form = $('#modiform')[0];
 											var formData = new FormData(form);
 											if (!pW.isEmpty()) {
-												$
-														.ajax({
+												$.ajax({
 															url : 'http://13.209.99.134:8080/imgserver/upload/userPhoto',
 															processData : false,
 															contentType : false,
@@ -163,14 +162,10 @@
 															success : function(
 																	result) {
 																if (result == '') {
-																	result = 'nopic.jpg'
+																	result = $('#before').val();
 																}
-																$('#userPhoto')
-																		.val(
-																				''
-																						+ result);
-																$('#modiform')
-																		.submit();
+																$('#userPhoto').val(''+ result);
+																$('#modiform').submit();
 															}
 														});
 											}
