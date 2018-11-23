@@ -85,7 +85,7 @@ public class WishController {
 		modelAndView.setViewName("mypage/wishList");
 		modelAndView.addObject("address", address);
 		modelAndView.addObject("wishList", service.wishList(userId, address));
-		modelAndView.addObject("wishImg", service.wishRoomImg(userId));
+		modelAndView.addObject("wishImg", service.wishRoomImg(userId, address));
 
 		return modelAndView;
 	}
