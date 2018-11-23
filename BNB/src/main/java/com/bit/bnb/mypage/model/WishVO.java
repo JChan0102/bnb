@@ -11,6 +11,8 @@ public class WishVO {
 	private int price_weekend; // 주말가격
 	private int reviewCount; // 리뷰수
 	private int avgScope; // 평균
+	private String filename; // 사진파일이름
+	private int priority; // 사진 갯수 및 순서
 
 	public String getUserId() {
 		return userId;
@@ -84,11 +86,29 @@ public class WishVO {
 		this.avgScope = avgScope;
 	}
 
+	public String getFilename() {
+		return filename;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
+
 	@Override
 	public String toString() {
 		return "WishVO [userId=" + userId + ", roomsId=" + roomsId + ", address=" + address + ", hostId=" + hostId
 				+ ", details=" + details + ", price_weekdays=" + price_weekdays + ", price_weekend=" + price_weekend
-				+ ", reviewCount=" + reviewCount + ", avgScope=" + avgScope + "]";
+				+ ", reviewCount=" + reviewCount + ", avgScope=" + avgScope + ", filename=" + filename + ", priority="
+				+ priority + "]";
 	}
 
 }

@@ -60,7 +60,6 @@ public class WishController {
 		
 		Map<String, Integer> addressMap = new HashMap<String, Integer>();
 		ObjectMapper mapper = new ObjectMapper();
-		System.out.println("즐겨찾기 컨트롤러진입");
 		
 		String address = "";
 		int idx = 0;
@@ -86,6 +85,7 @@ public class WishController {
 		modelAndView.setViewName("mypage/wishList");
 		modelAndView.addObject("address", address);
 		modelAndView.addObject("wishList", service.wishList(userId, address));
+		modelAndView.addObject("wishImg", service.wishRoomImg(userId));
 
 		return modelAndView;
 	}

@@ -86,7 +86,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="rvs.searchType != null">
 			<if test="rvs.searchType == 'all'.toString()">
 				and re.reviewContent LIKE CONCAT('%',#{rvs.keyword},'%')
-				and r.hostId LIKE CONCAT('%',#{rvs.keyword},'%')
+				or r.hostId LIKE CONCAT('%',#{rvs.keyword},'%')
 			</if>
 			<if test="rvs.searchType == 'reviewContent'.toString()">
 				and re.reviewContent LIKE CONCAT('%',#{rvs.keyword},'%')
@@ -118,7 +118,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="rvs.searchType == 'all'.toString()">
 				and e.evaluationContent LIKE
 				CONCAT('%',#{rvs.keyword},'%')
-				and re.hostId LIKE
+				or re.hostId LIKE
 				CONCAT('%',#{rvs.keyword},'%')
 			</if>
 			<if test="rvs.searchType == 'reviewContent'.toString()">

@@ -57,31 +57,19 @@
 						<i class="fas fa-map-marker-alt" style="color: red;"></i>&ensp;${address}
 					</h2>
 					<br>
-					<c:forEach var="wl" items="${wishList}">
-						<c:set var="priceAvg"
-							value="${wl.price_weekdays + wl.price_weekend / 2}" />
-						<fmt:formatNumber type="int" var="price" value="${priceAvg}"
-							pattern="#,###" />
-						<div class="card" style="margin-bottom: 20px;">
+					<c:forEach var="wl" items="${wishList}" varStatus="status">
+							<c:set var="priceAvg"
+								value="${wl.price_weekdays + wl.price_weekend / 2}" />
+							<fmt:formatNumber type="int" var="price" value="${priceAvg}"
+								pattern="#,###" />
+							<div class="card" style="margin-bottom: 20px;">
 
-							<div id="demo" class="carousel slide" data-ride="carousel" data-interval="false">
-
-								<!-- Indicators -->
-								<ul class="carousel-indicators">
-									<li data-target="#demo" data-slide-to="0" class="active"></li>
-									<li data-target="#demo" data-slide-to="1"></li>
-									<li data-target="#demo" data-slide-to="2"></li>
-								</ul>
-
-								<!-- The slideshow -->
-								<div class="carousel-inner"
-									style="max-width: 100%; max-height: 300px; overflow: hidden;">
-									<div class="carousel-item active">
-										<img
-											src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
-											alt="Los Angeles" style="width: 100%; object-fit: contain;">
-									</div>
-									<div class="carousel-item">
+								<div id="demo" class="carousel slide demo${status.index}"
+									data-ride="carousel" data-interval="false">
+									<!-- The slideshow -->
+									<div class="carousel-inner"
+										style="max-width: 100%; max-height: 300px; overflow: hidden;">
+										<div class="carousel-item active">
 										<img
 											src="${pageContext.request.contextPath}/resources/images/userphoto/이제훈.jpg"
 											alt="Chicago" style="width: 100%; object-fit: contain;">
@@ -91,49 +79,51 @@
 											src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
 											alt="New York" style="width: 100%; object-fit: contain;">
 									</div>
+
+										<!-- Left and right controls -->
+										<a class="carousel-control-prev" href=".demo${status.index}"
+											data-slide="prev"> <span
+											class="carousel-control-prev-icon"></span>
+										</a> <a class="carousel-control-next" href=".demo${status.index}"
+											data-slide="next"> <span
+											class="carousel-control-next-icon"></span>
+										</a>
+									</div>
 								</div>
 
-								<!-- Left and right controls -->
-								<a class="carousel-control-prev" href="#demo" data-slide="prev">
-									<span class="carousel-control-prev-icon"></span>
-								</a> <a class="carousel-control-next" href="#demo" data-slide="next">
-									<span class="carousel-control-next-icon"></span>
-								</a>
-							</div>
-
-							<%-- <img class="card-img-top"
+								<%-- <img class="card-img-top"
 								src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
 								alt="Card image cap"> --%>
 
 
-							<div class="card-body">
-								<h5 class="card-title">
-									<b>${wl.hostId}</b>님의 숙소
-								</h5>
-								<span class="card-text" id="price">￦ ${price} / 박</span>
-								<c:choose>
-									<c:when test="${0 ne wl.reviewCount and 0 ne wl.avgScope}">
-										<span class="card-text"> <c:forEach var="scope"
-												begin="1" end="${wl.avgScope}">
-												<i class="fas fa-star fa-sm" style="color: #FF5A5F;"></i>
-											</c:forEach>(${wl.reviewCount})
-										</span>
-									</c:when>
-									<c:otherwise>
-										<span class="card-text"><i
-											class="fas fa-exclamation-circle" style="color: red;"></i>
-											후기없음</span>
-									</c:otherwise>
-								</c:choose>
-								<br> <br> <a
-									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${wl.roomsId}"
-									class="btn"
-									style="background-color: #FF5A5F; color: white; float: right;">보러가기</a>
+								<div class="card-body">
+									<h5 class="card-title">
+										<b>${wl.hostId}</b>님의 숙소
+									</h5>
+									<span class="card-text" id="price">￦ ${price} / 박</span>
+									<c:choose>
+										<c:when test="${0 ne wl.reviewCount and 0 ne wl.avgScope}">
+											<span class="card-text"> <c:forEach var="scope"
+													begin="1" end="${wl.avgScope}">
+													<i class="fas fa-star fa-sm" style="color: #FF5A5F;"></i>
+												</c:forEach>(${wl.reviewCount})
+											</span>
+										</c:when>
+										<c:otherwise>
+											<span class="card-text"><i
+												class="fas fa-exclamation-circle" style="color: red;"></i>
+												후기없음</span>
+										</c:otherwise>
+									</c:choose>
+									<br> <br> <a
+										href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${wl.roomsId}"
+										class="btn"
+										style="background-color: #FF5A5F; color: white; float: right;">보러가기</a>
+								</div>
+								<input type="hidden" value="${wl.address}" id="de_add"
+									class="de_add" name="address">
 							</div>
-							<input type="hidden" value="${wl.address}" id="de_add"
-								class="de_add" name="address">
-						</div>
-					</c:forEach>
+						</c:forEach>
 				</div>
 				<div class="col-7" id="map"></div>
 			</div>

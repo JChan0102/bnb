@@ -15,4 +15,5 @@ public interface WishDao {
 	public List<WishVO> wishList(@Param("userId") String userId, @Param("address") String address); // 즐겨찾기 목록
 	public List<WishVO> wishDivList(String userId); // div생성용 즐겨찾기 목록
 	public int wishDivCnt(@Param("userId") String userId, @Param("address") String address); // 지역별 몇개있는지!
+	public List<WishVO> wishRoomImg(@Param("userId") String userId); // 즐겨찾기 사진목록
 }

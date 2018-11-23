@@ -54,4 +54,10 @@ public class WishService {
 		return wishDao.wishDivCnt(userId, address);
 	}
 	
+	public List<WishVO> wishRoomImg(String userId) {
+		
+		wishDao = sqlSessionTemplate.getMapper(WishDao.class);
+		return wishDao.wishRoomImg(userId);
+	}
+	
 }
