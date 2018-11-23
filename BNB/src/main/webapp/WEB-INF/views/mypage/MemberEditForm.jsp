@@ -159,7 +159,7 @@
 														data : formData,
 														type : 'POST',
 														success : function(
-																result) {
+													 			result) {
 															if(result==''){
 															    result='nopic.jpg'
 															}

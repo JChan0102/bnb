@@ -16,8 +16,8 @@
 <%@ include file="/resources/common/Navbar.jsp"%>
 
     <p> 호스트에게 문의 사항이 있으시면 여기다가 쓰시면 호스트가 볼수있습니다.</p>
-    <textarea cols="50" rows="10" placeholder="여기다 쓰세요" id="message"></textarea>
-    <button onclick="send()">만들어라</button>
+    <textarea cols="50" rows="10" placeholder="여기다 쓰세요" id="messageeeeee"></textarea>
+    <button onclick="created()">만들어라</button>
 
 <script>
     connect();
@@ -28,11 +28,11 @@
         };
     }
 
-    function send() {
-        var msg = $("#message").val();
+    function created() {
+        var msg = $("#messageeeeee").val();
         if (msg != "") {
             message = {};
-            message.messagecontent = $("#message").val()
+            message.messagecontent = $("#messageeeeee").val()
             message.hostId = '${ChatRoomInfo.hostId}'//고정값이여야함
             message.userId = '${sessionScope.loginUser.userId}'//고정값이여야함
             message.roomsId = '${ChatRoomInfo.roomsId}'//고정값이여야함
