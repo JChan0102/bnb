@@ -73,7 +73,7 @@
                     var img = new Image();
                     img.src = e.target.result;
 
-                    $('#holder').append('<img id="img" src="' + e.target.result + '" alt="뭐야ㅡㅡ" />');
+                    $('#holder').append('<img style="width: 360px" id="img" src="' + e.target.result + '" alt="뭐야ㅡㅡ" />');
                 }
                 reader.readAsDataURL(input.files[0]);
             }
@@ -143,15 +143,15 @@
                         $('#test3').css("height", "" + identityHeight + "px");
                         check++;
                     }
-                    if (check == 0) {
-                        $('#img').remove();
-                        $('#test1').remove();
-                        $('#test2').remove();
-                        $('#test3').remove();
-                        $('#results').text('사진을 다시 업로드 해주세요.');
-                    }
+                    
                 });
-            if (check == 2) {
+            if (check < 2) {    
+                $('#img').remove();
+                $('#test1').remove();
+                $('#test2').remove();
+                $('#test3').remove();
+                $('#results').text('사진을 다시 업로드 해주세요.');
+            } else if (check == 2) {        
                 readURL(temp);
                 check = 0;
             }
@@ -206,6 +206,9 @@
                 } */
             }
         }
+        
+        
+        
 
     </script>
 
