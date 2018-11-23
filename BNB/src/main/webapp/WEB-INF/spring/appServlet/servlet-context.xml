@@ -40,7 +40,7 @@
 			class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<beans:property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<beans:property
-				name="jdbcUrl" value="jdbc:mysql://mysql.cxwmjvbm4iat.ap-northeast-2.rds.amazonaws.com/bnb?characterEncoding=utf8" />
+				name="jdbcUrl" value="jdbc:mysql://mysql.cxwmjvbm4iat.ap-northeast-2.rds.amazonaws.com/bnb?zeroDateTimeBehavior=convertToNull&amp;characterEncoding=utf8" />
 		<beans:property name="user" value="lib2" />
 		<beans:property name="password" value="bitcamp1234" />
 	</beans:bean>

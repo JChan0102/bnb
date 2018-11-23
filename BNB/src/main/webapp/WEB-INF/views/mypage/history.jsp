@@ -8,6 +8,36 @@
 <meta charset="UTF-8">
 <title>History</title>
 <%@ include file="/resources/common/includeHead.jsp"%>
+<style>
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+	border: 3px solid #fff;
+}
+
+::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment
+	{
+	display: block;
+	height: 10px;
+	background: #efefef
+}
+
+::-webkit-scrollbar-track {
+	background: #efefef;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .2)
+}
+
+::-webkit-scrollbar-thumb {
+	height: 50px;
+	width: 50px;
+	background: rgba(0, 0, 0, .2);
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .1)
+}
+</style>
 </head>
 <body style="background-color: #EEEEEE;">
 	<%@ include file="/resources/common/Navbar.jsp"%>
@@ -29,7 +59,8 @@
 				<!-- Tab panes -->
 				<br>
 				<div class="tab-content">
-					<div class="tab-pane container active" id="trip">
+					<div class="tab-pane container active" id="trip"
+						style="height: 500px; overflow: scroll">
 						<%-- <div class="card">
 							<h5 class="card-header">이전 예약</h5>
 							<c:if test="${empty historys}">
@@ -157,8 +188,9 @@
 							</c:forEach>
 						</ul>
 
-					</div> 
-					<div class="tab-pane container" id="history">
+					</div>
+					<div class="tab-pane container" id="history"
+						style="height: 500px; overflow: scroll">
 						<%-- <div class="card">
 							<h5 class="card-header">현재 예약</h5>
 							<c:if test="${empty trip}">
@@ -236,7 +268,7 @@
 							</div>
 						</div> --%>
 						<c:if test="${empty trip}">
-							<h1 style="text-align: center;">다녀온 여행이 없습니다.</h1>
+							<h1 style="text-align: center;">예정된 여행이 없습니다.</h1>
 						</c:if>
 						<ul class="timeline">
 							<c:forEach var="trip" items="${trip}" varStatus="status">

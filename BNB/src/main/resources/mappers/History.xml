@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ro.roomsId=re.roomsId
 		where
 		userId=#{userId} and re.checkOut >= current_timestamp
-		order by re.checkOut desc;
+		order by re.checkOut asc;
 	</select>
 
 </mapper>
