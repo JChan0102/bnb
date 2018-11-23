@@ -156,6 +156,10 @@
 					$('#slider-range').slider("option", "values", [${min_price}, ${max_price}]);
 					$('#dropdownMenu_avail').html('인원');
 					$('#searchForm')[0].reset();
+					// avail 값들이 초기화되지 않아서 따로 처리
+					$('[name^=avail_]').val(0);
+					// $('#avail > span:nth-child(even) > div > input').val(0);
+					// $('#availf > span:nth-child(even) > div > input').val(0);
 					searchRoomsList();
 				});
 			</script>
@@ -387,7 +391,7 @@
 							
 							function(status, response) {
 								if (status === naver.maps.Service.Status.ERROR) {
-									conlsole.log("유효하지 않은 주소 : " + address);
+									console.log("유효하지 않은 주소 : " + address);
 								}
 
 								var item = response.result.items[0], point = new naver.maps.Point(item.point.x, item.point.y);

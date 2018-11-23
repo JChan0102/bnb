@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bit.bnb.rooms.dao.RoomsDAO;
 import com.bit.bnb.rooms.model.AmenitiesVO;
+import com.bit.bnb.rooms.model.RoomsImgVO;
 import com.bit.bnb.rooms.model.RoomsVO;
 
 @Service
@@ -21,5 +22,23 @@ public class RoomsModifyService {
 
 	public List<AmenitiesVO> getAmenities(AmenitiesVO av) {
 		return roomsDAO.selectAmenities(av);
+	}
+	
+	public int insertRoomsPhoto(RoomsImgVO rv) {
+		return roomsDAO.insertRoomsPhoto(rv);
+	}
+	
+	public int updateRoomsPhoto(RoomsImgVO rimgv) {
+		return roomsDAO.updateRooms(rimgv);
+	}
+	
+	public int deleteRoomImage(RoomsImgVO rimgv) {
+		return roomsDAO.deleteRoomsPhoto(rimgv);
+	}
+	
+	public int deleteRoomImage(String filename) {
+		RoomsImgVO rimgv = new RoomsImgVO();
+		rimgv.setFilename(filename);
+		return roomsDAO.deleteRoomsPhoto(rimgv);
 	}
 }

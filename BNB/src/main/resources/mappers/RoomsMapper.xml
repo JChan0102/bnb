@@ -331,13 +331,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		parameterType="com.bit.bnb.rooms.model.RoomsImgVO">
 		INSERT INTO `bnb`.`roomsimg` (`filename`, `roomsId`, `priority`) VALUES (#{filename}, #{roomsId}, #{priority})
 	</insert>
-	
+
 	<update id="updateRoomsPhoto"
 		parameterType="com.bit.bnb.rooms.model.RoomsImgVO">
 		UPDATE `bnb`.`roomsimg` SET
 		`roomsId`=#{roomsId},
-		`filename`=#{filename},
-		`priority`=#{priority},
+		`priority`=#{priority}
 		WHERE filename =
 		#{filename}
 	</update>

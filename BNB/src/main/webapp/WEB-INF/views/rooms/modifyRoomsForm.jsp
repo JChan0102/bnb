@@ -9,6 +9,7 @@
 <body>
 	<script type="text/javascript">
 		$(document).ready(function() {
+
 			$('input:checkbox[name^=amcb]').change(function() {
 				var check = '';
 				//$('input:checkbox').each(function() {
@@ -21,13 +22,37 @@
 				});
 				$('#amenities').val(check);
 			});
+				
+			$("#submitBtn").click(function() {
+				if (filenames.length != 0){
+					
+					// 기저장된 이미지의 경우 수정/삭제처리를 위해 따로 filenameOrg에 저장					
+					for(i=0; i<filenamesOrg.length; i++){
+						// submit할 filenames에 기저장된 이미지의 목록이 포함되지 않을 경우 > 삭제 처리
+						// submit할 filenames에 기저장된 이미지의 목록이 포함되어 있을 경우 > 업데이트 처리
+						if(!filenames.includes(filenamesOrg[i])){
+							// 포함되어 있지 않을 경우, 오리지날 배열에서 삭제
+							filenamesOrg.splice(filenamesOrg.indexOf(i), 1);
+						}
+					}
+					
+					$('#filenames').val(JSON.stringify(filenames));
+					$('#filenamesOrg').val(JSON.stringify(filenamesOrg));
+					
+					$('#ModiRoomSubmit').submit();
+				} else {					
+					alert("사진을 등록해 주세요!");
+				}
+			});
+			
+			drawThumbnail(filenames);
 		});
 	</script>
 	<%@ include file="/resources/common/Navbar.jsp"%>
 	<!-- Begin page content -->
 	<!-- https://shaack.com/projekte/bootstrap-input-spinner/ -->
 	<main role="main" class="container">
-	<div class="row justify-content-md-center" enctype="multipart/form-data">
+	<div class="row justify-content-md-center" enctype="multipart/form-data"  id="ModiRoomSubmit">
 		<div class="col col-md-10 col-lg-8">
 			<h1>
 				<b>숙소 수정</b>
@@ -149,34 +174,19 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
+							<div class="input-group mb-3">
+								<div class="custom-file">
+									<input multiple="multiple" type="file"
+										class="custom-file-input" id="roomfile" name="roomfile"
+										accept="image/*"> <label class="custom-file-label"
+										for="roomfilename">사진 파일 선택하기</label>
+								</div>
+							</div>
+							<div id="preview" class="row">
+								<div class="alert alert-success col-12 text-center" role="alert">
+									<small>사진을 업로드해주세요.</small>
+								</div>
+							</div>
 						</td>
 					</tr>
 					<!-- https://blueimp.github.io/jQuery-File-Upload/index.html -->
@@ -184,8 +194,10 @@
 						<td colspan="2" class="text-center"><input type="hidden"
 							id="roomsId" name="${selectedRoom.roomsId}" value="0"><input
 							type="hidden" id="disabled" name="disabled"
-							value="${selectedRoom.disabled}"><input type="submit"
-							class="btn btn-danger ml-1 mr-1" value="수정"><a
+							value="${selectedRoom.disabled}"><input
+							type="hidden" id="filenamesOrg" name="filenamesOrg"><input
+							type="hidden" id="filenames" name="filenames"><input type="submit"
+							class="btn btn-danger ml-1 mr-1" id="submitBtn" value="수정"><a
 							href="${pageContext.request.contextPath}/rooms/deleteRoom?roomsId=${selectedRoom.roomsId}&_hostId=${selectedRoom.hostId}"><input
 								type="button" class="btn btn-danger ml-1 mr-1" value="삭제"></a></td>
 					</tr>
@@ -193,7 +205,105 @@
 			</form>
 		</div>
 	</div>
+
 	</main>
+	<script>
+		var imgidx = 1;
+		// 기존 이미지 값 가져옴
+		var filenamesOrg =  '${roomImagesNames}'.split("|"); // 기존의 값은 들고 있는다
+		var filenames = '${roomImagesNames}'.split("|");
+		drawThumbnail(filenames);
+		// 기존 썸네일 가져오기
+		$(function() {
+			$("input[name=roomfile]").change(function(e) {
+				for (i = 0; i < $('#roomfile')[0].files.length; i++) {
+					var formData = new FormData();
+					formData.append("roomfile", $('#roomfile')[0].files[i]);
+					formData.append("imgidx", imgidx);
+					$.ajax({
+						async : false,
+						type : 'POST',
+						url : 'http://13.209.99.134:8080/imgserver/fileUpload',
+						data : formData,
+						dataType : 'text',
+						processData : false,
+						contentType : false,
+						success : function(data) {
+							// console.log("파일 업로드 성공");
+							// console.log(data);
+							filenames.push(data);
+							drawThumbnail(filenames);
+							//output += '<div class="col-3"><a href="${pageContext.request.contextPath}/fileDelete?deleteFileName='
+							//		+ data
+							//		+ '"><img src="${pageContext.request.contextPath}/resources/upload/' + data + '" name="thumb_'+imgidx+'"></a></div>';
+							// output += '<div class="col-3" name="thumb_'+imgidx+'" id="'+data+'"><img src="${pageContext.request.contextPath}/resources/upload/' + data + '"></div>';
+						},
+						error : function(error) {
+							console.log(error);
+							console.log(error.status);
+						}
+					});
+					imgidx++;
+				}
+				console.log(filenames);
+			});
+		});
+
+		function drawThumbnail(filenames) {
+			var output = '';
+			if (filenames.length != 0) {
+				output += '<div class="alert alert-info col-12 text-center" role="alert">'
+						+ '<small>사진을 선택하면 업로드를 취소할 수 있습니다!</small></div>';
+			} else {
+				output += '<div class="alert alert-success col-12 text-center" role="alert">'
+						+ '<small>사진을 업로드해주세요.</small></div>';
+			}
+			$
+					.each(
+							filenames,
+							function(index, item) {
+								// output += '<div class="col-3"><a href="${pageContext.request.contextPath}/fileDelete?deleteFileName='
+								//		+ item
+								//		+ '"><img src="${pageContext.request.contextPath}/resources/upload/' + item + '" id="' + item + '""></a></div>';
+								output += '<div class="col-3 mb-3" onclick="deleteImage(this);" id="'
+										+ item
+										+ '"><img src="http://13.209.99.134:8080/imgserver/resources/upload/' + item + '" class="thumbnail"></div>';
+							});
+			$('#preview').html(output);
+		}
+		// 여기부터
+		function deleteImage(that) {
+			$
+					.ajax({
+						// async : false,
+						type : 'GET',
+						url : 'http://13.209.99.134:8080/imgserver/fileDelete?deleteFileName='
+								+ $(that).attr("id"),
+						// data : formData,
+						// dataType : 'text',
+						processData : false,
+						contentType : false,
+						success : function(data) {
+							// console.log(data)
+							if (data == "T") {
+								$(that).remove();
+								// console.log(filenames);
+								// console.log(filenames.indexOf($(that).attr("id")));
+								filenames.splice(filenames.indexOf($(that)
+										.attr("id")), 1);
+								if (filenames.length == 0) {
+									drawThumbnail(filenames);
+								}
+							}
+						},
+						error : function(error) {
+							console.log(error);
+							console.log(error.status);
+						}
+					});
+			console.log(filenames);
+		};
+	</script>
 	<!-- 스피너 사용을 위한 JS -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/bootstrap-input-spinner.js"></script>
