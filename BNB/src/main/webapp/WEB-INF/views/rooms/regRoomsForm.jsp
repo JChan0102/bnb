@@ -50,8 +50,8 @@
 			<form method="post" enctype="multipart/form-data" id="RegRoomSubmit">
 				<table class="table">
 					<tr>
-						<td>호스트 아이디</td>
-						<td><input type="text" class="form-control text-center"
+						<td class="w-25">호스트 아이디</td>
+						<td class="w-75"><input type="text" class="form-control text-center"
 							readonly="readonly" value="${loginUser.userId}" id="hostId"
 							name="hostId"></td>
 					</tr>

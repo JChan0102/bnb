@@ -123,8 +123,8 @@
 							</div></c:if></td>
 					</tr>
 					<tr>
-						<td>소개</td>
-						<td>${selectedRoom.details}</td>
+						<td class="w-25">소개</td>
+						<td class="w-75">${selectedRoom.details}</td>
 					</tr>
 					<tr>
 						<td>인원</td>

@@ -60,8 +60,8 @@
 			<form method="post">
 				<table class="table">
 					<tr>
-						<td>호스트 아이디</td>
-						<td><input type="text" class="form-control text-center"
+						<td class="w-25">호스트 아이디</td>
+						<td class="w-75"><input type="text" class="form-control text-center"
 							readonly="readonly" id="hostId" name="hostId"
 							value="${selectedRoom.hostId}" required="required"></td>
 					</tr>
