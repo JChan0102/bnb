@@ -51,7 +51,7 @@
                     </c:when>
                     <c:otherwise>
                         <c:forEach var="room" items="${myroomlist}">
-                            <div id="mymy${room.roomsId}" onclick="myroomlistselect('${room.roomsId}')">
+                            <div id="mymy${room.roomsId}" onclick="myroomlistselect('${room.roomsId}')" style="cursor: pointer">
                                 룸 번호 ( ${room.roomsId} ) <span
                                     class="badge badge-pill badge-primary">${room.reservationCount}</span>
                             </div>
