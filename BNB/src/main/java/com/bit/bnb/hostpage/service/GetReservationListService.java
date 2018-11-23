@@ -24,4 +24,8 @@ public List<MyRoomVO> getMyroom(String userId){
         return dao.getRoomMember(RoomsId);
     }
 
+
+    public int delReservation(int idx){
+        return dao.delReservation(idx);
+    }
 }

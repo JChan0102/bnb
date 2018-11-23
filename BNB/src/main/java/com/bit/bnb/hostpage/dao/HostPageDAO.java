@@ -54,4 +54,8 @@ public class HostPageDAO {
     public List<Integer> myroomview(String hostId){
         return sqlSessionTemplate.selectList(namespace+"myroomview",hostId);
     }
+
+    public int delReservation(int idx){
+        return sqlSessionTemplate.delete(namespace+"delReservation",idx);
+    }
 }

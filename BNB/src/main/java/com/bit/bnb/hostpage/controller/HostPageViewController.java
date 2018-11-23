@@ -47,8 +47,9 @@ public class HostPageViewController {
 
 
     @RequestMapping(value="/hostpage/delreser", method = RequestMethod.GET)
-    public void delReservation(@RequestParam("idx") int idx){
-
+ @ResponseBody
+    public int delReservation(@RequestParam("Idx") int idx){
+return service.delReservation(idx);
     }
     @RequestMapping(value = "/hostpage/getlist",method = RequestMethod.GET)
     @ResponseBody

@@ -69,7 +69,7 @@
                                         type: 'get',
                                         datatype: 'json',
                                         success: function (data) {
-                                            var str = '<div class="col-md-3" style="margin-bottom: 10px; background-color: #EEEEEE" ><b>예약자</b></div><div class="col-md-4" style="background-color: #EEEEEE">예약 일시</div><div class="col-md-2"> 결제 금액 </div><div class="col-md-3"> 취소 </div>';
+                                            var str = '<div class="col-md-3" style=" background-color: #EEEEEE" ><b>예약자</b></div><div class="col-md-4" style="background-color: #EEEEEE">예약 일시</div><div class="col-md-2" style=" background-color: #EEEEEE"> 결제 금액 </div><div class="col-md-3" style=" background-color: #EEEEEE"> 취소 </div>';
                                             var today = new Date();
                                             today.setDate(today
                                                 .getDate() + 5);
@@ -117,7 +117,7 @@
                                                         if (date > today) {
                                                             str += '<div class="col-md-3"><button class="btn" onclick="rescancle('
                                                                 + value.reservationNum
-                                                                + ')">예약 취소</button></div>';
+                                                                + ','+roomsid+')">예약 취소</button></div>';
                                                         } else {
                                                             str += '<div class="col-md-3"></div>';
                                                         }
@@ -144,7 +144,7 @@
                                 $('#mymy' + roomsid).attr("onclick", "myroomlistselect(" + roomsid + ")")
                             }
 
-                            function rescancle(reservationNum) {
+                            function rescancle(reservationNum, roomsId) {
                                 $
                                     .ajax({
                                         url: '${pageContext.request.contextPath}/hostpage/delreser?Idx='
@@ -152,6 +152,9 @@
                                         type: 'get',
                                         datatype: 'json',
                                         success: function (data) {
+                                            if(data==1){
+                                                    myroomlistselect(roomsId);
+                                            }
                                         },
                                         error: function () {
                                             alert(error);

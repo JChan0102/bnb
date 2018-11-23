@@ -74,4 +74,7 @@
 
         select roomsId from rooms where hostId=#{hostId};
     </select>
+    <delete id="delReservation" parameterType="int">
+        delete from reservation where reservationNum=#{reservationNum}
+    </delete>
 </mapper>
