@@ -101,7 +101,7 @@
 						<div> 
 							<textarea name="userInfo" class="form-control hyeon-reg-input" cols="30" placeholder="자기소개"></textarea>
 						</div>
-						<button class="btn btn-lg btn-danger btn-block" id="regbtn2" type="button" style="margin-bottom: 20px">회원가입</button>
+						<input class="btn btn-lg btn-danger btn-block" id="regbtn2" type="button" style="margin-bottom: 20px" value="회원가입" />
 					</form>
 				</div>
 			</div>
@@ -112,6 +112,7 @@
 	<script>
 		// 아이디 입력란에 포커스 주기
 		$(document).ready(function(){
+			$('#regbtn2').val('회원가입');
 			$('#inputUserId').focus();
 		});
 		
@@ -225,6 +226,7 @@
                 .click(
 
                     function() {
+                    	$('#regbtn2').val('인증메일을 보내는중...');
                         console.log('gg');
                         var form = $('#regform2')[0];
                         var formData = new FormData(form);
