@@ -20,4 +20,9 @@ public class RoomsDeleteService {
 	public int deleteRoomImage(RoomsImgVO rimgv) {
 		return roomsDAO.deleteRoomsPhoto(rimgv);
 	}
+	
+	public int disabledRooms(RoomsVO rv) {
+		rv.setDisabled(1);
+		return roomsDAO.updateRooms(rv);
+	}
 }

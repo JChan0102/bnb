@@ -83,7 +83,7 @@ public class RoomsDAO {
 		return sqlSessionTemplate.update(mapperPath + "insertRoomsPhoto", rimgv);
 	}
 
-	public int updateRooms(RoomsImgVO rimgv) {
+	public int updateRoomsPhoto(RoomsImgVO rimgv) {
 		return sqlSessionTemplate.update(mapperPath + "updateRoomsPhoto", rimgv);
 	}
 	

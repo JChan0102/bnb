@@ -84,8 +84,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="rv.address != null">
 				AND address like CONCAT('%', #{rv.address},'%')
 			</if>
+			<if test="rv.disabled == 0">
+				AND disabled = 0
+			</if>
 			<if test="rv.disabled != 0">
-				AND disabled >= #{rv.disabled}
+				AND disabled = {rv.disabled}
 			</if>
 			<if test="checkIn != null || checkOut != null">
 				AND rooms.roomsId NOT IN (SELECT
@@ -163,8 +166,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="rv.address != null">
 				AND address like CONCAT('%', #{rv.address},'%')
 			</if>
+			<if test="rv.disabled == 0">
+				AND disabled = 0
+			</if>
 			<if test="rv.disabled != 0">
-				AND disabled >= #{rv.disabled}
+				AND disabled = {rv.disabled}
 			</if>
 			<if test="checkIn != null || checkOut != null">
 				AND rooms.roomsId NOT IN (SELECT

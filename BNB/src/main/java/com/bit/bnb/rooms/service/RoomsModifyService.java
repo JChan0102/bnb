@@ -29,7 +29,7 @@ public class RoomsModifyService {
 	}
 	
 	public int updateRoomsPhoto(RoomsImgVO rimgv) {
-		return roomsDAO.updateRooms(rimgv);
+		return roomsDAO.updateRoomsPhoto(rimgv);
 	}
 	
 	public int deleteRoomImage(RoomsImgVO rimgv) {
