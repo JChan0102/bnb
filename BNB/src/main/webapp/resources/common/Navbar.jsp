@@ -37,11 +37,7 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="nav justify-content-end ml-auto">
-				<!-- 임시 -->
-				<li class="nav-item"><a class="nav-link text-dark"
-					href="${pageContext.request.contextPath}/reservationtt">예약
-						임시</a></li>
-				<!-- 임시 -->
+
 				<li class="nav-item"><a class="nav-link text-dark"
 					href="${pageContext.request.contextPath}/rooms">숙소</a></li>
 				<!-- 비로그인 상태 -->
