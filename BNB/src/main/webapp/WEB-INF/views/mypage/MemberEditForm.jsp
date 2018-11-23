@@ -148,29 +148,32 @@
 						$("#uploadbutton")
 								.click(
 										function() {
+											var pW = $('#inputPassword').val();
 											var form = $('#modiform')[0];
 											var formData = new FormData(form);
-											$
-													.ajax({
-														url : 'http://13.209.99.134:8080/imgserver/upload/userPhoto',
-														processData : false,
-														contentType : false,
-														datatype : 'JSON',
-														data : formData,
-														type : 'POST',
-														success : function(
-													 			result) {
-															if(result==''){
-															    result='nopic.jpg'
+											if (!pW.isEmpty()) {
+												$
+														.ajax({
+															url : 'http://13.209.99.134:8080/imgserver/upload/userPhoto',
+															processData : false,
+															contentType : false,
+															datatype : 'JSON',
+															data : formData,
+															type : 'POST',
+															success : function(
+																	result) {
+																if (result == '') {
+																	result = 'nopic.jpg'
+																}
+																$('#userPhoto')
+																		.val(
+																				''
+																						+ result);
+																$('#modiform')
+																		.submit();
 															}
-															$('#userPhoto')
-																	.val(
-																			''
-																					+ result);
-															$('#modiform')
-																	.submit();
-														}
-													});
+														});
+											}
 										});
 					});
 				</script>
