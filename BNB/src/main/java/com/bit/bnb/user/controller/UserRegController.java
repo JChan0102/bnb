@@ -106,7 +106,7 @@ public class UserRegController {
 	}
 	
 	@RequestMapping(value="/googleReg", method=RequestMethod.POST)
-	public String googleReg(UserVO userVO, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
+	public String googleReg(UserVO userVO, HttpServletRequest request, HttpSession session) throws IllegalStateException, NoSuchAlgorithmException, IOException, GeneralSecurityException {
 		
 		String result = "redirect:/";
 		

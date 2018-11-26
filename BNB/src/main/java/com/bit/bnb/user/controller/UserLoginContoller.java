@@ -1,5 +1,9 @@
 package com.bit.bnb.user.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,7 +50,7 @@ public class UserLoginContoller {
 	@ResponseBody
 	public String userLogin(@RequestParam(value = "userId", required = false) String userId,
 			@RequestParam(value = "userPw", required = false) String userPw, String rememberMe, HttpSession session,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws UnsupportedEncodingException, GeneralSecurityException {
 
 		String result = "";
 
@@ -88,7 +92,7 @@ public class UserLoginContoller {
 	@RequestMapping(value="/googleLogin", method=RequestMethod.POST)
 	@ResponseBody
 	public String googleLogin(@RequestParam(value = "gId", required = false) String gId,
-							  HttpSession session) {
+							  HttpSession session) throws UnsupportedEncodingException, GeneralSecurityException {
 		
 		System.out.println("구글 로그인 컨트롤러 진입");
 		
