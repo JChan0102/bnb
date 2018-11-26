@@ -40,7 +40,7 @@
 				
 				<div class="hyeon-title"><h2>회원가입</h2></div>
 				
-					<form method="post" enctype="multipart/form-data">
+					<form method="post" id="gRegForm" enctype="multipart/form-data">
 					
 						<input type="email" id="inputUserId" name="userId" class="form-control hyeon-reg-input" value="${gMail}" readonly />
 						<input type="hidden" id="userPw-1" name="userPw" class="form-control hyeon-reg-input" value="" />
@@ -92,7 +92,7 @@
 						<div> 
 							<textarea name="userInfo" class="form-control hyeon-reg-input" cols="30" placeholder="자기소개"></textarea>
 						</div>
-						<button class="btn btn-lg btn-danger btn-block" type="submit" style="margin-bottom: 20px">회원가입</button>
+						<input id="gRegBtn" class="btn btn-lg btn-danger btn-block" type="button" style="margin-bottom: 20px" value="회원가입" />
 					</form>
 				</div>
 			</div>
@@ -206,56 +206,62 @@
 			});
 		}
 	});
-	 	
+
+	
+		 $(function() {
+	            $("#gRegBtn").click(function() {
+	               
+	                console.log('gg');
+	                
+	                var pattern = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+	                var year = $('#select-year').val();
+	                var month = $('#select-month').val();
+	                var day = $('#select-day').val();
+	                if(month<10){
+	                	month = '0'+month;
+	                }
+	                if(day<10){
+	                	day = '0'+day;
+	                }
+	                
+	                var birth = $('#select-year').val()+'-'+month+'-'+day;
+	                var lastDay = new Date(new Date(year, month, 0)).getDate();
+	                
+	                var today = new Date();
+	                var tYear = today.getFullYear();
+	                var tMonth = today.getMonth()+1;
+	                var tDay = today.getDate();
+
+	                if(tMonth<10){
+	                	tMonth = ''+tMonth;
+	                }
+	                if(tDay<10){
+	                	tDay = ''+tDay;
+	                }
+	                
+	                var age = tYear-year;
+	                if((month*100 + day) > tMonth*100 + tDay){
+	                	age--;
+	                }
+	            	if(pattern.test(birth) && day<=lastDay && age>18){
+	                    $('#gRegForm').submit();
+	                    $('#gRegBtn').val('가입처리중...');
+	            	}else if(day>lastDay){ 
+	            		alert('유효하지 않은 생년월일입니다.');
+	            	}else if(age<18){ 
+	            		console.log('만나이: ' + age);
+	            		alert('만 18세 이상만 가입 가능합니다');
+	            	}else{ 
+	            		console.log('생년월일 : ' + birth);
+	            		alert('생년월일을 확인해주세요');
+	            	}
+	            	
+	             });
+	        });
 		
 		
-	
-	/* 
-		var pw-1 = $('#userPw-1');
-		var pw-1 = $('#userPw-2');
-		alert(pw-1 +':'+ pw-2); */
-	
-	
 	</script>
 	
-<!-- 	<script>
-		$(document).ready(function(){
-			var date = new Date();
-			var nowYear = date.getHullYear();
-			var lastYear = nowYear - 120;
-			$('#select-year').prepend("<option>년도</option>")
-			
-			for(var i=nowYear; i<lastYear; i--){
-				$('#select-year').prepend("<option>"+i+"년</option>")
-			}
-			
-			
-		});
-	
-	
-	</script> -->
-<!-- 	<div id="userRegForm">
-		<form method="post" enctype="multipart/form-data">
-			아이디(이메일 ) : <input type="email" name="userId" required /><br>
-			비밀번호 설정 : <input type="password" name="userPw" required /><br>
-			이름 : <input type="text" name="userName" required /><br> 
-			사진 : <input type="file" name="photoFile" /><br>
-			<input type="hidden" name="host" value=1 /><br>
-			<input type="hidden" name="admin" value=1 /><br>
-			<input type="hidden" name="userKey" value="asd123" /><br>
-			<input type="hidden" name="userCheck" value=1 /><br>
-			<input type="hidden" name="point" value=0 /><br>
-			<input type="hidden" name="disabled" value=1 /><br>
-			<select
-				name="month">
-				<option>월</option>
-				<option>1</option>
-			
-			</select> <input type="text" name="day" placeholder="일" /> <input type="text"
-				name="year" placeholder="년(4자리)" />
-			<textarea name="userInfo" cols="30" placeholder="자기소개"></textarea>
-			<br> <input type="submit" value="가입하기" />
-		</form>
-	</div> -->
+
 </body>
 </html>

@@ -38,7 +38,7 @@
 					</c:if>
 				<div class="hyeon-title"><h2>회원가입</h2></div>
 				
-					<form method="post" id="regform2" enctype="multipart/form-data">
+					<form method="post" id="regForm" enctype="multipart/form-data">
 					
 						<span style="font-size: 11px">인증메일이 발송되오니 확인 가능한 이메일 주소를 입력 바랍니다.</span>
 						<input type="email" id="inputUserId" name="userId" class="form-control hyeon-reg-input" style="margin-top: 5px;" placeholder="이메일 주소" />
@@ -69,21 +69,21 @@
 						생일은 다른 회원에게는 공개되지 않습니다.</p>
 						</div>
 						<div>
-						<select name="month" class="hyeon-form-control hyeon-left">
+						<select id="select-month" name="month" class="hyeon-form-control hyeon-left" >
 					 		<option value="">월</option>
 								<c:forEach begin="1" end="12" var="month" >
 									<option>${month}</option>
 								</c:forEach>
 						</select>
 						
-						<select name="day" class="hyeon-form-control">
+						<select id="select-day" name="day" class="hyeon-form-control" >
 					 		<option value="">일</option>
 								<c:forEach begin="1" end="31" var="day" >
 									<option>${day}</option>
 								</c:forEach>
 						</select>
 						
-						<select id="select-year" name="year" class="hyeon-form-control hyeon-right">
+						<select id="select-year" name="year" class="hyeon-form-control hyeon-right" >
 					    	<option value="">년도</option>
 
       						    <c:set var="today" value="<%=new java.util.Date()%>" />
@@ -101,7 +101,7 @@
 						<div> 
 							<textarea name="userInfo" class="form-control hyeon-reg-input" cols="30" placeholder="자기소개"></textarea>
 						</div>
-						<input class="btn btn-lg btn-danger btn-block" id="regbtn2" type="button" style="margin-bottom: 20px" value="회원가입" />
+						<input class="btn btn-lg btn-danger btn-block" id="regBtn" type="button" style="margin-bottom: 20px" value="회원가입" />
 					</form>
 				</div>
 			</div>
@@ -114,8 +114,9 @@
 		$(document).ready(function(){
 			$('#regbtn2').val('회원가입');
 			$('#inputUserId').focus();
+			//$('#regbtn2').attr('disabled', true);
 		});
-		
+
 		// 비밀번호 유효성 검사
 		$('#userPw-1').blur(function checkPassword(){
 				$('#alertPw').empty();
@@ -141,26 +142,19 @@
 					$('#alertPw').append("비밀번호에 아이디가 포함될 수 없습니다.");
 				}else{
 					$('#fail-pw-1').val('ok');
-					/* alert($('#fail-pw-1').val()); */
 				}
 			} else {
 				$('#fail-pw-1').val('ok');
-				/* alert($('#fail-pw-1').val()); */
 			}
-			/* 이 무접점하고는 느낌이 조금 다른데 이 느낌이 더 좋은거 같네..?? */
+			
+			if($('#userPw-2').val() != ''){
+				pwChk();
+			}
 		});
 
-		/* $('#userPw-1').blur(function(){
-			if(!checkPassword($('#inputUserId').val(), $('#userPw-2').val())){
-				$('#alertPw').text('fail');
-			} else {
-				$('#fail-pw').text('');
-				$('#fail-pw').val('');
-			}
-		}); */
-
+		
 		 // 비밀번호 두개가 일치하는지 검사
-		 $('#userPw-2').blur(function(){
+		 /* $('#userPw-2').blur(function(){
 			if($('#userPw-1').val() != $('#userPw-2').val()){
 				$('#chkPw').empty();
 				$('#chkPw').css("display","");
@@ -171,8 +165,26 @@
 				$('#chkPw').css("display","none");
 				$('#fail-pw-2').val('ok');
 			}
-		});
+		}); */
 		
+		 $('#userPw-2').blur(function(){
+			pwChk();
+		 });
+		 
+		 function pwChk(){
+				if($('#userPw-1').val() != $('#userPw-2').val()){
+					$('#chkPw').empty();
+					$('#chkPw').css("display","");
+					$('#chkPw').append("비밀번호를 다시 한 번 확인해주세요.");
+					$('#fail-pw-2').val('fail');
+				} else {
+					$('#chkPw').empty();
+					$('#chkPw').css("display","none");
+					$('#fail-pw-2').val('ok');
+				}
+		 }
+		 
+
 		// 이름 입력했는지 검사
 		$('#inputUserName').blur(function(){
 			if($('#inputUserName').val() == null ||$('#inputUserName').val() == ''){
@@ -221,40 +233,76 @@
 		}
 	});
 
+
         $(function() {
-            $("#regbtn2")
-                .click(
+            $("#regBtn").click(function() {
+               
+                console.log('gg');
+                
+                var pattern = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+                var year = $('#select-year').val();
+                var month = $('#select-month').val();
+                var day = $('#select-day').val();
+                if(month<10){
+                	month = '0'+month;
+                }
+                if(day<10){
+                	day = '0'+day;
+                }
+                
+                var birth = $('#select-year').val()+'-'+month+'-'+day;
+                var lastDay = new Date(new Date(year, month, 0)).getDate();
+                
+                var today = new Date();
+                var tYear = today.getFullYear();
+                var tMonth = today.getMonth()+1;
+                var tDay = today.getDate();
 
-                    function() {
-                    	$('#regbtn2').val('인증메일을 보내는중...');
-                        console.log('gg');
-                        var form = $('#regform2')[0];
-                        var formData = new FormData(form);
-                        $
-                            .ajax({
-                                url : 'http://13.209.99.134:8080/imgserver/upload/userPhoto',
-                                processData : false,
-                                contentType : false,
-                                datatype : 'JSON',
-                                data : formData,
-                                type : 'POST',
-                                success : function(
-                                    result) {
-                                    if(result==''){
-                                        result='nopic.jpg'
-									}
-                                    $('#userPhoto')
-                                        .val(
-                                            ''
-                                            + result);
-                                    $('#regform2')
-                                        .submit();
-                                }
-                            });
-                    });
+                if(tMonth<10){
+                	tMonth = ''+tMonth;
+                }
+                if(tDay<10){
+                	tDay = ''+tDay;
+                }
+                
+                var age = tYear-year;
+                if((month*100 + day) > tMonth*100 + tDay){
+                	age--;
+                }
+            	if(pattern.test(birth) && day<=lastDay && age>18){
+                
+                var form = $('#regForm')[0];
+                var formData = new FormData(form);
+                $.ajax({
+                     url : 'http://13.209.99.134:8080/imgserver/upload/userPhoto',
+                     processData : false,
+                     contentType : false,
+                     datatype : 'JSON',
+                     data : formData,
+                     type : 'POST',
+                     success : function(result) {
+                           		
+                    	 if(result==''){
+                             	result='nopic.jpg'
+							}
+                         $('#userPhoto').val('' + result);
+                         $('#regForm').submit();
+                         $('#regBtn').val('인증메일을 보내는중...');
+                       }
+                	});
+            	}else if(day>lastDay){ 
+            		alert('유효하지 않은 생년월일입니다.');
+            	}else if(age<18){ 
+            		console.log('만나이: ' + age);
+            		alert('만 18세 이상만 가입 가능합니다');
+            	}else{ 
+            		console.log('생년월일 : ' + birth);
+            		alert('생년월일을 확인해주세요');
+            	}
+            	
+             });
         });
-
-
+ 
 	</script>
 	
 
