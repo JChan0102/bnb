@@ -89,38 +89,40 @@
 					<tr>
 						<%-- <td class="w-25">호스트 아이디</td>
 						<td class="w-75">${selectedRoom.hostId}</td> --%>
-						<td colspan="2">
-						<c:if test="${!empty roomImages}">
-						<div id="carousel_thumbnail"
-								class="carousel slide" data-ride="carousel">
-								<ol class="carousel-indicators">
-								<c:set var="count" value="0"></c:set>
-								<c:forEach var="item" items="${roomImages}">
-									<li data-target="#carousel_thumbnail" data-slide-to="${count}" 
-										<c:if test="${count eq 0}">class="active"</c:if>></li>
-								<c:set var="count" value="${count+1}"></c:set>
-								</c:forEach>
-								</ol>
-								<div class="carousel-inner">
-								<c:set var="count" value="0"></c:set>
-								<c:forEach var="item" items="${roomImages}">
-									<div class="carousel-item<c:if test="${count eq 0}"> active</c:if>">
-										<img class="d-block w-100"
-											src="http://13.209.99.134:8080/imgserver/resources/upload/${item.filename}">
+						<td colspan="2"><c:if test="${!empty roomImages}">
+								<div id="carousel_thumbnail" class="carousel slide"
+									data-ride="carousel">
+									<ol class="carousel-indicators">
+										<c:set var="count" value="0"></c:set>
+										<c:forEach var="item" items="${roomImages}">
+											<li data-target="#carousel_thumbnail"
+												data-slide-to="${count}"
+												<c:if test="${count eq 0}">class="active"</c:if>></li>
+											<c:set var="count" value="${count+1}"></c:set>
+										</c:forEach>
+									</ol>
+									<div class="carousel-inner">
+										<c:set var="count" value="0"></c:set>
+										<c:forEach var="item" items="${roomImages}">
+											<div
+												class="carousel-item<c:if test="${count eq 0}"> active</c:if>">
+												<img class="d-block w-100"
+													src="http://13.209.99.134:8080/imgserver/resources/upload/${item.filename}">
+											</div>
+											<c:set var="count" value="${count+1}"></c:set>
+										</c:forEach>
 									</div>
-								<c:set var="count" value="${count+1}"></c:set>
-								</c:forEach>
+									<a class="carousel-control-prev" href="#carousel_thumbnail"
+										role="button" data-slide="prev"> <span
+										class="carousel-control-prev-icon" aria-hidden="true"></span>
+										<span class="sr-only">Previous</span>
+									</a> <a class="carousel-control-next" href="#carousel_thumbnail"
+										role="button" data-slide="next"> <span
+										class="carousel-control-next-icon" aria-hidden="true"></span>
+										<span class="sr-only">Next</span>
+									</a>
 								</div>
-								<a class="carousel-control-prev"
-									href="#carousel_thumbnail" role="button"
-									data-slide="prev"> <span class="carousel-control-prev-icon"
-									aria-hidden="true"></span> <span class="sr-only">Previous</span>
-								</a> <a class="carousel-control-next"
-									href="#carousel_thumbnail" role="button"
-									data-slide="next"> <span class="carousel-control-next-icon"
-									aria-hidden="true"></span> <span class="sr-only">Next</span>
-								</a>
-							</div></c:if></td>
+							</c:if></td>
 					</tr>
 					<tr>
 						<td class="w-25">소개</td>
