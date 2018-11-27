@@ -42,40 +42,40 @@
 }
 </style>
 <script>
-/* 	$(document).ready(
-			function() {
-				var wishRoomsId_leng = $('.wishRoomsId');
-				var wishImgRoomsId_leng = $('.wishImgRoomsId');
-				var arr = [];
-				for (var i = 0; i < wishRoomsId_leng.length; i++) {
-					var wishRoomsId = $('.wishRoomsId').eq(i).val();
-					for (var j = 0; j < wishImgRoomsId_leng.length; j++) {
-						var wishImgRoomsId = $('.wishImgRoomsId').eq(j).val();
-						if (wishRoomsId == wishImgRoomsId) {
-							var wishImgFilename = $('.wishImgFilename').eq(j)
-									.val();
-							arr.push({
-								'roomsId' : wishImgRoomsId,
-								'fileName' : wishImgFilename
-							});
-						}
-					}
-				}
-				console.log(arr);
+	/* 	$(document).ready(
+	 function() {
+	 var wishRoomsId_leng = $('.wishRoomsId');
+	 var wishImgRoomsId_leng = $('.wishImgRoomsId');
+	 var arr = [];
+	 for (var i = 0; i < wishRoomsId_leng.length; i++) {
+	 var wishRoomsId = $('.wishRoomsId').eq(i).val();
+	 for (var j = 0; j < wishImgRoomsId_leng.length; j++) {
+	 var wishImgRoomsId = $('.wishImgRoomsId').eq(j).val();
+	 if (wishRoomsId == wishImgRoomsId) {
+	 var wishImgFilename = $('.wishImgFilename').eq(j)
+	 .val();
+	 arr.push({
+	 'roomsId' : wishImgRoomsId,
+	 'fileName' : wishImgFilename
+	 });
+	 }
+	 }
+	 }
+	 console.log(arr);
 
-				for (var k = 0; k < arr.length; k++) {
-					var wishRoomsId = $('.wishRoomsId').eq(k).val();
-					var zz = $('.imgTop' + k);
-					zz.append('<img class="card-img-top cardImg' + k
-							+ '" style="width: 100%; object-fit: contain;">');
-					if (arr[k].roomsId == wishRoomsId) {
-						$('.cardImg' + k).attr(
-								'src',
-								'http://13.209.99.134:8080/imgserver/resources/upload/'
-										+ arr[k].fileName);
-					}
-				}
-			}); */
+	 for (var k = 0; k < arr.length; k++) {
+	 var wishRoomsId = $('.wishRoomsId').eq(k).val();
+	 var zz = $('.imgTop' + k);
+	 zz.append('<img class="card-img-top cardImg' + k
+	 + '" style="width: 100%; object-fit: contain;">');
+	 if (arr[k].roomsId == wishRoomsId) {
+	 $('.cardImg' + k).attr(
+	 'src',
+	 'http://13.209.99.134:8080/imgserver/resources/upload/'
+	 + arr[k].fileName);
+	 }
+	 }
+	 }); */
 	/* for (var k = 0; k < arr.length; k++) {
 		var zz = $('.carousel-inner' + k);
 		for (var z = 0; z < bb.length; z++) {

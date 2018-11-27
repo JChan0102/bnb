@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <title>WishList</title>
 <%@ include file="/resources/common/includeHead.jsp"%>
+<style>
+.wishDiv {
+	display: none;
+}
+</style>
 </head>
 <body style="background-color: #EEEEEE;">
 	<%@ include file="/resources/common/Navbar.jsp"%>
@@ -19,7 +24,7 @@
 			<div id="wish_wrap">
 				<div class="row">
 					<c:forEach var="wd" items="${wishDiv}">
-						<div class="col-4">
+						<div class="col-4 wishDiv">
 							<a
 								href="${pageContext.request.contextPath}/wishList?userId=${loginUser.userId}&address=${wd.address}"
 								style="text-align: center; font-size: 18px; text-decoration: none; color: black;"
@@ -30,24 +35,34 @@
 										<c:if test="${wd.address == img.address}">
 											<img class="card-img divImg"
 												src="http://13.209.99.134:8080/imgserver/resources/upload/${img.filename}"
-												style="width: 100%; object-fit: contain; opacity:0.7;vertical-align: middle; /*filter:blur(1px); */">
+												style="width: 100%; object-fit: contain; vertical-align: middle; opacity:0.85;">
 										</c:if>
 									</c:forEach>
 									<div class="card-img-overlay">
-										<div class="card-body" style="padding:0px;">
+										<div class="card-body" style="padding: 0px;">
 											<span class="card-text"
 												style="float: right; font-size: 18px; font-weight: 600;">
-												<i class="fas fa-heart" style="color: #ff3232;"></i> <span
-												id="idx"></span>개
-											</span><br> <br> <input
-												class="form-control-plaintext wishAddress text-center"
-												name="address" style="font-weight: 600;font-size: 25px;" value="${wd.address}" readonly />
+												<i class="fas fa-heart" style="color: #ff3232; text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;"></i> <span
+												id="idx" style="color:white; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"></span>
+											</span><br> <br>
+											<div class="address_wrap">
+												<input
+													class="form-control-plaintext wishAddress text-center"
+													name="address" value="${wd.address}"
+													style="font-weight: 1000; font-size:25px; color:white; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" readonly />
+											</div> 
 										</div>
 									</div>
 								</div>
 							</a>
 						</div>
 					</c:forEach>
+					<c:if test="${!empty wishDiv}">
+						<button type="button" id="load" class="btn btn-sm btn-block"
+							style="margin: 20px 10px; background-color: #EEEEEE">
+							<b>더보기</b>
+						</button>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -86,6 +101,17 @@
 							}
 						}
 					});
+				}
+			});
+		});
+
+		$(function() {
+			$(".wishDiv").slice(0, 6).show(); // 최초 6개 선택
+			$("#load").click(function(e) { // Load More를 위한 클릭 이벤트e
+				e.preventDefault();
+				$(".wishDiv:hidden").slice(0, 6).show(); // 숨김 설정된 다음 6개를 선택하여 표시
+				if ($(".wishDiv:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+					$('#load').css('display', 'none');// 더 이상 로드할 항목이 없는 경우
 				}
 			});
 		});
