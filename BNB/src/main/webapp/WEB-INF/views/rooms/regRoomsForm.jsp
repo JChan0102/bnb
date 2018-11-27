@@ -50,57 +50,57 @@
 			<form method="post" enctype="multipart/form-data" id="RegRoomSubmit">
 				<table class="table">
 					<tr>
-						<td class="w-25">호스트 아이디</td>
+						<td class="w-25 text-center">호스트 아이디</td>
 						<td class="w-75"><input type="text" class="form-control text-center"
 							readonly="readonly" value="${loginUser.userId}" id="hostId"
 							name="hostId"></td>
 					</tr>
 					<tr>
-						<td>소개</td>
+						<td class="text-center">소개</td>
 						<td><textarea class="form-control" id="details"
 								name="details" rows="5" placeholder="숙소를 소개해주세요."></textarea></td>
 					</tr>
 					<tr>
-						<td>어른</td>
+						<td class="text-center">어른</td>
 						<td><input type="number" class="form-control"
 							id="avail_adults" name="avail_adults" value="0" min="0" max="100"
 							step="1"></td>
 
 					</tr>
 					<tr>
-						<td>어린이</td>
+						<td class="text-center">어린이</td>
 						<td><input type="text" class="form-control text-center"
 							value="0" min="0" max="100" step="1" id="avail_children"
 							name="avail_children" readonly="readonly"></td>
 
 					</tr>
 					<tr>
-						<td>유아</td>
+						<td class="text-center">유아</td>
 						<td><input type="number" class="form-control" value="0"
 							min="0" max="100" step="1" id="avail_infants"
 							name="avail_infants"></td>
 
 					</tr>
 					<tr>
-						<td>침실</td>
+						<td class="text-center">침실</td>
 						<td><input type="number" class="form-control" value="0"
 							min="0" max="100" step="1" id="avail_bedroom"
 							name="avail_bedroom"></td>
 
 					</tr>
 					<tr>
-						<td>침대</td>
+						<td class="text-center">침대</td>
 						<td><input type="number" class="form-control" value="0"
 							min="0" max="100" step="1" id="avail_bed" name="avail_bed"></td>
 					</tr>
 					<tr>
-						<td>욕실</td>
+						<td class="text-center">욕실</td>
 						<td><input type="number" class="form-control" value="0"
 							min="0" max="100" step="1" id="avail_bathroom"
 							name="avail_bathroom"></td>
 					</tr>
 					<tr>
-						<td>편의시설</td>
+						<td class="text-center">편의시설</td>
 						<td><c:set var="count" value="0" /> <c:set var="divideChk"
 								value="1" /> <c:forEach items="${amenities}" var="item">
 								<c:set var="count" value="${count+1}" />
@@ -119,30 +119,30 @@
 							id="amenities" name="amenities"></td>
 					</tr>
 					<tr>
-						<td>체크인</td>
-						<td><input type="time" class="form-control" id="time_checkin"
+						<td class="text-center">체크인</td>
+						<td class="text-center"><input type="time" class="form-control text-center" id="time_checkin"
 							name="time_checkin" value="14:00"></td>
 					</tr>
 					<tr>
-						<td>체크아웃</td>
-						<td><input type="time" class="form-control"
+						<td class="text-center">체크아웃</td>
+						<td class="text-center"><input type="time" class="form-control text-center"
 							id="time_checkout" name="time_checkout" value="12:00"></td>
 					</tr>
 					<tr>
-						<td>주중가격</td>
-						<td><input type="number" class="form-control"
+						<td class="text-center">주중가격</td>
+						<td class="text-center"><input type="number" class="form-control"
 							id="price_weekdays" name="price_weekdays" value="0" min="0"
 							max="1000000000" step="1000"></td>
 					</tr>
 					<tr>
-						<td>주말가격</td>
-						<td><input type="number" class="form-control"
+						<td class="text-center">주말가격</td>
+						<td class="text-center"><input type="number" class="form-control"
 							id="price_weekend" name="price_weekend" value="0" min="0"
 							max="1000000000" step="1000" class="form-control"></td>
 					</tr>
 					<tr>
-						<td>주소</td>
-						<td><input type="text" class="form-control" id="address"
+						<td class="text-center">주소</td>
+						<td><input type="text" class="form-control text-center" id="address"
 							name="address" required="required"></td>
 					</tr>
 					<tr>

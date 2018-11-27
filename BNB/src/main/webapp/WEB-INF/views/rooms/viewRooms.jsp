@@ -8,6 +8,7 @@
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
 <body>
+http://kindtis.tistory.com/514
 	<%@ include file="/resources/common/Navbar.jsp"%>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -125,12 +126,12 @@
 							</c:if></td>
 					</tr>
 					<tr>
-						<td class="w-25">소개</td>
+						<td class="w-25 text-center">소개</td>
 						<td class="w-75">${selectedRoom.details}</td>
 					</tr>
 					<tr>
-						<td>인원</td>
-						<td><c:if test="${0 ne selectedRoom.avail_adults}">
+						<td class="text-center">인원</td>
+						<td class="text-center"><c:if test="${0 ne selectedRoom.avail_adults}">
 						어른 ${selectedRoom.avail_adults}명</c:if> <c:if
 								test="${0 ne selectedRoom.avail_children}">
 						어린이 ${selectedRoom.avail_children}명</c:if> <c:if
@@ -139,8 +140,8 @@
 
 					</tr>
 					<tr>
-						<td>시설</td>
-						<td><c:if test="${0 ne selectedRoom.avail_bedroom}">
+						<td class="text-center">시설</td>
+						<td class="text-center"><c:if test="${0 ne selectedRoom.avail_bedroom}">
 						침실 ${selectedRoom.avail_bedroom}개</c:if> <c:if
 								test="${0 ne selectedRoom.avail_bed}">
 						침대 ${selectedRoom.avail_bed}개</c:if> <c:if
@@ -149,14 +150,16 @@
 
 					</tr>
 					<tr>
-						<td>편의시설</td>
+						<td class="text-center">편의시설</td>
 						<td><c:set var="count" value="0" /> <c:set var="divideChk"
 								value="1" /> <c:forEach items="${amenities}" var="item">
 								<c:set var="count" value="${count+1}" />
 								<c:if
 									test="${'T' eq fn:substring(selectedRoom.amenities, count-1, count)}">
 									<c:if
-										test="${divideChk ne (item.amenities_idx-(item.amenities_idx mod 100))/100 && divideChk ne 1}">
+									test="${divideChk ne (item.amenities_idx-(item.amenities_idx mod 100))/100}">
+									<%-- <c:if
+										test="${divideChk ne (item.amenities_idx-(item.amenities_idx mod 100))/100 && divideChk ne 1}"> --%>
 										<hr>
 										<c:set var="divideChk"
 											value="${(item.amenities_idx-(item.amenities_idx mod 100))/100}" />
@@ -168,26 +171,26 @@
 							value="${selectedRoom.amenities}" id="amenities" name="amenities"></td>
 					</tr>
 					<tr>
-						<td>체크인</td>
-						<td>${selectedRoom.time_checkin}</td>
+						<td class="text-center">체크인</td>
+						<td class="text-center">${selectedRoom.time_checkin}</td>
 					</tr>
 					<tr>
-						<td>체크아웃</td>
-						<td>${selectedRoom.time_checkout}</td>
+						<td class="text-center">체크아웃</td>
+						<td class="text-center">${selectedRoom.time_checkout}</td>
 					</tr>
 					<tr>
-						<td>주중가격</td>
-						<td><fmt:formatNumber value="${selectedRoom.price_weekdays}"
+						<td class="text-center">주중가격</td>
+						<td class="text-center"><fmt:formatNumber value="${selectedRoom.price_weekdays}"
 								pattern="\###,###,###" /></td>
 					</tr>
 					<tr>
-						<td>주말가격 (공휴일 포함)</td>
-						<td><fmt:formatNumber value="${selectedRoom.price_weekend}"
+						<td class="text-center">주말가격<br>(공휴일 포함)</td>
+						<td class="text-center align-middle"><fmt:formatNumber value="${selectedRoom.price_weekend}"
 								pattern="\###,###,###" /></td>
 					</tr>
 					<tr>
-						<td>주소</td>
-						<td>${selectedRoom.address}</td>
+						<td class="text-center">주소</td>
+						<td class="text-center">${selectedRoom.address}</td>
 					</tr>
 					<tr>
 						<td colspan="2"><div id="map"
