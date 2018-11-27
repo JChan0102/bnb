@@ -8,7 +8,6 @@
 <%@ include file="/resources/common/includeHead.jsp"%>
 </head>
 <body>
-http://kindtis.tistory.com/514
 	<%@ include file="/resources/common/Navbar.jsp"%>
 	<script type="text/javascript">
 		$(document).ready(function() {

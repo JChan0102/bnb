@@ -21,15 +21,16 @@ public class RoomsViewController {
 
 	@Autowired
 	RoomViewService roomViewService;
-	
+
 	@Autowired
 	WishService wishService;
 
 	@RequestMapping(value = "/rooms/viewRooms", method = RequestMethod.GET)
-	public ModelAndView getRoomsHome(RoomsVO rv, AmenitiesVO av, RoomsImgVO rimgv, HttpSession session, @RequestParam("roomsId") int roomsId) {
+	public ModelAndView getRoomsHome(RoomsVO rv, AmenitiesVO av, RoomsImgVO rimgv, HttpSession session,
+			@RequestParam("roomsId") int roomsId) {
 		ModelAndView modelAndView = new ModelAndView();
 		UserVO user = (UserVO) session.getAttribute("loginUser");
-		
+
 //		Paging paging = roomViewService.getPaging("review", currentPageNo, 4);
 //		modelAndView.addObject("paging", paging);
 //		System.out.println(roomViewService.getReviewList(paging, rv.getRoomsId()).toString());
@@ -37,14 +38,15 @@ public class RoomsViewController {
 //		System.out.println(rv);
 
 		UserVO hostVO = new UserVO();
+		rv = roomViewService.getViewRooms(rv);
 		hostVO.setUserId(rv.getHostId());
 		modelAndView.addObject("hostInfo", roomViewService.getHostInfo(hostVO));
 		modelAndView.addObject("amenities", roomViewService.getAmenities(av));
-		modelAndView.addObject("selectedRoom", roomViewService.getViewRooms(rv));
+		modelAndView.addObject("selectedRoom", rv);
 		modelAndView.addObject("reviewSummary", roomViewService.getReviewSummary());
 		modelAndView.addObject("roomImages", roomViewService.getRoomImages(rimgv));
-		
-		if(user == null) {
+
+		if (user == null) {
 			modelAndView.addObject("wish", 2);
 		} else {
 			modelAndView.addObject("wish", wishService.wishSelect(user.getUserId(), roomsId));

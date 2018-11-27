@@ -261,9 +261,7 @@
 									for(k=0; k<data.thumbnail.length; k++){
 										if (data.roomsList[i].roomsId == data.thumbnail[k].roomsId) {
 											output += '<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
-												+ data.roomsList[i].roomsId;
-											output += '				&hostId='
-												+ data.roomsList[i].hostId + '">';
+												+ data.roomsList[i].roomsId + '">';
 											output += '<img class="card-img-top" src="http://13.209.99.134:8080/imgserver/resources/upload/' +data.thumbnail[k].filename+ '">';
 											output += '</a>';
 										} else { // 이미지가 없을 경우, 노이미지
@@ -313,9 +311,7 @@
 										output += '					<button type="button" class="btn btn-sm btn-outline-secondary ml-1">Edit</button></a>';
 									}
 									output += '				<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
-											+ data.roomsList[i].roomsId;
-									output += '				&hostId='
-											+ data.roomsList[i].hostId + '">';
+											+ data.roomsList[i].roomsId + '">';
 									output += '				<button type="button" class="btn btn-sm btn-outline-secondary ml-1">View</button></a>';
 									output += '			</div>';
 									output += '</div>';
