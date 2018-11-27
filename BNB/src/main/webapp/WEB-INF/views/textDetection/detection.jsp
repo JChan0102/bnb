@@ -45,6 +45,7 @@
     </select><br />
                         <input type="file" name="fileField" id="upload_file"><br /><br />
                         <div id="holder" style="position: relative;"></div>
+                        <input type="hidden" id="imgData" name="file">
                         <input style="display:none" type="submit" name="submit" value="Submit">
                     </form>
 
@@ -55,6 +56,7 @@
   <INPUT type='BUTTON' value='버튼' onclick='html2img()'> <!-- 버튼 클릭 이벤트-->
 </FORM>
        
+ 
 
 <image id="theimage" style="position: relative;"></image>
 
@@ -65,29 +67,30 @@
         var check = 0;
 		var ratio = 0;
 		
-		function  html2img(){
-		  var canvas ="";
-		  html2canvas($("#holder"), {
-		  onrendered: function(canvas) {
-		  // canvas is the final rendered <canvas> element
-		   /* document.getElementById("theimage").src = canvas.toDataURL();      */ 
-		   /* document.body.appendChild(canvas);  가린 신분증 이미지 파일 보여주기 */
-		   
-		   var url = canvas.toDataURL();
-           $("<a>", {
-             href: url,
-             download: "${loginUser.userId}.png" 
-           })
-           .on("click", function() {$(this).remove()})
-           .appendTo("body")[0].click()     
-		   	
-		     /* Canvas2Image.saveAsPNG(canvas); */
-		     
-		  }
-		  });
-		  //alert(document.getElementById("holder").innerHTML);
+ 		function  html2img(){     
+			  var canvas ="";
+			  html2canvas($("#holder"), {
+			  onrendered: function(canvas) {
+			  // canvas is the final rendered <canvas> element
+			   /* document.getElementById("theimage").src = canvas.toDataURL();      */ 
+			   /* document.body.appendChild(canvas);  가린 신분증 이미지 파일 보여주기 */
+			   
+			   var url = canvas.toDataURL();
+			   
+	/*            $("<a>", {
+	             href: url,
+	             download: "${loginUser.userId}.png" 
+	           })
+	           .on("click", function() {$(this).remove()})
+	           .appendTo("body")[0].click()     */ 
+			   	
+			     /* Canvas2Image.saveAsPNG(canvas); */
+			     
+			  }
+			  });
+			  alert(document.getElementById("holder").innerHTML);
 		}
-		//
+		
 		
         $(function() {
             $("#upload_file").on('change', function() {
@@ -200,12 +203,22 @@
             }
 
             $('#hostSubmit').on("click", function(){
+      		  var canvas ="";
+    		  html2canvas($("#holder"), {
+    		  onrendered: function(canvas) {
+    		   /* document.body.appendChild(canvas);  가린 신분증 이미지 파일 보여주기 */
+    		   var url = canvas.toDataURL("image/png");
+    		   $("#imgData").val(url);
+    		   
+    		  }
+    		  });
             	 $.ajax({
                      url: '${pageContext.request.contextPath}/textDetection',
                      type: 'POST',
                      datatype: 'json',
                      data: {
                          "userId": "${loginUser.userId}"
+                         /* "imgData" :  */
                      },
                      success: function(data) {
                          if (data == 1) {

@@ -1,5 +1,6 @@
 package com.bit.bnb.text.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,10 @@ public class TextDetectionController {
 	
 	@RequestMapping(value="/textDetection", method =RequestMethod.POST)
 	@ResponseBody
-	public int infoUpdate(String userId, HttpSession session) {
+	public int infoUpdate(String userId, HttpSession session, HttpServletRequest request) {
+		
+		System.out.println(request.getParameter("imgData"));
+		
 		int check = service2.userUpdate(userId);
 		
 		if(check == 1) {
