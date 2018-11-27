@@ -9,8 +9,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/key.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-        <style>
-            #test1 {
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/canvas2image.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+      
+
+        <style>     
+            #test1 {                 
                 border: 3px solid red;
                 position: absolute;
             }
@@ -47,13 +51,44 @@
                     <code style="white-space:pre" id="results"></code>
                     <h1 id="host"></h1>
                 </div>
+<FORM>
+  <INPUT type='BUTTON' value='버튼' onclick='html2img()'> <!-- 버튼 클릭 이벤트-->
+</FORM>
+       
 
+<image id="theimage" style="position: relative;"></image>
 
     </body>
+    
     <script type="text/javascript">
         var temp;
         var check = 0;
-
+		var ratio = 0;
+		
+		function  html2img(){
+		  var canvas ="";
+		  html2canvas($("#holder"), {
+		  onrendered: function(canvas) {
+		  // canvas is the final rendered <canvas> element
+		   /* document.getElementById("theimage").src = canvas.toDataURL();      */ 
+		   /* document.body.appendChild(canvas);  가린 신분증 이미지 파일 보여주기 */
+		   
+		   var url = canvas.toDataURL();
+           $("<a>", {
+             href: url,
+             download: "${loginUser.userId}.png" 
+           })
+           .on("click", function() {$(this).remove()})
+           .appendTo("body")[0].click()     
+		   	
+		     /* Canvas2Image.saveAsPNG(canvas); */
+		     
+		  }
+		  });
+		  //alert(document.getElementById("holder").innerHTML);
+		}
+		//
+		
         $(function() {
             $("#upload_file").on('change', function() {
                 /* $('#img').attr("src", ""); */
@@ -70,10 +105,11 @@
                 var reader = new FileReader();
 
                 reader.onload = function(e) {
-                    var img = new Image();
+                    var img = new Image();      
                     img.src = e.target.result;
-
-                    $('#holder').append('<img style="width: 360px" id="img" src="' + e.target.result + '" alt="뭐야ㅡㅡ" />');
+                    img.width = 360; 
+                    console.log(ratio);
+                    $('#holder').append('<img style="width: 360px; z-index:999" id="img" src="' + e.target.result + '" alt="뭐야ㅡㅡ" />');
                 }
                 reader.readAsDataURL(input.files[0]);
             }
@@ -92,8 +128,8 @@
             var trimStr = str.replace(/ /gi, ""); // 모든 공백을 제거
             var tempName = '';
             var tempDob = '';
-            console.log(trimStr);
-            console.log(data.responses[0].textAnnotations);
+            /* console.log(trimStr);
+            console.log(data.responses[0].textAnnotations); */
 
             $.ajax({
                 async: false,
@@ -108,39 +144,46 @@
                     tempName = data.userName;
                 }
             });
-
+            
+            ratio = data.responses[0].fullTextAnnotation.pages[0].width / 360;
+            console.log(ratio);
+            
             $(data.responses[0].textAnnotations).each(
                 function(key, value) {
-                    console.log(tempDob);
-                    console.log(value.description.substring(0, 6));
+                    
+                    /* console.log(value.description.substring(0, 6)); */
                     if (check <= 2 && value.description == tempName) {
                         tempName = '';
 
                         var nameWidth = value.boundingPoly.vertices[2].x - value.boundingPoly.vertices[0].x + 12;
                         var nameHeight = value.boundingPoly.vertices[2].y - value.boundingPoly.vertices[0].y + 12;
 
-                        $('#holder').append('<div id="test1"></div>');
-                        $('#test1').css("left", "" + value.boundingPoly.vertices[0].x - 5 + "px");
-                        $('#test1').css("top", "" + value.boundingPoly.vertices[0].y - 5 + "px");
-                        $('#test1').css("width", "" + nameWidth + "px");
-                        $('#test1').css("height", "" + nameHeight + "px");
+                        $('#holder').append('<div id="test1" style="z-index:999";></div>');  
+                        $('#test1').css("left", "" + (value.boundingPoly.vertices[0].x)/ratio -4 + "px");     
+                        $('#test1').css("top", "" + (value.boundingPoly.vertices[0].y)/ratio -4 + "px");
+                        $('#test1').css("width", "" + nameWidth/ratio + "px");
+                        $('#test1').css("height", "" + nameHeight/ratio + "px");
                         check++;
                         /* return false; */
                     }
                     if (check <= 2 && value.description.substring(0, 6) == tempDob) {
-                        var identityWidth = ((value.boundingPoly.vertices[2].x - value.boundingPoly.vertices[0].x + 12) / 2) * 0.92;
+/*                         var identityWidth = ((value.boundingPoly.vertices[2].x - value.boundingPoly.vertices[0].x + 12) / 2) * 0.92;
+                        var identityHeight = value.boundingPoly.vertices[2].y - value.boundingPoly.vertices[0].y + 12; */
+                        var identityWidth = (value.boundingPoly.vertices[2].x - value.boundingPoly.vertices[0].x)/2;   
                         var identityHeight = value.boundingPoly.vertices[2].y - value.boundingPoly.vertices[0].y + 12;
-
-                        $('#holder').append('<div id="test2"></div>');
-                        $('#test2').css("left", "" + value.boundingPoly.vertices[0].x - 5 + "px");
-                        $('#test2').css("top", "" + value.boundingPoly.vertices[0].y - 5 + "px");
-                        $('#test2').css("width", "" + identityWidth + "px");
-                        $('#test2').css("height", "" + identityHeight + "px");
-                        $('#holder').append('<div id="test3"></div>');
-                        $('#test3').css("left", "" + (value.boundingPoly.vertices[0].x - 5) * 3.35 + "px");
-                        $('#test3').css("top", "" + value.boundingPoly.vertices[0].y - 5 + "px");
-                        $('#test3').css("width", "" + identityWidth + "px");
-                        $('#test3').css("height", "" + identityHeight + "px");
+                        
+                        console.log(value.boundingPoly.vertices);
+                        console.log(value.boundingPoly.vertices[2].x - value.boundingPoly.vertices[0].x);         
+                        $('#holder').append('<div id="test2" style="z-index:999"></div>');
+                        $('#test2').css("left", "" + (value.boundingPoly.vertices[0].x)/ratio -5 + "px");
+                        $('#test2').css("top", "" + (value.boundingPoly.vertices[0].y)/ratio -4 + "px");
+                        $('#test2').css("width", "" + identityWidth/ratio + "px");
+                        $('#test2').css("height", "" + identityHeight/ratio + "px");
+                        $('#holder').append('<div id="test3" style="z-index:999"></div>');     
+                        $('#test3').css("left", "" + ((value.boundingPoly.vertices[0].x)/ratio -4 ) * 3.35 + "px");      
+                        $('#test3').css("top", "" + (value.boundingPoly.vertices[0].y)/ratio -4 + "px");
+                        $('#test3').css("width", "" + identityWidth/ratio + "px");
+                        $('#test3').css("height", "" + identityHeight/ratio + "px");
                         check++;
                     }
                     

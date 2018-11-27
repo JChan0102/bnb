@@ -40,6 +40,7 @@ function uploadFiles (event) {
  */
 function processFile (event) {
   var content = event.target.result;
+  
   sendFileToCloudVision(content.replace('data:image/jpeg;base64,', ''));
 }
 
@@ -49,6 +50,7 @@ function processFile (event) {
  */
 function sendFileToCloudVision (content) {
   var type = $('#fileform [name=type]').val();
+  
 
   // Strip out the file prefix when you convert to json.
   var request = {
