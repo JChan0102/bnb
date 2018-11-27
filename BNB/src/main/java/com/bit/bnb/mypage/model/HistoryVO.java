@@ -14,6 +14,7 @@ public class HistoryVO {
 	private Timestamp checkOut; // 체크아웃시간
 	private int price; // 가격
 	private int people; // 사람 수
+	private String filename; // 파일이름
 
 	public int getRoomsId() {
 		return roomsId;
@@ -95,11 +96,19 @@ public class HistoryVO {
 		this.people = people;
 	}
 
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
 	@Override
 	public String toString() {
 		return "HistoryVO [roomsId=" + roomsId + ", hostId=" + hostId + ", details=" + details + ", address=" + address
 				+ ", reservationNum=" + reservationNum + ", userId=" + userId + ", checkIn=" + checkIn + ", checkOut="
-				+ checkOut + ", price=" + price + ", people=" + people + "]";
+				+ checkOut + ", price=" + price + ", people=" + people + ", filename=" + filename + "]";
 	}
 
 }

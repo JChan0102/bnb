@@ -205,7 +205,7 @@
 }
 
 .timeline>li {
-	margin-bottom: 20px;
+	margin-bottom: -100px; 
 	position: relative;
 	width: 50%;
 	float: left;

@@ -50,6 +50,7 @@ public class WishController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("mypage/wishMain");
 		modelAndView.addObject("wishDiv", service.wishDivList(user.getUserId()));
+		modelAndView.addObject("wishDivImg", service.wishDivImg(user.getUserId()));
 
 		return modelAndView;
 	}

@@ -42,34 +42,55 @@
 }
 </style>
 <script>
-	$(document).ready(function() {
-						var aa = $('.wishRoomsId');
-						var bb = $('.wishImgRoomsId');
-						var arr = [];
-						for (var i = 0; i < aa.length; i++) {
-							var wishRoomsId = $('.wishRoomsId').eq(i).val();
-							for (var j = 0; j < bb.length; j++) {
-								var wishImgRoomsId = $('.wishImgRoomsId').eq(j).val();
-								if (wishRoomsId == wishImgRoomsId) {
-									var wishImgFilename = $('.wishImgFilename').eq(j).val();
-									arr.push({	'roomsId' : wishImgRoomsId, 'fileName' : wishImgFilename});
-								}
-							}
+/* 	$(document).ready(
+			function() {
+				var wishRoomsId_leng = $('.wishRoomsId');
+				var wishImgRoomsId_leng = $('.wishImgRoomsId');
+				var arr = [];
+				for (var i = 0; i < wishRoomsId_leng.length; i++) {
+					var wishRoomsId = $('.wishRoomsId').eq(i).val();
+					for (var j = 0; j < wishImgRoomsId_leng.length; j++) {
+						var wishImgRoomsId = $('.wishImgRoomsId').eq(j).val();
+						if (wishRoomsId == wishImgRoomsId) {
+							var wishImgFilename = $('.wishImgFilename').eq(j)
+									.val();
+							arr.push({
+								'roomsId' : wishImgRoomsId,
+								'fileName' : wishImgFilename
+							});
 						}
-						var div = $('<div class="carousel-item active">'
-								+ '<img class="wishImg" style="width: 100%; object-fit: contain;"></div>');
-						for (var k = 0; k < arr.length; k++) {
-							var wishRoomsId = $('.wishRoomsId').eq(k).val();
-							for (var z = 0; z < aa.length; z++) {
-								var zz = $('.carousel-inner' + z);
-								if (arr[z].roomsId == wishRoomsId) {
-									zz.append(div);
-									$('.wishImg').addClass('imgFile' + z);
-									$('.imgFile' + z).attr('src','http://13.209.99.134:8080/imgserver/resources/upload/'+ arr[z].fileName);
-								}
-							}
-						}
-					});
+					}
+				}
+				console.log(arr);
+
+				for (var k = 0; k < arr.length; k++) {
+					var wishRoomsId = $('.wishRoomsId').eq(k).val();
+					var zz = $('.imgTop' + k);
+					zz.append('<img class="card-img-top cardImg' + k
+							+ '" style="width: 100%; object-fit: contain;">');
+					if (arr[k].roomsId == wishRoomsId) {
+						$('.cardImg' + k).attr(
+								'src',
+								'http://13.209.99.134:8080/imgserver/resources/upload/'
+										+ arr[k].fileName);
+					}
+				}
+			}); */
+	/* for (var k = 0; k < arr.length; k++) {
+		var zz = $('.carousel-inner' + k);
+		for (var z = 0; z < bb.length; z++) {
+			if (arr[z].roomsId == wishRoomsId) {
+				zz.after('<div class="carousel-item active"><img class="wishImg" style="width: 100%; object-fit: contain;"></div>');
+				$('.wishImg').addClass('imgFile' + z);
+				$('.imgFile' + z).attr(
+						'src',
+						'http://13.209.99.134:8080/imgserver/resources/upload/'
+								+ arr[z].fileName);
+				$('.wishImg').removeClass('imgFile' + z);
+			}
+		}
+	}
+	});  */
 </script>
 </head>
 <body style="background-color: #EEEEEE;">
@@ -89,11 +110,11 @@
 					<br>
 
 					<!-- 방넘버별 이미지값 받기 -->
-					<c:forEach var="img" items="${wishImg}" varStatus="status1">
+					<%-- <c:forEach var="img" items="${wishImg}">
 						<input type="hidden" value="${img.roomsId}" class="wishImgRoomsId">
 						<input type="hidden" value="${img.filename}"
 							class="wishImgFilename">
-					</c:forEach>
+					</c:forEach> --%>
 
 
 					<c:forEach var="wl" items="${wishList}" varStatus="status">
@@ -103,43 +124,52 @@
 							pattern="#,###" />
 						<div class="card" style="margin-bottom: 20px;">
 
-							<div id="demo" class="carousel slide demo${status.index}"
+							<%-- <div id="demo" class="carousel slide demo${status.index}"
 								data-ride="carousel" data-interval="false">
 								<!-- The slideshow -->
 								<div class="carousel-inner${status.index}"
 									style="max-width: 100%; max-height: 300px; overflow: hidden;">
 
-									<%-- <div class="carousel-item active">
+									<div class="carousel-item active">
 										<img
 											src="${pageContext.request.contextPath}/resources/images/userphoto/이제훈.jpg"
 											alt="Chicago" style="width: 100%; object-fit: contain;">
-									</div> --%>
-									<%-- <div class="carousel-item">
+									</div>
+									<div class="carousel-item">
 										<img
 											src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
 											alt="New York" style="width: 100%; object-fit: contain;">
-									</div> --%>
+									</div>
 
 									<!-- Left and right controls -->
-									<a class="carousel-control-prev" href=".demo${status.index}"
-										data-slide="prev"> <span
-										class="carousel-control-prev-icon"></span>
-									</a> <a class="carousel-control-next" href=".demo${status.index}"
-										data-slide="next"> <span
-										class="carousel-control-next-icon"></span>
-									</a>
+									<div>
+										<a class="carousel-control-prev" href=".demo${status.index}"
+											data-slide="prev"> <span
+											class="carousel-control-prev-icon"></span>
+										</a> <a class="carousel-control-next" href=".demo${status.index}"
+											data-slide="next"> <span
+											class="carousel-control-next-icon"></span>
+										</a>
+									</div>
 								</div>
+							</div> --%>
+
+							<div class="imgTop"
+								style="max-width: 100%; max-height: 350px; overflow: hidden;">
+								<c:forEach var="wishImg" items="${wishImg}">
+									<c:if test="${wl.roomsId == wishImg.roomsId}">
+										<img class="card-img-top"
+											src="http://13.209.99.134:8080/imgserver/resources/upload/${wishImg.filename}"
+											style="width: 100%; object-fit: contain;">
+									</c:if>
+								</c:forEach>
 							</div>
-
-							<%-- <img class="card-img-top"
-								src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
-								alt="Card image cap"> --%>
-
 
 							<div class="card-body">
 								<h5 class="card-title">
-									<input type="text" value="${wl.roomsId}" class="wishRoomsId">번
-									방 <b>${wl.hostId}</b>님의 숙소
+									<input type="text" value="${wl.roomsId}" class="wishRoomsId"
+										style="width: 30px; border: none; text-align: center;"
+										readonly>번 <b>${wl.hostId}</b>님의 숙소
 								</h5>
 								<span class="card-text" id="price">￦ ${price} / 박</span>
 								<c:choose>

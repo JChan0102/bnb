@@ -36,9 +36,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 즐겨찾기에있는 룸 중에 사진뽑긔 -->
 	<select id="wishRoomImg"
 		resultType="com.bit.bnb.mypage.model.WishVO">
-		select w.roomsId, ri.filename, ri.priority, r.address from wish w left outer join roomsimg ri on ri.roomsId = w.roomsId
-		left outer join rooms r on r.roomsId=w.roomsId
-		where w.userId = #{userId} and r.address like CONCAT('%',#{address},'%')
+		select w.roomsId, ri.filename, ri.priority, r.address from
+		wish w left outer join roomsimg ri on ri.roomsId = w.roomsId
+		left outer
+		join rooms r on r.roomsId=w.roomsId
+		where w.userId = #{userId} and
+		r.address like CONCAT('%',#{address},'%')
+		group by w.roomsId
 	</select>
 
 	<!-- div생성용 즐겨찾기 목록 -->
@@ -73,6 +77,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where userId=#{userId}
 		and roomsId =
 		#{roomsId}
+	</select>
+
+	<!-- 즐겨찾기 div목록 사진 -->
+	<select id="wishDivImg"
+		resultType="com.bit.bnb.mypage.model.WishVO">
+		select DISTINCT SUBSTRING_INDEX(r.address, ' ', 2) as
+		address, ri.filename, ri.roomsId from rooms r inner join wish w
+		on
+		r.roomsId = w.roomsId and w.userId = #{userId}
+		inner join roomsimg ri on r.roomsId=ri.roomsId
+		group by address;
 	</select>
 
 </mapper>
