@@ -41,7 +41,7 @@
                 class="fas fa-chart-line"></i> 통계</a>
         </div>
     </div>
-    <div class="col-8">
+    <div class="col-9">
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="list-home"
                  role="tabpanel" aria-labelledby="list-home-list">
@@ -296,7 +296,7 @@
                                 // 마지막 페이지가 아닐 때
                                 if ($('#page').val() != -1) {
                                     $('#page').val(+$('#page').val() + 1);
-                                    getRoomsList();
+                                    viewMyroomList();
                                 }
                             }
                         });//end of 무한스크롤
@@ -318,8 +318,8 @@
 
                         $('#noteval').html('');
                         $('#yeseval').html('');
-                        var str1 = '';
-                        var str2 = '';
+                        var str1 = '<h2>호스트님의 방을 사용한 회원들을 평가해주세요</h2>';
+                        var str2 = '<h2>평가 리스트</h2>';
 
                         $
                             .ajax({
