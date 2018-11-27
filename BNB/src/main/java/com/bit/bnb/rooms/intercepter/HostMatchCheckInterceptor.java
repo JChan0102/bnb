@@ -30,10 +30,14 @@ public class HostMatchCheckInterceptor extends HandlerInterceptorAdapter {
 					// 로그인 한 사용자가 해당 숙소의 호스트가 아닐 경우
 					response.sendRedirect(request.getContextPath() + "/rooms/accessDenied");
 				} else {
-					response.sendRedirect(request.getContextPath() + "/login");
+					// response.sendRedirect(request.getContextPath() + "/login");
+					session.setAttribute("loginModal", "loginModal");
+					response.sendRedirect(request.getContextPath() + "/");
 				}
 			} else {
-				response.sendRedirect(request.getContextPath() + "/login");
+				//response.sendRedirect(request.getContextPath() + "/login");
+				session.setAttribute("loginModal", "loginModal");
+				response.sendRedirect(request.getContextPath() + "/");
 			}
 		}
 

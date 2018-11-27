@@ -11,4 +11,9 @@ public class AdminController {
 		return "admin";
 	}
 	
+	@RequestMapping("/user/wrongApproach")
+	public String getWrongApproachPage() {
+		return "user/wrongApproach";
+	}
+	
 }

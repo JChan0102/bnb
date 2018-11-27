@@ -29,7 +29,9 @@ public class HostCheckInterceptor extends HandlerInterceptorAdapter {
 					response.sendRedirect(request.getContextPath() + "/rooms/accessDenied");
 				}
 			} else {
-				response.sendRedirect(request.getContextPath() + "/login");
+				//response.sendRedirect(request.getContextPath() + "/login");
+				session.setAttribute("loginModal", "loginModal");
+				response.sendRedirect(request.getContextPath() + "/");
 			}
 		}
 

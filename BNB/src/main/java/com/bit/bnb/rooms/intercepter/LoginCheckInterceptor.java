@@ -24,7 +24,9 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 				return true;
 			}
 		}
-		response.sendRedirect(request.getContextPath() + "/login");
+		// response.sendRedirect(request.getContextPath() + "/login");
+		session.setAttribute("loginModal", "loginModal");
+		response.sendRedirect(request.getContextPath() + "/");
 
 		return false;
 	}

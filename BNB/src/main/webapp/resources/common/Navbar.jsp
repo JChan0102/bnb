@@ -21,7 +21,7 @@
 			</script>
 	<c:remove var="regSuccess" scope="session" />
 	</c:if>
-
+	
 	<!-- https://work.smarchal.com/twbscolor/css/e74c3cc0392becf0f1ffbbbc0 -->
 	<!--  -->
 	<!-- <nav class="navbar transparent navbar-inverse"> -->
@@ -314,6 +314,14 @@
 	</div>
 </div>
 <!-- 로그인 모달 끝 -->
+
+<!-- 로그인모달 세션있으면 로그인폼 띄우기 -->
+<c:if test="${loginModal ne null}">
+	<script>
+	$('#layerpop').modal();
+	</script>
+	<c:remove var="loginModal" scope="session" />
+</c:if>
 
 
 <!-- 회원가입 선택 모달 시작 -->

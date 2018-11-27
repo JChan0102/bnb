@@ -44,6 +44,24 @@
 		</beans:property>
 	</beans:bean>
 	<!-- 메일발송절성 끝 -->
+	
+	<!-- 관리자 인터셉터 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin" />
+			<beans:bean	class="com.bit.bnb.user.interceptor.AdminCheckInterceptor" />
+		</interceptor>
+	</interceptors>
+	<!-- 관리자 인터셉터 끝 -->
+	
+	<!-- 마이페이지 인터셉터 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/mypage" />
+			<beans:bean	class="com.bit.bnb.rooms.intercepter.LoginCheckInterceptor" />
+		</interceptor>
+	</interceptors>
+	<!-- 마이페이지 인터셉터 끝 -->
 
 	
 </beans:beans>
