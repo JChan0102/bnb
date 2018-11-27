@@ -128,7 +128,7 @@
                                             $('#myroom' + roomsid).css(
                                                 'display', 'flex');
                                             $('#mymy' + roomsid).removeAttr("onclick");
-                                            $('#mymy' + roomsid).attr("onclick", "closee(" + roomsid + ")")
+                                            $('#mymy' + roomsid).attr("onclick", "closeee(" + roomsid + ")")
 
                                         },
                                         error: function () {
@@ -138,7 +138,7 @@
 
                             }
 
-                            function closee(roomsid) {
+                            function closeee(roomsid) {
                                 $('.dis').css('display', 'none');
                                 $('#mymy' + roomsid).removeAttr("onclick");
                                 $('#mymy' + roomsid).attr("onclick", "myroomlistselect(" + roomsid + ")")
@@ -171,10 +171,11 @@
                 <div id="llllist" class="row"></div>
 
                 <script>
+                    var pageeee=1;
                     function viewMyroomList() {
                         $('#llllist').html('');
                         str = '<div class="col-md-3"> <div class="card mb-3 box-shadow"> <img class="card-img-top">'
-                            + '<div class="card-body"> <img class="card-img-top"> <p class="card-text" style="font-size: 3.0em; text-align: center" ><i class="fas fa-plus"></i> </p>'
+                            + '<div class="card-body"> <img class="card-img-top"> <p class="card-text" style="font-size: 3.0em; text-align: center" ><i class="fas fa-plus"></i> <br></p>'
                             + ' <div class="d-flex justify-content-between align-items-center"><small class="text-muted">'
                             + '  </small>'
                             + '<div class="btn-group">'
@@ -182,35 +183,56 @@
                             + ' </div></div></div></div> </div>';
                         var output = '';
                         // http://fruitdev.tistory.com/174
+                        var queryString ='hostId=${loginUser.userId}&checkIn=&checkOut=&page='+pageeee;
                         $
                             .ajax({
-                                type: 'GET',
-                                url: '${pageContext.request.contextPath}/rooms/getRoomsList?page=1&hostId=${loginUser.userId}',
-                                dataType: 'JSON',
-                                success: function (data) {
-                                    console.log(data);
+                                type : 'POST',
+                                async: false,
+                                url : '${pageContext.request.contextPath}/rooms/getRoomsList',
+                                contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+                                data : queryString,
+                                dataType : 'JSON',
+                                success : function(data) {
+                                    console.log(data)
 
                                     if (data.roomsList.length == 0) {
                                         $('#llllist')
-                                            .html(
+                                            .html(str+
                                                 '<tr><td class="border-top-0 text-center align-middle">해당하는 숙소가 없습니다 \' ㅅ\');;</td></tr>');
                                     } else {
                                         for (i = 0; i < data.roomsList.length; i++) {
-                                            output += '<div class="col-md-3">';
+
+                                            output += '<div class="col-lg-3">';
                                             output += '<div class="card mb-3 box-shadow">';
-                                            output += '<img class="card-img-top">';
+                                            for(k=0; k<data.thumbnail.length; k++){
+                                                if (data.roomsList[i].roomsId == data.thumbnail[k].roomsId) {
+                                                    output += '<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
+                                                        + data.roomsList[i].roomsId;
+                                                    output += '				&hostId='
+                                                        + data.roomsList[i].hostId + '">';
+                                                    output += '<img class="card-img-top" src="http://13.209.99.134:8080/imgserver/resources/upload/' +data.thumbnail[k].filename+ '">';
+                                                    output += '</a>';
+                                                } else { // 이미지가 없을 경우, 노이미지
+                                                    output += '<img class="card-img-top">';
+                                                }
+                                            }
+
                                             output += '<div class="card-body">';
                                             output += '	<p class="card-text">';
-                                            output += '		'
-                                                + data.roomsList[i].roomsId
+                                            output += '		' + data.roomsList[i].roomsId
                                                 + '<br>'
                                                 + data.roomsList[i].address
-                                                + '<br>';
-                                            output += '			'
-                                                + data.roomsList[i].price_weekdays
-                                                + ' - '
+                                                + '<br>\\';
+                                            output += data.roomsList[i].price_weekdays
+                                                    .toString().replace(
+                                                    /\B(?=(\d{3})+(?!\d))/g,
+                                                    ",")
+                                                + ' - \\'
                                                 + data.roomsList[i].price_weekend
-                                                + '/박';
+                                                    .toString()
+                                                    .replace(
+                                                        /\B(?=(\d{3})+(?!\d))/g,
+                                                        ",") + ' /박';
                                             output += '	</p>';
                                             output += '		<div class="d-flex justify-content-between align-items-center">';
                                             output += '			<small class="text-muted">';
@@ -239,8 +261,7 @@
                                             output += '				<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
                                                 + data.roomsList[i].roomsId;
                                             output += '				&hostId='
-                                                + data.roomsList[i].hostId
-                                                + '">';
+                                                + data.roomsList[i].hostId + '">';
                                             output += '				<button type="button" class="btn btn-sm btn-outline-secondary ml-1">View</button></a>';
                                             output += '			</div>';
                                             output += '</div>';
@@ -250,22 +271,35 @@
                                         }
                                         if (data.paging.currentPageNo < data.paging.lastPageNo) {
                                             // 출력할 것이 남은 경우
-                                            $('#page')
-                                                .val(
-                                                    data.paging.nextPageNo);
+                                            pageeee=data.paging.currentPageNo;
                                         } else {
-                                            $('#page').val(-1);
+                                            // console.log($('#page').val());
+                                            pageeee=-1;
                                         }
-                                        str = str + output
+                                        $('#llllist').html(str+output);
+
+                                        // console.log(markers);
+                                        // console.log('--- ajax ---');
                                     }
-                                    $('#llllist').html(str);
                                 },
-                                error: function (error) {
+                                error : function(error) {
                                     console.log("error : " + error);
                                 }
                             });
 
                     }
+
+                    $(window).scroll(
+                        function() {
+                            if ($(window).scrollTop() == $(document).height()
+                                - $(window).height()) {
+                                // 마지막 페이지가 아닐 때
+                                if ($('#page').val() != -1) {
+                                    $('#page').val(+$('#page').val() + 1);
+                                    getRoomsList();
+                                }
+                            }
+                        });//end of 무한스크롤
                 </script>
 
 

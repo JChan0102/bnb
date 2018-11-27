@@ -235,7 +235,7 @@
 		}
 		// 숙소 목록을 가져옴
 		function getRoomsList() {
-			// http://fruitdev.tistory.com/174 
+			// http://fruitdev.tistory.com/174
 			var queryString = $("form[id=searchForm]").serialize();
 			$
 					.ajax({
