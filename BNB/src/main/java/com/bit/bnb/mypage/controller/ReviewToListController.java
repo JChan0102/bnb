@@ -16,7 +16,7 @@ public class ReviewToListController {
 	@Autowired
 	private ReviewToListService service;
 
-	@RequestMapping("/review")
+	@RequestMapping("/mypage/review")
 	public ModelAndView reviewToList(HttpSession session) {
 
 		UserVO user = (UserVO) session.getAttribute("loginUser");

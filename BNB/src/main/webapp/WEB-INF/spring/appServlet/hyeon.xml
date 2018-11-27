@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -15,7 +16,7 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<resources mapping="/uploadfile/**" location="/uploadfile/" />
-	
+
 	<!-- 파일업로드 처리를 위한 multipartResolver bean 등록 -->
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -24,14 +25,16 @@
 		</beans:property>
 	</beans:bean>
 
-	<beans:bean id="userDao" class="com.bit.bnb.user.dao.UserDao" />
-	
+	<beans:bean id="userDao"
+		class="com.bit.bnb.user.dao.UserDao" />
+
 	<!-- 메일발송설정 -->
 	<beans:bean id="mailSender"
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<beans:property name="host" value="smtp.gmail.com" />
 		<beans:property name="port" value="587" /><!-- 465 or 25 -->
-		<beans:property name="username" value="hyeonbit@gmail.com" />
+		<beans:property name="username"
+			value="hyeonbit@gmail.com" />
 		<beans:property name="password" value="bitcamp1234" />
 		<beans:property name="defaultEncoding" value="utf-8" />
 		<beans:property name="javaMailProperties">
@@ -44,24 +47,26 @@
 		</beans:property>
 	</beans:bean>
 	<!-- 메일발송절성 끝 -->
-	
+
 	<!-- 관리자 인터셉터 -->
 	<interceptors>
 		<interceptor>
 			<mapping path="/admin" />
-			<beans:bean	class="com.bit.bnb.user.interceptor.AdminCheckInterceptor" />
+			<beans:bean
+				class="com.bit.bnb.user.interceptor.AdminCheckInterceptor" />
 		</interceptor>
-	</interceptors>
-	<!-- 관리자 인터셉터 끝 -->
-	
-	<!-- 마이페이지 인터셉터 -->
-	<interceptors>
-		<interceptor>
-			<mapping path="/mypage" />
-			<beans:bean	class="com.bit.bnb.rooms.intercepter.LoginCheckInterceptor" />
-		</interceptor>
-	</interceptors>
-	<!-- 마이페이지 인터셉터 끝 -->
+		<!-- 관리자 인터셉터 끝 -->
 
-	
+		<!-- 마이페이지 인터셉터 -->
+		<interceptor>
+			<mapping path="/mypage/**" />
+			<beans:bean
+				class="com.bit.bnb.rooms.intercepter.LoginCheckInterceptor" />
+		</interceptor>
+		<!-- 마이페이지 인터셉터 끝 -->
+	</interceptors>
+
+
+
+
 </beans:beans>

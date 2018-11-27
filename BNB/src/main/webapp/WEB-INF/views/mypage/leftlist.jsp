@@ -16,11 +16,11 @@
 			<a class="list-group-item list-group-item-action"
 				href="${pageContext.request.contextPath}/mypage"> <i class="fas fa-user-circle"></i>&ensp;프로필</a> 
 			<a class="list-group-item list-group-item-action"
-				href="${pageContext.request.contextPath}/wish"><i class="fas fa-heart" style="color: #EB0000"></i>&ensp;즐겨찾기</a> 
+				href="${pageContext.request.contextPath}/mypage/wish"><i class="fas fa-heart" style="color: #EB0000"></i>&ensp;즐겨찾기</a> 
 			<a class="list-group-item list-group-item-action"
-				href="${pageContext.request.contextPath}/history"><i class="fas fa-home"></i>&ensp;나의 여행</a> 
+				href="${pageContext.request.contextPath}/mypage/history"><i class="fas fa-home"></i>&ensp;나의 여행</a> 
 			<a class="list-group-item list-group-item-action"
-				href="${pageContext.request.contextPath}/review"><i class="fas fa-star" style="color: #FFB400"></i>&ensp;후기</a>
+				href="${pageContext.request.contextPath}/mypage/review"><i class="fas fa-star" style="color: #FFB400"></i>&ensp;후기</a>
 		</div>
 	</div>
 	</div>

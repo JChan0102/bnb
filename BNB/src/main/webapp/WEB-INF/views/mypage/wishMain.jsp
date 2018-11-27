@@ -26,7 +26,7 @@
 					<c:forEach var="wd" items="${wishDiv}">
 						<div class="col-4 wishDiv">
 							<a
-								href="${pageContext.request.contextPath}/wishList?userId=${loginUser.userId}&address=${wd.address}"
+								href="${pageContext.request.contextPath}/mypage/wishList?userId=${loginUser.userId}&address=${wd.address}"
 								style="text-align: center; font-size: 18px; text-decoration: none; color: black;"
 								class="wish_div">
 								<div class="card border-light wish_hover"

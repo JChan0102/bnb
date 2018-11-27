@@ -16,7 +16,7 @@ public class HistoryViewController {
 	@Autowired
 	private HistoryViewService service;
 	
-	@RequestMapping("/history")
+	@RequestMapping("/mypage/history")
 	public ModelAndView historyView(HttpSession session) {
 		
 		UserVO user = (UserVO)session.getAttribute("loginUser");

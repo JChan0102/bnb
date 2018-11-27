@@ -42,7 +42,7 @@ public class WishController {
 		}
 	}
 
-	@RequestMapping("/wish")
+	@RequestMapping("/mypage/wish")
 	public ModelAndView wishMainList(HttpSession session) { // div나타내줄 쿼리문 뽑아옴ㅎ~~
 		
 		UserVO user = (UserVO) session.getAttribute("loginUser");
@@ -78,7 +78,7 @@ public class WishController {
 		return jsonWish;
 	}
 
-	@RequestMapping("/wishList")
+	@RequestMapping("/mypage/wishList")
 	public ModelAndView wishList(@RequestParam("userId") String userId, @RequestParam("address") String address) {
 
 		ModelAndView modelAndView = new ModelAndView();
