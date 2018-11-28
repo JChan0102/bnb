@@ -20,7 +20,7 @@ $(document).ready(function() {
 	<table>
 		<tr>
 			<th width="100">작성자</th>
-			<td><input type="text" value="${loginInfo.userId}" name="userId" size="50"
+			<td><input type="text" value="${loginUser.userId}" name="userId" size="50"
 				required="required"></td>
 		</tr>
 		<tr>

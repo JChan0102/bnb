@@ -15,7 +15,8 @@
 
 
 <div class="container">
-<h2>LIST</h2>
+<h2>HOST BOARD</h2>
+<div class="table-responsive">
 <table class="table table-hover">
 	<thead>
 	<tr>
@@ -50,6 +51,7 @@
 		<li><a href="#">4</a></li>
 		<li><a href="#">5</a></li>
 	</ul>
+</div>
 </div>
 </div>
 </body>
