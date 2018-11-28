@@ -1,4 +1,4 @@
-package com.bit.bnb.host.service;
+package com.bit.bnb.hostboard.service;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import javax.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bit.bnb.host.dao.CommentDaoImpl;
-import com.bit.bnb.host.model.CommentModel;
+import com.bit.bnb.hostboard.dao.CommentDaoImpl;
+import com.bit.bnb.hostboard.model.CommentVO;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -24,18 +24,18 @@ public class CommentServiceImpl implements CommentService {
 		}
 
 		@Override
-		public List<CommentModel> commentList(CommentModel commentModel) throws Exception {
+		public List<CommentVO> commentList(CommentVO commentModel) throws Exception {
 			return dao.commentList(commentModel);
 		}
 
 		@Override
-		public int commentInsert(CommentModel commentModel) throws Exception {
+		public int commentInsert(CommentVO commentModel) throws Exception {
 			System.out.println("서비스" + commentModel);
 			return dao.commentInsert(commentModel);
 		}
 
 		@Override
-		public int commentUpdate(CommentModel commentModel) throws Exception {
+		public int commentUpdate(CommentVO commentModel) throws Exception {
 			return dao.commentUpdate(commentModel);
 		}
 

@@ -1,4 +1,4 @@
-package com.bit.bnb.host.controller;
+/*package com.bit.bnb.hostboard.controller;
 
 import java.util.List;
 
@@ -14,28 +14,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bit.bnb.host.model.HostModel;
-import com.bit.bnb.host.service.HostService;
+import com.bit.bnb.hostboard.model.PostVO;
+import com.bit.bnb.hostboard.service.HostServiceX;
 
 @Controller
 @RequestMapping
-public class HostController {
+public class HostControllerX {
 
 	@Autowired
-	private HostService hostService;
+	private HostServiceX hostService;
 
-	/**
+	*//**
 	 * 게시판 조회
 	 * 
 	 * @param boardVO
 	 * @param model
 	 * @return
 	 * @throws Exception
-	 */
+	 *//*
 	@RequestMapping("/host")
 	public ModelAndView list() throws Exception {
 		System.out.println("리스트컨트롤러진입");
-		List<HostModel> list = hostService.listAll();
+		List<PostVO> list = hostService.listAll();
 		System.out.println(list);
 		// 모델앤뷰
 		ModelAndView mav = new ModelAndView();
@@ -45,12 +45,12 @@ public class HostController {
 
 	}
 
-	/**
+	*//**
 	 * 글쓰기 폼
 	 * 
 	 * @return
 	 * @throws Exception
-	 */
+	 *//*
 	// 게시글 작성화면 ,전송방식 설정
 
 	@RequestMapping(value = "/host/write", method = RequestMethod.GET) // get방식으로 들어올때
@@ -61,7 +61,7 @@ public class HostController {
 	}
 
 	@RequestMapping(value = "/host/write", method = RequestMethod.POST)
-	public ModelAndView HostWrite(HostModel hostModel) throws Exception {
+	public ModelAndView HostWrite(PostVO hostModel) throws Exception {
 
 		ModelAndView modelAndView = new ModelAndView(); // 모델앤뷰생성=데이터를 전송할수있는 리턴타입
 		hostService.create(hostModel);
@@ -70,14 +70,14 @@ public class HostController {
 		return modelAndView;
 	}
 	
-	/**
+	*//**
 	 * 게시글 조회
 	 * 
-	 */
+	 *//*
 	@RequestMapping(value = "/host/viewLink", method = RequestMethod.GET)
 	public ModelAndView View(@RequestParam int bId, HttpSession session) throws Exception {
 		// 조회수증가
-		/* hostService.increaseViewcnt(bId.session); */
+		 hostService.increaseViewcnt(bId.session); 
 
 		ModelAndView mav = new ModelAndView();// 새로운 modelandview생성.
 		
@@ -86,7 +86,7 @@ public class HostController {
 		return mav;// 객체리턴
 	}
 
-	/**
+	*//**
 	 * 게시글 수정
 	 * 
 	 * @param hostModel
@@ -94,7 +94,7 @@ public class HostController {
 	 * @param model
 	 * @return
 	 * @throws Exception
-	 */
+	 *//*
 		@RequestMapping(value = "/host/update", method=RequestMethod.GET)
 		public ModelAndView updateGet(int bId)throws Exception{
 		ModelAndView modelAndView = new ModelAndView();
@@ -105,7 +105,7 @@ public class HostController {
 	}
 	
 		@RequestMapping(value="/host/update", method=RequestMethod.POST)
-		public String updatePost(@ModelAttribute HostModel hostModel)throws Exception{
+		public String updatePost(@ModelAttribute PostVO hostModel)throws Exception{
 			hostService.update(hostModel);
 			return"redirect:/host/";
 		}	
@@ -124,3 +124,4 @@ public class HostController {
 	}
 
 }
+*/

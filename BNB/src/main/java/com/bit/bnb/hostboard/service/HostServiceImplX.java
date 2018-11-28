@@ -1,5 +1,5 @@
-
-package com.bit.bnb.host.service;
+/*
+package com.bit.bnb.hostboard.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,26 +8,26 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.bit.bnb.host.dao.HostDao;
-import com.bit.bnb.host.model.HostModel;
+import com.bit.bnb.hostboard.dao.HostBoardDao;
+import com.bit.bnb.hostboard.model.PostVO;
 
 @Service
-public class HostServiceImpl implements HostService {
+public class HostServiceImplX implements HostServiceX {
 
 	//dao호출
 	
 	@Inject
-	private HostDao dao;
+	private HostBoardDao dao;
 	
 	@Override
-	public void create(HostModel hostModel) throws Exception {
+	public void create(PostVO hostModel) throws Exception {
 		dao.create(hostModel);
 	}
 
 	@Override
-	public List<HostModel> listAll() throws Exception {
+	public List<PostVO> listAll() throws Exception {
 		System.out.println("서비스진입");
-		List<HostModel> list = new ArrayList<HostModel>();
+		List<PostVO> list = new ArrayList<PostVO>();
 		list = dao.listAll();
 		System.out.println("호스트서비스-리스트 : " + list);
 		return dao.listAll();
@@ -35,7 +35,7 @@ public class HostServiceImpl implements HostService {
 	}
 
 	@Override
-	public HostModel read(int bId) throws Exception {
+	public PostVO read(int bId) throws Exception {
 		return dao.read(bId);
 	}
 
@@ -46,14 +46,14 @@ public class HostServiceImpl implements HostService {
 	}
 
 	@Override
-	public void update(HostModel hostModel) throws Exception {
+	public void update(PostVO hostModel) throws Exception {
 		dao.update(hostModel);
 
 	
 	}
 
 	@Override
-	public HostModel getContentbId(int bId) {
+	public PostVO getContentbId(int bId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -61,3 +61,4 @@ public class HostServiceImpl implements HostService {
 	
 	
 }
+*/

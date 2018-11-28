@@ -1,4 +1,4 @@
-package com.bit.bnb.host.dao;
+package com.bit.bnb.hostboard.dao;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.bit.bnb.host.model.CommentModel;
+import com.bit.bnb.hostboard.model.CommentVO;
 
 @Repository
 public class CommentDaoImpl implements CommentDao {
@@ -25,17 +25,17 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public List<CommentModel> commentList(CommentModel commentModel) throws Exception {
+	public List<CommentVO> commentList(CommentVO commentModel) throws Exception {
 	return SqlSession.selectList("CommentModel.commentList",commentModel);
 	}
 
 	@Override
-	public int commentInsert(CommentModel commentModel) throws Exception {
+	public int commentInsert(CommentVO commentModel) throws Exception {
 		return SqlSession.insert("CommentModel.commentInsert", commentModel);
 	}
 
 	@Override
-	public int commentUpdate(CommentModel commentModel) throws Exception {
+	public int commentUpdate(CommentVO commentModel) throws Exception {
 		return SqlSession.update("CommentModel.commentUpdate", commentModel);
 	}
 

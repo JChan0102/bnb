@@ -36,17 +36,17 @@
         <th width="150">이름</th>
         <th width="210">날짜</th>
     </tr>
-    <c:forEach items="${list}" var="dto"> <!-- core라는 테그 라이브러리 이용 / list객체받아와서 변수명을 dto로  -->
+    <%-- <c:forEach items="${list}" var="dto"> <!-- core라는 테그 라이브러리 이용 / list객체받아와서 변수명을 dto로  -->
         <tr>
             <td>${dto.bId}</td>
             <td><a href="${pageContext.request.contextPath}/host/viewLink?bId=${dto.bId}">${dto.bTitle}</a></td>
             <td>${dto.bUserId}</td>
             <td>${dto.bDate}</td>
         </tr>
-    </c:forEach>
+    </c:forEach> --%>
 </table>
 <br>
-<a href="${pageContext.request.contextPath}/host/write">
+<a href="${pageContext.request.contextPath}/hostBoard/write">
     <button type="button" class="btn btn-dark">글 작성</button>
 </a>
 </body>
