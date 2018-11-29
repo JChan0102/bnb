@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +58,7 @@
 							</a>
 						</div>
 					</c:forEach>
-					<c:if test="${!empty wishDiv}">
+					<c:if test="${!empty wishDiv && fn:length(wishDiv) > 6}">
 						<button type="button" id="load" class="btn btn-sm btn-block"
 							style="margin: 20px 10px; background-color: #EEEEEE">
 							<b>더보기</b>

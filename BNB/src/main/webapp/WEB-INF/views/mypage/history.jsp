@@ -54,7 +54,7 @@
 											<c:forEach var="hisImg" items="${historyImg}">
 												<c:if test="${his.roomsId == hisImg.roomsId}">
 													<img
-														src="http://13.209.99.134:8080/imgserver/resources/upload/${hisImg.filename }">
+														src="http://13.209.99.134:8080/imgserver/resources/upload/${hisImg.filename }" style="height:100%;">
 												</c:if>
 											</c:forEach>
 										</div>
@@ -74,8 +74,7 @@
 											</p>
 											<div class="post-meta">
 												<span class="timestamp"><i class="fa fa-clock-">O</i>
-													<fmt:formatDate pattern="YY년MM월dd일" value="${his.checkIn}" />
-													~ <fmt:formatDate pattern="YY년MM월dd일"
+													<fmt:formatDate pattern="YY년MM월dd일" value="${his.checkIn}" />~<fmt:formatDate pattern="YY년MM월dd일"
 														value="${his.checkOut}" /></span><span class="comments"><br>
 												<i class="fas fa-user"></i>&ensp;게스트 ${his.people}명</span>
 											</div>
@@ -104,7 +103,7 @@
 											<c:forEach var="tripImg" items="${tripImg}">
 												<c:if test="${trip.roomsId == tripImg.roomsId}">
 													<img
-														src="http://13.209.99.134:8080/imgserver/resources/upload/${tripImg.filename }">
+														src="http://13.209.99.134:8080/imgserver/resources/upload/${tripImg.filename }" style="height::100%;">
 												</c:if>
 											</c:forEach>
 										</div>
@@ -124,8 +123,7 @@
 											</p>
 											<div class="post-meta">
 												<span class="timestamp"><i class="fa fa-clock-">O</i>
-													<fmt:formatDate pattern="YY년MM월dd일" value="${trip.checkIn}" />
-													~ <fmt:formatDate pattern="YY년MM월dd일"
+													<fmt:formatDate pattern="YY년MM월dd일" value="${trip.checkIn}" />~<fmt:formatDate pattern="YY년MM월dd일"
 														value="${trip.checkOut}" /></span><span class="comments"><br>
 												<i class="fas fa-user"></i>&ensp;게스트 ${trip.people}명</span>
 											</div>

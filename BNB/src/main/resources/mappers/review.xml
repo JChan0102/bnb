@@ -105,7 +105,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchReviewHost"
 		resultType="com.bit.bnb.hostpage.model.EvaluationVO">
 		select re.hostId, u.userPhoto, re.roomsId,
-		e.evaluationContent,
+		e.evaluationContent, u.userName,
 		e.evaluationDate as reviewDate from reservation re inner JOIN
 		evaluation e on
 		re.reservationNum
@@ -126,7 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				CONCAT('%',#{rvs.keyword},'%')
 			</if>
 			<if test="rvs.searchType == 'hostId'.toString()">
-				and re.hostId LIKE CONCAT('%',#{rvs.keyword},'%')
+				and u.userName LIKE CONCAT('%',#{rvs.keyword},'%')
 			</if>
 		</if>
 	</select>

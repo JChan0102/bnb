@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -155,7 +156,7 @@
 								</div>
 							</c:if>
 						</c:forEach>
-						<c:if test="${!empty reviewTo}">
+						<c:if test="${!empty reviewTo && fn:length(reviewTo) > 4}">
 							<button type="button" id="load" class="btn btn-sm btn-block"
 								style="margin: 20px 0; background-color: #EEEEEE"><b>더보기</b></button>
 						</c:if>
@@ -207,7 +208,7 @@
 								</div>
 							</c:if>
 						</c:forEach>
-						<c:if test="${!empty hostReview}">
+						<c:if test="${!empty hostReview && fn:length(hostReview) > 4}">
 							<button type="button" id="load1" class="btn btn-sm btn-block"
 								style="margin: 20px 0; background-color: #EEEEEE"><b>더보기</b></button>
 						</c:if>
