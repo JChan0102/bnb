@@ -19,6 +19,7 @@ public class UserVO {
 	private int disabled;
 	private String birth;
 	private String userInfo;
+	private String nickName;
 	private MultipartFile photoFile;
 	private String month;
 	private String day;
@@ -120,6 +121,14 @@ public class UserVO {
 		this.userInfo = userInfo;
 	}
 
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 	public MultipartFile getPhotoFile() {
 		return photoFile;
 	}
@@ -157,7 +166,8 @@ public class UserVO {
 		return "UserVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userPhoto=" + userPhoto
 				+ ", host=" + host + ", admin=" + admin + ", userKey=" + userKey + ", userCheck=" + userCheck
 				+ ", point=" + point + ", disabled=" + disabled + ", birth=" + birth + ", userInfo=" + userInfo
-				+ ", photoFile=" + photoFile + ", month=" + month + ", day=" + day + ", year=" + year + "]";
+				+ ", nickName=" + nickName + ", photoFile=" + photoFile + ", month=" + month + ", day=" + day
+				+ ", year=" + year + "]";
 	}
 
 }

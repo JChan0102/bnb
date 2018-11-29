@@ -74,6 +74,15 @@ public class UserRegController {
 		return userIdChk;
 	}
 	
+	// 닉네임 중복검사
+	@RequestMapping("/user/nickNameChk")
+	@ResponseBody
+	public String nickNameChk(@RequestParam("nickName") String nickName) {
+		String nickNameChk = userRegService.getNickNameChk(nickName);
+		System.out.println("사용할수 있는 닉네임? : " + nickNameChk);
+		return nickNameChk;
+	}
+	
 	
 	// 계정인증
 	@RequestMapping("/userKeyConfirm")

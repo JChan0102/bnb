@@ -58,7 +58,7 @@ public class UserRegService {
 		// 빠짐없이 가입항목을 다 입력했는지 확인
 		if(userVO.getUserId() != null && userVO.getUserPw() != null && 
 		   userVO.getUserName() != null && userVO.getYear() != null && 
-		   userVO.getMonth() !=null &&  userVO.getDay() != null) {
+		   userVO.getMonth() !=null &&  userVO.getDay() != null && userVO.getNickName() != null) {
 			
 			// 아이디 중복검사
 			user = userDao.selectUser(userVO.getUserId());
@@ -141,6 +141,20 @@ public class UserRegService {
 	}
 
 	
+	// 닉네임 중복검사
+	@Transactional
+	public String getNickNameChk(String nickName) {
+		user = userDao.selectNickName(nickName);
+		
+		String nickNameChk = "n";
+		
+		if(user == null) {
+			nickNameChk = "y";
+		}
+		return nickNameChk;
+	}
+	
+	
 	// 인증메일 확인
 	@Transactional
 	public int userConfirm(String userId, String userKey) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
@@ -201,7 +215,7 @@ public class UserRegService {
 		// 빠짐없이 가입항목을 다 입력했는지 확인
 		if(userVO.getUserId() != null && userVO.getUserPw() != null && 
 		   userVO.getUserName() != null && userVO.getYear() != null && 
-		   userVO.getMonth() !=null &&  userVO.getDay() != null) {
+		   userVO.getMonth() !=null &&  userVO.getDay() != null && userVO.getNickName() != null) {
 			
 			// 아이디 중복검사
 			user = userDao.selectUser(userVO.getUserId());

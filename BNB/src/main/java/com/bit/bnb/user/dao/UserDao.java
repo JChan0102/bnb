@@ -25,6 +25,10 @@ public class UserDao {
 		return sqlSessionTemplate.selectOne(userMapperPath+".selectUser", userId);
 	}
 	
+	public UserVO selectNickName(String nickName) {
+		return sqlSessionTemplate.selectOne(userMapperPath+".selectNickName", nickName);
+	}
+	
 	public int updateUserKey(String userId) {
 		return sqlSessionTemplate.update(userMapperPath+".updateUserKey", userId);
 	}

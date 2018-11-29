@@ -7,11 +7,15 @@
 	<insert id="insertUser" parameterType="com.bit.bnb.user.model.UserVO">
 		insert into user 
 		values (#{userId}, #{userPw}, #{userName}, #{userPhoto}, #{host}, #{admin}, #{userKey}, 
-		#{userCheck}, #{point}, #{disabled}, #{birth}, #{userInfo})
+		#{userCheck}, #{point}, #{disabled}, #{birth}, #{userInfo}, #{nickName})
 	</insert>
 
 	<select id="selectUser" resultType="com.bit.bnb.user.model.UserVO">
 		select * from user where userId=#{userId}
+	</select>
+	
+	<select id="selectNickName" resultType="com.bit.bnb.user.model.UserVO">
+		select * from user where nickName=#{nickName}
 	</select>
 
 	<update id="updateUserKey">

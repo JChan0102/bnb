@@ -1,5 +1,6 @@
 package com.bit.bnb.hostboard.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -26,6 +27,22 @@ public class HostBoardDao {
 	
 	public List<PostVO> selectPostList(){
 		return sqlSessionTemplate.selectList(hostBoardMapper+".selectPostList");
+	}
+	
+	public List<PostVO> getPostList(HashMap<String, Integer> map){
+		return sqlSessionTemplate.selectList(hostBoardMapper+".getPostList", map);
+	}
+	
+	public int getPostTotalCount() {
+		return sqlSessionTemplate.selectOne(hostBoardMapper+".getPostTotalCount");
+	}
+	
+	public void upPostTotalCount() {
+		sqlSessionTemplate.selectOne(hostBoardMapper+".upPostTotalCount");
+	}
+	
+	public void downPostTotalCount() {
+		sqlSessionTemplate.selectOne(hostBoardMapper+".downPostTotalCount");
 	}
 	
 	/*public void create(PostVO hostModel) throws Exception;

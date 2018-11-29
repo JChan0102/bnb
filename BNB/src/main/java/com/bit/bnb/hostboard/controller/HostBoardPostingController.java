@@ -10,7 +10,7 @@ import com.bit.bnb.hostboard.model.PostVO;
 import com.bit.bnb.hostboard.service.PostingService;
 
 @Controller
-public class HostBoardController {
+public class HostBoardPostingController {
 
 	@Autowired
 	private PostingService postingService;

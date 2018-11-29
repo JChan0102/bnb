@@ -20,8 +20,10 @@ $(document).ready(function() {
 	<table>
 		<tr>
 			<th width="100">작성자</th>
-			<td><input type="text" value="${loginUser.userId}" name="userId" size="50"
-				required="required"></td>
+			<td>
+			<input type="hidden" value="${loginUser.userId}" name="userId" size="50" readonly/>
+			<input type="text" value="${loginUser.nickName}" name="nickName" size="50" readonly/>
+			</td>
 		</tr>
 		<tr>
 			<th>제목</th>

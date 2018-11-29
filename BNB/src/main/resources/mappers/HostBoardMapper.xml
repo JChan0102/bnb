@@ -6,17 +6,33 @@
 
 	<insert id="insertPost" parameterType="com.bit.bnb.hostboard.model.PostVO" 
 		useGeneratedKeys="true" keyProperty="postNo">
-		insert into hostBoard (userId, title, content, date, viewCnt) 
-		value(#{userId}, #{title}, #{content}, CURRENT_TIMESTAMP, 0)
+		insert into hostBoard (userId, title, content, date, viewCnt, nickName) 
+		value(#{userId}, #{title}, #{content}, CURRENT_TIMESTAMP, 0, #{nickName})
 	</insert>
 	
 	<select id="selectPost" resultType="com.bit.bnb.hostboard.model.PostVO">
-		select * from userBoard where postNo=#{postNo}
+		select * from hostBoard where postNo=#{postNo}
 	</select>
 	
 	<select id="selectPostList" resultType="com.bit.bnb.hostboard.model.PostVO">
-		select * from hostBoard
+		select * from hostBoard order by postNo desc
 	</select>
+	
+	<select id="getPostList" parameterType="java.util.HashMap" resultType="com.bit.bnb.hostboard.model.PostVO">
+		<![CDATA[select * from hostBoard where postNo > 0 order by postNo desc limit #{firstRow}, #{postCountPerPage}]]>
+	</select>
+	
+	<select id="getPostTotalCount" resultType="int">
+		select postTotalCount from postTotalCount where idx=1
+	</select>
+	
+	<update id="upPostTotalCount">
+		update postTotalCount set postTotalCount = postTotalCount + 1 where idx=1;
+	</update>
+	
+	<update id="downPostTotalCount">
+		update postTotalCount set postTotalCount = postTotalCount - 1 where idx=1;
+	</update>
 
 
 	<!-- <insert parameterType="com.bit.bnb.host.model.HostModel"

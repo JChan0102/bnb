@@ -44,7 +44,9 @@
 					
 						<input type="email" id="inputUserId" name="userId" class="form-control hyeon-reg-input" value="${gMail}" readonly />
 						<input type="hidden" id="userPw-1" name="userPw" class="form-control hyeon-reg-input" value="" />
-						<input type="text" id="inputUserName" name="userName" class="form-control hyeon-reg-input" value="${gName}" />
+						<input type="text" id="inputUserName" name="userName" class="form-control hyeon-reg-input" value="${gName}" placeholder="이름" />
+						<input type="text" id="inputNickName" name="nickName" class="form-control hyeon-reg-input" placeholder="닉네임" />
+						<div id="alertNickName" class="regAlert" style="display:none; color: #dc3545;"></div>
 						<label class="form-check-label mt-2 mb-2" style="margin-bottom: 3px; font-weight: bold;">사진 </label>
 						<input type="file" name="photoFile" class="form-control hyeon-reg-input" />
 						<input type="hidden" name="host" value=0 style="display:none" />
@@ -207,11 +209,50 @@
 		}
 	});
 
+		// 닉네임 중복체크
+		$('#inputNickName').blur(function(){
+			var nName = $('#inputNickName').val();
+			
+			if(nName != '' && nName != null){
+				$.ajax({
+				type: "GET",
+				url: "user/nickNameChk",
+				data: {"nickName" : nName},
+				success: function(data){
+					if(data == "n") {
+						$('#alertNickName').empty();
+						$('#alertNickName').css("display","");
+						$('#alertNickName').append("이미 사용중인 닉네임입니다");
+					} else if(data == "y"){
+						$('#alertNickName').empty();
+						$('#alertNickName').css("display","none");
+					}
+				}
+			});
+		}
+	});
+		
 	
 		 $(function() {
 	            $("#gRegBtn").click(function() {
 	               
 	                console.log('gg');
+	                 
+	                var nName = $('#inputNickName').val();
+	                var nNameChk = '';
+	                
+	                $.ajax({
+	    				type: "GET",
+	    				url: "user/nickNameChk",
+	    				data: {"nickName" : nName},
+	    				success: function(data){
+	    					if(data == "n") {
+	    						nNameChk = "n";
+	    					} else if(data == "y"){
+	    						nNameChk = "y";
+	    					}
+	    				}
+	                });
 	                
 	                var pattern = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
 	                var year = $('#select-year').val();
@@ -243,9 +284,12 @@
 	                if((month*100 + day) > tMonth*100 + tDay){
 	                	age--;
 	                }
-	            	if(pattern.test(birth) && day<=lastDay && age>18){
+	                
+	            	if(pattern.test(birth) && day<=lastDay && age>18 && nName!='' && nName!=null){
 	                    $('#gRegForm').submit();
 	                    $('#gRegBtn').val('가입처리중...');
+	            	}else if(nName==''||nName==null){
+	            		alert('닉네임을 입력해주세요.');	
 	            	}else if(day>lastDay){ 
 	            		alert('유효하지 않은 생년월일입니다.');
 	            	}else if(age<18){ 

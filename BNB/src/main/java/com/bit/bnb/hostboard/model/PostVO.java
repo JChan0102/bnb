@@ -6,6 +6,7 @@ public class PostVO {
 
 	private int postNo;
 	private String userId;
+	private String nickName;
 	private String title;
 	private String content;
 	private String date;
@@ -25,6 +26,14 @@ public class PostVO {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public String getTitle() {
@@ -61,8 +70,8 @@ public class PostVO {
 
 	@Override
 	public String toString() {
-		return "PostVO [postNo=" + postNo + ", userId=" + userId + ", title=" + title + ", content=" + content
-				+ ", date=" + date + ", viewCnt=" + viewCnt + "]";
+		return "PostVO [postNo=" + postNo + ", userId=" + userId + ", nickName=" + nickName + ", title=" + title
+				+ ", content=" + content + ", date=" + date + ", viewCnt=" + viewCnt + "]";
 	}
 
 }
