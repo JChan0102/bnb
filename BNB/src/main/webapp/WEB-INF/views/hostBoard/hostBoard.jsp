@@ -20,9 +20,9 @@
 <table class="table table-hover text-center"> 
 	<thead>
 	<tr class="row" style="margin-right:0px;">
-		<th class="col-1" >번호</th>
+		<th class="col-2" >번호</th>
+		<th class="col-5 text-left">제목</th>
 		<th class="col-2">작성자</th>
-		<th class="col-6">제목</th>
 		<th class="col-2">작성일</th>
 		<th class="col-1">조회수</th>
 	</tr>
@@ -30,10 +30,10 @@
 	<tbody>
 	<c:forEach var="post" items="${postListData.postList}">
 		<tr class="row" style="margin-right:0px;">
-			<td class="col-1">${post.postNo}</td>
+			<td class="col-2">${post.postNo}</td>
+			<td class="col-5 text-left"><a href="hostBoard/postView?postNo=${post.postNo }">${post.title}</a></td>
 			<td class="col-2">${post.nickName}</td>
-			<td class="col-6 text-left"><a href="hostBoard/postView?postNo=${post.postNo }">${post.title}</a></td>
-			<td class="col-2"><fmt:formatDate value="${post.date}" pattern="yyyy-MM-dd hh:mm" /></td>
+			<td class="col-2"><fmt:formatDate value="${post.date}" pattern="yyyy-MM-dd" /></td>
 			<td class="col-1">${post.viewCnt}</td>
 		</tr>  
 	</c:forEach>
@@ -42,7 +42,7 @@
 <hr/>
 
 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/hostBoard/write" role="button">글쓰기</a>
-
+<br>
 <div class="text-center">
 	<ul class="pagination justify-content-center">
 		<li class="page-item"><a class="page-link" href="hostBoard?page=1">&lt;&lt;</a></li>
@@ -54,8 +54,13 @@
 				<li class="page-item"><a class="page-link" href="hostBoard?page=${postListData.currentPageNumber-1}">이전페이지</a></li>
 			</c:if>
 			
-			<c:forEach var="num" begin="1" end="${postListData.pageTotalCount}">
-				<li class="page-item"><a class="page-link" href="hostBoard?page=${num}">${num}</a></li>
+			<c:forEach var="num" begin="${postListData.startPage }" end="${postListData.endPage}">
+				<c:if test="${num eq postListData.currentPageNumber}">
+					<li class="page-item active"><a class="page-link" href="hostBoard?page=${num}">${num}</a></li>
+				</c:if>
+				<c:if test="${num ne postListData.currentPageNumber}">
+					<li class="page-item"><a class="page-link" href="hostBoard?page=${num}">${num}</a></li>
+				</c:if>
 			</c:forEach>
 			
 			<c:if test="${postListData.currentPageNumber eq postListData.pageTotalCount}">
@@ -71,4 +76,13 @@
 </div>
 </div>
 </body>
+
+<script>
+$('document').ready(function(){
+	var page = ${page};
+	console.log(page);
+});
+</script>
+
+
 </html>

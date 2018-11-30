@@ -29,7 +29,7 @@ public class HostBoardPostingController {
 	public ModelAndView writePost(PostVO postVO) {
 		int resultCnt = postingService.write(postVO);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/host");
+		modelAndView.setViewName("redirect:/hostBoard");
 		if(resultCnt != 1) {
 			modelAndView.setViewName("hostBoard/error");
 		}

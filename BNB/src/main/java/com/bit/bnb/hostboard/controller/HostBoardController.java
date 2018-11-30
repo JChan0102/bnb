@@ -13,7 +13,7 @@ import com.bit.bnb.hostboard.model.PostVO;
 import com.bit.bnb.hostboard.service.HostBoardService;
 
 @Controller
-public class HostBoardViewController {
+public class HostBoardController {
 
 	@Autowired
 	private HostBoardService hostBoardService;

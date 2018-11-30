@@ -4,18 +4,18 @@
 <%@ include file="/resources/common/includeHead.jsp"%>
 <html>
 <head>
-<h1>게시글작성</h1>
 
-<!-- <script>
+<script>
 $(document).ready(function() {
 	$('#submitBtn').click(function() {
-		$('#bContent').val($('#bContent').val().replace(/\n/g, '<br>'));
+		$('#content').val($('#content').val().replace(/\n/g, '<br>'));
 		$('#target').submit();
 	});
 });
-</script> -->
+</script>
 </head>
 <body>
+<h1>게시글작성</h1>
 <form method="post" id="target">
 	<table>
 		<tr>

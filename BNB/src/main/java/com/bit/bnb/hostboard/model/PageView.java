@@ -9,7 +9,11 @@ public class PageView {
 	private List<PostVO> postList;
 	private int pageTotalCount;
 	private int postCountPerPage;
-	private int firstRow;
+	private int firstRow; // 시작 게시물 번호
+
+	private int startPage; // 보여줄 시작 페이지 번호
+	private int endPage; // 보여줄 마지막 페이지 번호
+	private int displayPageNumber = 10;
 
 	public PageView(List<PostVO> postList, int postTotalCount, int currentPageNumber, int postCountPerPage,
 			int firstRow) {
@@ -19,6 +23,7 @@ public class PageView {
 		this.postCountPerPage = postCountPerPage;
 		this.firstRow = firstRow;
 		clacPageTotalCount();
+		calcDisplayPageNumber();
 	}
 
 	private void clacPageTotalCount() {
@@ -29,6 +34,14 @@ public class PageView {
 			if (postTotalCount % postCountPerPage > 0) {
 				pageTotalCount++;
 			}
+		}
+	}
+	
+	public void calcDisplayPageNumber() {
+		endPage = (int)(Math.ceil(this.getCurrentPageNumber() / (double) displayPageNumber) * displayPageNumber);
+		startPage = (endPage - displayPageNumber) + 1;
+		if(endPage>pageTotalCount) {
+			endPage = pageTotalCount;
 		}
 	}
 
@@ -60,11 +73,24 @@ public class PageView {
 		return postTotalCount == 0;
 	}
 
+	public int getDisplayPageNumber() {
+		return displayPageNumber;
+	}
+
+	public int getStartPage() {
+		return startPage;
+	}
+
+	public int getEndPage() {
+		return endPage;
+	}
+
 	@Override
 	public String toString() {
 		return "PageView [postTotalCount=" + postTotalCount + ", currentPageNumber=" + currentPageNumber + ", postList="
 				+ postList + ", pageTotalCount=" + pageTotalCount + ", postCountPerPage=" + postCountPerPage
-				+ ", firstRow=" + firstRow + "]";
+				+ ", firstRow=" + firstRow + ", startPage=" + startPage + ", endPage=" + endPage
+				+ ", displayPageNumber=" + displayPageNumber + "]";
 	}
-	
+
 }
