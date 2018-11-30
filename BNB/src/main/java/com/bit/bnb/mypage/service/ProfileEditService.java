@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.bnb.mypage.dao.MypageUserDao;
-import com.bit.bnb.mypage.model.MemberVO;
+import com.bit.bnb.user.model.UserVO;
 import com.bit.bnb.user.service.EncryptSHA256Service;
 
 @Service
@@ -23,7 +23,7 @@ public class ProfileEditService {
 
 	private MypageUserDao mypageUserDao;
 
-	public int myUserUpdate(MemberVO member, HttpServletRequest request) throws IllegalStateException, IOException {
+	public int myUserUpdate(UserVO member, HttpServletRequest request) throws IllegalStateException, IOException {
 
 		mypageUserDao = sqlSessionTemplate.getMapper(MypageUserDao.class);
 
@@ -61,7 +61,7 @@ public class ProfileEditService {
 		return mypageUserDao.userUpdate(member);
 	}
 
-	public MemberVO myUserPick(String userId) { // 유저선택
+	public UserVO myUserPick(String userId) { // 유저선택
 
 		mypageUserDao = sqlSessionTemplate.getMapper(MypageUserDao.class);
 		return mypageUserDao.userPick(userId);

@@ -7,13 +7,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bit.bnb.mypage.model.MemberVO;
 import com.bit.bnb.mypage.service.ProfileEditService;
 import com.bit.bnb.user.model.UserVO;
 
@@ -36,7 +34,7 @@ public class ProfileEditController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String profileEditPost(MemberVO member, HttpServletRequest request, HttpSession session)
+	public String profileEditPost(UserVO member, HttpServletRequest request, HttpSession session)
 			throws IllegalStateException, IOException {
 
 		UserVO user = (UserVO) session.getAttribute("loginUser");

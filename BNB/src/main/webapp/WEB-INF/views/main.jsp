@@ -33,7 +33,6 @@
 
 		$(document).ready(function() {
 							var arr = [];
-							var region_arr = [];
 							var today = new Date();
 							var week = new Array('일', '월', '화', '수', '목', '금', '토');
 							var year = today.getFullYear();
@@ -82,7 +81,7 @@
 							/* 좌표 */
 							$.each(korea, function(j,k) {
 							var _nx = korea[j].nx, _ny = korea[j].ny, region = korea[j].region,
-							apikey = "jaWvwp%2FnA5aEEWuqg66iLJF7yCE9KKeEBLOn7KxW2pA8VHjjaDiwHGUQDSCedHcKNpBWjzCe9YHHgpO5M03Vjw%3D%3D", ForecastGribURL = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData";
+							apikey = "mkLeHeg6pgfqAf5AwH2BUWGZpEaSvzXBgBHKy3FI%2FeeGh8xFUqZzbJqisqmc8xcSWCRu%2Fl31QlSR9Un8gMSCrg%3D%3D", ForecastGribURL = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData";
 							ForecastGribURL += "?ServiceKey=" + apikey;
 							ForecastGribURL += "&base_date=" + today;
 							ForecastGribURL += "&base_time=" + now + "00";

@@ -33,7 +33,7 @@ public class ReviewWriteController {
 			return "mypage/reviewWriteFail";
 		}
 		
-		return "redirect:/review";		
+		return "redirect:mypage/review";		
 	}
 
 }

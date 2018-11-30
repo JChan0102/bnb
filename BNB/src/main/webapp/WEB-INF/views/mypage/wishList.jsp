@@ -103,7 +103,7 @@
 			</h1>
 			<div class="row"
 				style="height: 600px; /* width: 900px; */ margin: 0 auto;">
-				<div class="col-5" style="overflow: scroll">
+				<div class="col-5" style="overflow: scroll;">
 					<h2 style="font-weight: 600; text-align: center;">
 						<i class="fas fa-map-marker-alt" style="color: red;"></i>&ensp;${address}
 					</h2>

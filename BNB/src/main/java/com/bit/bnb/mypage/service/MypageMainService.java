@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.bnb.mypage.dao.MypageUserDao;
-import com.bit.bnb.mypage.model.MemberVO;
+import com.bit.bnb.user.model.UserVO;
 
 @Service
 public class MypageMainService {
@@ -15,7 +15,7 @@ public class MypageMainService {
 	
 	private MypageUserDao mypageUserDao;
 	
-	public MemberVO mypageView(String userId) {
+	public UserVO mypageView(String userId) {
 		
 		mypageUserDao = sqlSessionTemplate.getMapper(MypageUserDao.class);
 		
