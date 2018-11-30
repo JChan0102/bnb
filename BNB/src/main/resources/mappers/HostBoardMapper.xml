@@ -34,32 +34,9 @@
 		update postTotalCount set postTotalCount = postTotalCount - 1 where idx=1;
 	</update>
 
-
-	<!-- <insert parameterType="com.bit.bnb.host.model.HostModel"
-		id="create">
-		INSERT INTO `host` (`bUserId`, `bTitle`, `bContent`, `bDate`)VALUES
-		(#{bUserId},#{bTitle},#{bContent},now())
-	</insert>
-
-	<select id="listAll"
-		parameterType="com.bit.bnb.host.model.HostModel"
-		resultType="com.bit.bnb.host.model.HostModel">
-		select * from host order by bId DESC 
-	</select>
-	parameterType은 값을 검색, resultType은 이걸로 값을 받아오는것
-
-	<select id="read" resultType="com.bit.bnb.host.model.HostModel">
-		select * from host where bId =
-		#{bId}
-	</select>
-
-	<delete id="delete">
-		delete from host where bId = #{bId} 
+	<delete id="deletePost">
+		delete from hostBoard where postNo=#{postNo};
 	</delete>
-
-	<update id="update">
-		update host set bTitle=#{bTitle}, bContent=#{bContent},bUserId=#{bUserId} where bId=#{bId}
-	</update> -->
 
 </mapper>
 

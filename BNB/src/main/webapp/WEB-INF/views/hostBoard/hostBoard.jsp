@@ -32,7 +32,7 @@
 		<tr class="row" style="margin-right:0px;">
 			<td class="col-1">${post.postNo}</td>
 			<td class="col-2">${post.nickName}</td>
-			<td class="col-6">${post.title}</td>
+			<td class="col-6 text-left"><a href="hostBoard/postView?postNo=${post.postNo }">${post.title}</a></td>
 			<td class="col-2"><fmt:formatDate value="${post.date}" pattern="yyyy-MM-dd hh:mm" /></td>
 			<td class="col-1">${post.viewCnt}</td>
 		</tr>  
@@ -46,11 +46,25 @@
 <div class="text-center">
 	<ul class="pagination justify-content-center">
 		<li class="page-item"><a class="page-link" href="hostBoard?page=1">&lt;&lt;</a></li>
-		<li class="page-item"><a class="page-link" href="hostBoard?page=${postListData.currentPageNumber-1}">이전</a></li>
+			
+			<c:if test="${postListData.currentPageNumber eq 1 }">
+				<li class="page-item disabled"><a class="page-link" href="hostBoard?page=${postListData.currentPageNumber-1}" tabindex="-1">이전페이지</a></li>
+			</c:if>
+			<c:if test="${postListData.currentPageNumber > 1 }">
+				<li class="page-item"><a class="page-link" href="hostBoard?page=${postListData.currentPageNumber-1}">이전페이지</a></li>
+			</c:if>
+			
 			<c:forEach var="num" begin="1" end="${postListData.pageTotalCount}">
 				<li class="page-item"><a class="page-link" href="hostBoard?page=${num}">${num}</a></li>
 			</c:forEach>
-	    <li class="page-item"><a class="page-link" href="hostBoard?page=${postListData.currentPageNumber+1}">다음</a></li>
+			
+			<c:if test="${postListData.currentPageNumber eq postListData.pageTotalCount}">
+				<li class="page-item disabled"><a class="page-link" href="hostBoard?page=${postListData.currentPageNumber+1}" tabindex="-1">다음페이지</a></li>
+			</c:if>
+			<c:if test="${postListData.currentPageNumber < postListData.pageTotalCount }">
+				<li class="page-item"><a class="page-link" href="hostBoard?page=${postListData.currentPageNumber+1}">다음페이지</a></li>
+			</c:if>
+	    
 	    <li class="page-item"><a class="page-link" href="hostBoard?page=${postListData.pageTotalCount}">&gt;&gt;</a></li>
 	</ul>
 </div>

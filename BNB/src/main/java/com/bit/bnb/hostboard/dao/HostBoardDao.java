@@ -45,6 +45,10 @@ public class HostBoardDao {
 		sqlSessionTemplate.selectOne(hostBoardMapper+".downPostTotalCount");
 	}
 	
+	public int deletePost(int postNo) {
+		return sqlSessionTemplate.delete(hostBoardMapper+".deletePost", postNo);
+	}
+	
 	/*public void create(PostVO hostModel) throws Exception;
 	
 	public List<PostVO> listAll() throws Exception;

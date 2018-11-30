@@ -53,10 +53,19 @@ public class HostBoardService {
 	}
 	
 	// 전체 게시물 개수
+	@Transactional
 	public int getPostTotalCount() {
 		int totalCount = hostBoardDao.getPostTotalCount();
 		return totalCount;
 	}
 	
+	// 게시물 보기
+	@Transactional
+	public PostVO getPostView(int postNo) {
+		PostVO post = new PostVO();
+		post = hostBoardDao.selectPost(postNo);
+		
+		return post;
+	}
 	
 }

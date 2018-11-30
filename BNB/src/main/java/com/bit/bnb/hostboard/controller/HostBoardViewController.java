@@ -1,5 +1,7 @@
 package com.bit.bnb.hostboard.controller;
 
+import java.io.InputStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,25 +9,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.hostboard.model.PageView;
+import com.bit.bnb.hostboard.model.PostVO;
 import com.bit.bnb.hostboard.service.HostBoardService;
 
 @Controller
-public class HostBoardListController {
+public class HostBoardViewController {
 
 	@Autowired
 	private HostBoardService hostBoardService;
-	
-	/*@RequestMapping("/host")
-	public ModelAndView getHostBoardList() {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		List<PostVO> postList = hostBoardService.getPostList();
 
-		modelAndView.addObject("postList", postList);
-		modelAndView.setViewName("hostBoard/hostBoard");
-		return modelAndView;
-	}*/
-	
+	// 호스트보드 페이지 보여주기
 	@RequestMapping("/hostBoard")
 	public ModelAndView getHostBoardList(@RequestParam(value="page", defaultValue="1") int page) {
 		
@@ -47,4 +40,22 @@ public class HostBoardListController {
 		
 		return modelAndView;
 	}
+	
+	
+	// 게시물 내용 보여주기
+	@RequestMapping("/hostBoard/postView")
+	public ModelAndView getPostView(@RequestParam("postNo") int postNo) {
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("hostBoard/postView");
+		PostVO post = new PostVO();
+		post = hostBoardService.getPostView(postNo);
+		modelAndView.addObject("post", post);
+		
+		return modelAndView;
+		
+	}
+	
+	
+	
 }
