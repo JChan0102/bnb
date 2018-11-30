@@ -26,7 +26,7 @@ public class HostBoardListController {
 		return modelAndView;
 	}*/
 	
-	@RequestMapping("/host")
+	@RequestMapping("/hostBoard")
 	public ModelAndView getHostBoardList(@RequestParam(value="page", defaultValue="1") int page) {
 		
 		ModelAndView modelAndView = new ModelAndView();

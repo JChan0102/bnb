@@ -29,7 +29,7 @@
                 class="fas fa-user-check"></i> 사용자평가</a> <a
                 class="list-group-item list-group-item-action"
                 id="list-messages-list"
-                href="${pageContext.request.contextPath}/host"><i
+                href="${pageContext.request.contextPath}/hostBoard"><i
                 class="far fa-list-alt"></i> 호스트게시판</a> <a
                 class="list-group-item list-group-item-action"
                 id="list-settings-list" data-toggle="list" href="#list-settings"

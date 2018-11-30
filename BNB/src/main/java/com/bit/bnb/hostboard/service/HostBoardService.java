@@ -35,7 +35,7 @@ public class HostBoardService {
 		int firstRow = 0;
 
 		if(postTotalCount > 0) {
-			firstRow = (pageNumber - 1) * postCountPerPage + 1;
+			firstRow = (pageNumber - 1) * postCountPerPage;
 			map.put("firstRow", firstRow);
 			map.put("postCountPerPage", postCountPerPage);
 			System.out.println("map: "+map);

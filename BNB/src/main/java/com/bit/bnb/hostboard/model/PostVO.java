@@ -9,7 +9,7 @@ public class PostVO {
 	private String nickName;
 	private String title;
 	private String content;
-	private String date;
+	private Date date;
 	private int viewCnt;
 
 	public int getPostNo() {
@@ -52,11 +52,11 @@ public class PostVO {
 		this.content = content;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
