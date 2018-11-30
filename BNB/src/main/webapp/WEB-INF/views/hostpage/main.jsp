@@ -12,7 +12,7 @@
 <body style=" overflow-x: hidden">
 <%@ include file="/resources/common/Navbar.jsp" %>
 
-
+   
 <div class="row justify-content-center">
     <div class="col-2">
         <div class="list-group" id="list-tab" role="tablist">

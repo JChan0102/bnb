@@ -4,22 +4,6 @@
 <html>
 <%@ include file="/resources/common/includeHead.jsp"%>
 <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
-<style>
-.img_overlay {
-    position: relative;
-}
-
-.img_overlay::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /* Adjust the color values to achieve desired darkness */
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.25));
-}
-</style>
 </head>
 <body id="mainback">
 	<%@ include file="/resources/common/Navbar.jsp"%>
