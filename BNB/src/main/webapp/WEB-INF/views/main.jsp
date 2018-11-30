@@ -3,19 +3,138 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="/resources/common/includeHead.jsp"%>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
+<style>
+.img_overlay {
+    position: relative;
+}
+
+.img_overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Adjust the color values to achieve desired darkness */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.25));
+}
+</style>
 </head>
 <body id="mainback">
 	<%@ include file="/resources/common/Navbar.jsp"%>
-	<div class="row justify-content-md-center">
-		<div class="col-6">
-			<h1>둘러보기</h1>
+	<div class="row justify-content-between" style="margin:0px;">
+		<div class="col-5">
+			<h1 style="text-align: center;">당신의 숙소를 찾아보세요!</h1>
+			<div id="booking" class="section">
+		<div class="section-center">
+			<div class="container">
+				<div class="row">
+					<div class="booking-form">
+						<form>
+							<div class="row no-margin">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<span class="form-label">Check In</span>
+										<input class="form-control" type="date" required>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<span class="form-label">Check Out</span>
+										<input class="form-control" type="date" required>
+									</div>
+								</div>
+							</div>
+							<div class="row no-margin">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<span class="form-label">성인</span>
+										<select class="form-control">
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<span class="form-label">어린이</span>
+										<select class="form-control">
+											<option>0</option>
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<span class="form-label">목적지</span>
+								<input class="form-control" type="text" placeholder="목적지를 입력하세요.">
+							</div>
+							<div class="form-group">
+								<span class="form-label">Email</span>
+								<input class="form-control" type="email" placeholder="Enter your email">
+							</div>
+							<div class="form-group">
+								<span class="form-label">Phone</span>
+								<input class="form-control" type="tel" placeholder="Enter your phone number">
+							</div>
+							<div class="form-btn">
+								<button class="submit-btn">Book Now</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="col-4 text-center">
+	</div>
+		</div>
+		<div class="col-3">
+		<h1 style="text-align: center;">둘러보기</h1>
+			<%-- <div class="card" style="top:10px;">
+      			<div class="card-body">
+      				<img src="${pageContext.request.contextPath}/resources/images/bed.jpg" style="width:100px;">
+        			<h5 class="card-title">숙소</h5>
+        			<p class="card-text">멋진 숙소를 둘러보세요</p>
+        			<a href="#" class="btn btn-primary">보러가기</a>
+      			</div>
+   			</div> --%>
+   			<a href="${pageContext.request.contextPath}/rooms">
+   			<div class="card text-white" style="top:10px;">
+   			<div class="img_overlay">
+			  <img class="card-img" src="${pageContext.request.contextPath}/resources/images/bed.jpg" style="height: 200px;">
+			</div>
+			  <div class="card-img-overlay">
+			    <h5 class="card-title"><b>숙소</b></h5>
+			    <p class="card-text"><b>대한민국의 다양하고 멋진 숙소를 둘러보세요<br>여러분을 기다리고 있습니다!</b></p>
+			  </div>
+			</div>
+			</a>
+			
+			<a href="#">
+   			<div class="card text-white" style="margin-top:50px;">
+   			<div class="img_overlay">
+			  <img class="card-img" src="${pageContext.request.contextPath}/resources/images/trip.jpg" style="height: 200px;">
+			</div>
+			  <div class="card-img-overlay">
+			    <h5 class="card-title"><b>관광지</b></h5>
+			    <p class="card-text"><b>당신의 여행을 더 멋지게 만들어줄<br>관광지를 찾아보세요!</b></p>
+			  </div>
+			</div>
+			</a>
+		</div>
+		<div class="col-4 text-center" style="float: right;">
 			<div class="vis-weather">
-				<h1 class="vh_hide">전국 실시간 날씨정보</h1>
-				<p class="weather-date"></p> 
-				<ul class="list-group list-group-flush weather">  
+			<h1>전국 날씨</h1>
+				<ul class="list-group list-group-flush weather" style="width:300px; margin-left:110px;font-weight: 600;">  
 					<!-- <li class="list-group-item weather"></li> -->
 				</ul>
 			</div>
@@ -48,9 +167,9 @@
 								{'region':'경상남도', 'nx':90, 'ny':77},{'region':'경상북도', 'nx':91, 'ny':106},
 								{'region':'제주도', 'nx':52, 'ny':38}];
 
-							$('.weather-date').html(
+							/* $('.weather-date').html(
 									month + "월 " + day + "일 "
-											+ week[today.getDay()] + "요일");
+											+ week[today.getDay()] + "요일"); */
 
 							/* 동네예보 시간이 0200 0500 ... 3시간 단위로 23시까지 */
 							for (var i = 0; i < hours_al.length; i++) {
@@ -118,6 +237,7 @@
 																}
 											 });
 
+											 /* style="background-color: transparent;" */
 											$('.weather').append('<li class="list-group-item weather_li'+j+'"></li>');
 											$('.weather_li'+j).addClass('in'+j);
 											$('.in'+j).html(temp + " ℃"); //온도 
@@ -127,34 +247,34 @@
 												switch (rain) {
 												case '1':
 													$('.in'+j).append("비");
-													$('.in'+j).append('&emsp;<i class="fas fa-cloud-showers-heavy"></i>');
+													$('.in'+j).prepend('<i class="fas fa-cloud-showers-heavy"></i>&emsp;');
 													break;
 												case '2':
 													$('.in'+j).append("비/눈");
-													$('.in'+j).append('&emsp;<i class="fas fa-cloud-rain"></i>');
+													$('.in'+j).prepend('<i class="fas fa-cloud-rain"></i>&emsp;');
 													break;
 												case '3':
 													$('.in'+j).append("눈");
-													$('.in'+j).append('&emsp;<i class="fas fa-snowflake"></i>');
+													$('.in'+j).prepend('<i class="fas fa-snowflake"></i>&emsp;');
 													break;
 												}
 											} else {
 												switch (sky) {
 												case '1':
 													$('.in'+j).append(" / 맑음");
-													$('.in'+j).append('&emsp;<i class="fas fa-sun"></i>');
+													$('.in'+j).prepend('<i class="fas fa-sun"></i>&emsp;');
 													break;
 												case '2':
 													$('.in'+j).append(" / 구름조금");
-													$('.in'+j).append('&emsp;<i class="fas fa-cloud-sun"></i>');
+													$('.in'+j).prepend('<i class="fas fa-cloud-sun"></i>&emsp;');
 													break;
 												case '3':
 													$('.in'+j).append(" / 구름많음");
-													$('.in'+j).append('&emsp;<i class="fas fa-cloud"></i>');													
+													$('.in'+j).prepend('<i class="fas fa-cloud"></i>&emsp;');													
 													break;
 												case '4':
 													$('.in'+j).append(" / 흐림");
-													$('.in'+j).append('&emsp;<i class="fas fa-smog"></i>');
+													$('.in'+j).prepend('<i class="fas fa-smog"></i>&emsp;');
 													break;
 												}
 											}//if 종료
