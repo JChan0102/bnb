@@ -33,7 +33,7 @@ public class RoomsRegController {
 		ModelAndView modelAndView = new ModelAndView();
 		// 줄 바꿈 처리
 		rv.setDetails(rv.getDetails().replaceAll("\r\n", "<br>"));
-
+		System.out.println(rv);
 		// 숙소등록에 성공하였을 경우
 		if (roomsRegService.regRooms(rv) > 0) {
 			modelAndView.setViewName("redirect:/rooms");
@@ -43,14 +43,13 @@ public class RoomsRegController {
 			rimgv.setRoomsId(rv.getRoomsId());
 			// for 이미지처리
 
-			System.out.println(filenames);
 			for (int i = 0; i < filenames.length; i++) {
 				// 왜인지 모르겠으나 [, ", ]이 포함되어서 replace 처리
 				rimgv.setFilename(filenames[i].replace("\"", "").replace("[", "").replace("]", ""));
-				rimgv.setPriority(i+1);
+				rimgv.setPriority(i + 1);
 				roomsRegService.insertRoomsPhoto(rimgv);
+				System.out.println(filenames[i]);
 			}
-			System.out.println(filenames.toString());
 
 		} else {
 			modelAndView.addObject("msg", "등록에 실패하였습니다.");

@@ -56,20 +56,23 @@ public class RoomsModifyController {
 		// 줄 바꿈 처리
 		rv.setDetails(rv.getDetails().replaceAll("\r\n", "<br>"));
 
-		System.out.println("filenamesOrg"+filenamesOrg.toString());
-		
 		// 이미지 수정 관련
 		RoomsImgVO rimgv = new RoomsImgVO();
 		rimgv.setRoomsId(rv.getRoomsId());
+		roomsModifyService.deleteRoomImage(rimgv);
+		System.out.println(rimgv);
 
 		for (int i = 0; i < filenames.length; i++) {
 			// 왜인지 모르겠으나 [, ", ]이 포함되어서 replace 처리
 			filenames[i] = filenames[i].replace("\"", "").replace("[", "").replace("]", "");
+			// System.out.println("filenames : " + filenames[i]);
 		}
 
 		for (int i = 0; i < filenamesOrg.length; i++) {
 			// 왜인지 모르겠으나 [, ", ]이 포함되어서 replace 처리
+			// System.out.println("filenamesOrg : " + filenamesOrg[i]);
 			filenamesOrg[i] = filenamesOrg[i].replace("\"", "").replace("[", "").replace("]", "");
+			// System.out.println("filenamesOrg : " + filenamesOrg[i]);
 		}
 
 		// 연산을 위해 변환
@@ -79,29 +82,30 @@ public class RoomsModifyController {
 		int priority = 1; // 우선순위 초기화
 		for (int i = 0; i < filenamesOrgList.size(); i++) {
 			// 기존재 파일이 현재 파일 리스트에 추가 되어 있을 경우
-			if (filenamesList.contains(filenamesOrgList.get(i))) {
-				System.out.println(filenamesOrgList.get(i));
-				// 업데이트 처리
-				rimgv.setFilename(filenamesOrgList.get(i));
-				rimgv.setPriority(priority);
-				roomsModifyService.updateRoomsPhoto(rimgv);
-				priority++;
-				// 업데이트 처리 하였으므로 현재 파일 리스트에서 제거
-				// filenamesList.remove(filenamesList.indexOf(filenamesOrgList.get(i)));
-			} else { // 기존재 파일이 현재 파일 리스트에 존재하지 않을 경우
-				// 삭제 처리
-				System.out.println(filenamesOrgList.get(i)+"삭제");
-				System.out.println(rimgv);
-				System.out.println("----------------");
-				rimgv.setFilename(filenamesOrgList.get(i));
-				rimgv.setPriority(0); // 삭제를 위해 0 처리, mybatis에서 =0일 경우 검색 조건 불충족으로 검색 제외
-				roomsModifyService.deleteRoomImage(rimgv);
-			}
+//			roomsModifyService.insertRoomsPhoto(rimgv);
+//			if (filenamesList.contains(filenamesOrgList.get(i))) {
+//				System.out.println(filenamesOrgList.get(i));
+//				// 업데이트 처리
+//				rimgv.setFilename(filenamesOrgList.get(i));
+//				rimgv.setPriority(priority);
+//				priority++;
+//				// 업데이트 처리 하였으므로 현재 파일 리스트에서 제거
+//				// filenamesList.remove(filenamesList.indexOf(filenamesOrgList.get(i)));
+//			} else { // 기존재 파일이 현재 파일 리스트에 존재하지 않을 경우
+//				// 삭제 처리
+//				System.out.println(filenamesOrgList.get(i) + " : 삭제");
+//				System.out.println(rimgv);
+//				System.out.println("----------------");
+//				rimgv.setFilename(filenamesOrgList.get(i));
+//				rimgv.setPriority(0); // 삭제를 위해 0 처리, mybatis에서 =0일 경우 검색 조건 불충족으로 검색 제외
+//				roomsModifyService.deleteRoomImage(rimgv);
+//			}
 		}
 
-		for (int i = priority; i < filenamesList.size(); i++) {
-			rimgv.setFilename(filenamesList.get(i));
+		for (int i = priority; i < filenamesList.size() + 1; i++) {
+			rimgv.setFilename(filenamesList.get(i - 1));
 			rimgv.setPriority(priority);
+			// System.out.println(rimgv);
 			roomsModifyService.insertRoomsPhoto(rimgv);
 			priority++;
 		}

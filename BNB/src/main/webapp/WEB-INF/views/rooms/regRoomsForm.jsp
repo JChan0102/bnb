@@ -20,9 +20,9 @@
 				});
 				$('#amenities').val(check);
 			});
-			
+
 			$("#submitBtn").click(function() {
-				if (filenames.length != 0){
+				if (filenames.length != 0) {
 					$('#filenames').val(JSON.stringify(filenames));
 					/* var outputStr = '';
 					for (i=0; i<filename.length; i++){
@@ -31,7 +31,9 @@
 					outputStr = outputStr.substring(0, outputStr.length-1);
 					$('#filenames').val(outputStr); */
 					$('#RegRoomSubmit').submit();
-				} else {					
+				} else if ($('#address').val() == "") {
+					alert("주소를 입력해 주세요!");
+				} else {
 					alert("사진을 등록해 주세요!");
 				}
 			});
@@ -51,9 +53,9 @@
 				<table class="table">
 					<tr>
 						<td class="w-25 text-center">호스트 아이디</td>
-						<td class="w-75"><input type="text" class="form-control text-center"
-							readonly="readonly" value="${loginUser.userId}" id="hostId"
-							name="hostId"></td>
+						<td class="w-75"><input type="text"
+							class="form-control text-center" readonly="readonly"
+							value="${loginUser.userId}" id="hostId" name="hostId"></td>
 					</tr>
 					<tr>
 						<td class="text-center">소개</td>
@@ -120,30 +122,33 @@
 					</tr>
 					<tr>
 						<td class="text-center">체크인</td>
-						<td class="text-center"><input type="time" class="form-control text-center" id="time_checkin"
+						<td class="text-center"><input type="time"
+							class="form-control text-center" id="time_checkin"
 							name="time_checkin" value="14:00"></td>
 					</tr>
 					<tr>
 						<td class="text-center">체크아웃</td>
-						<td class="text-center"><input type="time" class="form-control text-center"
-							id="time_checkout" name="time_checkout" value="12:00"></td>
+						<td class="text-center"><input type="time"
+							class="form-control text-center" id="time_checkout"
+							name="time_checkout" value="12:00"></td>
 					</tr>
 					<tr>
 						<td class="text-center">주중가격</td>
-						<td class="text-center"><input type="number" class="form-control"
-							id="price_weekdays" name="price_weekdays" value="0" min="0"
-							max="1000000000" step="1000"></td>
+						<td class="text-center"><input type="number"
+							class="form-control" id="price_weekdays" name="price_weekdays"
+							value="0" min="0" max="1000000000" step="1000"></td>
 					</tr>
 					<tr>
 						<td class="text-center">주말가격</td>
-						<td class="text-center"><input type="number" class="form-control"
-							id="price_weekend" name="price_weekend" value="0" min="0"
-							max="1000000000" step="1000" class="form-control"></td>
+						<td class="text-center"><input type="number"
+							class="form-control" id="price_weekend" name="price_weekend"
+							value="0" min="0" max="1000000000" step="1000"
+							class="form-control"></td>
 					</tr>
 					<tr>
 						<td class="text-center">주소</td>
-						<td><input type="text" class="form-control text-center" id="address"
-							name="address" required="required"></td>
+						<td><input type="text" class="form-control text-center"
+							id="address" name="address" required="required"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><div id="map"
@@ -169,7 +174,7 @@
 					<tr>
 						<td colspan="2" class="text-center"><input type="hidden"
 							id="roomsId" name="roomsId" value="0"><input
-							type="hidden" id="disabled" name="disabled" value="1"><input
+							type="hidden" id="disabled" name="disabled" value="0"><input
 							type="hidden" id="filenames" name="filenames"><input
 							type="button" class="btn btn-danger" id="submitBtn" value="등록하기"></td>
 					</tr>
@@ -240,7 +245,7 @@
 		}
 		// 여기부터
 		function deleteImage(that) {
-			$
+			/* $
 					.ajax({
 						// async : false,
 						type : 'GET',
@@ -267,7 +272,11 @@
 							console.log(error);
 							console.log(error.status);
 						}
-					});
+					}); */
+			filenames.splice(filenames.indexOf($(that).attr("id")), 1);
+			if (filenames.length == 0) {
+				drawThumbnail(filenames);
+			}
 			console.log(filenames);
 		};
 	</script>
