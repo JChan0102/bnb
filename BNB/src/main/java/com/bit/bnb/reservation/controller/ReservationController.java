@@ -24,7 +24,7 @@ public class ReservationController {
 	SimpleRegistrationNotifier noti;
 	@Autowired
 	ReservationDepositService depositService;
-	
+
 	int check = 0;
 	
 	@RequestMapping(value = "/reservation", method = RequestMethod.GET)

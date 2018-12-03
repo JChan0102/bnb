@@ -26,6 +26,7 @@ public class UploadController {
 	public String fileUpload(MultipartHttpServletRequest multi, @RequestParam("imgidx") int imgidx) {
 
 		// 저장 경로
+		System.out.println(multi.getSession().getServletContext().getRealPath("/"));
 		String root = multi.getSession().getServletContext().getRealPath("/");
 		String path = root + "resources/upload/";
 		String newFileName = "";

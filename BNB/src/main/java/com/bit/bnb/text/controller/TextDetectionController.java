@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bit.bnb.text.service.TextDetectionService;
 import com.bit.bnb.text.service.UserUpdateService;
@@ -34,10 +37,7 @@ public class TextDetectionController {
 	
 	@RequestMapping(value="/textDetection", method =RequestMethod.POST)
 	@ResponseBody
-	public int infoUpdate(String userId, HttpSession session, HttpServletRequest request) {
-		
-		System.out.println(request.getParameter("imgData"));
-		
+	public int infoUpdate(String userId, HttpSession session/*, @RequestParam("file") MultipartFile file*/) {
 		int check = service2.userUpdate(userId);
 		
 		if(check == 1) {
