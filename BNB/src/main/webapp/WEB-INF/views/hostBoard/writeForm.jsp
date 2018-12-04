@@ -2,41 +2,52 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/resources/common/includeHead.jsp"%>
+<%@ include file="/resources/common/Navbar.jsp"%>
 <html>
 <head>
-
-<script>
+<!-- include summernote css/js-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css" rel="stylesheet">
+    
+<!-- <script>
 $(document).ready(function() {
 	$('#submitBtn').click(function() {
 		$('#content').val($('#content').val().replace(/\n/g, '<br>'));
 		$('#target').submit();
 	});
 });
-</script>
+</script> -->
 </head>
 <body>
-<h1>게시글작성</h1>
-<form method="post" id="target">
-	<table>
-		<tr>
-			<th width="100">작성자</th>
-			<td>
-			<input type="hidden" value="${loginUser.userId}" name="userId" size="50" readonly/>
-			<input type="text" value="${loginUser.nickName}" name="nickName" size="50" readonly/>
-			</td>
-		</tr>
-		<tr>
-			<th>제목</th>
-			<td><input type="text" name="title" size="50"
-				 required="required"></td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td><textarea id="content" name="content" rows="10"
-					 required="required"></textarea></td>
-		</tr>
-	</table>
-	<br> <input type="submit" id="submitBtn" value="입력">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
+<div class="container">
+<h2>포스팅하기</h2>
+<hr>
+<div class="panel panel-info">
+ <form method="post">
+<div class="panel-heading"><input type="text" name="title" placeholder="제목" />
+
+<input type="hidden" name="userId" value="${loginUser.userId }" readonly />
+<input type="hidden" name="nickName" value="${loginUser.nickName }" readonly/>
+</div>
+
+<div class="panel-body">
+<textarea id="summernote" name="content"></textarea>
+</div>
+<input type="submit" value="입력">
+
 </form>
+</div>
+</div>
+<script>
+$('#summernote').summernote({
+	  height: 300,                 // set editor height
+	  minHeight: null,             // set minimum height of editor
+	  maxHeight: null,             // set maximum height of editor
+	  focus: true                  // set focus to editable area after initializing summernote
+	});
+</script>
+
+
 </body>
 </html>

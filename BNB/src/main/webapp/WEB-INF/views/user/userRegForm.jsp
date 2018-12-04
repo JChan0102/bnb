@@ -215,7 +215,7 @@
 			if(userId != '' && userId != null){
 				$.ajax({
 				type: "GET",
-				url: "userIdChk",
+				url: "${pageContext.request.contextPath}/userIdChk",
 				data: {"userId" : userId},
 				success: function(data){
 					if(data == "n") {
@@ -243,7 +243,7 @@
 			if(nName != '' && nName != null){
 				$.ajax({
 				type: "GET",
-				url: "user/nickNameChk",
+				url: "${pageContext.request.contextPath}/user/nickNameChk",
 				data: {"nickName" : nName},
 				success: function(data){
 					if(data == "n") {
@@ -272,7 +272,7 @@
                 
                 $.ajax({
     				type: "GET",
-    				url: "user/nickNameChk",
+    				url: "${pageContext.request.contextPath}/user/nickNameChk",
     				data: {"nickName" : nName},
     				success: function(data){
     					if(data == "n") {

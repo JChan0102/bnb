@@ -41,9 +41,6 @@ public class HostBoardService {
 			System.out.println("map: "+map);
 			postList = hostBoardDao.getPostList(map);
 			System.out.println("postList : "+ postList);
-		}else {
-			currentPageNumber = 0;
-			postList = Collections.emptyList();
 		}
 		
 		PageView pageView = new PageView(postList, postTotalCount, currentPageNumber, postCountPerPage, firstRow);

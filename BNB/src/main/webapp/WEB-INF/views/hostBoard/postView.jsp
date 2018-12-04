@@ -16,13 +16,21 @@
 	<h1>POST VIEW!</h1>
 	<hr>
 	<div class="table-responsive">
-		<div style="padding-left:10px; border-bottom:1px solid lightgrey;"><h3>${post.title}</h3></div>
+		<div style="height:40px; border-bottom:1px solid lightgrey;">
+			<div style="float:left; margin-left:10px;"><h3>${post.title }</h3></div>
+			<div style="float:right; margin-right:10px;"><a class="btn btn-primary" role="button" onclick="return confirm('정말 삭제하시겠습니까?');" href="${pageContext.request.contextPath}/hostBoard/deletePost?postNo=${post.postNo}">삭제</a></div>
+			<%-- <h3 style="float:left;">${post.title}</h3>
+			<button style="float:right;">삭제</button> --%>
+		</div>
 		<div>
-			<div style="float:left; padding:10px;">${post.nickName}</div>
-			<div style="float:right; padding:10px;">${post.date}</div>
+			<div style="float:left;">${post.nickName}</div>
+			<div style="float:right;"><fmt:formatDate value="${post.date}" pattern="yyyy-MM-dd HH:mm" /></div>
 		</div>
 		
-		<div style="padding:10px; margin-top:50px;">${post.content }</div>		
+		<div style="padding:10px; margin-top:50px;">${post.content }</div>
+		<div> 
+			<div style="border: 1px solid lightgrey"></div>
+		</div>		
 	</div>
 </div>
 </body>

@@ -28,7 +28,7 @@ public class PageView {
 
 	private void clacPageTotalCount() {
 		if (postTotalCount == 0) {
-			pageTotalCount = 0;
+			pageTotalCount = 1;
 		} else {
 			pageTotalCount = postTotalCount / postCountPerPage;
 			if (postTotalCount % postCountPerPage > 0) {
@@ -40,9 +40,18 @@ public class PageView {
 	public void calcDisplayPageNumber() {
 		endPage = (int)(Math.ceil(this.getCurrentPageNumber() / (double) displayPageNumber) * displayPageNumber);
 		startPage = (endPage - displayPageNumber) + 1;
+		
 		if(endPage>pageTotalCount) {
 			endPage = pageTotalCount;
+		} else if(endPage == 0) {
+			endPage = 1;
+			startPage = 1;
 		}
+		
+		
+		System.out.println("STARTPAGE : " + startPage);
+		System.out.println("ENDPAGE : " + endPage);
+		
 	}
 
 	public int getPostTotalCount() {

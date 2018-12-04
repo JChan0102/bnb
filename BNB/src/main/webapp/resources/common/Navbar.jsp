@@ -423,6 +423,8 @@
 	
 	// 로그인 모달창 열때 아이디나 비밀번호 인풋박스에 포커스
 	$('#layerpop').on('shown.bs.modal', function() {
+		
+		$('#btn-login').html('로그인');
 
 		if ($('#input_userId').val() == null) {
 			$('#input_userId').focus();
@@ -446,6 +448,8 @@
 		var userPw = $('#input_userPw').val();
 		var rememberMe = $('#chk_rememberMe').is(':checked');
 		var result = "";
+		
+		$('#btn-login').html('로그인 중...');
 
 		$.ajax({
 			type : "POST",
