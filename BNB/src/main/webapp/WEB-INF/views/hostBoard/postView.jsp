@@ -12,13 +12,16 @@
 <%@ include file="/resources/common/includeHead.jsp"%>
 <%@ include file="/resources/common/Navbar.jsp"%>
 
-<div class="container">
+<div class="container" style="margin-bottom:100px;">
 	<h1>POST VIEW!</h1>
 	<hr>
 	<div class="table-responsive">
 		<div style="height:40px; border-bottom:1px solid lightgrey;">
 			<div style="float:left; margin-left:10px;"><h3>${post.title }</h3></div>
-			<div style="float:right; margin-right:10px;"><a class="btn btn-primary" role="button" onclick="return confirm('정말 삭제하시겠습니까?');" href="${pageContext.request.contextPath}/hostBoard/deletePost?postNo=${post.postNo}">삭제</a></div>
+			<c:if test="${loginUser.userId eq post.userId }">
+				<div style="float:right; margin-right:10px;"><a class="btn btn-outline-primary" role="button" onclick="return confirm('정말 삭제하시겠습니까?');" href="${pageContext.request.contextPath}/hostBoard/deletePost?postNo=${post.postNo}">삭제</a></div>
+				<div style="float:right; margin-right:10px;"><a class="btn btn-outline-primary" role="button" onclick="return confirm('정말 삭제하시겠습니까?');" href="${pageContext.request.contextPath}/hostBoard/modifyPost?postNo=${post.postNo}">수정</a></div>
+			</c:if>
 			<%-- <h3 style="float:left;">${post.title}</h3>
 			<button style="float:right;">삭제</button> --%>
 		</div>
@@ -27,7 +30,14 @@
 			<div style="float:right;"><fmt:formatDate value="${post.date}" pattern="yyyy-MM-dd HH:mm" /></div>
 		</div>
 		
+
 		<div style="padding:10px; margin-top:50px;">${post.content }</div>
+
+		<hr>
+
+		<div style="float:right; height: 50px; margin-right:10px;"><a class="btn btn-outline-primary" role="button" href="${pageContext.request.contextPath}/hostBoard">목록</a></div>
+
+		<hr>
 		<div> 
 			<div style="border: 1px solid lightgrey"></div>
 		</div>		

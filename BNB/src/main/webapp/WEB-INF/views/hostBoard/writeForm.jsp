@@ -23,18 +23,22 @@ $(document).ready(function() {
 <div class="container">
 <h2>포스팅하기</h2>
 <hr>
-<div class="panel panel-info">
- <form method="post">
-<div class="panel-heading"><input type="text" name="title" placeholder="제목" />
+<div class="card">
+ <form method="post" id="writeForm">
+<div class="card card-header"><input type="text" id="writeTitle" name="title" placeholder="제목" />
 
 <input type="hidden" name="userId" value="${loginUser.userId }" readonly />
 <input type="hidden" name="nickName" value="${loginUser.nickName }" readonly/>
 </div>
 
-<div class="panel-body">
+<div>
 <textarea id="summernote" name="content"></textarea>
 </div>
-<input type="submit" value="입력">
+
+<div class="card card-footer" style="text-align: center">
+<div style="float:left"><button id="writeBtn" type="button" class="btn btn-primary">입력</button></div>
+<div style="float:right"><button type="button" class="btn btn-primary">취소</button></div>
+</div>
 
 </form>
 </div>
@@ -46,6 +50,15 @@ $('#summernote').summernote({
 	  maxHeight: null,             // set maximum height of editor
 	  focus: true                  // set focus to editable area after initializing summernote
 	});
+	
+	
+$('#writeBtn').click(function(){
+	if($('#writeTitle').val() == '' || $('#writeTitle').val() == null){
+		$('#writeTitle').val('제목없음');
+	}
+	$('#writeForm').submit();
+	
+});
 </script>
 
 
