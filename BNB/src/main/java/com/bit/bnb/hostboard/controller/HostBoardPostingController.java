@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bit.bnb.hostboard.model.ModifyVO;
 import com.bit.bnb.hostboard.model.PostVO;
+import com.bit.bnb.hostboard.service.HostBoardService;
 import com.bit.bnb.hostboard.service.PostingService;
 
 @Controller
@@ -15,6 +17,9 @@ public class HostBoardPostingController {
 
 	@Autowired
 	private PostingService postingService;
+	
+	@Autowired
+	private HostBoardService hostBoardService;
 	
 	// 게시판 포스팅 폼 띄우기
 	@RequestMapping(value="/hostBoard/write", method=RequestMethod.GET)
@@ -29,7 +34,7 @@ public class HostBoardPostingController {
 	public ModelAndView writePost(PostVO postVO) {
 		int resultCnt = postingService.write(postVO);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/hostBoard");
+		modelAndView.setViewName("redirect:/hostBoard/postView?postNo="+postVO.getPostNo());
 		if(resultCnt != 1) {
 			modelAndView.setViewName("hostBoard/error");
 		}
@@ -50,4 +55,40 @@ public class HostBoardPostingController {
 		return result;
 	}
 
+	
+	// 게시물 수정 폼
+	@RequestMapping(value="/hostBoard/modifyPost", method=RequestMethod.GET)
+	public ModelAndView getModifyForm(@RequestParam("postNo") int postNo) {
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("hostBoard/modifyForm");
+		
+		PostVO post = new PostVO();
+		post = hostBoardService.getPost(postNo);
+		
+		modelAndView.addObject("post", post);
+		
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value="/hostBoard/modifyPost", method=RequestMethod.POST)
+	public String modifyPost(@RequestParam("title") String title,
+								   @RequestParam("content") String content,
+								   @RequestParam("postNo") int postNo) {
+		
+	System.out.println("타이틀 : " + title);	
+	System.out.println("본문 : " + content);
+	System.out.println("번호 : " + postNo);
+	
+	
+	ModifyVO modifyVO = new ModifyVO();
+	modifyVO.setTitle(title);
+	modifyVO.setContent(content);
+	modifyVO.setPostNo(postNo);
+	
+	int resultCnt = postingService.modifyPost(modifyVO);
+		
+		return "redirect:/hostBoard/postView?postNo="+postNo;
+	}
 }

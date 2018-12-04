@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.bnb.hostboard.dao.HostBoardDao;
+import com.bit.bnb.hostboard.model.ModifyVO;
 import com.bit.bnb.hostboard.model.PostVO;
 
 @Service
@@ -33,5 +34,11 @@ public class PostingService {
 			hostBoardDao.downPostTotalCount();
 		}
 		return resultCnt;
+	}
+	
+	// 게시물 수정
+	@Transactional
+	public int modifyPost(ModifyVO modifyVO) {
+		return hostBoardDao.modifyPost(modifyVO);
 	}
 }

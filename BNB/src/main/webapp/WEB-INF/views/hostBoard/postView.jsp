@@ -20,10 +20,9 @@
 			<div style="float:left; margin-left:10px;"><h3>${post.title }</h3></div>
 			<c:if test="${loginUser.userId eq post.userId }">
 				<div style="float:right; margin-right:10px;"><a class="btn btn-outline-primary" role="button" onclick="return confirm('정말 삭제하시겠습니까?');" href="${pageContext.request.contextPath}/hostBoard/deletePost?postNo=${post.postNo}">삭제</a></div>
-				<div style="float:right; margin-right:10px;"><a class="btn btn-outline-primary" role="button" onclick="return confirm('정말 삭제하시겠습니까?');" href="${pageContext.request.contextPath}/hostBoard/modifyPost?postNo=${post.postNo}">수정</a></div>
+				<div style="float:right; margin-right:10px;"><a class="btn btn-outline-primary" role="button" href="${pageContext.request.contextPath}/hostBoard/modifyPost?postNo=${post.postNo}">수정</a></div>
 			</c:if>
-			<%-- <h3 style="float:left;">${post.title}</h3>
-			<button style="float:right;">삭제</button> --%>
+		
 		</div>
 		<div>
 			<div style="float:left;">${post.nickName}</div>

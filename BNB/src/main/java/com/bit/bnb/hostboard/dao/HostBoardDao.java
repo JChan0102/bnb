@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bit.bnb.hostboard.model.ModifyVO;
 import com.bit.bnb.hostboard.model.PostVO;
 
 @Repository
@@ -47,6 +48,10 @@ public class HostBoardDao {
 	
 	public int deletePost(int postNo) {
 		return sqlSessionTemplate.delete(hostBoardMapper+".deletePost", postNo);
+	}
+	
+	public int modifyPost(ModifyVO modifyVO) {
+		return sqlSessionTemplate.update(hostBoardMapper+".modifyPost", modifyVO);
 	}
 	
 	/*public void create(PostVO hostModel) throws Exception;

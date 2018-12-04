@@ -26,16 +26,20 @@
 		select postTotalCount from postTotalCount where idx=1
 	</select>
 	
+	<update id="modifyPost" parameterType="com.bit.bnb.hostboard.model.ModifyVO">
+		update hostBoard set title=#{title}, content=#{content} where postNo=#{postNo}
+	</update>
+	
 	<update id="upPostTotalCount">
-		update postTotalCount set postTotalCount = postTotalCount + 1 where idx=1;
+		update postTotalCount set postTotalCount = postTotalCount + 1 where idx=1
 	</update>
 	
 	<update id="downPostTotalCount">
-		update postTotalCount set postTotalCount = postTotalCount - 1 where idx=1;
+		update postTotalCount set postTotalCount = postTotalCount - 1 where idx=1
 	</update>
 
 	<delete id="deletePost">
-		delete from hostBoard where postNo=#{postNo};
+		delete from hostBoard where postNo=#{postNo}
 	</delete>
 
 </mapper>

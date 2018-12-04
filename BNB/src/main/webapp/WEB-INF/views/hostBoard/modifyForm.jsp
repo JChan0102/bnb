@@ -24,20 +24,18 @@ $(document).ready(function() {
 <h2>포스팅하기</h2>
 <hr>
 <div class="card">
- <form method="post" id="writeForm">
-<div class="card card-header"><input type="text" id="writeTitle" name="title" placeholder="제목" />
-
-<input type="hidden" name="userId" value="${loginUser.userId }" readonly />
-<input type="hidden" name="nickName" value="${loginUser.nickName }" readonly/>
+ <form method="post" id="modifyForm">
+<div class="card card-header"><input type="text" id="modifyTitle" name="title" value="${post.title }" placeholder="제목" />
+<input type="hidden" name="postNo" value="${post.postNo }" readonly/>
 </div>
 
 <div>
-<textarea id="summernote" name="content"></textarea>
+<textarea id="summernote" name="content">${post.content }</textarea>
 </div>
 
 <div class="card card-footer" style="text-align: center">
-<div style="float:left"><button id="writeBtn" type="button" class="btn btn-primary">입력</button></div>
-<div style="float:right"><button id="writeCancel" type="button" class="btn btn-primary">취소</button></div>
+<div style="float:left"><button id="modifyBtn" type="button" class="btn btn-primary">수정</button></div>
+<div style="float:right"><button id="modifyCancel" type="button" class="btn btn-primary">취소</button></div>
 </div>
 
 </form>
@@ -52,15 +50,15 @@ $('#summernote').summernote({
 	});
 	
 	
-$('#writeBtn').click(function(){
-	if($('#writeTitle').val() == '' || $('#writeTitle').val() == null){
-		$('#writeTitle').val('제목없음');
+$('#modifyBtn').click(function(){
+	if($('#modifyTitle').val() == '' || $('#modifyTitle').val() == null){
+		$('#modifyTitle').val('제목없음');
 	}
-	$('#writeForm').submit();
+	$('#modifyForm').submit();
 	
 });
 
-$('#writeCancel').click(function(){
+$('#modifyCancel').click(function(){
 	location.href = '${pageContext.request.contextPath}/hostBoard';
 	
 });

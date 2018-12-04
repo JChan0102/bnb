@@ -56,9 +56,9 @@ public class HostBoardService {
 		return totalCount;
 	}
 	
-	// 게시물 보기
+	// 게시물 가져오기
 	@Transactional
-	public PostVO getPostView(int postNo) {
+	public PostVO getPost(int postNo) {
 		PostVO post = new PostVO();
 		post = hostBoardDao.selectPost(postNo);
 		

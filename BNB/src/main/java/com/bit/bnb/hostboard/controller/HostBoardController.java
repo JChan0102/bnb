@@ -49,7 +49,7 @@ public class HostBoardController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("hostBoard/postView");
 		PostVO post = new PostVO();
-		post = hostBoardService.getPostView(postNo);
+		post = hostBoardService.getPost(postNo);
 		modelAndView.addObject("post", post);
 		
 		return modelAndView;
