@@ -54,6 +54,10 @@ public class HostBoardDao {
 		return sqlSessionTemplate.update(hostBoardMapper+".modifyPost", modifyVO);
 	}
 	
+	public int upViewCnt(int postNo) {
+		return sqlSessionTemplate.update(hostBoardMapper+".upViewCnt", postNo);
+	}
+	
 	/*public void create(PostVO hostModel) throws Exception;
 	
 	public List<PostVO> listAll() throws Exception;

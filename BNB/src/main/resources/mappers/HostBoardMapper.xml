@@ -41,6 +41,10 @@
 	<delete id="deletePost">
 		delete from hostBoard where postNo=#{postNo}
 	</delete>
+	
+	<update id="upViewCnt">
+		update hostBoard set viewCnt = viewCnt + 1 where postNo=#{postNo}
+	</update>
 
 </mapper>
 

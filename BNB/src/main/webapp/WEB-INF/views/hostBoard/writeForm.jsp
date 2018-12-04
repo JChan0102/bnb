@@ -44,6 +44,7 @@ $(document).ready(function() {
 </div>
 </div>
 <script>
+// 섬머노트
 $('#summernote').summernote({
 	  height: 300,                 // set editor height
 	  minHeight: null,             // set minimum height of editor
@@ -52,6 +53,7 @@ $('#summernote').summernote({
 	});
 	
 	
+	// 제목 안쓰면 제목없음으로
 $('#writeBtn').click(function(){
 	if($('#writeTitle').val() == '' || $('#writeTitle').val() == null){
 		$('#writeTitle').val('제목없음');
@@ -60,10 +62,12 @@ $('#writeBtn').click(function(){
 	
 });
 
+// 취소버튼 누르면 게시판 목록으로 돌아감
 $('#writeCancel').click(function(){
 	location.href = '${pageContext.request.contextPath}/hostBoard';
 	
 });
+
 </script>
 
 

@@ -49,8 +49,12 @@ public class HostBoardController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("hostBoard/postView");
 		PostVO post = new PostVO();
+		
 		post = hostBoardService.getPost(postNo);
 		modelAndView.addObject("post", post);
+		
+		//조회수 올리기
+		hostBoardService.upViewCnt(postNo);
 		
 		return modelAndView;
 		

@@ -65,4 +65,9 @@ public class HostBoardService {
 		return post;
 	}
 	
+	// 게시물 조회수 올리기
+	public void upViewCnt(int postNo) {
+		hostBoardDao.upViewCnt(postNo);
+	}
+	
 }
