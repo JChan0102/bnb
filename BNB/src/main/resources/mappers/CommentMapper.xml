@@ -14,6 +14,10 @@
 		select * from comment where postNo=#{postNo} order by commentNo desc
 	</select>
 	
+	<select id="getCommentOne" resultType="com.bit.bnb.hostboard.model.CommentVO">
+		select * from comment where commentNo=#{commentNo}
+	</select>
+	
 	<update id="modifyComment">
 		update comment set commentContent=#{commentContent} where commentNo=#{commentNo}
 	</update>

@@ -40,7 +40,7 @@
 				<input id="postNo" type="hidden" value="${post.postNo }">
 				<input id="nickName" type="text" class="form-control" style="float:left;" value="${loginUser.nickName }" readonly />
 				<textarea id="commentContent" class="form-control" style="height:100px;"></textarea>
-				<a class="btn btn-outline-primary" role="button" id="commentBtn" href="#">댓글달기</a>
+				<a class="btn btn-outline-primary" role="button" id="commentBtn">댓글달기</a>
 				<!-- <input type="submit" value="댓글달기" style="float:right;"> -->
 			</div>
 		</div>
@@ -55,15 +55,15 @@
 		
 			<c:if test="${commentList ne null }">
 			<c:forEach var="comment" items="${commentList}">
-			<div class="card card-body">
+			<div class="card card-body" id="commentOne_${comment.commentNo }">
 				작성자 : ${comment.nickName } <br>
 				작성일 : <fmt:formatDate value="${comment.commentDate }" pattern="yyyy-MM-dd HH:mm" /><br>
 				내용 : ${comment.commentContent } <br>
 				<c:if test="${comment.nickName eq loginUser.nickName}">
 				<hr>
 					<div style="float:right; ">
-						<a class="btn btn-outline-primary" role="button" href="#" onclick="modifyComment(${comment.commentNo})">수정</a>
-						<a class="btn btn-outline-primary" role="button" href="#" onclick="deleteComment(${comment.commentNo})">삭제</a>
+						<a class="btn btn-outline-primary" role="button" onclick="getModifyCommentForm(${comment.commentNo})">수정</a>
+						<a class="btn btn-outline-primary" role="button" onclick="deleteComment(${comment.commentNo})">삭제</a>
 					</div>
 				</c:if>
 			</div>
@@ -74,6 +74,8 @@
 		
 	</div>
 </div>
+
+
 </body>
 
 <script>
@@ -89,6 +91,9 @@ $('#commentBtn').click(function(){
 	console.log('nickName : ' + nickName);
 	console.log('commentContent : ' + commentContent);
 	
+	// 댓글박스 textarea 비우기
+	$('#commentContent').val('');
+	
 	$.ajax({
 		url : '${pageContext.request.contextPath}/hostBoard/writeComment',
 		type : 'post',
@@ -103,14 +108,14 @@ $('#commentBtn').click(function(){
 			$('#commentListDiv').empty();
 			
 			for(var i = 0; i<commentList.length; i++){
-				commentListStr += '<div class="card card-body">' + 
+				commentListStr += '<div class="card card-body" id="commentOne_'+commentList[i].commentNo+'">' + 
 								  '작성자 : ' + commentList[i].nickName + '<br>' +
 								  '작성일 : ' + commentList[i].commentDate + '<br>' + 
 								  '내용 : ' + commentList[i].commentContent + '<br>' +
 								  '<hr>' + 
 								  '<div style="float:right; ">' +
-								  '<a class="btn btn-outline-primary" role="button" href="#" onclick="modifyComment('+commentList[i].commentNo+')">수정</a>' +
-								  '<a class="btn btn-outline-primary" role="button" href="#" onclick="deleteComment('+commentList[i].commentNo+')">삭제</a>' +
+								  '<a class="btn btn-outline-primary" role="button" onclick="getModifyCommentForm('+commentList[i].commentNo+')">수정</a>' +
+								  '<a class="btn btn-outline-primary" role="button" onclick="deleteComment('+commentList[i].commentNo+')">삭제</a>' +
 								  '</div>' +
 								  '</div>';
 			}
@@ -142,16 +147,20 @@ function deleteComment(commentNo){
 			$('#commentListDiv').empty();
 			
 			for(var i = 0; i<commentList.length; i++){
-				commentListStr += '<div class="card card-body">' + 
+				commentListStr += '<div class="card card-body" id="commentOne_'+commentList[i].commentNo+'">' + 
 								  '작성자 : ' + commentList[i].nickName + '<br>' +
 								  '작성일 : ' + commentList[i].commentDate + '<br>' + 
 								  '내용 : ' + commentList[i].commentContent + '<br>' +
 								  '<hr>' + 
 								  '<div style="float:right; ">' +
-								  '<a class="btn btn-outline-primary" role="button" href="#" onclick="modifyComment('+commentList[i].commentNo+')">수정</a>' +
-								  '<a class="btn btn-outline-primary" role="button" href="#" onclick="deleteComment('+commentList[i].commentNo+')">삭제</a>' +
+								  '<a class="btn btn-outline-primary" role="button" onclick="getModifyCommentForm('+commentList[i].commentNo+')">수정</a>' +
+								  '<a class="btn btn-outline-primary" role="button" onclick="deleteComment('+commentList[i].commentNo+')">삭제</a>' +
 								  '</div>' +
 								  '</div>';
+			}
+			
+			if(commentList.length == 0){
+				commentListStr = '<div class="card card-body">댓글이 없습니다.</div>';
 			}
 			
 			$('#commentListDiv').html(commentListStr);
@@ -162,6 +171,70 @@ function deleteComment(commentNo){
 }
 
 
+// 댓글수정 눌렀을때 임시로 코멘트번호와 html 내용을 넣을 변수
+var commentNoTmp;
+var tmpHtml;
+
+// 댓글 수정 클릭시 해당 댓글 대신에 수정 폼 띄우기
+function getModifyCommentForm(commentNo){
+	
+	// 댓글내용 담아두고 수정폼에 띄워주기 위한 변수
+	var beforeComment = '';
+	
+	// 만약 이미 수정폼이 띄워져있으면 (아이디값으로 체크) 수정폼을 tmpHtml로 다시 바꾸기
+	if($('#modifyForm').length){
+		$('#modifyForm').remove();
+		$('#commentOne_'+commentNoTmp).html(tmpHtml);	
+	}
+	
+	// 댓글내용 받아두기
+	$.ajax({
+		url : '${pageContext.request.contextPath}/hostBoard/selectComment',
+		type : 'post',
+		data : {'commentNo' : commentNo},
+		dataType : 'text',
+		success : function(data){
+			$('#modifyCommentContent_'+commentNo).val(data);
+		}
+	});
+	
+	
+	
+	commentNoTmp = commentNo;
+	tmpHtml = $('#commentOne_'+commentNo).html();
+	var modifyFormStr = '';
+	
+	console.log(beforeComment);
+	
+	modifyFormStr += '<div id="modifyForm" class="form-group">' +
+				  '<input type="hidden" id="commentNo_'+commentNo+'" value="'+commentNo+'">' +
+				  '<textarea id="modifyCommentContent_'+commentNo+'" class="form-control" style="height:100px;">'+beforeComment+'</textarea>' +
+				  '<div style="float:right; ">' +
+				  '<a class="btn btn-outline-primary" role="button" onclick="modifyComment('+commentNo+')">수정</a>' +
+				  '<a class="btn btn-outline-primary" role="button" onclick="modifyCancel('+commentNo+')">취소</a>' +
+				  '</div>' +
+				  '</div>';
+	
+	
+	$('#commentOne_'+commentNo).empty();
+	
+	$('#commentOne_'+commentNo).html(modifyFormStr);
+	
+}
+
+// 댓글 수정 취소
+function modifyCancel(commentNo){
+	
+	$('#modifyForm').remove();
+	$('#commentOne_'+commentNoTmp).html(tmpHtml);	
+	
+}
+
+
+// 댓글 수정
+function modifyComment(commentNo){
+	// 작성중...
+}
 
 </script>
 

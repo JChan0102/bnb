@@ -32,5 +32,7 @@ public class CommentDao {
 		return sqlSessionTemplate.delete(commentMapper+".deleteComment", commentNo);
 	}
 	
-	
+	public CommentVO getCommentOne(int commentNo) {
+		return sqlSessionTemplate.selectOne(commentMapper+".getCommentOne", commentNo);
+	}
 }

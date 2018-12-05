@@ -1,5 +1,7 @@
 package com.bit.bnb.hostboard.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,5 +66,18 @@ public class CommentController {
 		
 		return result;
 	}
+	
+	
+	// 댓글 하나 불러오기
+	@RequestMapping(value="/hostBoard/selectComment",  produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String selectComment(@RequestParam("commentNo") int commentNo) throws UnsupportedEncodingException {
+		CommentVO comment = new CommentVO();
+		comment = commentService.getCommentOne(commentNo);
+		String commentCon = comment.getCommentContent();
+
+		return commentCon;
+	}
+	
 	
 }

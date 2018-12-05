@@ -33,4 +33,11 @@ public class CommentService {
 		return commentDao.deleteComment(commentNo);
 	}
 	
+	// 댓글 한개 가져오기
+	@Transactional
+	public CommentVO getCommentOne(int commentNo) {
+		return commentDao.getCommentOne(commentNo);
+	}
+	
+	
 }
