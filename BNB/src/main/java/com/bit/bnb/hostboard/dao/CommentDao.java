@@ -2,23 +2,35 @@ package com.bit.bnb.hostboard.dao;
 
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.bit.bnb.hostboard.model.CommentVO;
 
-public interface CommentDao {
-	
-	 // 댓글 개수
-    public int commentCount() throws Exception;
- 
-    // 댓글 목록
-    public List<CommentVO> commentList(CommentVO commentModel) throws Exception;
- 
-    // 댓글 작성
-    public int commentInsert(CommentVO commentModel) throws Exception;
-    
-    // 댓글 수정
-    public int commentUpdate(CommentVO commentModel) throws Exception;
- 
-    // 댓글 삭제
-    public int commentDelete(int cno) throws Exception;
+@Repository
+public class CommentDao {
 
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
+	
+	private String commentMapper = "mappers.CommentMapper";
+	
+	public int insertComment(CommentVO comment) {
+		return sqlSessionTemplate.insert(commentMapper+".insertComment", comment);
+	}
+	
+	public List<CommentVO> getCommentList(int postNo) {
+		return sqlSessionTemplate.selectList(commentMapper+".getCommentList", postNo);
+	}
+	
+	public int modifyComment(CommentVO comment) {
+		return sqlSessionTemplate.update(commentMapper+".modifyComment", comment);
+	}
+	
+	public int deleteComment(int commentNo) {
+		return sqlSessionTemplate.delete(commentMapper+".deleteComment", commentNo);
+	}
+	
+	
 }

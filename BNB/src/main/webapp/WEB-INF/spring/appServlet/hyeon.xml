@@ -64,6 +64,15 @@
 				class="com.bit.bnb.rooms.intercepter.LoginCheckInterceptor" />
 		</interceptor>
 		<!-- 마이페이지 인터셉터 끝 -->
+		
+		<!-- 호스트보드 인터셉터 -->
+		<interceptor>
+			<mapping path="/hostBoard/**" />
+			<beans:bean
+				class="com.bit.bnb.rooms.intercepter.HostCheckInterceptor" />
+		</interceptor>
+		<!-- 호스트보드 인터셉터 끝 -->
+		
 	</interceptors>
 
 

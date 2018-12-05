@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mappers.CommentMapper">
+
+	<insert id="insertComment" parameterType="com.bit.bnb.hostboard.model.CommentVO" 
+		useGeneratedKeys="true" keyProperty="commentNo">
+		insert into comment (postNo, nickName, commentContent, commentDate) 
+		values(#{postNo}, #{nickName}, #{commentContent}, sysdate())
+	</insert>
+
+	<select id="getCommentList" resultType="com.bit.bnb.hostboard.model.CommentVO">
+		select * from comment where postNo=#{postNo} order by commentNo desc
+	</select>
+	
+	<update id="modifyComment">
+		update comment set commentContent=#{commentContent} where commentNo=#{commentNo}
+	</update>
+	
+	<delete id="deleteComment">
+		delete from comment where commentNo=#{commentNo}
+	</delete>
+
+</mapper>

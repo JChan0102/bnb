@@ -19,7 +19,7 @@ public class HostBoardDao {
 	private String hostBoardMapper = "mappers.HostBoardMapper";
 	
 	public int insertPost(PostVO postVO) {
-		return sqlSessionTemplate.update(hostBoardMapper+".insertPost", postVO);
+		return sqlSessionTemplate.insert(hostBoardMapper+".insertPost", postVO);
 	}
 	
 	public PostVO selectPost(int postNo) {
@@ -57,15 +57,5 @@ public class HostBoardDao {
 	public int upViewCnt(int postNo) {
 		return sqlSessionTemplate.update(hostBoardMapper+".upViewCnt", postNo);
 	}
-	
-	/*public void create(PostVO hostModel) throws Exception;
-	
-	public List<PostVO> listAll() throws Exception;
-	
-	public PostVO read(int bId) throws Exception;
-	
-	public void delete(int bId)throws Exception;
-	
-	public void update(PostVO hostModel)throws Exception;*/
 
 }

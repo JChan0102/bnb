@@ -29,7 +29,7 @@ public class HostBoardPostingController {
 		return modelAndView;
 	}
 	
-	// 작성한 게시물 DB 입력 처리
+	// 포스팅
 	@RequestMapping(value="/hostBoard/write", method=RequestMethod.POST)
 	public ModelAndView writePost(PostVO postVO) {
 		int resultCnt = postingService.write(postVO);
