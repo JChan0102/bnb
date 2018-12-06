@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.hostboard.model.CommentVO;
+import com.bit.bnb.hostboard.model.ModifyCommentVO;
 import com.bit.bnb.hostboard.service.CommentService;
 
 @Controller
@@ -77,6 +79,26 @@ public class CommentController {
 		String commentCon = comment.getCommentContent();
 
 		return commentCon;
+	}
+	
+	// 댓글 수정하기
+	@RequestMapping(value="/hostBoard/modifyComment",  produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String modifyComment(@RequestParam("commentNo") int commentNo,
+									  @RequestParam("commentContent") String commentContent) {
+	
+		// 넘어온 commentContent는 수정된 글이므로 다시 넘겨주기 위해 변수에 저장
+		String result = commentContent;
+
+		ModifyCommentVO modifyComment = new ModifyCommentVO(commentNo, commentContent);
+		int resultCnt = commentService.modifyComment(modifyComment);
+		
+		// 업데이트에 실패하면 result를 에러페이지로 변경
+		if(resultCnt != 1) {
+			result = "redirect:/hostBoard/error";
+		}
+		
+		return result;
 	}
 	
 	

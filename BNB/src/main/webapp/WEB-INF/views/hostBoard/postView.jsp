@@ -57,8 +57,8 @@
 			<c:forEach var="comment" items="${commentList}">
 			<div class="card card-body" id="commentOne_${comment.commentNo }">
 				작성자 : ${comment.nickName } <br>
-				작성일 : <fmt:formatDate value="${comment.commentDate }" pattern="yyyy-MM-dd HH:mm" /><br>
-				내용 : ${comment.commentContent } <br>
+				작성일 : <fmt:formatDate value="${comment.commentDate }" pattern="yyyy-MM-dd HH:mm" /><hr>
+				<div id="commentContentBox_${comment.commentNo}">내용 : ${comment.commentContent } </div>
 				<c:if test="${comment.nickName eq loginUser.nickName}">
 				<hr>
 					<div style="float:right; ">
@@ -111,9 +111,9 @@ $('#commentBtn').click(function(){
 				commentListStr += '<div class="card card-body" id="commentOne_'+commentList[i].commentNo+'">' + 
 								  '작성자 : ' + commentList[i].nickName + '<br>' +
 								  '작성일 : ' + commentList[i].commentDate + '<br>' + 
-								  '내용 : ' + commentList[i].commentContent + '<br>' +
+								  '<div id="commentContentBox_${comment.commentNo}">내용 : ' + commentList[i].commentContent + '</div>' +
 								  '<hr>' + 
-								  '<div style="float:right; ">' +
+								  '<div>' +
 								  '<a class="btn btn-outline-primary" role="button" onclick="getModifyCommentForm('+commentList[i].commentNo+')">수정</a>' +
 								  '<a class="btn btn-outline-primary" role="button" onclick="deleteComment('+commentList[i].commentNo+')">삭제</a>' +
 								  '</div>' +
@@ -150,7 +150,7 @@ function deleteComment(commentNo){
 				commentListStr += '<div class="card card-body" id="commentOne_'+commentList[i].commentNo+'">' + 
 								  '작성자 : ' + commentList[i].nickName + '<br>' +
 								  '작성일 : ' + commentList[i].commentDate + '<br>' + 
-								  '내용 : ' + commentList[i].commentContent + '<br>' +
+								  '<div id="commentContentBox_'+commentList[i].commentNo+'">내용 : ' + commentList[i].commentContent + '</div>' +
 								  '<hr>' + 
 								  '<div style="float:right; ">' +
 								  '<a class="btn btn-outline-primary" role="button" onclick="getModifyCommentForm('+commentList[i].commentNo+')">수정</a>' +
@@ -178,9 +178,6 @@ var tmpHtml;
 // 댓글 수정 클릭시 해당 댓글 대신에 수정 폼 띄우기
 function getModifyCommentForm(commentNo){
 	
-	// 댓글내용 담아두고 수정폼에 띄워주기 위한 변수
-	var beforeComment = '';
-	
 	// 만약 이미 수정폼이 띄워져있으면 (아이디값으로 체크) 수정폼을 tmpHtml로 다시 바꾸기
 	if($('#modifyForm').length){
 		$('#modifyForm').remove();
@@ -194,7 +191,8 @@ function getModifyCommentForm(commentNo){
 		data : {'commentNo' : commentNo},
 		dataType : 'text',
 		success : function(data){
-			$('#modifyCommentContent_'+commentNo).val(data);
+			$('#modifyCommentContent').val(data);
+			/* $('#modifyCommentContent_'+commentNo).val(data); */
 		}
 	});
 	
@@ -204,11 +202,9 @@ function getModifyCommentForm(commentNo){
 	tmpHtml = $('#commentOne_'+commentNo).html();
 	var modifyFormStr = '';
 	
-	console.log(beforeComment);
-	
 	modifyFormStr += '<div id="modifyForm" class="form-group">' +
-				  '<input type="hidden" id="commentNo_'+commentNo+'" value="'+commentNo+'">' +
-				  '<textarea id="modifyCommentContent_'+commentNo+'" class="form-control" style="height:100px;">'+beforeComment+'</textarea>' +
+				  /* '<input type="hidden" id="commentNo_'+commentNo+'" value="'+commentNo+'">' + */
+				  '<textarea id="modifyCommentContent" class="form-control" style="height:100px;"></textarea>' +
 				  '<div style="float:right; ">' +
 				  '<a class="btn btn-outline-primary" role="button" onclick="modifyComment('+commentNo+')">수정</a>' +
 				  '<a class="btn btn-outline-primary" role="button" onclick="modifyCancel('+commentNo+')">취소</a>' +
@@ -233,7 +229,22 @@ function modifyCancel(commentNo){
 
 // 댓글 수정
 function modifyComment(commentNo){
-	// 작성중...
+	var modifyComment = $('#modifyCommentContent').val();
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath}/hostBoard/modifyComment',
+		type: 'post',
+		data: {'commentNo':commentNo, 'commentContent':modifyComment},
+		success: function(mcc){
+			
+			console.log('mcc'+mcc);
+			
+			$('#modifyForm').remove();
+			$('#commentOne_'+commentNo).html(tmpHtml);
+			$('#commentContentBox_'+commentNo).html(mcc);
+		}
+		
+	});
 }
 
 </script>

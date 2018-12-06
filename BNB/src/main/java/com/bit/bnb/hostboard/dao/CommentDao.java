@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bit.bnb.hostboard.model.CommentVO;
+import com.bit.bnb.hostboard.model.ModifyCommentVO;
 
 @Repository
 public class CommentDao {
@@ -24,8 +25,8 @@ public class CommentDao {
 		return sqlSessionTemplate.selectList(commentMapper+".getCommentList", postNo);
 	}
 	
-	public int modifyComment(CommentVO comment) {
-		return sqlSessionTemplate.update(commentMapper+".modifyComment", comment);
+	public int modifyComment(ModifyCommentVO modifyComment) {
+		return sqlSessionTemplate.update(commentMapper+".modifyComment", modifyComment);
 	}
 	
 	public int deleteComment(int commentNo) {

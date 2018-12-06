@@ -8,5 +8,6 @@
 </head>
 <body>
 <h3>ERROR</h3>
+<h4><a href="${pageContext.request.contextPath}/hostBoard">게시판으로 돌아가기</a></h4>
 </body>
 </html>

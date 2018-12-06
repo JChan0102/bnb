@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.bnb.hostboard.dao.CommentDao;
 import com.bit.bnb.hostboard.model.CommentVO;
+import com.bit.bnb.hostboard.model.ModifyCommentVO;
 
 @Service
 public class CommentService {
@@ -37,6 +38,12 @@ public class CommentService {
 	@Transactional
 	public CommentVO getCommentOne(int commentNo) {
 		return commentDao.getCommentOne(commentNo);
+	}
+	
+	// 댓글 수정
+	@Transactional
+	public int modifyComment(ModifyCommentVO modifyComment) {
+		return commentDao.modifyComment(modifyComment); 
 	}
 	
 	
