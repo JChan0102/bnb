@@ -70,4 +70,13 @@ public class HostBoardService {
 		hostBoardDao.upViewCnt(postNo);
 	}
 	
+	// 게시물 댓글수 증가
+	public int upCommentCnt(int postNo) {
+		return hostBoardDao.upCommentCnt(postNo);
+	}
+	
+	// 게시물 댓글수 감소
+		public int downCommentCnt(int postNo) {
+			return hostBoardDao.downCommentCnt(postNo);
+		}
 }

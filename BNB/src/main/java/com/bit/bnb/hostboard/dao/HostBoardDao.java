@@ -57,5 +57,13 @@ public class HostBoardDao {
 	public int upViewCnt(int postNo) {
 		return sqlSessionTemplate.update(hostBoardMapper+".upViewCnt", postNo);
 	}
+	
+	public int upCommentCnt(int postNo) {
+		return sqlSessionTemplate.update(hostBoardMapper+".upCommentCnt", postNo);
+	}
+	
+	public int downCommentCnt(int postNo) {
+		return sqlSessionTemplate.update(hostBoardMapper+".downCommentCnt", postNo);
+	}
 
 }

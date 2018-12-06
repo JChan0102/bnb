@@ -32,8 +32,8 @@ public class CommentController {
 		comment.setPostNo(postNo);
 		comment.setNickName(nickName);
 		comment.setCommentContent(commentContent);
-		
-		int resultCnt = commentService.writeComment(comment);
+
+		int resultCnt = commentService.writeComment(comment, postNo);
 		String result = "hostBoard/error";
 		if(resultCnt == 1) {
 			// 댓글 인서트후 댓글 띄우기 위해 넘기기
@@ -61,7 +61,7 @@ public class CommentController {
 								@RequestParam("postNo") int postNo){
 		String result = "hostBoard/error";
 		
-		int resultCnt = commentService.deleteComment(commentNo);
+		int resultCnt = commentService.deleteComment(commentNo, postNo);
 		if(resultCnt == 1) {
 			result = "redirect:/hostBoard/viewComment?postNo=" + postNo;
 		}

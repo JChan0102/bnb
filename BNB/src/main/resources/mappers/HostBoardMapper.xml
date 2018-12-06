@@ -6,8 +6,8 @@
 
 	<insert id="insertPost" parameterType="com.bit.bnb.hostboard.model.PostVO" 
 		useGeneratedKeys="true" keyProperty="postNo">
-		insert into hostBoard (userId, title, content, date, viewCnt, nickName) 
-		value(#{userId}, #{title}, #{content}, CURRENT_TIMESTAMP, 0, #{nickName})
+		insert into hostBoard (userId, title, content, date, viewCnt, nickName, commentCnt) 
+		value(#{userId}, #{title}, #{content}, CURRENT_TIMESTAMP, 0, #{nickName}, 0)
 	</insert>
 	
 	<select id="selectPost" resultType="com.bit.bnb.hostboard.model.PostVO">
@@ -44,6 +44,14 @@
 	
 	<update id="upViewCnt">
 		update hostBoard set viewCnt = viewCnt + 1 where postNo=#{postNo}
+	</update>
+	
+	<update id="upCommentCnt">
+		update hostBoard set commentCnt = commentCnt + 1 where postNo=#{postNo}
+	</update>
+	
+	<update id="downCommentCnt">
+		update hostBoard set commentCnt = commentCnt - 1 where postNo=#{postNo}
 	</update>
 
 </mapper>

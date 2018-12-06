@@ -12,6 +12,8 @@ public class PostVO {
 	private Date date;
 	private int viewCnt;
 
+	private int commentCnt;
+
 	public int getPostNo() {
 		return postNo;
 	}
@@ -68,10 +70,19 @@ public class PostVO {
 		this.viewCnt = viewCnt;
 	}
 
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
+
 	@Override
 	public String toString() {
 		return "PostVO [postNo=" + postNo + ", userId=" + userId + ", nickName=" + nickName + ", title=" + title
-				+ ", content=" + content + ", date=" + date + ", viewCnt=" + viewCnt + "]";
+				+ ", content=" + content + ", date=" + date + ", viewCnt=" + viewCnt + ", commentCnt=" + commentCnt
+				+ "]";
 	}
 
 }

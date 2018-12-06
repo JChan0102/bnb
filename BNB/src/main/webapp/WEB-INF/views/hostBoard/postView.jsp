@@ -18,7 +18,7 @@
 	<div class="table-responsive">
 		<div style="height:40px; border-bottom:1px solid lightgrey;">
 			<div style="float:left; margin-left:10px;"><h3>${post.title }</h3></div>
-			<c:if test="${loginUser.userId eq post.userId }">
+			<c:if test="${loginUser.userId eq post.userId or loginUser.admin eq 1}">
 				<div style="float:right; margin-right:10px;"><a class="btn btn-outline-primary" role="button" onclick="return confirm('정말 삭제하시겠습니까?');" href="${pageContext.request.contextPath}/hostBoard/deletePost?postNo=${post.postNo}">삭제</a></div>
 				<div style="float:right; margin-right:10px;"><a class="btn btn-outline-primary" role="button" href="${pageContext.request.contextPath}/hostBoard/modifyPost?postNo=${post.postNo}">수정</a></div>
 			</c:if>
@@ -59,7 +59,7 @@
 				작성자 : ${comment.nickName } <br>
 				작성일 : <fmt:formatDate value="${comment.commentDate }" pattern="yyyy-MM-dd HH:mm" /><hr>
 				<div id="commentContentBox_${comment.commentNo}">내용 : ${comment.commentContent } </div>
-				<c:if test="${comment.nickName eq loginUser.nickName}">
+				<c:if test="${comment.nickName eq loginUser.nickName or loginUser.admin eq 1}">
 				<hr>
 					<div style="float:right; ">
 						<a class="btn btn-outline-primary" role="button" onclick="getModifyCommentForm(${comment.commentNo})">수정</a>
@@ -111,7 +111,7 @@ $('#commentBtn').click(function(){
 				commentListStr += '<div class="card card-body" id="commentOne_'+commentList[i].commentNo+'">' + 
 								  '작성자 : ' + commentList[i].nickName + '<br>' +
 								  '작성일 : ' + commentList[i].commentDate + '<br>' + 
-								  '<div id="commentContentBox_${comment.commentNo}">내용 : ' + commentList[i].commentContent + '</div>' +
+								  '<div id="commentContentBox_'+commentList[i].commentNo+'">내용 : ' + commentList[i].commentContent + '</div>' +
 								  '<hr>' + 
 								  '<div>' +
 								  '<a class="btn btn-outline-primary" role="button" onclick="getModifyCommentForm('+commentList[i].commentNo+')">수정</a>' +

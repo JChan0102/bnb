@@ -31,7 +31,12 @@
 	<c:forEach var="post" items="${postListData.postList}">
 		<tr class="row" style="margin-right:0px;">
 			<td class="col-2">${post.postNo}</td>
-			<td class="col-5 text-left"><a href="${pageContext.request.contextPath}/hostBoard/postView?postNo=${post.postNo }">${post.title}</a></td>
+			<td class="col-5 text-left"><a href="${pageContext.request.contextPath}/hostBoard/postView?postNo=${post.postNo }">${post.title}</a>
+				<!-- 댓글갯수가 1개 이상일때만 댓글개수 보여주기 -->
+				<c:if test="${post.commentCnt > 0 }">
+					&nbsp;&nbsp;[${post.commentCnt}]
+				</c:if>
+			</td>
 			<td class="col-2">${post.nickName}</td>
 			<td class="col-2"><fmt:formatDate value="${post.date}" pattern="yyyy-MM-dd" /></td>
 			<td class="col-1">${post.viewCnt}</td>
