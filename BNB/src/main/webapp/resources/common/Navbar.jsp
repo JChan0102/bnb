@@ -268,7 +268,7 @@
 			<!-- header -->
 			<div class="modal-header">
 				<!-- header title -->
-				<h4 class="modal-title">Login Modal</h4>
+				<h4 class="modal-title">환영합니다!</h4>
 				<!-- 닫기(x) 버튼 -->
 				<button type="button" class="close" data-dismiss="modal">×</button>
 			</div>
@@ -299,7 +299,8 @@
 							<input type="button" id="gLoginBtn" value="Login With Google"
 								class="btn-gLogin btn btn-lg btn-block" />
 								<br>
-							<a href="#" id="forgetPw">비밀번호를 잊으셨나요?</a>
+							<a href="#" id="forgetPw">비밀번호를 잊으셨나요?</a><br>
+							<a href="${pageContext.request.contextPath}/userReg">아직 회원이 아니신가요?</a>
 						</div>
 						
 						
