@@ -48,8 +48,10 @@
 						<div id="alertPw" class="regAlert" style="display:none; color: #dc3545;"></div >
 						<input type="password" id="userPw-2" class="form-control hyeon-reg-input" placeholder="비밀번호 확인" />
 						<div id="chkPw" class="regAlert" style="display:none; color: #dc3545;"></div >
-						<input type="hidden" id="fail-pw-1" class="form-control hyeon-reg-input" name="fail-pw-1"/>
-						<input type="hidden" id="fail-pw-2" class="form-control hyeon-reg-input" name="fail-pw-2"/>
+						<!-- <input type="hidden" id="fail-pw-1" class="form-control hyeon-reg-input" name="fail-pw-1"/> -->
+						<!-- <input type="hidden" id="fail-pw-2" class="form-control hyeon-reg-input" name="fail-pw-2"/> -->
+						
+						
 						<!-- <input type="hidden" id="fail-pw" name="fail-pw" /> -->
 						
 						<input type="text" id="inputUserName" name="userName" class="form-control hyeon-reg-input" placeholder="이름" />
@@ -112,6 +114,11 @@
 	
 	
 	<script>
+	
+	// 가입항목 제대로 들어갔는지 확인할 변수
+	//	id체크, pw-1체크, pw-2체크, 이름체크, 닉네임체크
+	var chkArr = ['n', 'n', 'n', 'n', 'n'];
+	
 		// 아이디 입력란에 포커스 주기
 		$(document).ready(function(){
 			$('#regbtn2').val('회원가입');
@@ -123,7 +130,7 @@
 		$('#userPw-1').blur(function checkPassword(){
 				$('#alertPw').empty();
 				$('#alertPw').css("display","none");
-				$('#fail-pw-1').val('fail');
+				//$('#fail-pw-1').val('fail');
 				
 			var checkNumber = $('#userPw-1').val().search(/[0-9]/g);
 			var checkEnglish = $('#userPw-1').val().search(/[a-z]/ig);
@@ -143,10 +150,12 @@
 					$('#alertPw').css("display","");
 					$('#alertPw').append("비밀번호에 아이디가 포함될 수 없습니다.");
 				}else{
-					$('#fail-pw-1').val('ok');
+					//$('#fail-pw-1').val('ok');
+					chkArr[1]= 'y';
 				}
 			} else {
-				$('#fail-pw-1').val('ok');
+				//$('#fail-pw-1').val('ok');
+				chkArr[1]= 'y';
 			}
 			
 			if($('#userPw-2').val() != ''){
@@ -178,11 +187,12 @@
 					$('#chkPw').empty();
 					$('#chkPw').css("display","");
 					$('#chkPw').append("비밀번호를 다시 한 번 확인해주세요.");
-					$('#fail-pw-2').val('fail');
+					//$('#fail-pw-2').val('fail');
 				} else {
 					$('#chkPw').empty();
 					$('#chkPw').css("display","none");
-					$('#fail-pw-2').val('ok');
+					//$('#fail-pw-2').val('ok');
+					chkArr[2]= 'y';
 				}
 		 }
 		 
@@ -196,6 +206,7 @@
 			} else {
 				$('#chkName').empty();
 				$('#chkName').css("display","none");
+				chkArr[3]= 'y';
 			}
 		});
 		
@@ -210,9 +221,7 @@
 					$('#alertPw').append("비밀번호에 아이디가 포함되었습니다.");
 					return false;
 				}
-			}
 			
-			if(userId != '' && userId != null){
 				$.ajax({
 				type: "GET",
 				url: "${pageContext.request.contextPath}/userIdChk",
@@ -229,6 +238,7 @@
 					} else if(data == "y"){
 						$('#alertId').empty();
 						$('#alertId').css("display","none");
+						chkArr[0]= 'y';
 					}
 				}
 			});
@@ -239,6 +249,13 @@
 		// 닉네임 중복체크
 		$('#inputNickName').blur(function(){
 			var nName = $('#inputNickName').val();
+			
+			if(nName == '' || nName == null){
+				$('#alertNickName').empty();
+				$('#alertNickName').css("display","");
+				$('#alertNickName').append("닉네임을 확인해주세요");
+			}
+			
 			
 			if(nName != '' && nName != null){
 				$.ajax({
@@ -253,13 +270,12 @@
 					} else if(data == "y"){
 						$('#alertNickName').empty();
 						$('#alertNickName').css("display","none");
+						chkArr[4]= 'y';
 					}
 				}
 			});
 		}
 	});
-		
-		
 		
 
         $(function() {
@@ -267,21 +283,41 @@
                
                 console.log('gg');
                 
-                var nName = $('#inputNickName').val();
-                var nNameChk = '';
+            	// 가입항목 유효성 체크할 변수
+                var validChk = 'y';
+            	
+            	// 가입항목에 문제 있으면 validChk를 n으로 바꿔서 submit 안되게...
+                for(var i=0; i<chkArr.length; i++){
+                	
+                	console.log('chkArr'+[i]+' : ' + chkArr[i]);
+                	
+                	if(chkArr[i] == 'n')
+                		validChk = 'n';
+                }
                 
-                $.ajax({
-    				type: "GET",
+                
+               /*  var nName = $('#inputNickName').val();
+                var nNameChk = 'n'; */
+                
+               /*  $.ajax({
+    				type: "post",
     				url: "${pageContext.request.contextPath}/user/nickNameChk",
     				data: {"nickName" : nName},
     				success: function(data){
     					if(data == "n") {
     						nNameChk = "n";
+    						alert('닉네임을 확인해주세요.' + nNameChk);
     					} else if(data == "y"){
     						nNameChk = "y";
     					}
+    					
+    					if(nName=='' || nName==null){
+    	            		alert('닉네임을 입력해주세요.');
+    	            	}else if(nNameChk = "n"){
+    	            		alert('닉네임을 확인해주세요.');	
+    	            	}
     				}
-                });
+                }); */
                 
                 var pattern = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
                 var year = $('#select-year').val();
@@ -314,39 +350,37 @@
                 	age--;
                 }
                 
-            	if(pattern.test(birth) && day<=lastDay && age>18 && nName!='' && nName!=null){
-                
-                var form = $('#regForm')[0];
-                var formData = new FormData(form);
-                $.ajax({
-                     url : 'http://13.209.99.134:8080/imgserver/upload/userPhoto',
-                     processData : false,
-                     contentType : false,
-                     datatype : 'JSON',
-                     data : formData,
-                     type : 'POST',
-                     success : function(result) {
-                           		
-                    	 if(result==''){
-                             	result='nopic.jpg'
-							}
-                         $('#userPhoto').val('' + result);
-                         $('#regForm').submit();
-                         $('#regBtn').val('인증메일을 보내는중...');
-                       }
-                	});
-            	}else if(nName=='' || nName==null){
-            		alert('닉네임을 입력해주세요.');
-            	}else if(nNameChk = "n"){
-            		alert('닉네임을 확인해주세요.');	
+                // if(pattern.test(birth) && day<=lastDay && age>18 && nName!='' && nName!=null)
+            	if(pattern.test(birth) && day<=lastDay && age>=18 && validChk == 'y'){
+            	    var form = $('#regForm')[0];
+               		var formData = new FormData(form);
+               		
+                	$.ajax({
+                	     url : 'http://13.209.99.134:8080/imgserver/upload/userPhoto',
+                	     processData : false,
+                	     contentType : false,
+                	     datatype : 'JSON',
+                	     data : formData,
+                	     type : 'POST',
+                	     success : function(result) {
+                	           		
+                	    	 if(result==''){
+                	             	result='nopic.jpg'
+								}
+                	         $('#userPhoto').val('' + result);
+                	         $('#regForm').submit();
+                	         $('#regBtn').val('인증메일을 보내는중...');
+                	       }
+                		});
+                	
             	}else if(day>lastDay){ 
-            		alert('유효하지 않은 생년월일입니다.');
+            			alert('유효하지 않은 생년월일입니다.');
             	}else if(age<18){ 
             		console.log('만나이: ' + age);
             		alert('만 18세 이상만 가입 가능합니다');
             	}else{ 
             		console.log('생년월일 : ' + birth);
-            		alert('생년월일을 확인해주세요');
+            		alert('가입항목을 다시 한 번 확인해주세요.');
             	}
             	
              });
