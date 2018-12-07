@@ -210,8 +210,7 @@
 		var mapContainer = document.getElementById('map'); // 지도를 표시할 div  
 		mapOption = {
 			center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표 
-			level : 7
-		// 지도의 확대 레벨
+			level : 7 // 지도의 확대 레벨
 		};
 
 		var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -226,9 +225,7 @@
 		}
 
 		for (var i = 0; i < addressArray.length; i++) {
-			// 주소로 좌표를 검색합니다
-			geocoder
-					.addressSearch(
+			geocoder.addressSearch(
 							addressArray[i].groupAddress,
 							function(result, status, data) {
 
@@ -246,29 +243,6 @@
 
 									// 마커를 지도에 표시합니다.
 									marker.setMap(map);
-
-									/* // 마커에 마우스오버 이벤트를 등록합니다
-									daum.maps.event.addListener(marker,
-											'mouseover', function() {
-												// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-												infowindow.open(map, marker);
-											});
-
-									// 마커에 마우스아웃 이벤트를 등록합니다
-									daum.maps.event.addListener(marker,
-											'mouseout', function() {
-												// 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-												infowindow.close();
-											});
-
-									var iwContent = '<div style="font-size:11px; text-align:center;">'
-											+ result[0].address_name + '</div>';
-
-									// 인포윈도우를 생성합니다
-									var infowindow = new daum.maps.InfoWindow({
-										position : coords,
-										content : iwContent
-									}); */
 
 									var content = '<div class ="labelWish"><span class="leftWish"></span><span class="centerWish">'
 											+ result[0].address_name
@@ -288,7 +262,6 @@
 									map.setCenter(coords);
 								}
 							});
-
 		}
 	</script>
 </body>

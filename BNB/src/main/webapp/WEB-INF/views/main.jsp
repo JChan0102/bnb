@@ -115,12 +115,12 @@
 			</div>
 			</a>
 		</div>
-		<div class="col-4 text-center" style="float: right;">
+		<div class="col-3 text-center" style="float: right;">
 			<div class="vis-weather">
 			<h1>전국 날씨</h1>
-				<ul class="list-group list-group-flush weather" style="width:300px; margin-left:110px;font-weight: 600;">  
+				<ul class="list-group list-group-flush weather" style="/* margin-left:110px; */font-weight: 600;">  
 					<!-- <li class="list-group-item weather"></li> -->
-				</ul>
+				</ul> 
 			</div>
 		</div>
 	</div>
@@ -230,15 +230,15 @@
 											if (rain != 0) {
 												switch (rain) {
 												case '1':
-													$('.in'+j).append("비");
+													$('.in'+j).append(" / 비");
 													$('.in'+j).prepend('<i class="fas fa-cloud-showers-heavy"></i>&emsp;');
 													break;
 												case '2':
-													$('.in'+j).append("비/눈");
+													$('.in'+j).append(" / 비/눈");
 													$('.in'+j).prepend('<i class="fas fa-cloud-rain"></i>&emsp;');
 													break;
 												case '3':
-													$('.in'+j).append("눈");
+													$('.in'+j).append(" / 눈");
 													$('.in'+j).prepend('<i class="fas fa-snowflake"></i>&emsp;');
 													break;
 												}

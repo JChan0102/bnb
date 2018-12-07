@@ -73,7 +73,6 @@
 			var wishList = $('.wishAddress');
 			var arr = [];
 			for (var i = 0; i < wishList.length; i++) {
-				/* console.log($("input[name='address']").eq(i).val());  */
 				arr.push($("input[name='address']").eq(i).val());
 			}
 
@@ -81,7 +80,6 @@
 
 			for (var j = 0; j < wishList.length; j++) {
 				$("span[id='idx']").eq(j).addClass("wishIdx" + j);
-				/* console.log($("span[id='idx']").eq(j).addClass("wishIdx" + j));  */
 			}
 
 			$.ajax({
@@ -90,14 +88,11 @@
 				contentType : 'application/json',
 				data : jsonInfo,
 				success : function(response) {
-					/* console.log(response);  */
 					var obj = JSON.parse(response);
 					$.each(obj, function(key, val) {
 						for (var i = 0; i < wishList.length; i++) {
 							var loc = $("input[name='address']").eq(i).val();
 							if (loc == key) {
-								/* console.log(loc);
-								console.log($('.wishIdx' + i).text(val));  */
 								$('.wishIdx' + i).text(val);
 							}
 						}
