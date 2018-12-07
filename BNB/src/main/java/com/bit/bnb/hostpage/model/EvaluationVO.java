@@ -77,7 +77,7 @@ public class EvaluationVO {
 	}
 
 	public void setEvaluationContent(String evaluationContent) {
-		this.evaluationContent = evaluationContent;
+		this.evaluationContent = evaluationContent.replace("\n", "<br>");
 	}
 
 	public String getEvaluationDate() {

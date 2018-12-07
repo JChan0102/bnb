@@ -15,7 +15,7 @@
    
 <div class="row justify-content-center">
     <div class="col-2">
-        <div class="list-group" id="list-tab" role="tablist">
+        <div class="col-10 list-group" id="list-tab" role="tablist" style="position: absolute; top:0px; left: 40px;">
             <a class="list-group-item list-group-item-action active"
                id="list-home-list" data-toggle="list" href="#list-home" role="tab"
                aria-controls="home"><i class="far fa-calendar-alt"></i> 예약현황</a> <a
@@ -41,6 +41,18 @@
                 class="fas fa-chart-line"></i> 통계</a>
         </div>
     </div>
+    <script>
+        /* 스크롤따라 움직이는 Div */
+        var currentPositiomm = parseInt($('#list-tab').css('top'));
+
+        $(window).scroll(function() {
+            var positions = $(window).scrollTop();
+            $('#list-tab').stop().animate({
+                'top' : positions + currentPositiomm + 'px'
+            }, 500);
+        });
+    </script>
+
     <div class="col-9">
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="list-home"
