@@ -288,36 +288,10 @@
             	
             	// 가입항목에 문제 있으면 validChk를 n으로 바꿔서 submit 안되게...
                 for(var i=0; i<chkArr.length; i++){
-                	
-                	console.log('chkArr'+[i]+' : ' + chkArr[i]);
-                	
-                	if(chkArr[i] == 'n')
+                	if(chkArr[i] == 'n'){
                 		validChk = 'n';
+                	}
                 }
-                
-                
-               /*  var nName = $('#inputNickName').val();
-                var nNameChk = 'n'; */
-                
-               /*  $.ajax({
-    				type: "post",
-    				url: "${pageContext.request.contextPath}/user/nickNameChk",
-    				data: {"nickName" : nName},
-    				success: function(data){
-    					if(data == "n") {
-    						nNameChk = "n";
-    						alert('닉네임을 확인해주세요.' + nNameChk);
-    					} else if(data == "y"){
-    						nNameChk = "y";
-    					}
-    					
-    					if(nName=='' || nName==null){
-    	            		alert('닉네임을 입력해주세요.');
-    	            	}else if(nNameChk = "n"){
-    	            		alert('닉네임을 확인해주세요.');	
-    	            	}
-    				}
-                }); */
                 
                 var pattern = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
                 var year = $('#select-year').val();
@@ -368,8 +342,8 @@
                 	             	result='nopic.jpg'
 								}
                 	         $('#userPhoto').val('' + result);
-                	         $('#regForm').submit();
                 	         $('#regBtn').val('인증메일을 보내는중...');
+                	         $('#regForm').submit();
                 	       }
                 		});
                 	
