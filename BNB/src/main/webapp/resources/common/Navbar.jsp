@@ -11,12 +11,21 @@
 		</script>
 		<c:remove var="mailConfirm" scope="session" />
 	</c:if>
-	<!-- 구글계정 가입후 환영메시지 -->
+	
+	<!-- 메일인증 후 환영메시지 -->
 	<c:if test="${regSuccess ne null }">
+			<script>
+				alert("환영합니다!\n메일 인증이 완료되었습니다. 로그인 해주세요!");
+			</script>
+		<c:remove var="regSuccess" scope="session" />
+	</c:if>
+	
+	<!-- 구글계정 가입후 환영메시지 -->
+	<c:if test="${gRegSuccess ne null }">
 			<script>
 				alert("환영합니다!\n구글 계정으로 로그인 해주세요!");
 			</script>
-		<c:remove var="regSuccess" scope="session" />
+		<c:remove var="gRegSuccess" scope="session" />
 	</c:if>
 	
 	<!-- https://work.smarchal.com/twbscolor/css/e74c3cc0392becf0f1ffbbbc0 -->

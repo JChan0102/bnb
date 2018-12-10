@@ -87,14 +87,17 @@ public class UserRegController {
 	// 계정인증
 	@RequestMapping("/userKeyConfirm")
 	public String userKeyConfirm(@RequestParam("userId") String userId, 
-								 @RequestParam("userKey") String userKey) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
+								 @RequestParam("userKey") String userKey,
+								 HttpSession session)
+								 throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		
-		String result = "redirect:/";
+		String result = "redirect:/user/mailConfirmError";
 		
 		int resultCnt = userRegService.userConfirm(userId, userKey);
 		
-		if(resultCnt != 1) {
-			result = "redirect:/user/mailConfirmError";
+		if(resultCnt == 1) {
+			result =  "redirect:/";
+			session.setAttribute("regSuccess", "regSuccess");
 		}
 
 		return result;
@@ -132,11 +135,11 @@ public class UserRegController {
 			result = "redirect:/googleReg?gMail="+userVO.getUserId()+"&gName="+gName+"&gPhoto="+userVO.getUserPhoto();
 		} else {
 			
-			if (session.getAttribute("regSuccess") != null) {
-				session.removeAttribute("regSuccess");
+			if (session.getAttribute("gRegSuccess") != null) {
+				session.removeAttribute("gRegSuccess");
 			}
 
-			session.setAttribute("regSuccess", "regSuccess");
+			session.setAttribute("gRegSuccess", "gRegSuccess");
 		}
 		
 		return result;
