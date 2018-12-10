@@ -16,7 +16,16 @@
         ${requestScope.hostInfo.userId}
             ${requestScope.hostInfo.userName}
             ${requestScope.hostInfo.nickName}
-        ${requestScope.avgScope}
+        <c:choose>
+            <c:when test="${requestScope.avgScope eq -1}">
+               아직 호스트의 방에 대한 평가가 없습니다.
+            </c:when>
+            <c:otherwise>
+               호스트의 방의 평균 점수는 ${requestScope.avgScope} 입니다.
+            </c:otherwise>
+        </c:choose>
+<p>이 BitBnB의 사용자들은 호스트의 방을 ${requestScope.reservaionCnt}번 이용했습니다!
+</p>
             <img
                     src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/${requestScope.hostInfo.userPhoto}">
     아래는 방정보입니다.

@@ -18,6 +18,8 @@ public class HostInfoService {
     public float getScope(String userId){
         return dao.selectReviewAVG(userId);
     }
-
+    public int getReservationCnt(String userId){
+        return dao.selectReservation(userId);
+    }
 
 }

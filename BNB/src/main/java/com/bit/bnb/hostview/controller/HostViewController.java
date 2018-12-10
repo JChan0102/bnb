@@ -20,6 +20,7 @@ public class HostViewController {
         view.setViewName("hostview/hostview");
         view.addObject("avgScope",service.getScope(userId));
         view.addObject("hostInfo",service.getInfo(userId));
+        view.addObject("reservaionCnt",service.getReservationCnt(userId));
         return view;
     }
 

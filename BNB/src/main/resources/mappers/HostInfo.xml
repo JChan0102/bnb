@@ -8,10 +8,12 @@
         where userId = #{userId}
     </select>
     <select id="selectReviewAVG" parameterType="java.lang.String" resultType="float">
-        select IFNULL(avg(r.scope), 0)
+        select IFNULL(avg(r.scope), -1)
         from reservation re
                  inner join review r on re.reservationNum = r.reservationNum
         where re.hostId = #{userId}
     </select>
-
+    <select id="selectReservation" resultType="int" parameterType="java.lang.String">
+        select count(*) from reservation r left outer join review r2 on r.reservationNum = r2.reservationNum where r.hostId=#{userId} and	<![CDATA[ r.checkOut <= current_timestamp ]]> ;
+    </select>
 </mapper>

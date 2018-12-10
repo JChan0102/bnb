@@ -20,4 +20,8 @@ public class HostInfoDao {
         return sqlSessionTemplate.selectOne(namespace+"selectReviewAVG",userId);
     }
 
+    public int selectReservation(String userId){
+        return sqlSessionTemplate.selectOne(namespace+"selectReservation",userId);
+    }
+
 }
