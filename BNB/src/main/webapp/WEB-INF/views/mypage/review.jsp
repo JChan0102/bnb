@@ -195,7 +195,7 @@
 										<div class="media-body" style="padding: 0 10px;">
 
 											<h6 class="mt-3">
-												나에 대한 <b>${hostRe.userName}</b>님의 후기
+												나에 대한 <b><a href="${pageContext.request.contextPath}/hostview?hostId=${hostRe.hostId}">${hostRe.userName}</a></b>님의 후기 / ${hostRe.roomsId}번 방
 											</h6>
 											<br>
 											<p>${hostRe.evaluationContent}<br> <br>

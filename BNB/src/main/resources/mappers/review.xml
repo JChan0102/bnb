@@ -148,5 +148,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where re.userId = #{userId}
 		and
 		e.evaluationContent is not null
+		order by e.evaluationDate desc
 	</select>
 </mapper>
