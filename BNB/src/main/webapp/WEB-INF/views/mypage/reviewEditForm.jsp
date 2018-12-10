@@ -15,15 +15,16 @@
 		<div id="mypage_cont" class="col-9">
 			<div id="reviewCont_wrap">
 				<form method="post" name="reEdit">
-					<input type="text" name="reservationNum" class="form-control-plaintext"
-						value="${reservationNum}"
+					<input type="text" name="reservationNum"
+						class="form-control-plaintext" value="${reservationNum}"
 						style="width: 300px;" readonly><br>
 					<div class="form-group">
 						<label for="reviewCont">리뷰 내용</label>
-						<textarea class="form-control" name="reviewContent" id="reviewCont" rows="3" required>${reviewPick.reviewContent}</textarea>
+						<textarea class="form-control" name="reviewContent"
+							id="reviewCont" rows="3" required>${reviewPick.reviewContent}</textarea>
 					</div>
+					<input type="hidden" name="scope_input" value="${reviewPick.scope}">
 					<select class="form-control" name="scope" required>
-						<option selected>별점</option>
 						<option value="1">★</option>
 						<option value="2">★★</option>
 						<option value="3">★★★</option>
@@ -31,12 +32,25 @@
 						<option value="5">★★★★★</option>
 					</select><br>
 					<div id="editButton">
-					<button type="button" class="btn btn-warning" onclick="javascript:document.reEdit.submit();">수정하기</button>
-					<button type="reset" class="btn btn-outline-danger" onclick="javascript:history.back();">취소</button>
+						<button type="button" class="btn btn-warning"
+							onclick="javascript:document.reEdit.submit();">수정하기</button>
+						<button type="reset" class="btn btn-outline-danger"
+							onclick="javascript:history.back();">취소</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	<script>
+		var scope = ${reviewPick.scope};
+		for (var i = 0; i < 5; i++) {
+			/* console.log($('option').eq(i).val());
+			arr.push($('option').eq(i).val()); */
+			if (scope == $('option').eq(i).val()) {
+				console.log($('option').eq(i));
+				$('option').eq(i).attr('selected','selected');
+			}
+		}
+	</script>
 </body>
 </html>

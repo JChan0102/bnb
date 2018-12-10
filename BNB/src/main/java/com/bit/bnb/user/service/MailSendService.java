@@ -17,7 +17,7 @@ public class MailSendService {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	// 이메일 계정 인증메일 보내기 메서드
+	// 이메일 계정 인증메일 보내기
 	@Transactional
 	public void mailSendWithUserKey(String email, String name, String userKey, HttpServletRequest request) {
 
@@ -39,9 +39,7 @@ public class MailSendService {
 						  + "box-shadow 0.15s ease-in-out; cursor:pointer; background-color:#f59f00; "
 						  + "color:#ffffff;\" value=\"메일인증하기\">"
 						  + "</form>"; 
-						 // + "<a href=\"http://localhost/bnb/userKeyConfirm?"
-						 // + "userId=" + email + "&userKey=" + userKey + "\">BITBNB 가기</a>";
-			
+						
 		try {
 			mail.setSubject("[본인인증] BITBNB 회원가입 인증메일입니다", "utf-8");
 			mail.setText(htmlStr, "utf-8", "html");

@@ -130,7 +130,6 @@
 		$('#userPw-1').blur(function checkPassword(){
 				$('#alertPw').empty();
 				$('#alertPw').css("display","none");
-				//$('#fail-pw-1').val('fail');
 				
 			var checkNumber = $('#userPw-1').val().search(/[0-9]/g);
 			var checkEnglish = $('#userPw-1').val().search(/[a-z]/ig);
@@ -150,11 +149,9 @@
 					$('#alertPw').css("display","");
 					$('#alertPw').append("비밀번호에 아이디가 포함될 수 없습니다.");
 				}else{
-					//$('#fail-pw-1').val('ok');
 					chkArr[1]= 'y';
 				}
 			} else {
-				//$('#fail-pw-1').val('ok');
 				chkArr[1]= 'y';
 			}
 			
@@ -231,10 +228,6 @@
 						$('#alertId').empty();
 						$('#alertId').css("display","");
 						$('#alertId').append("이미 탈퇴처리된 아이디이거나 사용중인 아이디입니다.");
-					} else if(data == "d"){
-						$('#alertId').empty();
-						$('#alertId').css("display","");
-						$('#alertId').append("이미 탈퇴처리된 아이디는 사용이 불가합니다.");
 					} else if(data == "y"){
 						$('#alertId').empty();
 						$('#alertId').css("display","none");
@@ -307,6 +300,7 @@
                 var birth = $('#select-year').val()+'-'+month+'-'+day;
                 var lastDay = new Date(new Date(year, month, 0)).getDate();
                 
+                // 현재일자
                 var today = new Date();
                 var tYear = today.getFullYear();
                 var tMonth = today.getMonth()+1;
@@ -319,6 +313,7 @@
                 	tDay = ''+tDay;
                 }
                 
+                // 만나이 계산... 생일이 지나지 않았다면 -1
                 var age = tYear-year;
                 if((month*100 + day) > tMonth*100 + tDay){
                 	age--;

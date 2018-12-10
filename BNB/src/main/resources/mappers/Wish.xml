@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			left(r.details, 100) as details, w.userId, w.roomsId from rooms r inner join 
 			wish w on r.roomsId = w.roomsId and w.userId = #{userId} and address like 
 			CONCAT('%',#{address},'%') -->
-		select ro.address, ro.roomsId, ro.hostId, ro.price_weekdays,
+		select u.userName, ro.address, ro.roomsId, ro.hostId, ro.price_weekdays,
 		ro.price_weekend, w.userId, count(r2.reviewContent) reviewCount,
 		avg(r2.scope) avgScope
 		from rooms ro left outer join wish w on
@@ -28,6 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		r.roomsId
 		left outer join review r2 on r.reservationNum =
 		r2.reservationNum
+		left outer join user u on u.userId=ro.hostId
 		where w.userId=#{userId} and ro.address like
 		CONCAT('%',#{address},'%')
 		group by ro.roomsId;

@@ -519,7 +519,6 @@
 							})
 			gauth.then(function() {
 				console.log('googleAuth Success');
-								/* chkGLoginStatus(); */
 			}, function() {
 				console.log('googleAuth Fail');
 			});
@@ -528,10 +527,7 @@
 
 	$('#gLoginBtn').click(function() {
 
-		// if(this.value == 'Login With Google'){
 		gauth.signIn().then(function() {
-			console.log('구글로그인 성공');
-			/* chkGLoginStatus(); */
 
 			var profile = gauth.currentUser.get().getBasicProfile();
 			var gMail = profile.getEmail();

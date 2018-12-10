@@ -32,7 +32,7 @@ public class ReviewEditController {
 		
 		service.reviewEdit(review);
 		
-		return "redirect:/review";
+		return "redirect:mypage/review";
 		
 	}
 
