@@ -78,12 +78,12 @@
                             output += '		' + data.roomsList[i].roomsId
                                 + '<br>'
                                 + data.roomsList[i].address
-                                + '<br>\\';
+                                + '<br>￦';
                             output += data.roomsList[i].price_weekdays
                                     .toString().replace(
                                     /\B(?=(\d{3})+(?!\d))/g,
                                     ",")
-                                + ' - \\'
+                                + ' - ￦'
                                 + data.roomsList[i].price_weekend
                                     .toString()
                                     .replace(
