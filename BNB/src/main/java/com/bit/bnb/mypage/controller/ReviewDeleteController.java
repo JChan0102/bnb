@@ -13,12 +13,12 @@ public class ReviewDeleteController {
 	@Autowired
 	public ReviewDeleteService service;
 	
-	@RequestMapping("/review_delete")
+	@RequestMapping("mypage/review_delete")
 	public String reviewDele(@RequestParam("reservationNum") int reservationNum) {
 		
 		service.reviewDelete(reservationNum);
 		
-		return "redirect:/review";
+		return "redirect:review";
 	}
 
 }

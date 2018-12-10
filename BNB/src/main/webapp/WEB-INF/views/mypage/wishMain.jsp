@@ -47,10 +47,13 @@
 												id="idx" style="color:white; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"></span>
 											</span><br> <br>
 											<div class="address_wrap">
-												<input
+											<span class="wishAddress text-center" id="address" style="font-weight: 1000; font-size:25px; color:white; 
+													text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">${wd.address}</span>
+												<%-- <input
 													class="form-control-plaintext wishAddress text-center"
 													name="address" value="${wd.address}"
-													style="font-weight: 1000; font-size:25px; color:white; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" readonly />
+													style="font-weight: 1000; font-size:25px; color:white; 
+													text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" readonly /> --%>
 											</div> 
 										</div>
 									</div>
@@ -73,7 +76,7 @@
 			var wishList = $('.wishAddress');
 			var arr = [];
 			for (var i = 0; i < wishList.length; i++) {
-				arr.push($("input[name='address']").eq(i).val());
+				arr.push($("span[id='address']").eq(i).text());
 			}
 
 			var jsonInfo = JSON.stringify(arr);
@@ -91,7 +94,7 @@
 					var obj = JSON.parse(response);
 					$.each(obj, function(key, val) {
 						for (var i = 0; i < wishList.length; i++) {
-							var loc = $("input[name='address']").eq(i).val();
+							var loc = $("span[id='address']").eq(i).text();
 							if (loc == key) {
 								$('.wishIdx' + i).text(val);
 							}

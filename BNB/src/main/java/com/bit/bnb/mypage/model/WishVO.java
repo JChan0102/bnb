@@ -3,6 +3,7 @@ package com.bit.bnb.mypage.model;
 public class WishVO {
 
 	private String userId; // 유저아이디
+	private String userName; // 유저이름
 	private int roomsId; // 룸아이디
 	private String address; // 주소
 	private String hostId; // 호스트아이디
@@ -16,6 +17,10 @@ public class WishVO {
 
 	public String getUserId() {
 		return userId;
+	}
+
+	public String getUserName() {
+		return userName;
 	}
 
 	public int getRoomsId() {
@@ -42,8 +47,28 @@ public class WishVO {
 		return price_weekend;
 	}
 
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+	public int getAvgScope() {
+		return avgScope;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public void setRoomsId(int roomsId) {
@@ -70,28 +95,12 @@ public class WishVO {
 		this.price_weekend = price_weekend;
 	}
 
-	public int getReviewCount() {
-		return reviewCount;
-	}
-
-	public int getAvgScope() {
-		return avgScope;
-	}
-
 	public void setReviewCount(int reviewCount) {
 		this.reviewCount = reviewCount;
 	}
 
 	public void setAvgScope(int avgScope) {
 		this.avgScope = avgScope;
-	}
-
-	public String getFilename() {
-		return filename;
-	}
-
-	public int getPriority() {
-		return priority;
 	}
 
 	public void setFilename(String filename) {
@@ -102,13 +111,12 @@ public class WishVO {
 		this.priority = priority;
 	}
 
-
 	@Override
 	public String toString() {
-		return "WishVO [userId=" + userId + ", roomsId=" + roomsId + ", address=" + address + ", hostId=" + hostId
-				+ ", details=" + details + ", price_weekdays=" + price_weekdays + ", price_weekend=" + price_weekend
-				+ ", reviewCount=" + reviewCount + ", avgScope=" + avgScope + ", filename=" + filename + ", priority="
-				+ priority + "]";
+		return "WishVO [userId=" + userId + ", userName=" + userName + ", roomsId=" + roomsId + ", address=" + address
+				+ ", hostId=" + hostId + ", details=" + details + ", price_weekdays=" + price_weekdays
+				+ ", price_weekend=" + price_weekend + ", reviewCount=" + reviewCount + ", avgScope=" + avgScope
+				+ ", filename=" + filename + ", priority=" + priority + "]";
 	}
 
 }

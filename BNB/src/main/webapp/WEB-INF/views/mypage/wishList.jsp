@@ -154,8 +154,9 @@
 								</div>
 							</div> --%>
 
-							<div class="imgTop"
-								style="max-width: 100%; max-height: 350px; overflow: hidden;">
+							<div class="imgTop" style="max-width: 100%; max-height: 350px; overflow: hidden;">
+							 <a
+									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${wl.roomsId}">
 								<c:forEach var="wishImg" items="${wishImg}">
 									<c:if test="${wl.roomsId == wishImg.roomsId}">
 										<img class="card-img-top"
@@ -163,13 +164,16 @@
 											style="width: 100%; object-fit: contain;">
 									</c:if>
 								</c:forEach>
+							</a>
 							</div>
 
 							<div class="card-body">
 								<h5 class="card-title">
-									<input type="text" value="${wl.roomsId}" class="wishRoomsId"
+									<input type="hidden" value="${wl.roomsId}" class="wishRoomsId"
 										style="width: 30px; border: none; text-align: center;"
-										readonly>번 <b>${wl.hostId}</b>님의 숙소
+										readonly>
+										<a href="${pageContext.request.contextPath}/hostview?hostId=${wl.hostId}"><b>${wl.userName}</b></a>님의 숙소<br>
+										<span style="font-size:15px;">${wl.address}</span>
 								</h5>
 								<span class="card-text" id="price">￦ ${price} / 박</span>
 								<c:choose>
