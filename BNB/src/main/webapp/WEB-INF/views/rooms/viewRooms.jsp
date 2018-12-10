@@ -201,13 +201,18 @@
 							<table class="table">
 								<tr>
 									<td
-										class="w-25 text-center border-top-0 border-bottom-0 align-top"><img
+										class="w-25 text-center border-top-0 border-bottom-0 align-top" onclick="getHostInfo()"><img
 										src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/${hostInfo.userPhoto}"
 										class="viewRoomsProfile mb-1"><br>${hostInfo.userName}</td>
 									<td class="w-75 border-top-0 border-bottom-0">${hostInfo.userInfo}</td>
 								</tr>
 							</table></td>
 					</tr>
+					<script>
+						function getHostInfo() {
+							location.href="${pageContext.request.contextPath}/hostview?hostId=${hostInfo.userId}";
+                        }
+					</script>
 					<tr>
 						<td colspan="2"><div class="alert alert-secondary"
 								role="alert">
