@@ -64,10 +64,10 @@
 
 <script>
     var pageeee = 1;
+    $('#llllist').html('<h1 style="width:100%;">안녕하세요, ${requestScope.hostInfo.userName}입니다!</h1>'+'<span style="width:100%;padding-bottom:30px;font-size:20px;"><i class="fas fa-check-circle" style="color:#329632;"></i>&ensp;인증된 호스트입니다.</span>');
     function viewMyroomList() {
-        $('#llllist').html('');
         var output = '';
-        var chk = ${requestScope.hostInfo.userCheck};
+
         // http://fruitdev.tistory.com/174
         var queryString = 'hostId=${requestScope.hostInfo.userId}&checkIn=&checkOut=&page='
             + pageeee;
@@ -80,10 +80,7 @@
                 data : queryString,
                 dataType : 'JSON',
                 success : function(data) {
-                    output += '<h1 style="width:100%;">안녕하세요, ${requestScope.hostInfo.userName}입니다!</h1>';
-                    if(chk == 1){
-                        output += '<span style="width:100%;padding-bottom:30px;font-size:20px;"><i class="fas fa-check-circle" style="color:#329632;"></i>&ensp;인증된 호스트입니다.</span>';
-                    }
+
                     for (i = 0; i < data.roomsList.length; i++) {
                         output += '<div class="col-lg-3">';
                         output += '<div class="card mb-3 box-shadow">';
@@ -150,6 +147,9 @@
                         output += '</div>';
                         output += '</div>';
                     }
+                    console.log(data.paging.currentPageNo);
+                    console.log(data.paging.lastPageNo);
+
                     if (data.paging.currentPageNo < data.paging.lastPageNo) {
                         // 출력할 것이 남은 경우
                         pageeee = data.paging.currentPageNo;
@@ -157,7 +157,7 @@
                         // console.log($('#page').val());
                         pageeee = -1;
                     }
-                    $('#llllist').html(output);
+                    $('#llllist').html( $('#llllist').html()+output);
 
                     // console.log(markers);
                     // console.log('--- ajax ---');
@@ -176,8 +176,8 @@
         function() {
             if ($(window).scrollTop() == $(document).height()- $(window).height()) {
                 // 마지막 페이지가 아닐 때
-                if ($('#page').val() != -1) {
-                    $('#page').val(+$('#page').val() + 1);
+                if (pageeee != -1) {
+                    pageeee=pageeee+1;
                     viewMyroomList();
                 }
             }
