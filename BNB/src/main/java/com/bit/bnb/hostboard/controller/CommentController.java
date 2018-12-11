@@ -25,11 +25,13 @@ public class CommentController {
 	// 댓글달기
 	@RequestMapping("/hostBoard/writeComment")
 	public String writeComment(@RequestParam("postNo") int postNo,
+							   @RequestParam("userId") String userId,
 							   @RequestParam("nickName") String nickName,
 							   @RequestParam("commentContent") String commentContent) {
 		
 		CommentVO comment = new CommentVO();
 		comment.setPostNo(postNo);
+		comment.setUserId(userId);
 		comment.setNickName(nickName);
 		comment.setCommentContent(commentContent);
 

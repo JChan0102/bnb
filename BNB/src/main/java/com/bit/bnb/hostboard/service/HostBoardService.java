@@ -1,6 +1,5 @@
 package com.bit.bnb.hostboard.service;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bit.bnb.hostboard.dao.CommentDao;
 import com.bit.bnb.hostboard.dao.HostBoardDao;
 import com.bit.bnb.hostboard.model.PageView;
 import com.bit.bnb.hostboard.model.PostVO;
@@ -18,19 +18,20 @@ public class HostBoardService {
 	@Autowired
 	private HostBoardDao hostBoardDao;
 	
+	@Autowired
+	private CommentDao commentDao;
+	
 	// 게시물 목록 가져오기
 	@Transactional
 	public PageView getPostList(int pageNumber){
 		
-		System.out.println("겟포스트리스트 서비스 진입");
-
-		int postCountPerPage = 10;
-		int currentPageNumber = pageNumber;
-		int postTotalCount = hostBoardDao.getPostTotalCount();
+		int postCountPerPage = 10; // 페이지당 보여줄 게시물 개수
+		int currentPageNumber = pageNumber; // 현재 페이지 넘버
+		int postTotalCount = hostBoardDao.getPostTotalCount(); // DB에 저장된 게시물 개수
 		
-		System.out.println("postTotalCount: "+postTotalCount);
 		
 		List<PostVO> postList = null;
+		// 시작할 행과 페이지당 게시물개수를 map으로 묶는다
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		int firstRow = 0;
 
@@ -38,13 +39,11 @@ public class HostBoardService {
 			firstRow = (pageNumber - 1) * postCountPerPage;
 			map.put("firstRow", firstRow);
 			map.put("postCountPerPage", postCountPerPage);
-			System.out.println("map: "+map);
 			postList = hostBoardDao.getPostList(map);
-			System.out.println("postList : "+ postList);
 		}
 		
+		// pageView 객체에 정보를 담아서 반환
 		PageView pageView = new PageView(postList, postTotalCount, currentPageNumber, postCountPerPage, firstRow);
-		System.out.println(pageView);
 		return pageView;
 	
 	}
@@ -72,11 +71,11 @@ public class HostBoardService {
 	
 	// 게시물 댓글수 증가
 	public int upCommentCnt(int postNo) {
-		return hostBoardDao.upCommentCnt(postNo);
+		return commentDao.upCommentCnt(postNo);
 	}
 	
 	// 게시물 댓글수 감소
 		public int downCommentCnt(int postNo) {
-			return hostBoardDao.downCommentCnt(postNo);
+			return commentDao.downCommentCnt(postNo);
 		}
 }

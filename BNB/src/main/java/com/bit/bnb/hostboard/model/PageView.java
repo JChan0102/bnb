@@ -47,11 +47,6 @@ public class PageView {
 			endPage = 1;
 			startPage = 1;
 		}
-		
-		
-		System.out.println("STARTPAGE : " + startPage);
-		System.out.println("ENDPAGE : " + endPage);
-		
 	}
 
 	public int getPostTotalCount() {

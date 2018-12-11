@@ -30,9 +30,6 @@ public class HostBoardController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		System.out.println("겟호스트보드리스트 컨트롤러 진입");
-		System.out.println("page : "+ page);
-		
 		int pageNumber = 1;
 		
 		if(page != 0) {

@@ -13,10 +13,10 @@
 <%@ include file="/resources/common/Navbar.jsp"%>
 
 <div class="container" style="margin-bottom:100px;">
-	<h1>POST VIEW!</h1>
+	<h1>VIEW PAGE</h1>
 	<hr>
 	<div class="table-responsive">
-		<div style="height:40px; border-bottom:1px solid lightgrey;">
+		<div style="height:50px; margin:10px; border-bottom:1px solid lightgrey;">
 			<div style="float:left; margin-left:10px;"><h3>${post.title }</h3></div>
 			<c:if test="${loginUser.userId eq post.userId or loginUser.admin eq 1}">
 				<div style="float:right; margin-right:10px;"><a class="btn btn-outline-primary" role="button" onclick="return confirm('정말 삭제하시겠습니까?');" href="${pageContext.request.contextPath}/hostBoard/deletePost?postNo=${post.postNo}">삭제</a></div>
@@ -24,8 +24,8 @@
 			</c:if>
 		
 		</div>
-		<div style="text-align: justify;">
-			<div style="float:left;">${post.nickName}</div>
+		<div style="height:40px; padding:5px 10px;">  
+			<div style="float:left;">작성자 : ${post.nickName}</div>
 			<div style="float:right;"><fmt:formatDate value="${post.date}" pattern="yyyy-MM-dd HH:mm" /></div>
 		</div>
 		
@@ -33,11 +33,12 @@
 		<div style="padding:10px; margin-top:50px;">${post.content }</div>
 
 		<hr>
-		<div style="float:right; height: 50px; margin-right:10px;"><a class="btn btn-outline-primary" role="button" href="${pageContext.request.contextPath}/hostBoard">목록</a></div>
+		<div style="float:right; height: 50px; margin-right:10px;"><a id="backToList" class="btn btn-outline-primary" role="button">목록</a></div>
 		
 		<div class="card card-default" style="margin-top:70px;">
 			<div class="form-group">
 				<input id="postNo" type="hidden" value="${post.postNo }">
+				<input id="userId" type="hidden" value="${loginUser.userId }">
 				<input id="nickName" type="text" class="form-control" style="float:left;" value="${loginUser.nickName }" readonly />
 				<textarea id="commentContent" class="form-control" style="height:100px;"></textarea>
 				<a class="btn btn-outline-primary" role="button" id="commentBtn">댓글달기</a>
@@ -79,15 +80,26 @@
 </body>
 
 <script>
+
+// 목록으로 되돌아가기
+//$('#backToList').click(function(){
+//	window.history.go(-1); // 이전 페이지로 되돌아간다
+//});
+
+
+
+
 // 댓글달기 클릭시 댓글 인서트-뷰 ajax 조회수 변동 없어야함
 $('#commentBtn').click(function(){
 	
 	var postNo = $('#postNo').val();
+	var userId = $('#userId').val();
 	var nickName = $('#nickName').val();
 	var commentContent = $('#commentContent').val();
 	var commentListStr = '';
 	
 	console.log('postNo : ' + postNo);
+	console.log('userId : ' + userId);
 	console.log('nickName : ' + nickName);
 	console.log('commentContent : ' + commentContent);
 	
@@ -99,6 +111,7 @@ $('#commentBtn').click(function(){
 		type : 'post',
 		data : {
 					'postNo' : postNo,
+					'userId' : userId,
 					'nickName' : nickName,
 					'commentContent' : commentContent
 		},
@@ -129,9 +142,11 @@ $('#commentBtn').click(function(){
 });
 
 
-
 // 댓글삭제 클릭시 - 댓글 딜리트 처리-댓글뷰로 ajax 처리: 조회수 변동 없어야함
 function deleteComment(commentNo){
+	
+	// 삭제할건지 확인
+	if(confirm('정말 삭제하시겠습니까?')){
 	
 	var postNo = $('#postNo').val();
 	var commentListStr = '';
@@ -167,7 +182,7 @@ function deleteComment(commentNo){
 		}
 		
 	});
-	
+	}
 }
 
 

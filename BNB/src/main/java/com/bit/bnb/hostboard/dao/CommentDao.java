@@ -14,26 +14,35 @@ public class CommentDao {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	
+
 	private String commentMapper = "mappers.CommentMapper";
-	
+
 	public int insertComment(CommentVO comment) {
-		return sqlSessionTemplate.insert(commentMapper+".insertComment", comment);
+		return sqlSessionTemplate.insert(commentMapper + ".insertComment", comment);
 	}
-	
+
 	public List<CommentVO> getCommentList(int postNo) {
-		return sqlSessionTemplate.selectList(commentMapper+".getCommentList", postNo);
+		return sqlSessionTemplate.selectList(commentMapper + ".getCommentList", postNo);
 	}
-	
+
 	public int modifyComment(ModifyCommentVO modifyComment) {
-		return sqlSessionTemplate.update(commentMapper+".modifyComment", modifyComment);
+		return sqlSessionTemplate.update(commentMapper + ".modifyComment", modifyComment);
 	}
-	
+
 	public int deleteComment(int commentNo) {
-		return sqlSessionTemplate.delete(commentMapper+".deleteComment", commentNo);
+		return sqlSessionTemplate.delete(commentMapper + ".deleteComment", commentNo);
 	}
-	
+
 	public CommentVO getCommentOne(int commentNo) {
-		return sqlSessionTemplate.selectOne(commentMapper+".getCommentOne", commentNo);
+		return sqlSessionTemplate.selectOne(commentMapper + ".getCommentOne", commentNo);
 	}
+
+	public int upCommentCnt(int postNo) {
+		return sqlSessionTemplate.update(commentMapper + ".upCommentCnt", postNo);
+	}
+
+	public int downCommentCnt(int postNo) {
+		return sqlSessionTemplate.update(commentMapper + ".downCommentCnt", postNo);
+	}
+
 }

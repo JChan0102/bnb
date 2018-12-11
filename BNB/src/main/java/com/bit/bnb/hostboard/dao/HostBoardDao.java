@@ -26,9 +26,9 @@ public class HostBoardDao {
 		return sqlSessionTemplate.selectOne(hostBoardMapper+".selectPost", postNo);
 	}
 	
-	public List<PostVO> selectPostList(){
+	/*public List<PostVO> selectPostList(){
 		return sqlSessionTemplate.selectList(hostBoardMapper+".selectPostList");
-	}
+	}*/
 	
 	public List<PostVO> getPostList(HashMap<String, Integer> map){
 		return sqlSessionTemplate.selectList(hostBoardMapper+".getPostList", map);
@@ -57,13 +57,4 @@ public class HostBoardDao {
 	public int upViewCnt(int postNo) {
 		return sqlSessionTemplate.update(hostBoardMapper+".upViewCnt", postNo);
 	}
-	
-	public int upCommentCnt(int postNo) {
-		return sqlSessionTemplate.update(hostBoardMapper+".upCommentCnt", postNo);
-	}
-	
-	public int downCommentCnt(int postNo) {
-		return sqlSessionTemplate.update(hostBoardMapper+".downCommentCnt", postNo);
-	}
-
 }

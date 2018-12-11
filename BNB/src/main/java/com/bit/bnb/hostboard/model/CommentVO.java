@@ -8,10 +8,11 @@ public class CommentVO {
 
 	private int commentNo;
 	private int postNo;
+	private String userId;
 	private String nickName;
 	private String commentContent;
-	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
 	private Date commentDate;
 
 	public int getCommentNo() {
@@ -28,6 +29,14 @@ public class CommentVO {
 
 	public void setPostNo(int postNo) {
 		this.postNo = postNo;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getNickName() {
@@ -56,8 +65,8 @@ public class CommentVO {
 
 	@Override
 	public String toString() {
-		return "CommentVO [commentNo=" + commentNo + ", postNo=" + postNo + ", nickName=" + nickName
-				+ ", commentContent=" + commentContent + ", commentDate=" + commentDate + "]";
+		return "CommentVO [commentNo=" + commentNo + ", postNo=" + postNo + ", userId=" + userId + ", nickName="
+				+ nickName + ", commentContent=" + commentContent + ", commentDate=" + commentDate + "]";
 	}
 
 }

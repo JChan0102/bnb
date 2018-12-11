@@ -486,7 +486,7 @@
 					if (uri == '/bnb/WEB-INF/views/user/userRegForm.jsp') {
 						location.href = '${pageContext.request.contextPath}/';
 					} else {
-						window.history.go(0);
+						window.history.go(0); // 이전 페이지로 되돌아간다
 					}
 				}
 			}

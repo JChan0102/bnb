@@ -6,20 +6,24 @@
 
 	<insert id="insertPost" parameterType="com.bit.bnb.hostboard.model.PostVO" 
 		useGeneratedKeys="true" keyProperty="postNo">
-		insert into hostBoard (userId, title, content, date, viewCnt, nickName, commentCnt) 
-		value(#{userId}, #{title}, #{content}, CURRENT_TIMESTAMP, 0, #{nickName}, 0)
+		insert into hostBoard (userId, title, content, date, viewCnt, commentCnt) 
+		value(#{userId}, #{title}, #{content}, CURRENT_TIMESTAMP, 0, 0)
 	</insert>
 	
 	<select id="selectPost" resultType="com.bit.bnb.hostboard.model.PostVO">
-		select * from hostBoard where postNo=#{postNo}
+		select hb.postNo, hb.userId, hb.title, hb.content, hb.date, hb.viewCnt, u.nickName, hb.commentCnt from hostBoard as hb join user as u on u.userId = hb.userId where postNo=#{postNo}
 	</select>
 	
-	<select id="selectPostList" resultType="com.bit.bnb.hostboard.model.PostVO">
+	<!-- <select id="selectPostList" resultType="com.bit.bnb.hostboard.model.PostVO">
 		select * from hostBoard order by postNo desc
-	</select>
+	</select> -->
+	
+	<!-- <select id="getPostList" parameterType="java.util.HashMap" resultType="com.bit.bnb.hostboard.model.PostVO">
+		<![CDATA[select * from hostBoard where postNo > 0 order by postNo desc limit #{firstRow}, #{postCountPerPage}]]>
+	</select> -->
 	
 	<select id="getPostList" parameterType="java.util.HashMap" resultType="com.bit.bnb.hostboard.model.PostVO">
-		<![CDATA[select * from hostBoard where postNo > 0 order by postNo desc limit #{firstRow}, #{postCountPerPage}]]>
+		<![CDATA[select hb.postNo, hb.userId, hb.title, hb.content, hb.date, hb.viewCnt, u.nickName, hb.commentCnt from hostBoard as hb join user as u on u.userId = hb.userId where postNo > 0 order by postNo desc limit #{firstRow}, #{postCountPerPage}]]>
 	</select>
 	
 	<select id="getPostTotalCount" resultType="int">
@@ -44,14 +48,6 @@
 	
 	<update id="upViewCnt">
 		update hostBoard set viewCnt = viewCnt + 1 where postNo=#{postNo}
-	</update>
-	
-	<update id="upCommentCnt">
-		update hostBoard set commentCnt = commentCnt + 1 where postNo=#{postNo}
-	</update>
-	
-	<update id="downCommentCnt">
-		update hostBoard set commentCnt = commentCnt - 1 where postNo=#{postNo}
 	</update>
 
 </mapper>

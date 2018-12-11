@@ -24,7 +24,7 @@ public class CommentService {
 	@Transactional
 	public int writeComment(CommentVO comment, int postNo) {
 		int resultCnt = 0;
-		int resultTmp = hostBoardDao.upCommentCnt(postNo);
+		int resultTmp = commentDao.upCommentCnt(postNo);
 		
 		if(resultTmp == 1) {
 			resultCnt = commentDao.insertComment(comment);
@@ -42,7 +42,7 @@ public class CommentService {
 	@Transactional
 	public int deleteComment(int commentNo, int postNo) {
 		int resultCnt = 0; 
-		int resultTmp = hostBoardDao.downCommentCnt(postNo);
+		int resultTmp = commentDao.downCommentCnt(postNo);
 
 		if(resultTmp == 1) {
 			resultCnt = commentDao.deleteComment(commentNo);

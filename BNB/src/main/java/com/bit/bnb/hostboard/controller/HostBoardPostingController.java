@@ -76,11 +76,6 @@ public class HostBoardPostingController {
 	public String modifyPost(@RequestParam("title") String title,
 								   @RequestParam("content") String content,
 								   @RequestParam("postNo") int postNo) {
-		
-	System.out.println("타이틀 : " + title);	
-	System.out.println("본문 : " + content);
-	System.out.println("번호 : " + postNo);
-	
 	
 	ModifyVO modifyVO = new ModifyVO();
 	modifyVO.setTitle(title);

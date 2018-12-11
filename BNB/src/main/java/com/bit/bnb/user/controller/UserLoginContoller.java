@@ -58,7 +58,6 @@ public class UserLoginContoller {
 
 			// 로그인서비스의 로그인 처리 결과를 담는다.
 			result = userLoginService.userLogin(userId, userPw, session);
-			System.out.println("로그인 result : " + result);
 
 			// 로그인 처리 경우의 수 :
 			// 1. 구글계정인경우 - 구글계정으로 로그인 요청(메인에 얼럿띄우기) : google
@@ -73,11 +72,9 @@ public class UserLoginContoller {
 					Cookie cookie = new Cookie("cookieUserId", userId);
 					cookie.setMaxAge(60 * 60 * 24 * 7);
 					response.addCookie(cookie);
-					System.out.println("생성된 쿠키 : " + cookie.getName() + " : " + cookie.getValue());
 
 				} else {
 					// rememberMe가 false면 쿠키 삭제
-					System.out.println("쿠키삭제");
 					Cookie cookie = new Cookie("cookieUserId", null);
 					cookie.setMaxAge(0);
 					response.addCookie(cookie);
@@ -89,17 +86,14 @@ public class UserLoginContoller {
 	}
 	
 	
+	// 구글 로그인
 	@RequestMapping(value="/googleLogin", method=RequestMethod.POST)
 	@ResponseBody
 	public String googleLogin(@RequestParam(value = "gId", required = false) String gId,
 							  HttpSession session) throws UnsupportedEncodingException, GeneralSecurityException {
 		
-		System.out.println("구글 로그인 컨트롤러 진입");
-		
 		String result = userLoginService.googleLogin(gId, session);
 		
-		System.out.println("result : " + result);
-	
 		return result;
 	}
 }
