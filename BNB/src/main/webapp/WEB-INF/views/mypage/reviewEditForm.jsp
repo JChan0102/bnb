@@ -16,7 +16,8 @@
 			<div id="reviewCont_wrap">
 				<form method="post" name="reEdit">
 				<c:forEach var="reChk" items="${reviewChk}"> 
-					<span><i class="fas fa-edit"></i>&ensp;${reChk.checkIn} 부터 ${reChk.checkOut}일까지 이용한 ${reChk.reservationNum}번 방에 대한 리뷰를 써주세요.</span><br><br>
+					<span><i class="fas fa-edit"></i>&ensp;${reChk.checkIn} 부터 ${reChk.checkOut}일까지 이용한 
+					<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${reChk.roomsId}">${reChk.roomsId}번</a> 방에 대한 리뷰를 써주세요.</span><br><br>
 				</c:forEach>
 					<div class="form-group">
 						<label for="reviewCont">리뷰 내용</label>
