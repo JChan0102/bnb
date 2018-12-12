@@ -20,7 +20,7 @@
 			<div style="float:left; margin-left:10px;"><h3>${post.title }</h3></div>
 			<c:if test="${loginUser.userId eq post.userId or loginUser.admin eq 1}">
 				<div style="float:right; margin-right:10px;"><a class="btn btn-outline-primary" role="button" onclick="return confirm('정말 삭제하시겠습니까?');" href="${pageContext.request.contextPath}/hostBoard/deletePost?postNo=${post.postNo}">삭제</a></div>
-				<div style="float:right; margin-right:10px;"><a class="btn btn-outline-primary" role="button" href="${pageContext.request.contextPath}/hostBoard/modifyPost?postNo=${post.postNo}">수정</a></div>
+				<div style="float:right; margin-right:10px;"><a class="btn btn-outline-primary" role="button" href="${pageContext.request.contextPath}/hostBoard/modifyPost?postNo=${post.postNo}&page=${page}">수정</a></div>
 			</c:if>
 		
 		</div>
@@ -33,7 +33,7 @@
 		<div style="padding:10px; margin-top:50px;">${post.content }</div>
 
 		<hr>
-		<div style="float:right; height: 50px; margin-right:10px;"><a class="btn btn-outline-primary" role="button" href="http://localhost/bnb/hostBoard?page=${pageNumber}">목록</a></div>
+		<div style="float:right; height: 50px; margin-right:10px;"><a class="btn btn-outline-primary" role="button" href="http://localhost/bnb/hostBoard?page=${page}">목록</a></div>
 		
 		<div class="card card-default" style="margin-top:70px;">
 			<div class="form-group">

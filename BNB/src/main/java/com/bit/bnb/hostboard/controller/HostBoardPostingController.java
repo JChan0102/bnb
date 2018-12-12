@@ -58,7 +58,8 @@ public class HostBoardPostingController {
 	
 	// 게시물 수정 폼
 	@RequestMapping(value="/hostBoard/modifyPost", method=RequestMethod.GET)
-	public ModelAndView getModifyForm(@RequestParam("postNo") int postNo) {
+	public ModelAndView getModifyForm(@RequestParam("postNo") int postNo,
+									  @RequestParam(value="page", defaultValue="1") int page) {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("hostBoard/modifyForm");
@@ -67,6 +68,7 @@ public class HostBoardPostingController {
 		post = hostBoardService.getPost(postNo);
 		
 		modelAndView.addObject("post", post);
+		modelAndView.addObject("page", page);
 		
 		return modelAndView;
 	}
@@ -75,15 +77,22 @@ public class HostBoardPostingController {
 	@RequestMapping(value="/hostBoard/modifyPost", method=RequestMethod.POST)
 	public String modifyPost(@RequestParam("title") String title,
 								   @RequestParam("content") String content,
-								   @RequestParam("postNo") int postNo) {
+								   @RequestParam("postNo") int postNo,
+								   @RequestParam(value="page", defaultValue="1") int page) {
 	
+	String result = "redirect:/hostBoard/postView?postNo="+postNo+"&page="+page;
+		
 	ModifyVO modifyVO = new ModifyVO();
 	modifyVO.setTitle(title);
 	modifyVO.setContent(content);
 	modifyVO.setPostNo(postNo);
 	
 	int resultCnt = postingService.modifyPost(modifyVO);
+	
+	if(resultCnt != 1) {
+		result = "hostBoard/error";
+	}
 		
-		return "redirect:/hostBoard/postView?postNo="+postNo;
+		return result;
 	}
 }

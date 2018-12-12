@@ -27,6 +27,7 @@ $(document).ready(function() {
  <form method="post" id="modifyForm">
 <div class="card card-header"><input type="text" id="modifyTitle" name="title" value="${post.title }" placeholder="제목" />
 <input type="hidden" name="postNo" value="${post.postNo }" readonly/>
+<input type="hidden" name="page" value="${page}" readonly/>
 </div>
 
 <div>
@@ -58,8 +59,9 @@ $('#modifyBtn').click(function(){
 	
 });
 
+// 수정 취소시 전 페이지로 되돌아간다
 $('#modifyCancel').click(function(){
-	location.href = '${pageContext.request.contextPath}/hostBoard';
+	window.history.go(-1);
 	
 });
 </script>

@@ -31,7 +31,7 @@
 	<c:forEach var="post" items="${postListData.postList}">
 		<tr class="row" style="margin-right:0px;">
 			<td class="col-2">${post.postNo}</td>
-			<td class="col-5 text-left"><a href="${pageContext.request.contextPath}/hostBoard/postView?postNo=${post.postNo }&pageNumber=${pageNumber}">${post.title}</a>
+			<td class="col-5 text-left"><a href="${pageContext.request.contextPath}/hostBoard/postView?postNo=${post.postNo }&page=${page}">${post.title}</a>
 				<!-- 댓글갯수가 1개 이상일때만 댓글개수 보여주기 -->
 				<c:if test="${post.commentCnt > 0 }">
 					&nbsp;&nbsp;[${post.commentCnt}]
