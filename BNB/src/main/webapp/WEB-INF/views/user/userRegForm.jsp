@@ -130,6 +130,7 @@
 		$('#userPw-1').blur(function checkPassword(){
 				$('#alertPw').empty();
 				$('#alertPw').css("display","none");
+				chkArr[1]= 'n';
 				
 			var checkNumber = $('#userPw-1').val().search(/[0-9]/g);
 			var checkEnglish = $('#userPw-1').val().search(/[a-z]/ig);
@@ -180,6 +181,7 @@
 		 });
 		 
 		 function pwChk(){
+			chkArr[2]= 'n';
 				if($('#userPw-1').val() != $('#userPw-2').val()){
 					$('#chkPw').empty();
 					$('#chkPw').css("display","");
@@ -196,6 +198,7 @@
 
 		// 이름 입력했는지 검사
 		$('#inputUserName').blur(function(){
+			chkArr[3]= 'n';
 			if($('#inputUserName').val() == null ||$('#inputUserName').val() == ''){
 				$('#chkName').empty();
 				$('#chkName').css("display","");
@@ -216,7 +219,10 @@
 					$('#alertPw').css("display","");
 					$('#alertPw').empty();
 					$('#alertPw').append("비밀번호에 아이디가 포함되었습니다.");
+					chkArr[1]= 'n';
 					return false;
+				}else{
+					chkArr[1]= 'y';
 				}
 			
 				$.ajax({
@@ -228,6 +234,7 @@
 						$('#alertId').empty();
 						$('#alertId').css("display","");
 						$('#alertId').append("이미 탈퇴처리된 아이디이거나 사용중인 아이디입니다.");
+						chkArr[0]= 'n';
 					} else if(data == "y"){
 						$('#alertId').empty();
 						$('#alertId').css("display","none");
@@ -247,6 +254,7 @@
 				$('#alertNickName').empty();
 				$('#alertNickName').css("display","");
 				$('#alertNickName').append("닉네임을 확인해주세요");
+				chkArr[4]= 'n';
 			}
 			
 			
@@ -260,6 +268,7 @@
 						$('#alertNickName').empty();
 						$('#alertNickName').css("display","");
 						$('#alertNickName').append("이미 사용중인 닉네임입니다");
+						chkArr[4]= 'n';
 					} else if(data == "y"){
 						$('#alertNickName').empty();
 						$('#alertNickName').css("display","none");

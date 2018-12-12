@@ -39,6 +39,7 @@ public class HostBoardController {
 		PageView postListData = hostBoardService.getPostList(pageNumber);
 		
 		modelAndView.addObject("postListData", postListData);
+		modelAndView.addObject("pageNumber", pageNumber);
 		modelAndView.setViewName("hostBoard/hostBoard");
 		
 		return modelAndView;
@@ -47,7 +48,8 @@ public class HostBoardController {
 	
 	// 게시물 내용 보여주기
 	@RequestMapping("/hostBoard/postView")
-	public ModelAndView getPostView(@RequestParam("postNo") int postNo) {
+	public ModelAndView getPostView(@RequestParam("postNo") int postNo,
+									@RequestParam("pageNumber") int pageNumber) {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("hostBoard/postView");
@@ -59,6 +61,7 @@ public class HostBoardController {
 		commentList = commentService.getCommentList(postNo);
 		
 		modelAndView.addObject("post", post);
+		modelAndView.addObject("pageNumber", pageNumber);
 		modelAndView.addObject("commentList", commentList);
 		
 		//조회수 올리기

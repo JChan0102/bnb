@@ -33,7 +33,7 @@
 		<div style="padding:10px; margin-top:50px;">${post.content }</div>
 
 		<hr>
-		<div style="float:right; height: 50px; margin-right:10px;"><a id="backToList" class="btn btn-outline-primary" role="button">목록</a></div>
+		<div style="float:right; height: 50px; margin-right:10px;"><a class="btn btn-outline-primary" role="button" href="http://localhost/bnb/hostBoard?page=${pageNumber}">목록</a></div>
 		
 		<div class="card card-default" style="margin-top:70px;">
 			<div class="form-group">
@@ -80,14 +80,6 @@
 </body>
 
 <script>
-
-// 목록으로 되돌아가기
-//$('#backToList').click(function(){
-//	window.history.go(-1); // 이전 페이지로 되돌아간다
-//});
-
-
-
 
 // 댓글달기 클릭시 댓글 인서트-뷰 ajax 조회수 변동 없어야함
 $('#commentBtn').click(function(){
