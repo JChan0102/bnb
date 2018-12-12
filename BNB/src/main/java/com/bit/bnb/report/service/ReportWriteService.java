@@ -1,12 +1,12 @@
 package com.bit.bnb.report.service;
 
-import com.bit.bnb.mypage.service.MypageUserDeleteService;
-import com.bit.bnb.mypage.service.ProfileEditService;
-import com.bit.bnb.report.dao.ReportDao;
-import com.bit.bnb.report.model.ReportVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.bit.bnb.mypage.service.MypageService;
+import com.bit.bnb.report.dao.ReportDao;
+import com.bit.bnb.report.model.ReportVO;
 
 @Service
 public class ReportWriteService {
@@ -15,7 +15,7 @@ public class ReportWriteService {
     private ReportDao dao;
 
     @Autowired
-    private MypageUserDeleteService deleteService;
+    private MypageService deleteService;
 
     public void insertt(ReportVO vo) {
 

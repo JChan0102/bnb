@@ -1,7 +1,7 @@
 package com.bit.bnb.report.contoller;
 
 import com.bit.bnb.mypage.model.ReviewVO;
-import com.bit.bnb.mypage.service.ReviewWriteService;
+import com.bit.bnb.mypage.service.ReviewService;
 import com.bit.bnb.report.model.ReportVO;
 import com.bit.bnb.report.service.ReportWriteService;
 import org.springframework.beans.factory.annotation.Autowired;

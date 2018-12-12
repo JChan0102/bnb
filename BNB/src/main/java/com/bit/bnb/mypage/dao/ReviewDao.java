@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.bit.bnb.mypage.model.ReviewSearchVO;
 import com.bit.bnb.mypage.model.ReviewVO;
+import com.bit.bnb.reservation.model.ReservationInfo;
 
 public interface ReviewDao {
 	
@@ -18,4 +19,6 @@ public interface ReviewDao {
 	public List<ReviewVO> searchReview(@Param("userId") String userId, @Param("rvs") ReviewSearchVO rvs); // 리뷰 검색하기 내가쓴거
 	public List<ReviewVO> searchReviewHost(@Param("userId") String userId, @Param("rvs") ReviewSearchVO rvs); // 리뷰 검색 내게쓴거
 	public List<ReviewVO> hostReview(String userId); // 호스트가 쓴 리뷰
+	public List<ReservationInfo> reviewChk(int reservationNum); // 리뷰 예약정보조회
+	public List<ReservationInfo> reviewChk2(int reservationNum); // 리뷰 예약정보조회
 }

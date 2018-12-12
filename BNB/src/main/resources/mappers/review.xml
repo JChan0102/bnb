@@ -81,7 +81,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		join review
 		re
 		on r.reservationNum = re.reservationNum
-		inner join user u on r.userId = u.userId
+		inner join user u on r.userId
+		= u.userId
 		where r.userId = #{userId}
 		<if test="rvs.searchType != null">
 			<if test="rvs.searchType == 'all'.toString()">
@@ -94,9 +95,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="rvs.searchType == 'hostId'.toString()">
 				and r.hostId LIKE CONCAT('%',#{rvs.keyword},'%')
 			</if>
-<!-- 			<if test="rvs.searchType == 'scope'.toString()">
-				and re.scope LIKE CONCAT('%',#{rvs.keyword},'%')
-			</if> -->
+			<!-- <if test="rvs.searchType == 'scope'.toString()"> and re.scope LIKE 
+				CONCAT('%',#{rvs.keyword},'%') </if> -->
 		</if>
 		order by re.reviewDate desc
 	</select>
@@ -105,11 +105,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchReviewHost"
 		resultType="com.bit.bnb.hostpage.model.EvaluationVO">
 		select re.hostId, u.userPhoto, re.roomsId,
-		e.evaluationContent, u.userName,
-		e.evaluationDate as reviewDate from reservation re inner JOIN
+		e.evaluationContent,
+		u.userName,
+		e.evaluationDate as reviewDate from reservation re inner
+		JOIN
 		evaluation e on
 		re.reservationNum
-		= e.reservationNum inner JOIN user u
+		= e.reservationNum inner JOIN user
+		u
 		on u.userId = re.hostId where
 		re.userId
 		= #{userId} and
@@ -130,7 +133,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</if>
 	</select>
-	
+
 	<!-- 호스트가 쓴 나에대한 리뷰 리스트 -->
 	<select id="hostReview"
 		resultType="com.bit.bnb.hostpage.model.EvaluationVO">
@@ -143,11 +146,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from reservation re
 		inner JOIN
 		evaluation e on re.reservationNum = e.reservationNum
-		inner JOIN user u
+		inner
+		JOIN user u
 		on u.userId = re.hostId
 		where re.userId = #{userId}
 		and
 		e.evaluationContent is not null
 		order by e.evaluationDate desc
+	</select>
+
+	<!-- 리뷰의 숙박정보조회 -->
+	<select id="reviewChk" resultType="com.bit.bnb.reservation.model.ReservationInfo">
+		select * from review re left outer join reservation rv on
+		re.reservationNum=rv.reservationNum where re.reservationNum=#{reservationNum};
+	</select>
+	<select id="reviewChk2" resultType="com.bit.bnb.reservation.model.ReservationInfo">
+		select * from reservation where reservationNum=#{reservationNum};
 	</select>
 </mapper>

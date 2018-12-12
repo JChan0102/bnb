@@ -78,7 +78,7 @@
 													pattern="MM월 dd일" value="${reWrite.checkOut}" /></b>에 숙박한 숙소에
 											대한 후기를 써주세요.</td>
 										<td><a
-											href="${pageContext.request.contextPath }/reviewWrite?reservationNum=${reWrite.reservationNum}">후기쓰기</a>
+											href="${pageContext.request.contextPath}/reviewWrite?reservationNum=${reWrite.reservationNum}">후기쓰기</a>
 											<a
 											href="${pageContext.request.contextPath}/reportWrite?reservationNum=${reWrite.reservationNum}">신고</a>
 										</td>

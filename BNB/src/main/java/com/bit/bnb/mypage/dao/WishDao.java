@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.bit.bnb.mypage.model.ReviewVO;
 import com.bit.bnb.mypage.model.WishVO;
 
 public interface WishDao {

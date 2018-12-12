@@ -15,12 +15,14 @@
 		<div id="mypage_cont" class="col-9">
 			<div id="reviewCont_wrap">
 				<form method="post" name="reWrite">
-					<input type="text" name="reservationNum" class="form-control-plaintext"
-						value="${reservationNum}"
-						style="width: 300px;" readonly><br>
+					<c:forEach var="reChk" items="${reviewChk}">
+						<span><i class="fas fa-edit"></i>&ensp;${reChk.checkIn} 부터
+							${reChk.checkOut}일까지 이용한 ${reChk.reservationNum}번 방에 대한 리뷰를 써주세요.</span><br><br>
+					</c:forEach>
 					<div class="form-group">
 						<label for="reviewCont">리뷰 내용</label>
-						<textarea class="form-control" name="reviewContent" id="reviewCont" rows="3" required></textarea>
+						<textarea class="form-control" name="reviewContent"
+							id="reviewCont" rows="3" required></textarea>
 					</div>
 					<select class="form-control" name="scope" required>
 						<option selected>별점</option>
@@ -31,8 +33,10 @@
 						<option value="5">★★★★★</option>
 					</select><br>
 					<div id="editButton">
-					<button type="button" class="btn btn-warning" onclick="javascript:document.reWrite.submit();">리뷰 쓰기</button>
-					<button type="reset" class="btn btn-outline-danger" onclick="javascript:history.back();">취소</button>
+						<button type="button" class="btn btn-warning"
+							onclick="javascript:document.reWrite.submit();">리뷰 쓰기</button>
+						<button type="reset" class="btn btn-outline-danger"
+							onclick="javascript:history.back();">취소</button>
 					</div>
 				</form>
 			</div>

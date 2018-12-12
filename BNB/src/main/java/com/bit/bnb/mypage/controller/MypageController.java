@@ -7,15 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bit.bnb.mypage.service.MypageMainService;
+import com.bit.bnb.mypage.service.MypageService;
 import com.bit.bnb.user.model.UserVO;
 
 
 @Controller
-public class MypageMainController {
+public class MypageController {
 	
 	@Autowired
-	private MypageMainService service;
+	private MypageService service;
 	
 	@RequestMapping("/mypage")
 	public ModelAndView Listview(HttpSession session) {

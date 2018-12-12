@@ -13,7 +13,7 @@ import com.bit.bnb.user.model.UserVO;
 import com.bit.bnb.user.service.EncryptSHA256Service;
 
 @Service
-public class ProfileEditService {
+public class MypageService {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
@@ -23,7 +23,17 @@ public class ProfileEditService {
 
 	private MypageUserDao mypageUserDao;
 
-	public int myUserUpdate(UserVO member, HttpServletRequest request) throws IllegalStateException, IOException {
+	public UserVO mypageView(String userId) { // 마이페이지 메인 보여주기
+		mypageUserDao = sqlSessionTemplate.getMapper(MypageUserDao.class);
+		return mypageUserDao.userPick(userId);
+	}
+
+	public int userDelete(String userId) { // 유저 탈퇴
+		mypageUserDao = sqlSessionTemplate.getMapper(MypageUserDao.class);
+		return mypageUserDao.userDelete(userId);
+	}
+
+	public int myUserUpdate(UserVO member, HttpServletRequest request) throws IllegalStateException, IOException { // 유저수정
 
 		mypageUserDao = sqlSessionTemplate.getMapper(MypageUserDao.class);
 
@@ -56,7 +66,7 @@ public class ProfileEditService {
 			String ePw = sha256Service.encrypt(member.getUserPw());
 			member.setUserPw(ePw);
 		}
-		
+
 		System.out.println(member.toString());
 		return mypageUserDao.userUpdate(member);
 	}
