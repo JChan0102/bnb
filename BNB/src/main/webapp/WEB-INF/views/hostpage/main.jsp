@@ -81,7 +81,7 @@
                                         type: 'get',
                                         datatype: 'json',
                                         success: function (data) {
-                                            var str = '<div class="col-md-3" style=" background-color: #EEEEEE" ><b>예약자</b></div><div class="col-md-4" style="background-color: #EEEEEE">예약 일시</div><div class="col-md-2" style=" background-color: #EEEEEE"> 결제 금액 </div><div class="col-md-3" style=" background-color: #EEEEEE"> 취소 </div>';
+                                            var str = '<div class="col-md-3 p-2" style=" background-color: #EEEEEE" ><b>예약자</b></div><div class="col-md-4 p-2" style="background-color: #EEEEEE"><b>예약 일시</b></div><div class="col-md-2 p-2" style=" background-color: #EEEEEE"><b> 결제 금액</b> </div><div class="col-md-3 p-2" style=" background-color: #EEEEEE"><b> 취소</b> </div>';
                                             var today = new Date();
                                             today.setDate(today
                                                 .getDate() + 5);
@@ -109,11 +109,11 @@
                                                         date
                                                             .setMonth(date
                                                                 .getMonth() - 1);
-                                                        str += '<div class="col-md-3" style="margin-bottom: 10px"><img style="width:30px; height:30px" src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/' + value.userPhoto + '" alt="" />'
+                                                        str += '<div class="col-md-3 p-2" style="margin-bottom: 10px"><img style="width:30px; height:30px" src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/' + value.userPhoto + '" alt="" /> '
                                                             +value.userName
                                                             + '('
                                                             + value.userId
-                                                            + ') </div> <div class="col-md-4">'
+                                                            + ') </div> <div class="col-md-4 p-2">'
                                                             + value.checkIn
                                                                 .substring(
                                                                     0,
@@ -123,15 +123,15 @@
                                                                 .substring(
                                                                     0,
                                                                     10)
-                                                            + '</div><div class="col-md-2">'
+                                                            + '</div><div class="col-md-2 p-2">'
                                                             + value.price
                                                             +'</div>';
                                                         if (date > today) {
-                                                            str += '<div class="col-md-3"><button class="btn" onclick="rescancle('
+                                                            str += '<div class="col-md-3 p-2"><button class="btn" onclick="rescancle('
                                                                 + value.reservationNum
                                                                 + ','+roomsid+')">예약 취소</button></div>';
                                                         } else {
-                                                            str += '<div class="col-md-3"></div>';
+                                                            str += '<div class="col-md-3 p-2"></div>';
                                                         }
 
                                                     });
@@ -330,8 +330,8 @@
 
                         $('#noteval').html('');
                         $('#yeseval').html('');
-                        var str1 = '<h2>호스트님의 방을 사용한 회원들을 평가해주세요</h2>';
-                        var str2 = '<h2>평가 리스트</h2>';
+                        var str1 = '<div class="col-md-9 p-3" ><h2>호스트님의 방을 사용한 회원들을 평가해주세요 !</h2></div>';
+                        var str2 = '<div class="col-md-9 p-3" ><h2>평가 리스트</h2></div>';
 
                         $
                             .ajax({
@@ -344,9 +344,9 @@
                                             .each(
                                                 function (key,
                                                           value) {
-                                                    str1 += '<div class="col-12 row justify-content-center">'
-                                                        + '<div class="col-md-1"  style="margin-bottom: 30px;"><img width="80px" src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/' + value.userPhoto + '"></div>'
-                                                        + '<div class="col-md-7">'
+                                                    str1 += '<div class="col-md-9 row justify-content-center p-3" style="background-color: #EEEEEE; margin-bottom: 10px; border-radius: 15px">'
+                                                        + '<div class="col-md-2" ><img width="80px" src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/' + value.userPhoto + '"></div>'
+                                                        + '<div class="col-md-8">'
                                                         + value.checkIn
                                                             .substr(
                                                                 0,
@@ -356,14 +356,14 @@
                                                             .substr(
                                                                 0,
                                                                 10)
-                                                        + '에 '
+                                                        + '<br>'
                                                         + value.roomsId
                                                         + '방을 이용한 사용자 '
                                                         + value.userName
                                                         + '('
                                                         + value.userId
                                                         + ')님을 평가해주세요!</div>'
-                                                        + '<div class="col-md-2"><button onclick="writee('
+                                                        + '<div class="col-md-2 pt-3"><button class="btn btn-success m-auto" onclick="writee('
                                                         + value.reservationNum
                                                         + ')">평가하기</button></div>'
                                                         + '  </div>'
@@ -378,9 +378,9 @@
                                             .each(
                                                 function (key,
                                                           value) {
-                                                    str2 += '<div class="col-12 row justify-content-center">'
-                                                        + '<div class="col-md-1"  style="margin-bottom: 30px;"><img width="80px" src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/' + value.userPhoto + '"></div>'
-                                                        + '<div class="col-md-7"><p>['
+                                                    str2 += '<div class="col-md-9 row justify-content-center p-3" style="background-color: #EEEEEE; margin-bottom: 10px; border-radius: 15px" >'
+                                                        + '<div class="col-md-2" ><img width="100px" src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/' + value.userPhoto + '"></div>'
+                                                        + '<div class="col-md-8"><p>['
                                                         + value.reservationNum
                                                         + '] '
                                                         + value.checkIn
@@ -406,7 +406,7 @@
                                                                 0,
                                                                 10)
                                                         + '</p> </div>'
-                                                        + '<div class="col-md-2"><button onclick="moddiy('
+                                                        + '<div class="col-md-2 pt-3"><button class="btn btn-warning m-auto" onclick="moddiy('
                                                         + value.reservationNum
                                                         + ')">수정하기</button></div>'
                                                         + '</div>'

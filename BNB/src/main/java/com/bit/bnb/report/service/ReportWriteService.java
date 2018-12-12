@@ -34,4 +34,9 @@ public class ReportWriteService {
             }
         }
     }
+
+    public int testprocedure(ReportVO vo){
+         dao.procedure(vo);
+        return vo.getResult();
+    }
 }

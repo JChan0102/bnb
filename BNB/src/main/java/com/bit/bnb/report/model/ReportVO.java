@@ -5,6 +5,15 @@ public class ReportVO {
     private String reportContent;
     private String reportCk;
     private int totalCount;
+    private Integer result;
+
+    public Integer getResult() {
+        return result;
+    }
+
+    public void setResult(Integer result) {
+        this.result = result;
+    }
 
     private String hostId;
 
@@ -55,6 +64,7 @@ public class ReportVO {
                 ", reportContent='" + reportContent + '\'' +
                 ", reportCk='" + reportCk + '\'' +
                 ", totalCount=" + totalCount +
+                ", result=" + result +
                 ", hostId='" + hostId + '\'' +
                 '}';
     }

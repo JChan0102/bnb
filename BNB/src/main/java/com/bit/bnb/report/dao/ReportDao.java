@@ -42,4 +42,8 @@ public int roomDisabled(String hostId){
     return sqlSessionTemplate.update(namespace+"roomDisabled",hostId);
 }
 
+    public ReportVO procedure(ReportVO vo){
+    return sqlSessionTemplate.selectOne(namespace+"procedure",vo);
+}
+
 }

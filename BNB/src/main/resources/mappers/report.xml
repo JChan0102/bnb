@@ -36,4 +36,7 @@
         update rooms set disabled=0 where hostId=#{hostId}
     </update>
 
+    <select id="procedure" statementType="CALLABLE" parameterType="com.bit.bnb.report.model.ReportVO">
+        {call reportprocedure (#{reportCk, mode=IN, jdbcType=VARCHAR},#{reservationNum, mode=IN, jdbcType=INTEGER},#{result, mode=OUT, jdbcType=INTEGER, javaType=_int})}
+    </select>
 </mapper>
