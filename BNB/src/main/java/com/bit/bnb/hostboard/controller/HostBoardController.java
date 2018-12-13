@@ -36,9 +36,11 @@ public class HostBoardController {
 			pageNumber = page;
 		}
 		
+		// 페이지 정보를 담아 보낸다
 		PageView postListData = hostBoardService.getPostList(pageNumber);
 		
 		modelAndView.addObject("postListData", postListData);
+		// 목록으로 되돌아갈 때를 위한 페이지 번호
 		modelAndView.addObject("page", page);
 		modelAndView.setViewName("hostBoard/hostBoard");
 		
