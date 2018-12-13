@@ -433,7 +433,7 @@
 		
 		$('#btn-login').html('로그인');
 
-		if ($('#input_userId').val() == null) {
+		if ($('#input_userId').val() == null || $('#input_userId').val() == '') {
 			$('#input_userId').focus();
 		} else {
 			$('#input_userPw').focus();
