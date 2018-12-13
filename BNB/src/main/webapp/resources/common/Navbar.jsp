@@ -428,14 +428,16 @@
 	});
 	
 	
-	// 로그인 모달창 열때 아이디나 비밀번호 인풋박스에 포커스
+	// 로그인 모달 포커스
 	$('#layerpop').on('shown.bs.modal', function() {
 		
 		$('#btn-login').html('로그인');
-
+		
+		// 아이디 입력박스에 포커스
 		if ($('#input_userId').val() == null || $('#input_userId').val() == '') {
 			$('#input_userId').focus();
 		} else {
+			// 쿠키로 아이디 입력되어있으면 비밀번호에 포커스
 			$('#input_userPw').focus();
 		}
 	});
