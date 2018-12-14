@@ -103,7 +103,7 @@
 			</div>
 			</a>
 			
-			<a href="#">
+			<a href="https://korean.visitkorea.or.kr/main/main.html">
    			<div class="card text-white" style="margin-top:50px;">
    			<div class="img_overlay">
 			  <img class="card-img" src="${pageContext.request.contextPath}/resources/images/trip.jpg" style="height: 200px;">
