@@ -33,7 +33,7 @@
 		<div style="padding:10px; margin-top:50px;">${post.content }</div>
 
 		<hr>
-		<div style="float:right; height: 50px; margin-right:10px;"><a class="btn btn-outline-primary" role="button" href="http://localhost/bnb/hostBoard?page=${page}">목록</a></div>
+		<div style="float:right; height: 50px; margin-right:10px;"><a class="btn btn-outline-primary" role="button" href="${pageContext.request.contextPath}/hostBoard?page=${page}">목록</a></div>
 		
 		<div class="card card-default" style="margin-top:70px;">
 			<div class="form-group">
