@@ -35,6 +35,45 @@
 								required>
 						</div>
 					</div>
+					<!-- 닉네임 -->
+					<div class="form-group row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">닉네임</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="닉네임"
+								id="inputNickName" name="nickName" value="${member.nickName}">
+								<span
+									id="nickNameChk" style="color: red; font-size: 13px;"></span>
+						</div>
+					</div>
+					<script>
+						// 닉네임 중복체크
+						$('#inputNickName').blur(
+										function() {
+											var nName = $('#inputNickName').val();
+
+											if (nName == '' || nName == null) {
+												$('#nickNameChk').empty();
+												$('#nickNameChk').append("<b>닉네임을 입력해주세요.</b>");
+											}
+
+											if (nName != '' && nName != null) {
+												$.ajax({
+															type : "GET",
+															url : "${pageContext.request.contextPath}/user/nickNameChk",
+															data : {"nickName" : nName},
+															success : function(data) {
+																if (data == "n") {
+																	$('#nickNameChk').empty();
+																	$('#nickNameChk').append("<b>이미 사용중인 닉네임입니다</b>");
+																} else if (data == "y") {
+																	$('#nickNameChk').empty();
+																	$('#nickNameChk').css("display","none");
+																}
+															}
+														});
+											}
+										});
+					</script>
 					<c:if test="${member.userKey ne 'g'}">
 						<!-- 현재비밀번호 -->
 						<div class="form-group row">
@@ -50,45 +89,27 @@
 							<label for="inputPassword" class="col-sm-2 col-form-label">비번확인</label>
 							<div class="col-sm-10">
 								<input type="password" class="form-control" id="passwordCk"
-									placeholder="Password"  required> <span
-									id="pwCk" style="color: red; font-size: 13px;"></span>
+									placeholder="Password" required> <span id="pwCk"
+									style="color: red; font-size: 13px;"></span>
 							</div>
 						</div>
 
 						<script>
 							// 비밀번호 유효성 검사
-							$('#inputPassword')
-									.blur(
+							$('#inputPassword').blur(
 											function checkPassword() {
 
-												var checkNumber = $(
-														'#inputPassword').val()
-														.search(/[0-9]/g);
-												var checkEnglish = $(
-														'#inputPassword').val()
-														.search(/[a-z]/ig);
+												var checkNumber = $('#inputPassword').val().search(/[0-9]/g);
+												var checkEnglish = $('#inputPassword').val().search(/[a-z]/ig);
 
-												if (!/^[a-zA-Z0-9]{8,15}$/
-														.test($(
-																'#inputPassword')
-																.val())) {
-													$('#pwOkCk')
-															.html(
-																	"<b>숫자와 영문자 조합으로 8~15자리를 사용해야 합니다.</b>");
+												if (!/^[a-zA-Z0-9]{8,15}$/.test($('#inputPassword').val())) {
+													$('#pwOkCk').html("<b>숫자와 영문자 조합으로 8~15자리를 사용해야 합니다.</b>");
 													return false;
-												} else if (checkNumber < 0
-														|| checkEnglish < 0) {
-													$('#pwOkCk')
-															.html(
-																	"<b>숫자와 영문자를 혼용하여야 합니다.</b>");
+												} else if (checkNumber < 0 || checkEnglish < 0) {
+													$('#pwOkCk').html("<b>숫자와 영문자를 혼용하여야 합니다.</b>");
 													return false;
-												} else if (/(\w)\1\1\1/
-														.test($(
-																'#inputPassword')
-																.val())) {
-													$('#pwOkCk')
-															.html(
-																	"<b>같은 문자를 4번 이상 연속하여 사용하실 수 없습니다.</b>");
+												} else if (/(\w)\1\1\1/.test($('#inputPassword').val())) {
+													$('#pwOkCk').html("<b>같은 문자를 4번 이상 연속하여 사용하실 수 없습니다.</b>");
 													return false;
 												} else {
 													$('#pwOkCk').html('');
@@ -145,15 +166,14 @@
 				</form>
 				<script>
 					$(function() {
-						$("#uploadbutton")
-								.click(
+						$("#uploadbutton").click(
 										function() {
 											var pW = $('#inputPassword').val();
 											console.log($('#inputPassword').val());
 
 											var form = $('#modiform')[0];
 											var formData = new FormData(form);
-											if (pW!='') {
+											if (pW != '') {
 												$.ajax({
 															url : 'http://13.209.99.134:8080/imgserver/upload/userPhoto',
 															processData : false,
@@ -161,13 +181,11 @@
 															datatype : 'JSON',
 															data : formData,
 															type : 'POST',
-															success : function(
-																	result) {
+															success : function(result) {
 																if (result == '') {
 																	result = $('#before').val();
 																}
 																$('#userPhoto').val(''+ result);
-
 																$('#modiform').submit();
 															}
 														});

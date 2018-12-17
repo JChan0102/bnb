@@ -41,57 +41,6 @@
 	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .1)
 }
 </style>
-<script>
-	/* 	$(document).ready(
-	 function() {
-	 var wishRoomsId_leng = $('.wishRoomsId');
-	 var wishImgRoomsId_leng = $('.wishImgRoomsId');
-	 var arr = [];
-	 for (var i = 0; i < wishRoomsId_leng.length; i++) {
-	 var wishRoomsId = $('.wishRoomsId').eq(i).val();
-	 for (var j = 0; j < wishImgRoomsId_leng.length; j++) {
-	 var wishImgRoomsId = $('.wishImgRoomsId').eq(j).val();
-	 if (wishRoomsId == wishImgRoomsId) {
-	 var wishImgFilename = $('.wishImgFilename').eq(j)
-	 .val();
-	 arr.push({
-	 'roomsId' : wishImgRoomsId,
-	 'fileName' : wishImgFilename
-	 });
-	 }
-	 }
-	 }
-	 console.log(arr);
-
-	 for (var k = 0; k < arr.length; k++) {
-	 var wishRoomsId = $('.wishRoomsId').eq(k).val();
-	 var zz = $('.imgTop' + k);
-	 zz.append('<img class="card-img-top cardImg' + k
-	 + '" style="width: 100%; object-fit: contain;">');
-	 if (arr[k].roomsId == wishRoomsId) {
-	 $('.cardImg' + k).attr(
-	 'src',
-	 'http://13.209.99.134:8080/imgserver/resources/upload/'
-	 + arr[k].fileName);
-	 }
-	 }
-	 }); */
-	/* for (var k = 0; k < arr.length; k++) {
-		var zz = $('.carousel-inner' + k);
-		for (var z = 0; z < bb.length; z++) {
-			if (arr[z].roomsId == wishRoomsId) {
-				zz.after('<div class="carousel-item active"><img class="wishImg" style="width: 100%; object-fit: contain;"></div>');
-				$('.wishImg').addClass('imgFile' + z);
-				$('.imgFile' + z).attr(
-						'src',
-						'http://13.209.99.134:8080/imgserver/resources/upload/'
-								+ arr[z].fileName);
-				$('.wishImg').removeClass('imgFile' + z);
-			}
-		}
-	}
-	});  */
-</script>
 </head>
 <body style="background-color: #EEEEEE;">
 	<%@ include file="/resources/common/Navbar.jsp"%>
@@ -103,20 +52,12 @@
 			</h1>
 			<div class="row"
 				style="height: 600px; /* width: 900px; */ margin: 0 auto;">
-				<div class="col-5" style="overflow: scroll;">
+				<div class="col-5 wishListCont"
+					style="overflow: scroll; overflow-x: hidden;">
 					<h2 style="font-weight: 600; text-align: center;">
 						<i class="fas fa-map-marker-alt" style="color: red;"></i>&ensp;${address}
 					</h2>
 					<br>
-
-					<!-- 방넘버별 이미지값 받기 -->
-					<%-- <c:forEach var="img" items="${wishImg}">
-						<input type="hidden" value="${img.roomsId}" class="wishImgRoomsId">
-						<input type="hidden" value="${img.filename}"
-							class="wishImgFilename">
-					</c:forEach> --%>
-
-
 					<c:forEach var="wl" items="${wishList}" varStatus="status">
 						<c:set var="priceAvg"
 							value="${wl.price_weekdays + wl.price_weekend / 2}" />
@@ -124,56 +65,37 @@
 							pattern="#,###" />
 						<div class="card" style="margin-bottom: 20px;">
 
-							<%-- <div id="demo" class="carousel slide demo${status.index}"
-								data-ride="carousel" data-interval="false">
-								<!-- The slideshow -->
-								<div class="carousel-inner${status.index}"
-									style="max-width: 100%; max-height: 300px; overflow: hidden;">
-
-									<div class="carousel-item active">
-										<img
-											src="${pageContext.request.contextPath}/resources/images/userphoto/이제훈.jpg"
-											alt="Chicago" style="width: 100%; object-fit: contain;">
-									</div>
-									<div class="carousel-item">
-										<img
-											src="${pageContext.request.contextPath}/resources/images/짱짱절미.jpg"
-											alt="New York" style="width: 100%; object-fit: contain;">
-									</div>
-
-									<!-- Left and right controls -->
-									<div>
-										<a class="carousel-control-prev" href=".demo${status.index}"
-											data-slide="prev"> <span
-											class="carousel-control-prev-icon"></span>
-										</a> <a class="carousel-control-next" href=".demo${status.index}"
-											data-slide="next"> <span
-											class="carousel-control-next-icon"></span>
-										</a>
-									</div>
-								</div>
-							</div> --%>
-
-							<div class="imgTop" style="max-width: 100%; max-height: 350px; overflow: hidden;">
-							 <a
+							<div class="divImg imgTop"
+								style="max-width: 100%; max-height: 350px; overflow: hidden; position: relative;">
+								<a
 									href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${wl.roomsId}">
-								<c:forEach var="wishImg" items="${wishImg}">
-									<c:if test="${wl.roomsId == wishImg.roomsId}">
-										<img class="card-img-top"
-											src="http://13.209.99.134:8080/imgserver/resources/upload/${wishImg.filename}"
-											style="width: 100%; object-fit: contain;">
-									</c:if>
-								</c:forEach>
-							</a>
+									<c:forEach var="wishImg" items="${wishImg}">
+										<c:if test="${wl.roomsId == wishImg.roomsId}">
+											<img class="card-img-top"
+												src="http://13.209.99.134:8080/imgserver/resources/upload/${wishImg.filename}"
+												style="width: 100%; object-fit: contain;">
+										</c:if>
+									</c:forEach>
+								</a>
+								<div class="top-right"
+									style="position: absolute; top: 8px; right: 8px;">
+									<button style="border: none; float: right; outline: 0; background-color: Transparent;"
+										id="wishBtn" onclick="wishDelete('${wl.roomsId}','${address}')">
+										<img id="wishIcon"
+											src="${pageContext.request.contextPath}/resources/images/full2.png"
+											style="width: 35px;">
+									</button>
+								</div>
 							</div>
-
 							<div class="card-body">
 								<h5 class="card-title">
 									<input type="hidden" value="${wl.roomsId}" class="wishRoomsId"
 										style="width: 30px; border: none; text-align: center;"
-										readonly>
-										<a href="${pageContext.request.contextPath}/hostview?hostId=${wl.hostId}"><b>${wl.userName}</b></a>님의 숙소<br>
-										<span style="font-size:15px;">${wl.address}</span>
+										readonly> <a
+										href="${pageContext.request.contextPath}/hostview?hostId=${wl.hostId}">
+										<b>${wl.userName}</b>
+									</a>님의 숙소<br> <span style="font-size: 15px;"
+										class="wsAddress de_add" id="wsAddress">${wl.address}</span>
 								</h5>
 								<span class="card-text" id="price">￦ ${price} / 박</span>
 								<c:choose>
@@ -186,8 +108,7 @@
 									</c:when>
 									<c:otherwise>
 										<span class="card-text"><i
-											class="fas fa-exclamation-circle" style="color: red;"></i>
-											후기없음</span>
+											class="fas fa-exclamation-circle" style="color: red;"></i>후기없음</span>
 									</c:otherwise>
 								</c:choose>
 								<br> <br> <a
@@ -195,8 +116,6 @@
 									class="btn"
 									style="background-color: #FF5A5F; color: white; float: right;">보러가기</a>
 							</div>
-							<input type="hidden" value="${wl.address}" id="de_add"
-								class="de_add" name="address">
 						</div>
 					</c:forEach>
 				</div>
@@ -211,10 +130,82 @@
 		</div>
 	</div>
 	<script>
+		function wishDelete(roomsId, address) {
+			var com = confirm('즐겨찾기를 해제하시겠습니까?');
+			if(com){
+			$.ajax({
+						url : '${pageContext.request.contextPath}/wishOut?roomsId='
+								+ roomsId + '&address=' + address,
+						success : function(data) {
+							if(data[0].length && data[1].length){
+							var address = '${address}';
+							var cont = '';
+							var price = '';
+
+							// data[0][i] -> 룸정보 data[1][i] -> 사진정보
+							cont += '<h2 style="font-weight: 600; text-align: center;"><i class="fas fa-map-marker-alt" style="color: red;"></i>&ensp;'
+									+ address + '</h2><br>';
+							for (var i = 0; i < data[0].length; i++) {
+								var price = (data[0][i].price_weekdays + data[0][i].price_weekend) / 2;
+								cont += '<div class="card" style="margin-bottom: 20px;"><div class="divImg imgTop"style="max-width: 100%; max-height: 350px; overflow: hidden; position:relative;">';
+								cont += '<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
+										+ data[0][i].roomsId + '">';
+								for (var j = 0; j < data[1].length; j++) {
+									if (data[0][i].roomsId == data[1][j].roomsId) {
+										cont += '<img class="card-img-top" src="http://13.209.99.134:8080/imgserver/resources/upload/'
+												+ data[1][j].filename
+												+ '" style="width: 100%; object-fit: contain;">';
+									}
+								}
+								cont += '</a><div class="top-right" style="position: absolute; top: 8px; right: 8px;">'
+										+ '<button style="border: none; float: right; outline: 0; background-color: Transparent;" id="wishBtn" onclick="wishDelete(\''
+										+ data[0][i].roomsId
+										+ '\',\''
+										+ address
+										+ '\')">'
+										+ '<img id="wishIcon" src="${pageContext.request.contextPath}/resources/images/full2.png" style="width: 35px;"></button></div></div>';
+								cont += '<div class="card-body"><h5 class="card-title"><input type="hidden" value="'+
+					data[0][i].roomsId + '" class="wishRoomsId" style="width: 30px; border: none; text-align: center;" readonly>';
+								cont += '<a href="${pageContext.request.contextPath}/hostview?hostId='
+										+ data[0][i].hostId
+										+ '"><b>'
+										+ data[0][i].userName
+										+ '</b></a>님의 숙소<br> <span style="font-size: 15px;" class="wsAddress de_add" id="wsAddress">'
+										+ data[0][i].address
+										+ '</span></h5> <span class="card-text" id="price">￦'
+										+ price + ' / 박</span>';
+								if (data[0][i].reviewCount != 0
+										&& data[0][i].avgScope != 0) {
+									cont += '<span class="card-text">';
+									for (var k = 1; k < data[0][i].avgScope; k++) {
+										cont += '<i class="fas fa-star fa-sm" style="color: #FF5A5F;"></i>';
+									}
+									cont += '(' + data[0][i].reviewCount
+											+ ')</span>';
+								} else {
+									cont += '<span class="card-text"><i class="fas fa-exclamation-circle" style="color: red;"></i>후기없음</span>';
+								}
+								cont += '<br> <br> <a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
+										+ data[0][i].roomsId
+										+ '" class="btn" style="background-color: #FF5A5F; color: white; float: right;">보러가기</a></div></div>';
+							}
+							$('.wishListCont').html('');
+							$('.wishListCont').append(cont);
+						} else {
+							location.replace('${pageContext.request.contextPath}/mypage/wish');
+						}
+
+					}
+			});
+			}
+		}
+	</script>
+	<script>
 		var mapContainer = document.getElementById('map'); // 지도를 표시할 div  
 		mapOption = {
 			center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표 
-			level : 7 // 지도의 확대 레벨
+			level : 6
+		// 지도의 확대 레벨
 		};
 
 		var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -224,12 +215,12 @@
 
 		for (var i = 0; i < wishList.length; i++) {
 			addressArray.push({
-				'groupAddress' : $("input[name='address']").eq(i).val()
+				'groupAddress' : $("span[id='wsAddress']").eq(i).text()
 			});
 		}
-
 		for (var i = 0; i < addressArray.length; i++) {
-			geocoder.addressSearch(
+			geocoder
+					.addressSearch(
 							addressArray[i].groupAddress,
 							function(result, status, data) {
 
@@ -248,7 +239,7 @@
 									// 마커를 지도에 표시합니다.
 									marker.setMap(map);
 
-									var content = '<div class ="labelWish"><span class="leftWish"></span><span class="centerWish">'
+									var content = '<div class ="labelWish"><span class="leftWish"></span><span class="centerWish cWish">'
 											+ result[0].address_name
 											+ '</span><span class="rightWish"></span></div>';
 

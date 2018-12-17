@@ -1,5 +1,6 @@
 package com.bit.bnb.mypage.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bit.bnb.mypage.model.WishVO;
 import com.bit.bnb.mypage.service.WishService;
 import com.bit.bnb.user.model.UserVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -89,6 +91,23 @@ public class WishController {
 		modelAndView.addObject("wishImg", service.wishRoomImg(userId, address));
 
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="/wishOut", method=RequestMethod.GET)
+	@ResponseBody
+	public List<List> wishOut(HttpSession session, @RequestParam("roomsId") int roomsId, @RequestParam("address") String address) {
+		
+		ModelAndView modelAndView = new ModelAndView();
+		List<List> list = new ArrayList<List>();
+		
+		UserVO user = (UserVO) session.getAttribute("loginUser");
+		service.wishDelete(user.getUserId(), roomsId);
+		
+		list.add(service.wishList(user.getUserId(), address));
+		list.add(service.wishRoomImg(user.getUserId(), address));
+		
+		return list;
+		
 	}
 
 }

@@ -29,7 +29,8 @@
 					<h4>
 						<span class="badge badge-pill badge-warning">Id</span>&ensp;${loginUser.userId }
 					</h4>
-					<h4>${user.nickName }</h4>
+					<h5><span class="badge badge-pill badge-warning">Name</span>&ensp;${user.userName}</h5>
+					<h5><span class="badge badge-pill badge-warning">NickName</span>&ensp;${user.nickName}</h5>
 				</div>
 				<div class="col-sm-6 profile_right">
 					<dl>

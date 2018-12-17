@@ -118,7 +118,7 @@
 											<!-- <h2 class="sub_title">The city that never sleeps.</h2> -->
 											<p class="description">
 												<a
-													href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${his.roomsId}">
+													href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${trip.roomsId}">
 													${trip.details}...</a>
 											</p>
 											<div class="post-meta">
@@ -132,56 +132,6 @@
 								</div>
 							</c:forEach>
 						</div>
-						<%-- <ul class="timeline">
-							<c:forEach var="trip" items="${trip}" varStatus="status">
-								<c:choose>
-									<c:when test="${status.index % 2 == 0}">
-										<li>
-									</c:when>
-									<c:otherwise>
-										<li class="timeline-inverted">
-									</c:otherwise>
-								</c:choose>
-								<div class="timeline-badge">
-									<a><i class="fa fa-circle" id=""></i></a>
-								</div>
-								<div class="timeline-panel">
-									<div class="timeline-heading">
-										<h4 style="padding: 10px; text-align: center;">${trip.address}</h4>
-									</div>
-									<div class="timeline-img"
-										style="max-width: 100%; max-height: 300px; overflow: hidden;">
-										<c:forEach var="tripImg" items="${tripImg}">
-											<c:if test="${trip.roomsId == tripImg.roomsId}">
-												<img
-													src="http://13.209.99.134:8080/imgserver/resources/upload/${tripImg.filename }"
-													style="width: 100%; object-fit: contain;">
-											</c:if>
-										</c:forEach>
-									</div>
-									<div class="timeline-body">
-										<p>
-											<a
-												href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId=${trip.roomsId}">
-												${trip.details}</a><br>
-											<fmt:formatNumber type="int" var="price"
-												value="${trip.price}" pattern="#,###" />
-											￦ ${price}
-										</p>
-									</div>
-									<div class="timeline-footer">
-										<p class="text-right">
-											<fmt:formatDate pattern="YY년 MM월 dd일" value="${trip.checkIn}" />
-											~
-											<fmt:formatDate pattern="YY년 MM월 dd일"
-												value="${trip.checkOut}" />
-											· 게스트 ${trip.people}명
-										</p>
-									</div>
-								</div>
-								<li class="clearfix no-float"></li>
-							</c:forEach>
-						</ul> --%>
 					</div>
 				</div>
 			</div>
