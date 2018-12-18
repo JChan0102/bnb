@@ -24,13 +24,17 @@
 			</h1>
 			<div id="wish_wrap">
 				<div class="row">
+				<c:if test="${empty wishDiv}">
+					<h1 style="width:100%; text-align: center;">즐겨찾기 목록이 없습니다. 더 많은 숙소를 둘러보세요!</h1>
+					<h5 style="margin: 0 auto;padding:20px;"><a href="${pageContext.request.contextPath}/rooms">보러가기</a></h5>
+				</c:if> 
 					<c:forEach var="wd" items="${wishDiv}">
 						<div class="col-4 wishDiv">
 							<a
 								href="${pageContext.request.contextPath}/mypage/wishList?userId=${loginUser.userId}&address=${wd.address}"
 								style="text-align: center; font-size: 18px; text-decoration: none; color: black;"
 								class="wish_div">
-								<div class="card border-light wish_hover"
+							 	<div class="card border-light wish_hover"
 									style="height: 200px; margin-bottom: 20px; overflow: hidden;">
 									<c:forEach var="img" items="${wishDivImg}">
 										<c:if test="${wd.address == img.address}">

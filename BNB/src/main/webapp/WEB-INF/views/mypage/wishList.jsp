@@ -133,7 +133,7 @@
 		function wishDelete(roomsId, address) {
 			var com = confirm('즐겨찾기를 해제하시겠습니까?');
 			if(com){
-			$.ajax({
+					$.ajax({
 						url : '${pageContext.request.contextPath}/wishOut?roomsId='
 								+ roomsId + '&address=' + address,
 						success : function(data) {
@@ -165,7 +165,7 @@
 										+ '\')">'
 										+ '<img id="wishIcon" src="${pageContext.request.contextPath}/resources/images/full2.png" style="width: 35px;"></button></div></div>';
 								cont += '<div class="card-body"><h5 class="card-title"><input type="hidden" value="'+
-					data[0][i].roomsId + '" class="wishRoomsId" style="width: 30px; border: none; text-align: center;" readonly>';
+										data[0][i].roomsId + '" class="wishRoomsId" style="width: 30px; border: none; text-align: center;" readonly>';
 								cont += '<a href="${pageContext.request.contextPath}/hostview?hostId='
 										+ data[0][i].hostId
 										+ '"><b>'
