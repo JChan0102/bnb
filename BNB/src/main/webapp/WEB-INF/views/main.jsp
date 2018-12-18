@@ -189,11 +189,7 @@
 							ForecastGribURL += "&base_date=" + today;
 							ForecastGribURL += "&base_time=" + now + "00";
 							ForecastGribURL += "&nx=" + _nx + "&ny=" + _ny;
-							console.log(ForecastGribURL)
 							arr.push({'url': ForecastGribURL, 'region':region});
-							/* region_arr.push(region); */
-							/* }); */
-
 
 							$.ajax({
 										url : arr[j].url,
@@ -207,11 +203,9 @@
 
 											$.each($data, function(i, o) {
 																	cate = $(o).find("category").text(); // 카테고리 목록	
-																	/* console.log($cate); */
 
 																if (cate == 'T3H') {
 																	temp = $(this).find("fcstValue").text(); // 3시간 온도
-																	/* console.log(temp); */
 																}
 																if (cate == 'SKY') {
 																	sky = $(this).find("fcstValue").text(); // 하늘상태
@@ -221,7 +215,6 @@
 																}
 											 });
 
-											 /* style="background-color: transparent;" */
 											$('.weather').append('<li class="list-group-item weather_li'+j+'"></li>');
 											$('.weather_li'+j).addClass('in'+j);
 											$('.in'+j).html(temp + " ℃"); //온도 
