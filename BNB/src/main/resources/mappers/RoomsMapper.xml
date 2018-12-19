@@ -4,10 +4,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.RoomsMapper">
 	<insert id="insertRooms"
-		parameterType="com.bit.bnb.rooms.model.RoomsVO" useGeneratedKeys="true" keyProperty="roomsId">
-		INSERT INTO `bnb`.`rooms` (`hostId`, `details`,
+		parameterType="com.bit.bnb.rooms.model.RoomsVO"
+		useGeneratedKeys="true" keyProperty="roomsId">
+		INSERT INTO `bnb`.`rooms`
+		(`hostId`, `details`,
 		`avail_adults`,
-		`avail_children`, `avail_infants`, `avail_bedroom`,
+		`avail_children`, `avail_infants`,
+		`avail_bedroom`,
 		`avail_bed`,
 		`avail_bathroom`,
 		`amenities`,
@@ -194,13 +197,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectMinPrice" resultType="java.lang.Integer">
 		SELECT
 		MIN(price_weekdays)
-		FROM `bnb`.`rooms`;
+		FROM `bnb`.`rooms`
 	</select>
 
 	<select id="selectMaxPrice" resultType="java.lang.Integer">
 		SELECT
 		MAX(price_weekend)
-		FROM `bnb`.`rooms`;
+		FROM `bnb`.`rooms`
 	</select>
 
 	<!-- 페이징 처리를 위한 테이블 카운트 -->
@@ -331,11 +334,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- SELECT roomsId FROM rooms r WHERE r.roomsId NOT IN (select roomsId 
 		from reservation where checkIn >= '2018-11-15' and checkOut <= '2019-01-02' 
 		group by roomsId); -->
-		
+
 	<!-- https://m.blog.naver.com/amabile29/221008599472 -->
 	<insert id="insertRoomsPhoto"
 		parameterType="com.bit.bnb.rooms.model.RoomsImgVO">
-		INSERT INTO `bnb`.`roomsimg` (`filename`, `roomsId`, `priority`) VALUES (#{filename}, #{roomsId}, #{priority})
+		INSERT INTO `bnb`.`roomsimg` (`filename`, `roomsId`,
+		`priority`) VALUES (#{filename}, #{roomsId}, #{priority})
 	</insert>
 
 	<update id="updateRoomsPhoto"
@@ -346,7 +350,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE filename =
 		#{filename}
 	</update>
-	
+
 	<select id="selectRoomsPhoto"
 		parameterType="com.bit.bnb.rooms.model.RoomsImgVO"
 		resultType="com.bit.bnb.rooms.model.RoomsImgVO">
@@ -364,7 +368,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 		ORDER BY priority ASC
 	</select>
-	
+
 	<delete id="deleteRoomsPhoto"
 		parameterType="com.bit.bnb.rooms.model.RoomsImgVO">
 		DELETE FROM `bnb`.`roomsimg`
@@ -380,4 +384,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 	</delete>
+
+	<select id="selectRandomRoom"
+		resultType="com.bit.bnb.rooms.model.RoomsVO">
+		SELECT * FROM `bnb`.`rooms` order by rand() LIMIT 0, 1
+	</select>
 </mapper>

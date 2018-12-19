@@ -13,7 +13,7 @@ import com.bit.bnb.rooms.model.RoomsVO;
 import com.bit.bnb.rooms.util.Paging;
 
 @Service
-public class RoomsLIstService {
+public class RoomsListService {
 
 	@Autowired
 	RoomsDAO roomsDAO;
@@ -76,10 +76,14 @@ public class RoomsLIstService {
 	public int getMaxPrice() {
 		return roomsDAO.selectMaxPrice();
 	}
-	
-	public List<RoomsImgVO> getRoomsThumbnail(){
+
+	public List<RoomsImgVO> getRoomsThumbnail() {
 		RoomsImgVO rimgv = new RoomsImgVO();
 		rimgv.setPriority(1);
 		return roomsDAO.selectRoomsPhoto(rimgv);
+	}
+
+	public RoomsVO getRandomRoom() {
+		return roomsDAO.selectRandomRoom();
 	}
 }

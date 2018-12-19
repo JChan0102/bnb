@@ -1,7 +1,5 @@
 package com.bit.bnb.rooms.model;
 
-import java.util.List;
-
 public class RoomsVO {
 
 	private int roomsId;

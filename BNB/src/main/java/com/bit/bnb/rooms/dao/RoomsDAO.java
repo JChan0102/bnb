@@ -86,7 +86,7 @@ public class RoomsDAO {
 	public int updateRoomsPhoto(RoomsImgVO rimgv) {
 		return sqlSessionTemplate.update(mapperPath + "updateRoomsPhoto", rimgv);
 	}
-	
+
 	public List<RoomsImgVO> selectRoomsPhoto(RoomsImgVO rimgv) {
 		return sqlSessionTemplate.selectList(mapperPath + "selectRoomsPhoto", rimgv);
 	}
@@ -94,4 +94,10 @@ public class RoomsDAO {
 	public int deleteRoomsPhoto(RoomsImgVO rimgv) {
 		return sqlSessionTemplate.delete(mapperPath + "deleteRoomsPhoto", rimgv);
 	}
+
+	// 랜덤
+	public RoomsVO selectRandomRoom() {
+		return sqlSessionTemplate.selectOne(mapperPath + "selectRandomRoom");
+	}
+
 }

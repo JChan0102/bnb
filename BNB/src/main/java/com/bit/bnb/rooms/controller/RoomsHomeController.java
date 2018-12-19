@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.rooms.model.RoomsVO;
-import com.bit.bnb.rooms.service.RoomsLIstService;
+import com.bit.bnb.rooms.service.RoomsListService;
 
 @Controller
 public class RoomsHomeController {
 
 	@Autowired
-	RoomsLIstService roomsLIstService;
+	RoomsListService roomsLIstService;
 
 	@RequestMapping(value = "/rooms", method = RequestMethod.GET)
 	public ModelAndView getRoomsHome(RoomsVO rv,

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.bit.bnb.rooms.model.RoomsVO;
-import com.bit.bnb.rooms.service.RoomsLIstService;
+import com.bit.bnb.rooms.service.RoomsListService;
 import com.bit.bnb.rooms.util.Paging;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class RoomsRoomsListController {
 
 	@Autowired
-	RoomsLIstService roomsLIstService;
+	RoomsListService roomsLIstService;
 
 	@RequestMapping(value = "/rooms/getRoomsList", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	@ResponseBody

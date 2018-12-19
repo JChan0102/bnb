@@ -58,3 +58,5 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name = "google-signin-client_id"content = "173449746481-er69j4j9c3d2im90aprllmfr7jcpcs71.apps.googleusercontent.com">
 
+<!-- 구글 폰트 -->
+<link href="https://fonts.googleapis.com/css?family=Nanum+Brush+Script" rel="stylesheet">
