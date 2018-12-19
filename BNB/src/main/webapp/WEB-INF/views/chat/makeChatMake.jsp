@@ -14,11 +14,14 @@
 </head>
 <body>
 <%@ include file="/resources/common/Navbar.jsp"%>
+<div class="row justify-content-center">
+    <div class="col-3 form-group" style="text-align: center">
+    <p> 호스트에게 문의 사항이 있으시면 적어주세요!</p>
+    <textarea class="form-control" cols="50" rows="10" placeholder="문의 사항을 써주세요!" id="messageeeeee"></textarea>
+    <button class="form-control" onclick="created()">문의 하기</button>
+    </div>
 
-    <p> 호스트에게 문의 사항이 있으시면 여기다가 쓰시면 호스트가 볼수있습니다.</p>
-    <textarea cols="50" rows="10" placeholder="여기다 쓰세요" id="messageeeeee"></textarea>
-    <button onclick="created()">만들어라</button>
-
+    </div>
 <script>
     connect();
     function connect() {

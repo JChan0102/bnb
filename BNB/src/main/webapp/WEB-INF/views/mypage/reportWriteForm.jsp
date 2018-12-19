@@ -25,10 +25,10 @@
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<div class="input-group-text">
-								<input type="radio" name="ck" value="호스트가 사람이 아닙니다.">
+								<input type="radio" name="ck" value="호스트가 매우 불친절합니다.">
 							</div>
 						</div>
-						<input type="text" class="form-control" disabled value="호스트가 사람이 아닙니다.">
+						<input type="text" class="form-control" disabled value="호스트가 매우 불친절합니다.">
 					</div>
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -41,10 +41,10 @@
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<div class="input-group-text">
-								<input type="radio" name="ck"  value="호스트의 방이 사람이 살곳이 아닙니다.">
+								<input type="radio" name="ck"  value="호스트의 방이 사용하기 좋은 환경이 아닙니다.">
 							</div>
 						</div>
-						<input type="text" class="form-control" disabled value="호스트의 방이 사람이 살곳이 아닙니다.">
+						<input type="text" class="form-control" disabled value="호스트의 방이 사용하기 좋은 환경이 아닙니다.">
 					</div>
 					<div class="input-group">
 						<div class="input-group-prepend">

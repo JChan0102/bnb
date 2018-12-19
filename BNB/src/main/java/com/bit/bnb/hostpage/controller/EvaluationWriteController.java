@@ -32,7 +32,6 @@ public class EvaluationWriteController {
     @RequestMapping(value="/hostpage/eval/modi", method = RequestMethod.POST)
     @ResponseBody
     public void getmodi(EvaluationVO vo){
-        System.out.println(vo.toString());
         service.update(vo);
     }
 

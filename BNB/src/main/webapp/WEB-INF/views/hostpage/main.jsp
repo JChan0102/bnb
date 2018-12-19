@@ -181,7 +181,6 @@
                 <script>
                     var pageeee=1;
                     function viewMyroomList() {
-                        $("body").scrollTop(0);
                         $('#llllist').html('');
                         str = '<div class="col-md-3"> <div class="card mb-3 box-shadow"> <img class="card-img-top">'
                             + '<div class="card-body"> <img class="card-img-top"> <p class="card-text" style="font-size: 3.0em; text-align: center" ><i class="fas fa-plus"></i> <br></p>'
@@ -323,7 +322,6 @@
                 </div>
                 <script>
                     function eval() {
-                        $(window).scrollTop(0);
                         $('#noteval').html('');
                         $('#yeseval').html('');
                         var str1 = '<div class="col-md-9 p-3" ><h2>호스트님의 방을 사용한 회원들을 평가해주세요 !</h2></div>';
@@ -465,7 +463,6 @@
                     }
 
                     function realmodi(num) {
-                        $(window).scrollTop(0);
                         var msg = $('#evalcontent').val();
                         if (msg != '') {
                             $
@@ -490,7 +487,6 @@
                     }
 
                     function inserteval(num) {
-                        $(window).scrollTop(0);
                         var msg = $('#evalcontent').val();
                         if (msg != '') {
                             $
@@ -521,7 +517,6 @@
                 <div id="withdraw">${loginUser.userId}</div>
                 <script>
                     function withdraw() {
-                        $("body").scrollTop(0);
                         html = '';
                         $
                             .ajax({
@@ -667,19 +662,25 @@
                     }
 
                     function totall() {
-                        $("body").scrollTop(0);
                         var impossible = new Array();
                         var counttt = new Array(12);
+                        var nextcounttt= new Array(12);
                         var pricemonth = new Array(12);
+                        var nextmonth = new Array(12);
                         var datee = new Date();
                         var room = $('#roomselectlist').val();
-                        console.log(room)
+
                         var lastDay1 = (new Date(datee.getFullYear(), datee
                             .getMonth() - 1, 0)).getDate();
                         var lastDay2 = (new Date(datee.getFullYear(), datee
                             .getMonth(), 0)).getDate();
-                        var lastDay3 = (new Date(datee.getFullYear(), datee
-                            .getMonth() + 1, 0)).getDate();
+                        if(datee.getMonth()==11){
+                            var lastDay3 = (new Date(datee.getFullYear()+1, 0, 0)).getDate();
+                        } else{
+                            var lastDay3 = (new Date(datee.getFullYear(), datee
+                                .getMonth() + 1, 0)).getDate();
+                        }
+
                         var totalday = 0;
                         var totalprice = 0;
                         var realtotalprice = 0;
@@ -688,6 +689,8 @@
                         for (var i = 0; i < counttt.length; i++) {
                             counttt[i] = 0;
                             pricemonth[i] = 0;
+                            nextmonth[i]=0;
+                            nextcounttt[i]=0;
                         }
                         $
                             .ajax({
@@ -729,6 +732,9 @@
                                                                 .getFullYear() == inyy) {
                                                                 pricemonth[inmm - 1] = pricemonth[inmm - 1]
                                                                     + value.price;
+                                                            } else if(datee.getFullYear()+1 == inyy){
+                                                                nextmonth[inmm - 1] = nextmonth[inmm - 1]
+                                                                    + value.price;
                                                             }
                                                             totalprice = totalprice
                                                                 + value.price;
@@ -765,7 +771,12 @@
                                                                 counttt[value
                                                                     .getMonth()] = counttt[value
                                                                     .getMonth()] + 1;
+                                                            }else if (value.getFullYear() == (datee.getFullYear()+1)) {
+                                                                nextcounttt[value
+                                                                    .getMonth()] = counttt[value
+                                                                    .getMonth()] + 1;
                                                             }
+
                                                         });
                                                 lastDay1 = counttt[datee
                                                         .getMonth() - 1]
@@ -775,10 +786,19 @@
                                                         .getMonth()]
                                                     / lastDay2
                                                     * 100;
-                                                lastDay3 = counttt[datee
-                                                        .getMonth() + 1]
-                                                    / lastDay3
-                                                    * 100;
+                                                if(datee.getMonth()==11){
+                                                    lastDay3 = nextcounttt[0]
+                                                        / lastDay3
+                                                        * 100;
+
+                                                }else{
+                                                    lastDay3 = counttt[datee
+                                                            .getMonth() + 1]
+                                                        / lastDay3
+                                                        * 100;
+
+                                                }
+
                                                 $('#id33')
                                                     .html(
                                                         '${sessionScope.loginUser.userName}의 총매출은 '
@@ -871,8 +891,13 @@
                             });
                         }
                         // donut 2
+                        if(datee.getMonth()==11){
+                            var lastmon = 1;
+                        }else{
+                            var lastmon = datee.getMonth()+1;
+                        }
                         var chDonutData2 = {
-                            labels: [(datee.getMonth() + 1) + '월 예약률'],
+                            labels: [(datee.getMonth()+1)  + '월 예약률'],
                             datasets: [{
                                 backgroundColor: colors.slice(0, 1),
                                 borderWidth: 0,
@@ -889,7 +914,7 @@
                         }
                         // donut 3
                         var chDonutData3 = {
-                            labels: [(datee.getMonth() + 2) + '월 예약률'],
+                            labels: [lastmon + '월 예약률'],
                             datasets: [{
                                 backgroundColor: colors.slice(3, 4),
                                 borderWidth: 0,

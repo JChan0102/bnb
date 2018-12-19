@@ -52,7 +52,7 @@
         where hostId = #{hostId}
           and e.evaluationContent is not null
           and re.checkOut <![CDATA[ < ]]>current_timestamp
-        ORDER BY checkOut desc;
+        ORDER BY e.evaluationDate desc;
     </select>
 
     <insert id="insertEvaluation" parameterType="com.bit.bnb.hostpage.model.EvaluationVO">
