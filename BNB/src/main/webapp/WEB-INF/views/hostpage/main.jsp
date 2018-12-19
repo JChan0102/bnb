@@ -552,7 +552,7 @@
 
                     function maxWithdraw() {
                         if ($('#pricee').val() == "") {
-                            alert("돈 받기 싫냐? 돈 입력해라~");
+                            alert("금액이 입력되지 않았습니다. 다시 확인해 주세요.");
                         } else {
                             $('#pricee').val($('#pricee').val().replace(/[^0-9]/gi, ""));
                             $.ajax({
