@@ -107,7 +107,8 @@
 											<div
 												class="carousel-item<c:if test="${count eq 0}"> active</c:if>">
 												<img class="d-block w-100"
-													src="http://13.209.99.134:8080/imgserver/resources/upload/${item.filename}">
+													src="http://13.209.99.134:8080/imgserver/resources/upload/${item.filename}"
+													height="400px" style="object-fit: cover;">
 											</div>
 											<c:set var="count" value="${count+1}"></c:set>
 										</c:forEach>
@@ -130,7 +131,8 @@
 					</tr>
 					<tr>
 						<td class="text-center">인원</td>
-						<td class="text-center"><c:if test="${0 ne selectedRoom.avail_adults}">
+						<td class="text-center"><c:if
+								test="${0 ne selectedRoom.avail_adults}">
 						어른 ${selectedRoom.avail_adults}명</c:if> <c:if
 								test="${0 ne selectedRoom.avail_children}">
 						어린이 ${selectedRoom.avail_children}명</c:if> <c:if
@@ -140,7 +142,8 @@
 					</tr>
 					<tr>
 						<td class="text-center">시설</td>
-						<td class="text-center"><c:if test="${0 ne selectedRoom.avail_bedroom}">
+						<td class="text-center"><c:if
+								test="${0 ne selectedRoom.avail_bedroom}">
 						침실 ${selectedRoom.avail_bedroom}개</c:if> <c:if
 								test="${0 ne selectedRoom.avail_bed}">
 						침대 ${selectedRoom.avail_bed}개</c:if> <c:if
@@ -156,8 +159,8 @@
 								<c:if
 									test="${'T' eq fn:substring(selectedRoom.amenities, count-1, count)}">
 									<c:if
-									test="${divideChk ne (item.amenities_idx-(item.amenities_idx mod 100))/100}">
-									<%-- <c:if
+										test="${divideChk ne (item.amenities_idx-(item.amenities_idx mod 100))/100}">
+										<%-- <c:if
 										test="${divideChk ne (item.amenities_idx-(item.amenities_idx mod 100))/100 && divideChk ne 1}"> --%>
 										<hr>
 										<c:set var="divideChk"
@@ -179,13 +182,14 @@
 					</tr>
 					<tr>
 						<td class="text-center">주중가격</td>
-						<td class="text-center"><fmt:formatNumber value="${selectedRoom.price_weekdays}"
-								pattern="\###,###,###" /></td>
+						<td class="text-center"><fmt:formatNumber
+								value="${selectedRoom.price_weekdays}" pattern="\###,###,###" /></td>
 					</tr>
 					<tr>
-						<td class="text-center">주말가격<br>(공휴일 포함)</td>
-						<td class="text-center align-middle"><fmt:formatNumber value="${selectedRoom.price_weekend}"
-								pattern="\###,###,###" /></td>
+						<td class="text-center">주말가격<br>(공휴일 포함)
+						</td>
+						<td class="text-center align-middle"><fmt:formatNumber
+								value="${selectedRoom.price_weekend}" pattern="\###,###,###" /></td>
 					</tr>
 					<tr>
 						<td class="text-center">주소</td>
@@ -201,7 +205,8 @@
 							<table class="table">
 								<tr>
 									<td
-										class="w-25 text-center border-top-0 border-bottom-0 align-top" onclick="getHostInfo()"><img
+										class="w-25 text-center border-top-0 border-bottom-0 align-top"
+										onclick="getHostInfo()"><img
 										src="http://13.209.99.134:8080/imgserver/resources/img/userphoto/${hostInfo.userPhoto}"
 										class="viewRoomsProfile mb-1"><br>${hostInfo.userName}</td>
 									<td class="w-75 border-top-0 border-bottom-0">${hostInfo.userInfo}</td>
@@ -210,8 +215,8 @@
 					</tr>
 					<script>
 						function getHostInfo() {
-							location.href="${pageContext.request.contextPath}/hostview?hostId=${hostInfo.userId}";
-                        }
+							location.href = "${pageContext.request.contextPath}/hostview?hostId=${hostInfo.userId}";
+						}
 					</script>
 					<tr>
 						<td colspan="2"><div class="alert alert-secondary"

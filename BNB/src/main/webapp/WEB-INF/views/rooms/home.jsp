@@ -11,11 +11,25 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
+<style>
+.card-img-top {
+	height: 300px;
+	object-fit: cover;
+}
+</style>
 <body>
 
 	<%@ include file="/resources/common/Navbar.jsp"%>
 	<!-- Begin page content -->
 	<script>
+		$(window).on('load', function() {
+			$('.post-module').hover(function() {
+				$(this).find('.description').stop().animate({
+					height : "toggle",
+					opacity : "toggle"
+				}, 300);
+			});
+		});
 		$(document).ready(function() {
 			// 지도 끄고 시작
 			$('#map').css('display', 'none');
@@ -249,6 +263,166 @@
 							console.log(data)
 
 							if (data.roomsList.length == 0) {
+								// $('#roomsList')
+								//		.html(
+								//				'<tr><td class="border-top-0 text-center align-middle">해당하는 숙소가 없습니다 \' ㅅ\');;</td></tr>');
+								$('#roomsList').html('해당하는 숙소가 없습니다 \' ㅅ\');;');
+							} else {
+								output += '<div class="container-fluid row content-row">';
+								for (i = 0; i < data.roomsList.length; i++) {
+									addPoints(data.roomsList[i]);
+									
+									/* <!-- Normal Demo-->
+									output += '<div class="column col-4">';
+									output += '<!-- Post-->';
+									output += '	<div class="post-module">';
+									output += '		<!-- Thumbnail-->';
+									output += '		<div class="thumbnail">';
+									for(k=0; k<data.thumbnail.length; k++){
+										if (data.roomsList[i].roomsId == data.thumbnail[k].roomsId) {
+											output += '<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
+												+ data.roomsList[i].roomsId + '">';
+											output += '<img src="http://13.209.99.134:8080/imgserver/resources/upload/' +data.thumbnail[k].filename+ '" style="height:100%;">';
+											output += '</a>';
+										}
+									}
+									output += '		</div>';
+									output += '		<!-- Post Content-->';
+									output += '		<div class="post-content">';
+									output += '			<div class="category">';
+									output += '\\' + data.roomsList[i].price_weekdays
+											.toString().replace(
+													/\B(?=(\d{3})+(?!\d))/g,
+													",")
+											+ ' - \\'
+											+ data.roomsList[i].price_weekend
+													.toString()
+													.replace(
+															/\B(?=(\d{3})+(?!\d))/g,
+															",") + ' /박';
+									output += '	</p>';
+									output += '			</div>';
+									output += '			<h1 class="title">' + data.roomsList[i].address + '</h1>';
+									output += '			<div class="post-meta">';
+
+									
+									
+									output += '		<div class="d-flex justify-content-between align-items-center">';
+									output += '			<small class="text-muted">';
+									for (j = 0; j < data.reviewSummary.length; j++) {
+										if (data.roomsList[i].roomsId == data.reviewSummary[j].roomsId) {
+											for (k = 0; k <= data.reviewSummary[j].avgScope; k++) {
+												output += '★';
+											}
+											output += ' ('
+													+ data.reviewSummary[j].reviewCount
+													+ ')';
+										}
+									}
+									output += '			</small>';
+									output += '			<div class="btn-group">';
+									if ('${loginUser.userId}' !== ''
+											&& data.roomsList[i].hostId == '${loginUser.userId}') {
+										output += '					<a href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=';
+										output += '					'
+												+ data.roomsList[i].roomsId
+												+ '&_hostId='
+												+ data.roomsList[i].hostId
+												+ '">';
+										output += '					<button type="button" class="btn btn-sm btn-outline-secondary ml-1">Edit</button></a>';
+									}
+									output += '				<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
+											+ data.roomsList[i].roomsId + '">';
+									output += '				<button type="button" class="btn btn-sm btn-outline-secondary ml-1">View</button></a>';
+									output += '			</div>';
+									output += '</div>';
+									
+									
+									output += '			</div>';
+									output += '		</div>';
+									output += '	</div>';
+									output += '</div>';
+									<!-- Normal Demo--> */
+								
+									
+									output += '<div class="col-lg-3 d-flex align-items-stretch">';
+									output += '<div class="card mb-3 box-shadow">';
+									for(k=0; k<data.thumbnail.length; k++){
+										if (data.roomsList[i].roomsId == data.thumbnail[k].roomsId) {
+											output += '<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
+												+ data.roomsList[i].roomsId + '">';
+											output += '<img class="card-img-top" src="http://13.209.99.134:8080/imgserver/resources/upload/' +data.thumbnail[k].filename+ '">';
+											output += '</a>';
+											break;
+										}
+									}
+									
+									output += '<div class="card-body">';
+									output += '	<p class="card-text">';
+									output += '		' + data.roomsList[i].roomsId
+											+ '<br>'
+											+ data.roomsList[i].address
+											+ '<br>\\';
+									output += data.roomsList[i].price_weekdays
+											.toString().replace(
+													/\B(?=(\d{3})+(?!\d))/g,
+													",")
+											+ ' - \\'
+											+ data.roomsList[i].price_weekend
+													.toString()
+													.replace(
+															/\B(?=(\d{3})+(?!\d))/g,
+															",") + ' /박';
+									output += '	</p>';
+									output += '		<div class="d-flex justify-content-between align-items-center">';
+									output += '			<small class="text-muted">';
+									for (j = 0; j < data.reviewSummary.length; j++) {
+										if (data.roomsList[i].roomsId == data.reviewSummary[j].roomsId) {
+											for (k = 0; k <= data.reviewSummary[j].avgScope; k++) {
+												output += '★';
+											}
+											output += ' ('
+													+ data.reviewSummary[j].reviewCount
+													+ ')';
+										}
+									}
+									output += '			</small>';
+									output += '			<div class="btn-group">';
+									if ('${loginUser.userId}' !== ''
+											&& data.roomsList[i].hostId == '${loginUser.userId}') {
+										output += '					<a href="${pageContext.request.contextPath}/rooms/modifyRooms?roomsId=';
+										output += '					'
+												+ data.roomsList[i].roomsId
+												+ '&_hostId='
+												+ data.roomsList[i].hostId
+												+ '">';
+										output += '					<button type="button" class="btn btn-sm btn-outline-secondary ml-1">Edit</button></a>';
+									}
+									output += '				<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
+											+ data.roomsList[i].roomsId + '">';
+									output += '				<button type="button" class="btn btn-sm btn-outline-secondary ml-1">View</button></a>';
+									output += '			</div>';
+									output += '</div>';
+									output += '</div>';
+									output += '</div>';
+									output += '</div>';
+								}
+								if (data.paging.currentPageNo < data.paging.lastPageNo) {
+									// 출력할 것이 남은 경우
+									$('#page').val(data.paging.currentPageNo);
+								} else {
+									// console.log($('#page').val());
+									$('#page').val(-1);
+								}
+
+								output += '</div>';
+								$('#roomsList').html(output);
+
+								// console.log(markers);
+								// console.log('--- ajax ---');
+							}
+							
+							/* if (data.roomsList.length == 0) {
 								$('#roomsList')
 										.html(
 												'<tr><td class="border-top-0 text-center align-middle">해당하는 숙소가 없습니다 \' ㅅ\');;</td></tr>');
@@ -330,7 +504,7 @@
 
 								// console.log(markers);
 								// console.log('--- ajax ---');
-							}
+							} */
 						},
 						error : function(error) {
 							console.log("error : " + error);
