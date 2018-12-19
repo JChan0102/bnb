@@ -67,6 +67,10 @@
 									시작하기</a></li>
 						</c:when>
 						<c:otherwise>
+							<li class="nav-item">
+								<a class="nav-link text-dark"
+								   href="${pageContext.request.contextPath}/hostBoard">호스트 게시판</a>
+							</li>
 							<li class="nav-item"><a class="nav-link text-dark"
 								href="${pageContext.request.contextPath}/hostpage/main">호스트
 									페이지</a></li>

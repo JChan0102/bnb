@@ -80,7 +80,7 @@
                                 $('#reviewCont_wrap').html('의견 감사합니다. 신고하신 내용은 관리자가 확인하여 처리합니다.');
 
 								setTimeout(function () {
-									window.location.href='${pageContext.request.contextPath}/review';
+									window.location.href='${pageContext.request.contextPath}/mypage/review';
                                 },2500)
                             },
                             error: function () {

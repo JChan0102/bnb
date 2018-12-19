@@ -26,11 +26,7 @@
                 class="list-group-item list-group-item-action"
                 id="list-profile-list" data-toggle="list" href="#list-profile"
                 role="tab" aria-controls="profile" onclick="eval()"><i
-                class="fas fa-user-check"></i> 사용자평가</a> <a
-                class="list-group-item list-group-item-action"
-                id="list-messages-list"
-                href="${pageContext.request.contextPath}/hostBoard"><i
-                class="far fa-list-alt"></i> 호스트게시판</a> <a
+                class="fas fa-user-check"></i> 사용자평가</a>  <a
                 class="list-group-item list-group-item-action"
                 id="list-settings-list" data-toggle="list" href="#list-settings"
                 role="tab" aria-controls="settings" onclick="withdraw()"><i
@@ -59,7 +55,7 @@
                  role="tabpanel" aria-labelledby="list-home-list">
                 <c:choose>
                     <c:when test="${empty myroomlist}">
-                       예약된 방이 없습니다.
+                       <div class="col-12" style="text-align: center; font-size: 2em; padding-top: 30px"> <i class="fas fa-exclamation-triangle"></i> 호스트 님의 예약된 방이 없습니다. </div>
                     </c:when>
                     <c:otherwise>
                         <c:forEach var="room" items="${myroomlist}">
@@ -185,6 +181,7 @@
                 <script>
                     var pageeee=1;
                     function viewMyroomList() {
+                        $("body").scrollTop(0);
                         $('#llllist').html('');
                         str = '<div class="col-md-3"> <div class="card mb-3 box-shadow"> <img class="card-img-top">'
                             + '<div class="card-body"> <img class="card-img-top"> <p class="card-text" style="font-size: 3.0em; text-align: center" ><i class="fas fa-plus"></i> <br></p>'
@@ -209,8 +206,7 @@
 
                                     if (data.roomsList.length == 0) {
                                         $('#llllist')
-                                            .html(str+
-                                                '<tr><td class="border-top-0 text-center align-middle">해당하는 숙소가 없습니다 \' ㅅ\');;</td></tr>');
+                                            .html(str);
                                     } else {
                                         for (i = 0; i < data.roomsList.length; i++) {
 
@@ -327,7 +323,7 @@
                 </div>
                 <script>
                     function eval() {
-
+                        $(window).scrollTop(0);
                         $('#noteval').html('');
                         $('#yeseval').html('');
                         var str1 = '<div class="col-md-9 p-3" ><h2>호스트님의 방을 사용한 회원들을 평가해주세요 !</h2></div>';
@@ -370,7 +366,7 @@
                                                 });
 
                                     } else {
-                                        str1 += '<p style="text-align: center">평가할 사용자가 없습니다!</p>'
+                                        str1 += '<div class="col-md-9" style="text-align:center; font-weight: lighter; font-size: 1.2em; padding-top: 30px"> <i class="fas fa-exclamation-triangle">평가할 사용자가 없습니다!<div>'
                                     }
                                     if (data[1].length != 0) {
 
@@ -424,6 +420,7 @@
                     }
 
                     function writee(reservationNum) {
+                        $(window).scrollTop(0);
                         $('#yeseval').html('');
                         $('#noteval').html('');
                         var str = '<div class="col-12 row justify-content-center"> <div class="col-md-7 form-group"><label for="evalcontent">예약번호 : '
@@ -436,6 +433,7 @@
                     }
 
                     function moddiy(num) {
+                        $(window).scrollTop(0);
                         $('#yeseval').html('');
                         $('#noteval').html('');
                         $
@@ -467,6 +465,7 @@
                     }
 
                     function realmodi(num) {
+                        $(window).scrollTop(0);
                         var msg = $('#evalcontent').val();
                         if (msg != '') {
                             $
@@ -491,6 +490,7 @@
                     }
 
                     function inserteval(num) {
+                        $(window).scrollTop(0);
                         var msg = $('#evalcontent').val();
                         if (msg != '') {
                             $
@@ -521,6 +521,7 @@
                 <div id="withdraw">${loginUser.userId}</div>
                 <script>
                     function withdraw() {
+                        $("body").scrollTop(0);
                         html = '';
                         $
                             .ajax({
@@ -666,6 +667,7 @@
                     }
 
                     function totall() {
+                        $("body").scrollTop(0);
                         var impossible = new Array();
                         var counttt = new Array(12);
                         var pricemonth = new Array(12);
