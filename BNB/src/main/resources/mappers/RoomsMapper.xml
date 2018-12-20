@@ -387,6 +387,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectRandomRoom"
 		resultType="com.bit.bnb.rooms.model.RoomsVO">
-		SELECT * FROM `bnb`.`rooms` order by rand() LIMIT 0, 1
+		SELECT * FROM `bnb`.`rooms` where disabled=0 order by rand() LIMIT 0, 1
 	</select>
 </mapper>
