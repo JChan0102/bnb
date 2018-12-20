@@ -6,15 +6,14 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="/resources/common/includeHead.jsp"%>
-<link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700"
-	rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700"
+	rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/css?family=Jua" rel="stylesheet">
 </head>
 <style>
 h1 {
-	font-family: 'Nanum Brush Script', cursive;
-	font-weight: bold;
+	font-family: 'Jua', sans-serif;
 }
-
 h5 {
 	color: white;
 	text-shadow: 0 0 2px #000;
