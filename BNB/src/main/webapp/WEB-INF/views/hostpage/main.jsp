@@ -185,13 +185,13 @@
                     var pageeee=1;
                     function viewMyroomList() {
                         $('#llllist').html('');
-                        str = '<div class="col-md-3"> <div class="card mb-3 box-shadow"> <img class="card-img-top">'
-                            + '<div class="card-body"> <img class="card-img-top"> <p class="card-text" style="font-size: 3.0em; text-align: center" ><i class="fas fa-plus"></i> <br></p>'
+                        str = '<div class="col-md-3"> <div class="card mb-3 box-shadow">'
+                            + '<div class="card-body"> <p class="card-text" style="font-size: 3.0em; text-align: center" ><i class="fas fa-plus"></i> <br></p>'
                             + ' <div class="d-flex justify-content-between align-items-center"><small class="text-muted">'
                             + '  </small>'
                             + '<div class="btn-group">'
                             + '<a href="${pageContext.request.contextPath}/rooms/registerRooms"><button type="button" class="btn btn-sm btn-outline-secondary ml-1">new</button></a>'
-                            + ' </div></div></div></div> </div>';
+                            + ' </div></div></div></div></div>';
                         var output = '';
                         // http://fruitdev.tistory.com/174
                         var queryString ='hostId=${loginUser.userId}&checkIn=&checkOut=&page='+pageeee;
@@ -308,9 +308,9 @@
     							console.log(data)
 
     							if (data.roomsList.length == 0) {
-    								$('#llllist').html('해당하는 숙소가 없습니다 \' ㅅ\');;');
+    								$('#llllist').html(str);
     							} else {
-    								output += '<div class="container-fluid row content-row">';
+    								/* output += '<div class="container-fluid row content-row">'; */
     								for (i = 0; i < data.roomsList.length; i++) {
     									output += '<div class="col-lg-3 d-flex align-items-stretch">';
     									output += '<div class="card mb-3 box-shadow">';
@@ -384,7 +384,7 @@
     								}
 
     								output += '</div>';
-    								$('#llllist').html(output);
+    								$('#llllist').html(str+output);
     							}
     						},
     						error : function(error) {
