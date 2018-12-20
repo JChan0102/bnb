@@ -186,7 +186,7 @@
                     function viewMyroomList() {
                         $('#llllist').html('');
                         str = '<div class="col-md-3"> <div class="card mb-3 box-shadow">'
-                            + '<div class="card-body"> <p class="card-text" style="font-size: 3.0em; text-align: center" ><i class="fas fa-plus"></i> <br></p>'
+                            + '<div class="card-body"> <p class="card-text" style="font-size: 3.0em; text-align: center; padding-top:70px; padding-bottom:70px" ><i class="fas fa-plus"></i> <br></p>'
                             + ' <div class="d-flex justify-content-between align-items-center"><small class="text-muted">'
                             + '  </small>'
                             + '<div class="btn-group">'
