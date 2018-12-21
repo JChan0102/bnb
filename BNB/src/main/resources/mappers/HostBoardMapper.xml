@@ -11,7 +11,8 @@
 	</insert>
 	
 	<select id="selectPost" resultType="com.bit.bnb.hostboard.model.PostVO">
-		select hb.postNo, hb.userId, hb.title, hb.content, hb.date, hb.viewCnt, u.nickName, hb.commentCnt from hostBoard as hb join user as u on u.userId = hb.userId where postNo=#{postNo}
+		select hb.postNo, hb.userId, hb.title, hb.content, hb.date, hb.viewCnt, u.nickName, 
+		hb.commentCnt from hostBoard as hb join user as u on u.userId = hb.userId where postNo=#{postNo}
 	</select>
 	
 	<!-- <select id="selectPostList" resultType="com.bit.bnb.hostboard.model.PostVO">
@@ -23,7 +24,9 @@
 	</select> -->
 	
 	<select id="getPostList" parameterType="java.util.HashMap" resultType="com.bit.bnb.hostboard.model.PostVO">
-		<![CDATA[select hb.postNo, hb.userId, hb.title, hb.content, hb.date, hb.viewCnt, u.nickName, hb.commentCnt from hostBoard as hb join user as u on u.userId = hb.userId where postNo > 0 order by postNo desc limit #{firstRow}, #{postCountPerPage}]]>
+		<![CDATA[select hb.postNo, hb.userId, hb.title, hb.content, hb.date, hb.viewCnt, u.nickName, 
+		hb.commentCnt from hostBoard as hb join user as u on u.userId = hb.userId 
+		where postNo > 0 order by postNo desc limit #{firstRow}, #{postCountPerPage}]]>
 	</select>
 	
 	<select id="getPostTotalCount" resultType="int">

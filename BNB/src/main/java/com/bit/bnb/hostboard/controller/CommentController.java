@@ -1,7 +1,6 @@
 package com.bit.bnb.hostboard.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.bnb.hostboard.model.CommentVO;
 import com.bit.bnb.hostboard.model.ModifyCommentVO;
@@ -26,13 +24,11 @@ public class CommentController {
 	@RequestMapping("/hostBoard/writeComment")
 	public String writeComment(@RequestParam("postNo") int postNo,
 							   @RequestParam("userId") String userId,
-							   @RequestParam("nickName") String nickName,
 							   @RequestParam("commentContent") String commentContent) {
 		
 		CommentVO comment = new CommentVO();
 		comment.setPostNo(postNo);
 		comment.setUserId(userId);
-		comment.setNickName(nickName);
 		comment.setCommentContent(commentContent);
 
 		int resultCnt = commentService.writeComment(comment, postNo);
