@@ -35,11 +35,8 @@ public class reportWriteContoller {
 
     @RequestMapping(value = "/adminpage/report/comfirm", method = RequestMethod.GET)
     public String comfirmReport(ReportVO vo, HttpServletRequest request){
-        //service.ckupdate(vo);
-        System.out.println(vo.toString());
+        //service.ckupdate(vo)
         int result= service.testprocedure(vo);
-        System.out.println(result);
-        String str = request.getContextPath();
-        return "redirect:"+str+"/adminpage/report?page=1";
+        return "redirect:/adminpage/report?page=1";
     }
 }
