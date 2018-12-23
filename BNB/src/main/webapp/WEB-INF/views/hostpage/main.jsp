@@ -313,7 +313,7 @@
     								/* output += '<div class="container-fluid row content-row">'; */
     								for (i = 0; i < data.roomsList.length; i++) {
     									output += '<div class="col-lg-3 d-flex align-items-stretch">';
-    									output += '<div class="card mb-3 box-shadow">';
+    									output += '<div class="w-100 card mb-3 box-shadow">';
     									for (k = 0; k < data.thumbnail.length; k++) {
     										if (data.roomsList[i].roomsId == data.thumbnail[k].roomsId) {
     											output += '<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
@@ -330,12 +330,12 @@
     									output += '		' + data.roomsList[i].roomsId
     											+ '<br>'
     											+ data.roomsList[i].address
-    											+ '<br>\\';
+    											+ '<br>￦';
     									output += data.roomsList[i].price_weekdays
     											.toString().replace(
     													/\B(?=(\d{3})+(?!\d))/g,
     													",")
-    											+ ' - \\'
+    											+ ' - ￦'
     											+ data.roomsList[i].price_weekend
     													.toString()
     													.replace(
