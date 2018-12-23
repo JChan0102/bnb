@@ -41,7 +41,7 @@ public class ReservationController {
 		ModelAndView modelAndView = new ModelAndView();
 		check = service.reservationDo(info);
 		if(check == 1) {
-			noti.mailSendHtml(info.getUserId(), info);
+//			noti.mailSendHtml(info.getUserId(), info); 메일보내기 일단 주석처
 			depositService.deposit(info); 
 			modelAndView.addObject("info", info);
 		}
