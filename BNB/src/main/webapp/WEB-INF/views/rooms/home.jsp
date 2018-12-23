@@ -346,7 +346,7 @@
 								
 									
 									output += '<div class="col-lg-3 d-flex align-items-stretch">';
-									output += '<div class="card mb-3 box-shadow">';
+									output += '<div class="w-100 card mb-3 box-shadow">';
 									for(k=0; k<data.thumbnail.length; k++){
 										if (data.roomsList[i].roomsId == data.thumbnail[k].roomsId) {
 											output += '<a href="${pageContext.request.contextPath}/rooms/viewRooms?roomsId='
