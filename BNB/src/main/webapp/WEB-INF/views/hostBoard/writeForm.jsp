@@ -21,7 +21,7 @@ $(document).ready(function() {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
 <div class="container">
-<h2>포스팅하기</h2>
+<h2>글쓰기</h2>
 <hr>
 <div class="card">
  <form method="post" id="writeForm">
@@ -36,8 +36,10 @@ $(document).ready(function() {
 </div>
 
 <div class="card card-footer" style="text-align: center">
-<div style="float:left"><button id="writeBtn" type="button" class="btn btn-primary">입력</button></div>
-<div style="float:right"><button id="writeCancel" type="button" class="btn btn-primary">취소</button></div>
+	<div role="group">
+		<button id="writeBtn" type="button" class="btn btn-primary">입력</button>
+		<button id="writeCancel" type="button" class="btn btn-primary" style="margin-left:10px">취소</button>
+	</div>
 </div>
 
 </form>

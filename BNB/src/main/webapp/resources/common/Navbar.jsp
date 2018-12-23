@@ -84,7 +84,7 @@
 
 					<c:if test="${loginUser.admin eq 1 }">
 						<li class="nav-item"><a class="nav-link text-dark"
-							href="${pageContext.request.contextPath}/admin">관리페이지</a></li>
+							href="${pageContext.request.contextPath}/adminpage/report?page=1">관리페이지</a></li>
 					</c:if>
 					<c:if test="${loginUser.admin eq 0 }">
 						<li class="nav-item"><a class="nav-link text-dark"

@@ -10,30 +10,31 @@
 <body>
 <%@ include file="/resources/common/Navbar.jsp" %>
 
-<h1>관리자페이지</h1>
 
-<table>
-    <tr>
-        <th>
-            예약번호
-        </th>
-        <th>
-            신고내용
-        </th>
-        <th>
-            승인/보류
-        </th>
+<div class="container">
+<h1>신고 관리하기</h1>
+<div class="table-responsive">
+
+
+<table class="table table-hover text-center">
+	<thead>
+    <tr class="row" style="margin-right:0px;">
+        <th class="col-2">예약번호</th>
+        <th class="col-7 text-left">신고내용</th>
+        <th class="col-3"> 승인/보류</th>
     </tr>
+    </thead>
+    <tbody>
     <c:if test="${!empty reportList}">
         <c:forEach var="list" items="${reportList}">
-            <tr>
-                <td>
+            <tr class="row" style="margin-right:0px;">
+                <td class="col-2">
                         ${list.reservationNum}
                 </td>
-                <td>
+                <td class="col-7 text-left">
                         ${list.reportContent}
                 </td>
-                <td>
+                <td class="col-3">
                     <c:choose>
                         <c:when test="${list.reportCk eq 'F'}">
                             <a href="${pageContext.request.contextPath}/adminpage/report/comfirm?reservationNum=${list.reservationNum}&reportCk=T">
@@ -54,14 +55,20 @@
             </tr>
         </c:forEach>
     </c:if>
+    </tbody>
 </table>
+</div>
+</div>
+
+<div class="text-center">
 <nav aria-label="Page navigation example">
-    <ul class="pagination">
+    <ul class="pagination justify-content-center">
         <c:forEach begin="1" end="${totalPage}" var="i">
             <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/adminpage/report?page=${i}">${i}</a></li>
         </c:forEach>
 
     </ul>
 </nav>
+</div>
 </body>
 </html>
