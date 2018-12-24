@@ -627,14 +627,30 @@
                                 },
                                 success: function (data) {
                                     html += '<input id="checkPrice" type="hidden" value = "' + data.point + '"/>'
-                                    html += '<h1>인출 가능 금액 : '
+                                    html += '<div class="alert alert-success pt-3" role="alert">'
+                                    html += '<h1 class="alert-heading text-center">인출 가능 금액 : '
                                         + data.point
                                             .toString()
                                             .replace(
                                                 /\B(?=(\d{3})+(?!\d))/g,
                                                 ",")
-                                        + '원</h1><br>';
-                                    html += '<h2>인출 금액 : <input style="text-align : right;" id="pricee" type="text" numberonly="true"/><button onclick="maxWithdraw()">인출하기</button></h2><br>';
+                                        + '원</h1>';
+                                    html += '<hr><h4>예약 후 대금 수령</h4>게스트가 예약하면 해당 금액이 적립됩니다.<br>'
+                                    html +=	'적립된 금액은 페이팔, 계좌 입금 또는 기타 대금 수령 방법으로 인출이 가능합니다!<br>'
+                                    html += '</div>'
+                                    // html += '<h2>인출 금액 :'
+                                    html += '<div class="form-row">'
+                                    // html += '<label for="pricee" class="col-12">인출 금액</label>'
+                                    html += '<div class="input-group input-group-lg">'
+                                    html += '<div class="input-group-prepend">'
+                                   	html += '<span class="input-group-text" id="inputGroup-sizing-lg">￦</span>'
+                                   	html += '</div>'
+                                    html += '<input style="text-align : right;" aria-label="\\" aria-describedby="inputGroup-sizing-sm" class="col-6 form-control" id="pricee" type="text" numberonly="true"/>'
+                                    html += '<div class="input-group-prepend">'
+                                    html += '<button onclick="maxWithdraw()" class="btn btn-success" type="button" style="border-top-right-radius: 0.3em !important; border-bottom-right-radius: 0.3em !important;">인출하기</button></h2>';
+                                   	html += '</div>'
+                                    html += '</div>'
+                                    html += '</div>'
                                     $('#withdraw').html(html);
                                 }
                             });
