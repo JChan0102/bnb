@@ -462,7 +462,7 @@
 		var rememberMe = $('#chk_rememberMe').is(':checked');
 		var result = "";
 		
-		$('#btn-login').html('로그인 중...');
+		/* $('#btn-login').html('로그인 중...'); */
 
 		$.ajax({
 			type : "POST",
@@ -488,6 +488,7 @@
 					$('#loginHidden').css("display", "");
 					$('#loginHidden').append("이미 탈퇴처리된 계정입니다.");
 				} else if (result == 'loginSuccess') {
+					$('#btn-login').html('로그인 중...');
 					var uri = '${pageContext.request.requestURI}';
 					if (uri == '/bnb/WEB-INF/views/user/userRegForm.jsp') {
 						location.href = '${pageContext.request.contextPath}/';
