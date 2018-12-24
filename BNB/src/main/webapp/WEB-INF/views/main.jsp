@@ -12,6 +12,7 @@
 </head>
 <style>
 h1 {
+	color: white;
 	font-family: 'Jua', sans-serif;
 }
 h5 {
