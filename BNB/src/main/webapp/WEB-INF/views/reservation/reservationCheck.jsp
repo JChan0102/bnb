@@ -10,13 +10,16 @@
 </head>
 <body>
 <%@ include file="/resources/common/Navbar.jsp"%>
-<div style="margin-left: 30px">
+<div style="width:600px; margin: 0 auto; margin-top: 30px; padding: 30px; border-radius: 10px; background-color: #EEEEEE;">
 	<h1>예약 신청이 완료되었습니다.</h1>
 	<br />
 	<h2>${info.checkIn} ~ ${info.checkOut}</h2>
 	
 	<h2>가격 : <fmt:formatNumber value="${info.price}" pattern="###,###,###" /></h2>
-	<h2><a href="${pageContext.request.contextPath}/mypage">마이페이지에서 확인하기</a></h2>
+	<hr />
+	<button style="font-size: 20px; padding: 10px;" type="button" class="btn btn-outline-danger" onclick="location.href='${pageContext.request.contextPath}/mypage'">마이페이지에서 확인하기</button>
+
+	
 </div>
 </body>
 </html>
