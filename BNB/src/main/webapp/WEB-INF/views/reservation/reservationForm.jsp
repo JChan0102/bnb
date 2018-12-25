@@ -62,7 +62,16 @@
             <input type="hidden" value="1" name="people" id="people" />
             <c:choose>
                 <c:when test="${loginUser.userId != null}">
-                    <div class="do" style="cursor: pointer;" onclick="reservationDo()">예약하기</div>
+	                <c:choose>
+		                <c:when test="${loginUser.userId != selectedRoom.hostId}">
+		                    <div class="do" style="cursor: pointer;" onclick="reservationDo()">예약하기</div>
+	                    </c:when>
+	                    <c:otherwise>
+	                    	<div class="alert alert-danger text-center">
+							  	직접 호스팅 중인 방은<br>예약이 불가합니다!
+							</div>
+	                    </c:otherwise>
+                    </c:choose>
                 </c:when>
                 <c:otherwise>
                     <div class="do" data-target="#layerpop" data-toggle="modal" style="cursor: pointer;">로그인</div>
@@ -430,10 +439,10 @@
             function reservationDo(){
             	
             	if(!$("#datepicker").val()) {
-            	    alert("체크인체크해");
+            	    alert("체크인 날짜를 선택해주세요.");
             	  }else
             	if(!$("#return").val()) {
-            	    alert("체크아웃체크해");
+            	    alert("체크아웃 날짜를 선택해주세요.");
             	  }   
             	/* else{
             		$('#fr').submit();
