@@ -612,7 +612,7 @@
             </div>
             <div class="tab-pane fade" id="list-settings" role="tabpanel"
                  aria-labelledby="list-settings-list">
-                <div id="withdraw">${loginUser.userId}</div>
+                <div id="withdraw">${loginUser.userId}님, 아직 호스팅 중인 방이 없으시네요!</div>
                 <script>
                     function withdraw() {
                         html = '';
