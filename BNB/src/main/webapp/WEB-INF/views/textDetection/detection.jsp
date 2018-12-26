@@ -96,293 +96,308 @@
 				<div class="col-1"></div>
 				<!-- 181226 End -->
 				<div class="col-1"></div>
-				<div class="col-5 pl-5 pr-5" id="left_div">
+				<div class="col-5 pl-5 pr-5 text-center" id="left_div">
 					<img style="width: 360px"
 						src="${pageContext.request.contextPath}/resources/images/sample.png">
-					<h3 class="mt-3">신분증을 위와 같이 촬영하여 등록해주세요.</h3>
+					<!-- <h3 class="mt-3">신분증을 위와 같이 촬영하여 등록해주세요.</h3> -->
 					<form id="fileform" action="" enctype="multipart/form-data">
 						<select style="display: none" name="type">
 							<option value="TEXT_DETECTION">TEXT_DETECTION</option>
 						</select><br /> <input type="file" name="fileField" id="upload_file"><br />
-						<br />
-						<div id="holder" style="position: relative;"></div>
-
-						<input style="display: none" type="submit" name="submit"
+						<br /> <input style="display: none" type="submit" name="submit"
 							value="Submit">
 					</form>
-					<code style="white-space: pre" id="results"></code>
+					<!-- <div style="white-space: pre;" id="right_div"> -->
+					<div id="right_div" class="col-12">
+						<div class="alert alert-info pt-3" role="alert">
+							<h4 id="host">신분증을 위와 같이 촬영하여 등록해주세요.</h4>
+						</div>
+					</div>
 				</div>
-				<div class="col-5 p-5" id="right_div">
-					<h3 id="host"></h3>
-				</div>
-				<div class="col-1"></div>
-				<script type="text/javascript">
-					var temp;
-					var check = 0;
-					var ratio = 0;
+				<div class="col-5 pl-5 pr-5 pt-3">
+					<div id="holder" style="position: relative;"></div>
+					<div class="col-12" id="results">
+						<h3 id="host"></h3>
+					</div>
+					<div class="col-1"></div>
+					<script type="text/javascript">
+						var temp;
+						var check = 0;
+						var ratio = 0;
 
-					$(function() {
-						$("#upload_file").on('change', function() {
-							/* $('#img').attr("src", ""); */
-							$('#fileform').submit();
-							temp = this;
+						$(function() {
+							$("#upload_file").on('change', function() {
+								/* $('#img').attr("src", ""); */
+								$('#fileform').submit();
+								temp = this;
+							});
 						});
-					});
 
-					function readURL(input) {
-						$('#img').remove();
-						$('#results').text('');
-						$('#results')
-								.html(
-										'<button style="margin-top : 20px" id="hostSubmit">호스트 신청하기</button>');
-						if (input.files && input.files[0]) {
-							var reader = new FileReader();
-
-							reader.onload = function(e) {
-								var img = new Image();
-								img.src = e.target.result;
-								img.width = 360;
-								console.log(ratio);
-								$('#holder')
-										.append(
-												'<img style="width: 360px; z-index:999" id="img" src="' + e.target.result + '" alt="뭐야ㅡㅡ" />');
-							}
-							reader.readAsDataURL(input.files[0]);
-						}
-					}
-
-					/**
-					 * Displays the results.
-					 */
-					function displayJSON(data) {
-						//  var contents = JSON.stringify(data, null, 4);
-						//  $('#results').text(contents);
-						//  var evt = new Event('results-displayed');
-						//  evt.results = contents.description;
-
-						var str = data.responses[0].fullTextAnnotation.text;
-						var trimStr = str.replace(/ /gi, ""); // 모든 공백을 제거
-						var tempName = '';
-						var tempDob = '';
-						/* console.log(trimStr);
-						console.log(data.responses[0].textAnnotations); */
-
-						$
-								.ajax({
-									async : false,
-									url : '${pageContext.request.contextPath}/textDetection',
-									type : 'GET',
-									datatype : 'json',
-									data : {
-										"userId" : "${loginUser.userId}"
-									},
-									success : function(data) {
-										tempDob = data.birth.substring(2, 10)
-												.replace(/-/gi, '');
-										tempName = data.userName;
-									}
-								});
-
-						ratio = data.responses[0].fullTextAnnotation.pages[0].width / 360;
-						console.log(ratio);
-
-						$(data.responses[0].textAnnotations)
-								.each(
-										function(key, value) {
-
-											/* console.log(value.description.substring(0, 6)); */
-											if (check <= 2
-													&& value.description == tempName) {
-												tempName = '';
-
-												var nameWidth = value.boundingPoly.vertices[2].x
-														- value.boundingPoly.vertices[0].x
-														+ 12;
-												var nameHeight = value.boundingPoly.vertices[2].y
-														- value.boundingPoly.vertices[0].y
-														+ 12;
-
-												$('#holder')
-														.append(
-																'<div id="test1" style="z-index:999";></div>');
-												$('#test1')
-														.css(
-																"left",
-																""
-																		+ (value.boundingPoly.vertices[0].x)
-																		/ ratio
-																		- 4
-																		+ "px");
-												$('#test1')
-														.css(
-																"top",
-																""
-																		+ (value.boundingPoly.vertices[0].y)
-																		/ ratio
-																		- 4
-																		+ "px");
-												$('#test1').css(
-														"width",
-														"" + nameWidth / ratio
-																+ "px");
-												$('#test1').css(
-														"height",
-														"" + nameHeight / ratio
-																+ "px");
-												check++;
-												/* return false; */
-											}
-											if (check <= 2
-													&& value.description
-															.substring(0, 6) == tempDob) {
-												/*                         var identityWidth = ((value.boundingPoly.vertices[2].x - value.boundingPoly.vertices[0].x + 12) / 2) * 0.92;
-												                        var identityHeight = value.boundingPoly.vertices[2].y - value.boundingPoly.vertices[0].y + 12; */
-												var identityWidth = (value.boundingPoly.vertices[2].x - value.boundingPoly.vertices[0].x) / 2;
-												var identityHeight = value.boundingPoly.vertices[2].y
-														- value.boundingPoly.vertices[0].y
-														+ 12;
-
-												console
-														.log(value.boundingPoly.vertices);
-												console
-														.log(value.boundingPoly.vertices[2].x
-																- value.boundingPoly.vertices[0].x);
-												$('#holder')
-														.append(
-																'<div id="test2" style="z-index:999"></div>');
-												$('#test2')
-														.css(
-																"left",
-																""
-																		+ (value.boundingPoly.vertices[0].x)
-																		/ ratio
-																		- 5
-																		+ "px");
-												$('#test2')
-														.css(
-																"top",
-																""
-																		+ (value.boundingPoly.vertices[0].y)
-																		/ ratio
-																		- 4
-																		+ "px");
-												$('#test2').css(
-														"width",
-														"" + identityWidth
-																/ ratio + "px");
-												$('#test2').css(
-														"height",
-														"" + identityHeight
-																/ ratio + "px");
-												$('#holder')
-														.append(
-																'<div id="test3" style="z-index:999"></div>');
-												$('#test3')
-														.css(
-																"left",
-																""
-																		+ ((value.boundingPoly.vertices[0].x)
-																				/ ratio - 4)
-																		* 3.35
-																		+ "px");
-												$('#test3')
-														.css(
-																"top",
-																""
-																		+ (value.boundingPoly.vertices[0].y)
-																		/ ratio
-																		- 4
-																		+ "px");
-												$('#test3').css(
-														"width",
-														"" + identityWidth
-																/ ratio + "px");
-												$('#test3').css(
-														"height",
-														"" + identityHeight
-																/ ratio + "px");
-												check++;
-											}
-										});
-						if (check < 2) {
+						function readURL(input) {
 							$('#img').remove();
-							$('#test1').remove();
-							$('#test2').remove();
-							$('#test3').remove();
-							$('#results').text('사진을 다시 업로드 해주세요.');
-						} else if (check == 2) {
-							readURL(temp);
-							check = 0;
+							$('#results').text('');
+							$('#results')
+									.html(
+											'<button style="margin-top : 20px" id="hostSubmit" class="btn btn-lg btn-danger">호스트 신청하기</button>');
+							if (input.files && input.files[0]) {
+								var reader = new FileReader();
+
+								reader.onload = function(e) {
+									var img = new Image();
+									img.src = e.target.result;
+									img.width = 360;
+									console.log(ratio);
+									$('#holder')
+											.append(
+													'<img style="width: 360px; z-index:999" id="img" src="' + e.target.result + '" alt="뭐야ㅡㅡ" />');
+								}
+								reader.readAsDataURL(input.files[0]);
+							}
 						}
 
-						$('#hostSubmit')
-								.on(
-										"click",
-										function() {
-											$
-													.ajax({
-														url : '${pageContext.request.contextPath}/textDetection',
-														type : 'POST',
-														datatype : 'json',
-														data : {
-															"userId" : "${loginUser.userId}",
-														},
-														success : function(data) {
-															if (data == 1) {
-																$('#results')
-																		.text(
-																				'');
-																$('#host')
-																		.html(
-																				'호스트가 되신걸 축하합니다.<br> 호스트페이지에서 방등록을 하실수 있습니다.<br><br> 3초후 호스트페이지로 이동합니다.');
-																setTimeout(
-																		function() {
-																			window.location.href = '${pageContext.request.contextPath}/hostpage/main'
-																		}, 3000);
-															} else {
-																$('#results')
-																		.text(
-																				'죄송합니다. 다시 시도해주세요.');
-															}
-														}
-													});
-										});
+						/**
+						 * Displays the results.
+						 */
+						function displayJSON(data) {
+							//  var contents = JSON.stringify(data, null, 4);
+							//  $('#results').text(contents);
+							//  var evt = new Event('results-displayed');
+							//  evt.results = contents.description;
 
-						function hostSubmit() {
-							/*                 if ((trimStr.indexOf(tempName)) != -1 && trimStr.indexOf(tempDob) != -1) { */
+							var str = data.responses[0].fullTextAnnotation.text;
+							var trimStr = str.replace(/ /gi, ""); // 모든 공백을 제거
+							var tempName = '';
+							var tempDob = '';
+							/* console.log(trimStr);
+							console.log(data.responses[0].textAnnotations); */
+
 							$
 									.ajax({
+										async : false,
 										url : '${pageContext.request.contextPath}/textDetection',
-										type : 'POST',
+										type : 'GET',
 										datatype : 'json',
 										data : {
 											"userId" : "${loginUser.userId}"
 										},
 										success : function(data) {
-											if (data == 1) {
-												$('#results').text('');
-												$('#host')
-														.html(
-																'호스트가 되신걸 축하합니다.<br> 호스트페이지에서 방등록을 하실수 있습니다.<br><br> 3초후 호스트페이지로 이동합니다.');
-												setTimeout(
-														function() {
-															window.location.href = '${pageContext.request.contextPath}/hostpage/main'
-														}, 3000);
-
-											} else {
-												$('#results').text(
-														'죄송합니다. 다시 시도해주세요.');
-											}
+											tempDob = data.birth.substring(2,
+													10).replace(/-/gi, '');
+											tempName = data.userName;
 										}
 									});
 
-							/*  } else {
-							     $('#results').text('사진을 다시 업로드 해주세요.');
-							 } */
+							ratio = data.responses[0].fullTextAnnotation.pages[0].width / 360;
+							console.log(ratio);
+
+							$(data.responses[0].textAnnotations)
+									.each(
+											function(key, value) {
+
+												/* console.log(value.description.substring(0, 6)); */
+												if (check <= 2
+														&& value.description == tempName) {
+													tempName = '';
+
+													var nameWidth = value.boundingPoly.vertices[2].x
+															- value.boundingPoly.vertices[0].x
+															+ 12;
+													var nameHeight = value.boundingPoly.vertices[2].y
+															- value.boundingPoly.vertices[0].y
+															+ 12;
+
+													$('#holder')
+															.append(
+																	'<div id="test1" style="z-index:999";></div>');
+													$('#test1')
+															.css(
+																	"left",
+																	""
+																			+ (value.boundingPoly.vertices[0].x)
+																			/ ratio
+																			- 4
+																			+ "px");
+													$('#test1')
+															.css(
+																	"top",
+																	""
+																			+ (value.boundingPoly.vertices[0].y)
+																			/ ratio
+																			- 4
+																			+ "px");
+													$('#test1').css(
+															"width",
+															"" + nameWidth
+																	/ ratio
+																	+ "px");
+													$('#test1').css(
+															"height",
+															"" + nameHeight
+																	/ ratio
+																	+ "px");
+													check++;
+													/* return false; */
+												}
+												if (check <= 2
+														&& value.description
+																.substring(0, 6) == tempDob) {
+													/*                         var identityWidth = ((value.boundingPoly.vertices[2].x - value.boundingPoly.vertices[0].x + 12) / 2) * 0.92;
+													                        var identityHeight = value.boundingPoly.vertices[2].y - value.boundingPoly.vertices[0].y + 12; */
+													var identityWidth = (value.boundingPoly.vertices[2].x - value.boundingPoly.vertices[0].x) / 2;
+													var identityHeight = value.boundingPoly.vertices[2].y
+															- value.boundingPoly.vertices[0].y
+															+ 12;
+
+													console
+															.log(value.boundingPoly.vertices);
+													console
+															.log(value.boundingPoly.vertices[2].x
+																	- value.boundingPoly.vertices[0].x);
+													$('#holder')
+															.append(
+																	'<div id="test2" style="z-index:999"></div>');
+													$('#test2')
+															.css(
+																	"left",
+																	""
+																			+ (value.boundingPoly.vertices[0].x)
+																			/ ratio
+																			- 5
+																			+ "px");
+													$('#test2')
+															.css(
+																	"top",
+																	""
+																			+ (value.boundingPoly.vertices[0].y)
+																			/ ratio
+																			- 4
+																			+ "px");
+													$('#test2').css(
+															"width",
+															"" + identityWidth
+																	/ ratio
+																	+ "px");
+													$('#test2').css(
+															"height",
+															"" + identityHeight
+																	/ ratio
+																	+ "px");
+													$('#holder')
+															.append(
+																	'<div id="test3" style="z-index:999"></div>');
+													$('#test3')
+															.css(
+																	"left",
+																	""
+																			+ ((value.boundingPoly.vertices[0].x)
+																					/ ratio - 4)
+																			* 3.35
+																			+ "px");
+													$('#test3')
+															.css(
+																	"top",
+																	""
+																			+ (value.boundingPoly.vertices[0].y)
+																			/ ratio
+																			- 4
+																			+ "px");
+													$('#test3').css(
+															"width",
+															"" + identityWidth
+																	/ ratio
+																	+ "px");
+													$('#test3').css(
+															"height",
+															"" + identityHeight
+																	/ ratio
+																	+ "px");
+													check++;
+												}
+											});
+							if (check < 2) {
+								$('#img').remove();
+								$('#test1').remove();
+								$('#test2').remove();
+								$('#test3').remove();
+								$('#results').text('사진을 다시 업로드 해주세요.');
+							} else if (check == 2) {
+								readURL(temp);
+								check = 0;
+							}
+
+							$('#hostSubmit')
+									.on(
+											"click",
+											function() {
+												$
+														.ajax({
+															url : '${pageContext.request.contextPath}/textDetection',
+															type : 'POST',
+															datatype : 'json',
+															data : {
+																"userId" : "${loginUser.userId}",
+															},
+															success : function(
+																	data) {
+																if (data == 1) {
+																	$(
+																			'#results')
+																			.text(
+																					'');
+																	$('#host')
+																			.html(
+																					'호스트가 되신걸 축하합니다.<hr><h5>이제 호스트 페이지에서 호스팅 서비스를 시작하실 수 있습니다.<br>3초 후 호스트페이지로 이동합니다.</h5>');
+																	setTimeout(
+																			function() {
+																				window.location.href = '${pageContext.request.contextPath}/hostpage/main'
+																			},
+																			3000);
+																} else {
+																	$(
+																			'#results')
+																			.text(
+																					'죄송합니다. 다시 시도해주세요.');
+																}
+															}
+														});
+											});
+
+							function hostSubmit() {
+								/*                 if ((trimStr.indexOf(tempName)) != -1 && trimStr.indexOf(tempDob) != -1) { */
+								$
+										.ajax({
+											url : '${pageContext.request.contextPath}/textDetection',
+											type : 'POST',
+											datatype : 'json',
+											data : {
+												"userId" : "${loginUser.userId}"
+											},
+											success : function(data) {
+												if (data == 1) {
+													$('#results').text('');
+													$('#host')
+															.html(
+																	'호스트가 되신걸 축하합니다.<br> 호스트페이지에서 방등록을 하실수 있습니다.<br><br> 3초후 호스트페이지로 이동합니다.');
+													setTimeout(
+															function() {
+																window.location.href = '${pageContext.request.contextPath}/hostpage/main'
+															}, 3000);
+
+												} else {
+													$('#results')
+															.text(
+																	'죄송합니다. 다시 시도해주세요.');
+												}
+											}
+										});
+
+								/*  } else {
+								     $('#results').text('사진을 다시 업로드 해주세요.');
+								 } */
+							}
 						}
-					}
-				</script>
-			</div>
+					</script>
+				</div>
 		</c:otherwise>
 	</c:choose>
 
